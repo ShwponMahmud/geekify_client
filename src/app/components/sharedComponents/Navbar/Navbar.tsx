@@ -11,11 +11,11 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const navigation = [
-  { name: "Home", href: "/home", current: true },
+  { name: "Home", href: "/", current: true },
   { name: "Services", href: "/services", current: false },
-  { name: "Service Areas", href: "#", current: false },
-  { name: "Become a Member", href: "#", current: false },
-  { name: "Blogs", href: "#", current: false },
+  { name: "Service Areas", href: "/service-areas", current: false },
+  { name: "Become a Member", href: "/become-a-member", current: false },
+  { name: "Blogs", href: "/blogs", current: false },
 ];
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
@@ -24,7 +24,10 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
 
 export default function Navbar() {
   return (
-    <Disclosure as="nav" className="bg-white py-2 md:px-2 shadow-lg shadow-gray-200/50">
+    <Disclosure
+      as="nav"
+      className="bg-white py-2 md:px-2 shadow-lg shadow-gray-200/50"
+    >
       <div className="container mx-auto ">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
@@ -46,7 +49,7 @@ export default function Navbar() {
             <div className="flex shrink-0 items-center">
               <img alt="Geekify" src="logo.png" className="h-8 w-auto" />
             </div>
-            <div className="hidden md:ml-1 md:block ">
+            <div className="hidden md:ml-4 md:block ">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
                   <Link
@@ -54,7 +57,7 @@ export default function Navbar() {
                     href={item.href}
                     aria-current={item.current ? "page" : undefined}
                     className={classNames(
-                      "text-gray-700 hover:bg-gray-700 hover: var:(--theme-color)",
+                      "text-gray-700 hover:bg-gray-100 hover: var:(--theme-color)",
                       "rounded-md px-3 py-2 text-sm font-medium"
                     )}
                   >
@@ -67,14 +70,7 @@ export default function Navbar() {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
-              className="relative rounded bg-none p-1 mr-5 text-orange-500 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="size-1">login</span>
-            </button>
-            <button
-              type="button"
-              className="relative rounded bg-none border-solid border-2 border-orange-500 p-1 px-2 text-orange-500 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              className="relative rounded bg-none border-solid border-2 border-orange-500 p-1 px-2 text-orange-500 outline-none hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             >
               <span className="absolute -inset-1.5" />
               <span className="size-1">Booking Online</span>
