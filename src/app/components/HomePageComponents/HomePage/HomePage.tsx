@@ -1,16 +1,16 @@
 import React from 'react'
-import OurPopularServices from '../OurPopularServices/OurPopularServices'
-import WhyChooseUs from '../WhyChooseUs/WhyChooseUs'
-import BookOnlineGetOff from '../BookOnlineGetOff/BookOnlineGetOff'
-import CustomerSpeakForUs from '../CustomerSpeakForUs/CustomerSpeakForUs'
-import GeekifyAppStore from '../GeekifyAppStore/GeekifyAppStore'
-import OurLatestBlogs from '../OurLatestBlogs/OurLatestBlogs'
-import VisitScamWatch from '../VisiteScamWatch/VisitScamWatch'
-import HomeSliderShowcase from '../HomeSliderShowcase/HomeSliderShowcase'
+import OurPopularServices from '../HomePageSectionComponents/OurPopularServices/OurPopularServices'
+import WhyChooseUs from '../HomePageSectionComponents/WhyChooseUs/WhyChooseUs'
+import BookOnlineGetOff from '../HomePageSectionComponents/BookOnlineGetOff/BookOnlineGetOff'
+import CustomerSpeakForUs from '../HomePageSectionComponents/CustomerSpeakForUs/CustomerSpeakForUs'
+import GeekifyAppStore from '../HomePageSectionComponents/GeekifyAppStore/GeekifyAppStore'
+import OurLatestBlogs from '../HomePageSectionComponents/OurLatestBlogs/OurLatestBlogs'
+import VisitScamWatch from '../HomePageSectionComponents/VisiteScamWatch/VisitScamWatch'
+import HomeSliderShowcase from '../HomePageSectionComponents/HomeHeaderSlider/HomeSliderShowcase/HomeSliderShowcase'
 
 function HomePage() {
   return (
-    <div className='container mx-auto py-5'>
+    <div className='mx-auto'>
       <HomeSliderShowcase/>
       <OurPopularServices/>
       <WhyChooseUs/>

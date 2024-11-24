@@ -45,6 +45,7 @@ export default function Navbar() {
               />
             </DisclosureButton>
           </div>
+
           <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
             <div className="flex shrink-0 items-center">
               <img alt="Geekify" src="logo.png" className="h-8 w-auto" />
@@ -67,14 +68,17 @@ export default function Navbar() {
               </div>
             </div>
           </div>
+
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative rounded bg-none border-solid border-2 border-orange-500 p-1 px-2 text-orange-500 outline-none hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
-              <span className="absolute -inset-1.5" />
-              <span className="size-1">Booking Online</span>
-            </button>
+            <Link href="/booking-online">
+              <button
+                type="button"
+                className="relative rounded bg-none border-solid border-2 border-orange-500 p-1 px-2 text-orange-500 outline-none hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+              >
+                <span className="absolute -inset-1.5" />
+                <span className="size-1">Booking Online</span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>

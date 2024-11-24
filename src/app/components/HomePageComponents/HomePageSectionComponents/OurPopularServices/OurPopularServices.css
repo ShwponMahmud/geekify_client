@@ -1,0 +1,33 @@
+.our_popular_service_heading{
+    width: 60%;
+    margin: auto;
+}
+.our_popular_service_heading h1{
+    color: var(--dark_color);
+}
+.our_service_content_card{
+    border: 1px solid gainsboro;
+    padding: 40px;
+    border-radius: 10px;
+    transition: all .5s;
+    cursor: pointer;
+}
+.our_service_content_card:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.our_service_content_card .title{
+    color: var(--dark_color);
+}
+.view_all_service_btn_container button{
+    border: 1px solid var(--primary_color);
+    padding: 10px 20px;
+    background-color: var(--primary_color);
+    color: white;
+    margin-top: 50px;
+    border-radius: 5px;
+    transition: all .5s;
+}
+.view_all_service_btn_container button:hover{
+    background-color: white;
+    color: var(--primary_color);
+}

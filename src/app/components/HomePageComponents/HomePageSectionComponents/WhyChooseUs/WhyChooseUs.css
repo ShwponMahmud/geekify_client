@@ -1,0 +1,30 @@
+.why_choose_us_section{
+    background-color: rgb(241, 241, 241);
+}
+.why_choose_us_description ul li{
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 20px;
+    color: var(--dark_color);
+}
+.why_choose_us_description ul li span{
+    margin-right: 12px;
+    font-size: 25px;
+    color: var(--primary_color);
+}
+
+.read_more_btn_container button{
+    border: 1px solid var(--primary_color);
+    padding: 10px 20px;
+    background-color: var(--primary_color);
+    color: white;
+    margin-top: 20px;
+    border-radius: 5px;
+    transition: all .5s;
+}
+
+.read_more_btn_container button:hover{
+    background-color: white;
+    color: var(--primary_color);
+}
