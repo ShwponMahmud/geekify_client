@@ -11,7 +11,19 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primaryColor: "var(--primary_color)",
+        grayColor: "var(--dark_gray)",
+        borderColor: "var(--borderColor)",
+        sectionBackgroundColor: "var(--background_color)"
       },
+      width: {
+        '120': '60%',
+      },
+      boxShadow: {
+        boxShadow: " rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
+        hoverBoxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
+      },
+      
     },
   },
   plugins: [],

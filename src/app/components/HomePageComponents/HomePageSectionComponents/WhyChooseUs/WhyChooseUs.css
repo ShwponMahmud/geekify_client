@@ -1,5 +1,5 @@
 .why_choose_us_section{
-    background-color: rgb(241, 241, 241);
+    background-color: var(--background_color);
 }
 .why_choose_us_description ul li{
     display: flex;

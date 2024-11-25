@@ -4,8 +4,8 @@ import { TbCalendarTime } from "react-icons/tb";
 import { BiSolidUserDetail } from "react-icons/bi";
 import { MdPayment } from "react-icons/md";
 import { GrUserSettings } from "react-icons/gr";
-import Image from "next/image";
-import nextArrowIcon from "../../../../../assets/icons/Group 1744 (1).png"
+import { BsArrowRight } from "react-icons/bs";
+import "./BookingOnlineGetOff.css";
 
 function BookOnlineGetOff() {
   return (
@@ -17,45 +17,45 @@ function BookOnlineGetOff() {
               Book online and get 10% off
             </h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam
-              voluptate optio alias quos labore? Illo similique dolorem cum
-              excepturi id?
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
+              ratione animi nulla quidem molestias odio, accusantium vero
+              voluptatem nisi, hic ipsum corrupti exercitationem labore laborum?
             </p>
           </div>
-          <div className="book_online_get_off_content_container flex justify-evenly gap-3 mt-16 ">
-            <div>
-              <span>
-                <TbHandClick />
-              </span>
-              <h4>Select service</h4>
+          <div className="book_online_get_off_content_container flex items-center justify-evenly gap-3 mt-16 ">
+            <div className="justify-items-center text-grayColor hover:text-primaryColor">
+              <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
+                <TbHandClick className="text-4xl" />
+              </div>
+              <h4 className="mt-5 font-semibold">Select service</h4>
             </div>
-            <Image width={40} src={nextArrowIcon} alt=""/>
-            <div>
-              <span>
-                <TbCalendarTime />
-              </span>
-              <h4>Pick a date</h4>
+            <BsArrowRight className="text-3xl text-grayColor" />
+            <div className="justify-items-center text-grayColor hover:text-primaryColor">
+              <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
+                <TbCalendarTime className="text-4xl" />
+              </div>
+              <h4 className="mt-5 font-semibold">Pick a date</h4>
             </div>
-            <Image width={40}  src={nextArrowIcon} alt=""/>
-            <div>
-              <span>
-                <BiSolidUserDetail />
-              </span>
-              <h4>Provide details</h4>
+            <BsArrowRight className="text-3xl text-grayColor" />
+            <div className="justify-items-center text-grayColor hover:text-primaryColor">
+              <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
+                <BiSolidUserDetail className="text-4xl" />
+              </div>
+              <h4 className="mt-5 font-semibold">Provide details</h4>
             </div>
-            <Image  width={40} src={nextArrowIcon} alt=""/>
-            <div>
-              <span>
-                <MdPayment />
-              </span>
-              <h4>Make payment</h4>
+            <BsArrowRight className="text-3xl text-grayColor" />
+            <div className="justify-items-center text-grayColor hover:text-primaryColor">
+              <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
+                <MdPayment className="text-4xl" />
+              </div>
+              <h4 className="mt-5 font-semibold">Make payment</h4>
             </div>
-            <Image width={40}  src={nextArrowIcon} alt=""/>
-            <div>
-              <span>
-                <GrUserSettings />
-              </span>
-              <h4>Geeks on your way</h4>
+            <BsArrowRight className="text-3xl text-grayColor" />
+            <div className="justify-items-center text-grayColor hover:text-primaryColor">
+              <div className="w-16 h-16  border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center   hover:bg-primaryColor hover:text-white">
+                <GrUserSettings className=" text-4xl" />
+              </div>
+              <h4 className="mt-5 font-semibold">Geeks on your way</h4>
             </div>
           </div>
         </div>

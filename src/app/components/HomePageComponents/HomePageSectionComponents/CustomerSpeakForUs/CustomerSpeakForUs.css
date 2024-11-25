@@ -1,0 +1,26 @@
+.customer_speak_for_us_heading_container{
+    width: 60%;
+    margin: auto;
+    text-align: center;
+}
+.customer_speak_content_card{
+    padding: 40px;
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+    text-align: center;
+    color: var(--deep_dark_gray);
+    transition: all .5s;
+}
+.customer_speak_content_card:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.customer_name_title{
+    margin: 20px 0px;
+}
+.customer_avatar{
+    width: 100%;
+    margin-top: -80px;
+    display: flex;
+    justify-content: center;
+}
+
