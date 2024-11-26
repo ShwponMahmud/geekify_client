@@ -3,61 +3,13 @@ import React from "react";
 
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn, FaInstagram, FaXTwitter } from "react-icons/fa6";
-import { PiPhoneCallBold } from "react-icons/pi";
-import { GiBackwardTime } from "react-icons/gi";
-import { LuCalendarCheck2 } from "react-icons/lu";
 
 const Footer = () => {
   return (
     <>
       {/* contact section */}
-      <section>
-        <div className="bg-sectionBackgroundColor py-[57px]">
-          <div className="container mx-auto">
-            <div>
-              <p className="text-[40px] font-bold leading-[50px] text-center text-primaryColor pb-5">
-                If you don’t find your service need please contact with us{" "}
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-14">
-              <div className="py-[20px] bg-primaryColor text-white rounded-[20px] flex justify-center gap-2 items-center">
-                <PiPhoneCallBold className="w-[31px] h-[28px]" />
-                <a
-                  href="tele: 0291589800"
-                  className="text-[21px] font-semibold leading-[11px]"
-                >
-                  {" "}
-                  02 9158 9800
-                </a>
-              </div>
-              <div className="py-[20px] border-[5px] border-primaryColor text-primaryColor rounded-[20px] flex justify-center gap-2 items-center">
-                <GiBackwardTime className="w-[31px] h-[28px]" />
-                <a
-                  href="tele:"
-                  className="text-[21px] font-semibold leading-[21px]"
-                >
-                  {" "}
-                  Request call back
-                </a>
-              </div>
-              <div
-                className="py-[20px] border-[5px] border-primaryColor text-primaryColor rounded-[20px] flex justify-center gap-2 items-center"
-              >
-                <LuCalendarCheck2 className="w-[31px] h-[28px]" />
-                <a
-                  href="tele:"
-                  className="text-[21px] font-semibold leading-[11px]"
-                >
-                  {" "}
-                  Book Online
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <footer className="bg-gray-800 text-white">
+      <footer className="bg-gray-800 text-white py-10">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-5 lg:gap-8 py-8 md:py-20">
           {/* Logo and About Section */}
           <div className="space-y-4 col-span-2">

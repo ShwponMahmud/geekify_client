@@ -5,7 +5,7 @@ import Image from "next/image";
 function BlogsView() {
   return (
     <>
-      <div className="blogs_view_section">
+      <div className="blogs_view_section pb-28">
         <div className="container mx-auto">
           <div className="our_latest_blog_content_container grid grid-cols-4 gap-6">
             <div className="our_latest_blog_content_card p-3 shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md ">
