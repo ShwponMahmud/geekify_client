@@ -8,6 +8,7 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import Link from "next/link";
 
 const navigation = [
@@ -48,7 +49,13 @@ export default function Navbar() {
 
           <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
             <div className="flex shrink-0 items-center">
-              <img alt="Geekify" src="logo.png" className="h-8 w-auto" />
+              <Image
+                alt="Geekify logo"
+                src="/logo.png"
+                className="h-8 w-auto"
+                width={188}
+                height={40}
+              />
             </div>
             <div className="hidden md:ml-4 md:block ">
               <div className="flex space-x-4">
