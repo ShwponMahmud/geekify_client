@@ -26,7 +26,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="bg-white py-2 md:px-2 shadow-lg shadow-gray-200/50"
+      className="bg-white py-2 md:px-2 shadow-lg shadow-gray-200/50 z-zIndex "
     >
       <div className="container mx-auto ">
         <div className="relative flex h-16 items-center justify-between">
