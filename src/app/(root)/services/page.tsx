@@ -1,23 +1,18 @@
+import SearchService from "@/app/components/ServiceComponents/SearchService/SearchService";
+import Services from "@/app/components/ServiceComponents/Services/Services";
+import QuickContact from "@/app/components/sharedComponents/QuickContact/QuickContact";
+import React from "react";
 
-import SearchService from '@/app/components/ServiceComponents/SearchService/SearchService';
-import Services from '@/app/components/ServiceComponents/Services/Services';
-import ServiceShowcase from '@/app/components/ServiceComponents/ServiceShowcase/ServiceShowcase';
-import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact';
-import React from 'react'
+const title: string = "If you need remote Service?";
 
 function page() {
   return (
-<<<<<<< HEAD
     <div>
-=======
-    <div className='pt-28'>
-      
->>>>>>> 269247df1e854f7eee1248e5a129cab5c9c178bb
-     <SearchService/>
-     <Services/>
-     <QuickContact/>
+      <SearchService />
+      <Services />
+      <QuickContact title={title} />
     </div>
   );
 }
 
-export default page
+export default page;

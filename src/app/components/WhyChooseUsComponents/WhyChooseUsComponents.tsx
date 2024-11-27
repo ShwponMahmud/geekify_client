@@ -3,6 +3,7 @@ import QuickContact from '../sharedComponents/QuickContact/QuickContact'
 import Image from 'next/image'
 import WhyChooseShowcase from './WhyChooseShowcase'
 
+const title: string = "If you need remote Service?";
 function WhyChooseUsComponents() {
   return (
     <>
@@ -55,7 +56,7 @@ function WhyChooseUsComponents() {
               </p>
           </div>
         </div>
-        <QuickContact />
+        <QuickContact title={title} />
       </div>
     </>
   )
