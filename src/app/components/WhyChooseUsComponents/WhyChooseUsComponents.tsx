@@ -55,7 +55,7 @@ function WhyChooseUsComponents() {
               </p>
           </div>
         </div>
-        <QuickContact />
+        <QuickContact title='Ready to book?'/>
       </div>
     </>
   )

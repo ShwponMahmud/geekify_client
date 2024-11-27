@@ -7,12 +7,8 @@ import React from 'react'
 
 function page() {
   return (
-<<<<<<< HEAD
     <div>
-=======
-    <div className='pt-28'>
-      
->>>>>>> 269247df1e854f7eee1248e5a129cab5c9c178bb
+     <ServiceShowcase/>
      <SearchService/>
      <Services/>
      <QuickContact/>
