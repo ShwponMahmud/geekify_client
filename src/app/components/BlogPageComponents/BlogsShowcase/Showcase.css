@@ -10,23 +10,14 @@
   background-size: cover;
 }
 
-/* .common_showcase_section {
-  width: 100%;
-  height: 80vh;
-  position: relative;
-  overflow: hidden;
-  background-image: var(--dynamic-bg-url);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-} */
-
 .common_showcase_section_content .bookNowBtn {
   border: 1px solid var(--primary_color);
   border-radius: 5px;
   color: #ffffff;
+  font-size: 20px;
   padding: 12px 40px;
   margin-top: 25px;
+  transition: all .5s;
 }
 .common_showcase_section_content .bookNowBtn:hover {
   background-color: var(--primary_color);

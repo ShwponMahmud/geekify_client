@@ -12,7 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         primaryColor: "var(--primary_color)",
+        darkColor: "var(--dark_color)",
         grayColor: "var(--dark_gray)",
+        deepGrayColor: "var(--deep_dark_gray)",
         borderColor: "var(--borderColor)",
         sectionBackgroundColor: "var(--background_color)"
       },

@@ -34,7 +34,7 @@ function BlogsCategories() {
         <div className="container mx-auto">
           <div className="flex justify-between">
             {blogsCategories.map((category) => (
-              <div className="border borderColor py-3 px-10 rounded-3xl cursor-pointer hover:border-primaryColor hover:text-primaryColor transition-all">{category.categoryName}</div>
+              <div className="border borderColor py-3 px-10 rounded-3xl cursor-pointer hover:border-primaryColor hover:text-primaryColor transition-[.5s]">{category.categoryName}</div>
             ))}
           </div>
         </div>
