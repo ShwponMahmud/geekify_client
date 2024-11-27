@@ -15,7 +15,7 @@ function BlogDetailsView() {
           </p>
 
           <div className="blog_details_view_banner pt-10">
-            <Image src={blogBanner} alt="blog banner" />
+            <Image className="rounded-[10px]" src={blogBanner} alt="blog banner" />
           </div>
         </div>
 

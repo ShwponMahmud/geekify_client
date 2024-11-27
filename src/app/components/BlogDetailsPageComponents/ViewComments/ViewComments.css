@@ -1,0 +1,10 @@
+.author_avatar{
+    width: 60px;
+    height: 60px;
+    border: 2px solid var(--primary_color);
+    border-radius: 50%;
+    overflow: hidden;
+}
+.author_avatar img{
+    height: 100%;
+}

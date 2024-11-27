@@ -8,7 +8,7 @@ function page() {
   return (
     <>
       <div className="blog_details_page">
-        <div className="container mx-auto">
+        <div className="container mx-auto mb-20">
           <BlogDetailsView />
           <BlogAuthorAboutDetails />
           <CreateComments />

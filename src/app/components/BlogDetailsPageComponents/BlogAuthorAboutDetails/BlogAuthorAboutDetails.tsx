@@ -7,10 +7,13 @@ import { FaLinkedinIn, FaInstagram, FaXTwitter } from "react-icons/fa6";
 function BlogAuthorAboutDetails() {
   return (
     <>
-      <div className="max-w-[50%] blog_author_about_details_section border border-borderColor p-[30px] rounded-[10px] ">
+      <div className="w-[800px] md:max-w-[100%] blog_author_about_details_section border border-borderColor p-[30px] rounded-[10px] ">
         <div className="author_about flex gap-5">
-          <div className="author_avatar border-2 border-primaryColor rounded-[50%] h-[70px] w-[200px] overflow-hidden ">
-            <Image src={authorImg} className="h-[70px] w-[200px]" alt="" />
+          <div>
+            <div className="author_avatar">
+              <Image src={authorImg} alt="" />
+            </div>
+            <span></span>
           </div>
           <div className="author_name mt-[5px]">
             <h5 className="text-grayColor ">ABOUT THE AUTHOR</h5>
