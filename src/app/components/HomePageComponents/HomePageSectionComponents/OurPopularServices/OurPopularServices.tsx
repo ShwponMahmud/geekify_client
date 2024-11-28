@@ -44,7 +44,7 @@ const services = [
 function OurPopularServices() {
   return (
     <>
-      <div className="our_popular_service_section py-40">
+      <div className="our_popular_service_section py-28">
         <div className="container mx-auto">
           <div className="our_popular_service_heading text-center">
             <h1 className="mb-5 text-4xl font-bold">

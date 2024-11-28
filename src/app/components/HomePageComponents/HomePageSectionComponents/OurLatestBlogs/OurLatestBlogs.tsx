@@ -4,7 +4,7 @@ import blogThumnail from "../../../../../assets/images/why-choose-us-banner.jpg"
 function OurLatestBlogs() {
   return (
     <div>
-      <div className="our_latest_blogs_section py-40">
+      <div className="our_latest_blogs_section py-28">
         <div className="container mx-auto">
           <div className="our_latest_blogs_heading_container w-120 m-auto text-center mb-12">
             <h1 className="text-4xl font-bold mb-5">Our latest Blogs</h1>

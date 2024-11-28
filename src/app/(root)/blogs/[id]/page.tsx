@@ -7,7 +7,7 @@ import React from "react";
 function page() {
   return (
     <>
-      <div className="blog_details_page">
+      <div className="blog_details_page mt-[70px]">
         <div className="container mx-auto mb-20">
           <BlogDetailsView />
           <BlogAuthorAboutDetails />
@@ -20,3 +20,4 @@ function page() {
 }
 
 export default page;
+ 

@@ -15,6 +15,7 @@ const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Services", href: "/services", current: false },
   { name: "Service Areas", href: "/service-areas", current: false },
+  { name: "Scam Alert", href: "/scam-alert", current: false },
   // { name: "Become a Member", href: "/become-a-member", current: false },
   { name: "Blogs", href: "/blogs", current: false },
 ];
@@ -27,7 +28,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="bg-white py-2 md:px-2 shadow-lg shadow-gray-200/50 z-zIndex "
+      className="bg-white py-5 top-0 fixed h-[100px] w-[100%] md:px-2 shadow-lg shadow-gray-200/50 z-zIndex "
     >
       <div className="container mx-auto ">
         <div className="relative flex h-16 items-center justify-between">
@@ -80,7 +81,7 @@ export default function Navbar() {
             <Link href="/booking-online">
               <button
                 type="button"
-                className="relative rounded bg-none border-solid border-2 border-orange-500 p-1 px-2 text-orange-500 outline-none hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                className="relative rounded bg-none border-solid border-[1px] border-orange-500 py-2 px-2 text-orange-500 outline-none hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
               >
                 <span className="absolute -inset-1.5" />
                 <span className="size-1">Booking Online</span>

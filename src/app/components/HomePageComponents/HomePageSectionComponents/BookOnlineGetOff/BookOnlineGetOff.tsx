@@ -10,7 +10,7 @@ import "./BookingOnlineGetOff.css";
 function BookOnlineGetOff() {
   return (
     <>
-      <div className="book_online_get_off_section py-40">
+      <div className="book_online_get_off_section py-28">
         <div className="container mx-auto">
           <div className="book_online_get_off_heading text-center">
             <h1 className="text-4xl font-bold mb-6">

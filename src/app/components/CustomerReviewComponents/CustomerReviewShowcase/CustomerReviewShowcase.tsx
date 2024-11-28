@@ -3,7 +3,7 @@ import './CustomerReviewShowcase.css'
 function CustomerReviewShowcase() {
   return (
     <>
-      <div className="customer_review_showcase">
+      <div className="customer_review_showcase mt-[100px]">
         <div className="common_showcase_section ">
           <div className="container mx-auto ">
             <div className="common_showcase_section_content ">

@@ -4,7 +4,7 @@ import './CareerShowcase.css'
 function CareerShowcase() {
   return (
     <>
-      <div className="common_showcase_section">
+      <div className="common_showcase_section mt-[100px]">
         <div className="container mx-auto ">
           <div className="common_showcase_section_content ">
             <div className="text-center text-white mt-56 ">

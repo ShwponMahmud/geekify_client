@@ -4,7 +4,7 @@ import "./VisitScamWatch.css";
 function VisitScamWatch() {
   return (
     <>
-      <div className="visit_scam_watch_section py-40">
+      <div className="visit_scam_watch_section py-44">
         <div className="container mx-auto">
           <div className="scam_watch_content_container flex items-center text-center w-120 mx-auto text-white">
             <div className="">

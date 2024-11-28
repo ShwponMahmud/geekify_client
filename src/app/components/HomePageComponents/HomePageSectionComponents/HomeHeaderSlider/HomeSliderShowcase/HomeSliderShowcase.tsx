@@ -5,7 +5,7 @@ import "./HomeSliderShowcase.css";
 const HomeSliderShowcase: React.FC = () => {
   return (
     <>
-      <div className="showcase_section">
+      <div className="showcase_section mt-[100px]">
         <div className="container mx-auto grid grid-cols-2 gap-4 ">
           <div className="showcase_section_content relative mt-40 ">
             <div>
