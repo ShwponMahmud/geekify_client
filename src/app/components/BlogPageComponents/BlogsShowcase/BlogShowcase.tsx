@@ -1,6 +1,8 @@
 import React from "react";
+import './Showcase.css';
 
-function Showcase() {
+
+function BlogShowcase() {
   return (
     <>
       <div className="common_showcase_section ">
@@ -28,7 +30,7 @@ function Showcase() {
   );
 }
 
-export default Showcase;
+export default BlogShowcase;
 
 // "use client";
 
