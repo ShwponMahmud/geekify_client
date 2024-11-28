@@ -3,7 +3,7 @@ import React from "react";
 function SearchService() {
   return (
     <>
-      <div className="container mx-auto pt-28 mt-[100px]">
+      <div className="container mx-auto pt-28 ">
         <div className="flex justify-center items-center mb-8 md:mb-[52px]">
           <input
             type="search"
