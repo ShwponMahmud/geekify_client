@@ -1,8 +1,11 @@
+import ServiceAreasComponent from '@/app/components/ServiceAreasComponent/ServiceAreasComponent'
 import React from 'react'
 
 function page() {
   return (
-    <div>service areas</div>
+    <div>
+      <ServiceAreasComponent/>
+    </div>
   )
 }
 

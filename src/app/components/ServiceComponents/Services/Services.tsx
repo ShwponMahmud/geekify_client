@@ -51,10 +51,7 @@ function Services() {
             <button className="text-[16px] font-semibold text-primaryColor border border-primaryColor hover:text-white hover:bg-primaryColor rounded-[10px] py-[12px] px-5 ml-[20px] mb-[25px] transition-[.5s]">
               Explore More
             </button>
-          </div>
-         
-         
-          
+          </div>       
         </div>
       </div>
     </>

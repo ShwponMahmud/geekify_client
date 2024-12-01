@@ -1,15 +1,17 @@
 import React from 'react'
-import CareerShowcase from './CareerShowcase'
 
 import { GoPeople, GoArrowRight } from "react-icons/go";
 import { LuGraduationCap } from "react-icons/lu";
 import { FaGraduationCap } from "react-icons/fa";
 import QuickContact from '../sharedComponents/QuickContact/QuickContact';
+import Showcase from '../Showcase/Showcase';
 
 function Career() {
   return (
     <>
-      <CareerShowcase />
+      <Showcase backgroundImage='/career-banner.png' title='Browse Our' highlights='Resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
+        adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
+      '/>
 
 
       <div>

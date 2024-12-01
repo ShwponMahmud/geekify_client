@@ -1,5 +1,4 @@
 import React from 'react'
-import CareerDetailsShowcase from './CareerDetailsShowcase'
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { SlBookOpen } from "react-icons/sl";
 import { LuCalendarDays } from "react-icons/lu";
@@ -10,12 +9,14 @@ import { IoBriefcaseOutline } from "react-icons/io5";
 import { BsFacebook, BsTwitterX, BsInstagram } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import QuickContact from '../sharedComponents/QuickContact/QuickContact';
+import Showcase from '../Showcase/Showcase';
 
 function CareerDetailsComponents() {
   return (
     <>
-      <CareerDetailsShowcase />
-
+      <Showcase backgroundImage='/career-banner.png' title='Browse Our' highlights='Resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
+        adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
+      '/>
 
       <div>
         <div className='container mx-auto'>

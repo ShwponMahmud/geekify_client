@@ -1,16 +1,18 @@
 import React from 'react'
-import AboutUsShowcase from './AboutUsShowcase'
 import Image from 'next/image'
 import QuickContact from '../sharedComponents/QuickContact/QuickContact'
+import Showcase from '../Showcase/Showcase'
 
 function AboutUs() {
   return (
     <>
-      <AboutUsShowcase />
+      <Showcase backgroundImage='/about-us-banner.png' title='Browse Our' highlights='Resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
+        adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
+      '/>
 
       <div>
         <div className='container mx-auto'>
-          <div className='px-5 lg:px-10 xl:px-0'>
+          <div>
             <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-10 lg:gap-28 py-10 md:py-16 lg:py-28'>
               <div>
                 <h3 className='text-[48px] leading-[58px] font-semibold pb-7'>The Geekify <span className='text-primaryColor'>Story</span></h3>

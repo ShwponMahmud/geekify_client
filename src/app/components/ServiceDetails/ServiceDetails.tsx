@@ -2,12 +2,14 @@ import Image from 'next/image'
 import React from 'react'
 import QuickContact from '../sharedComponents/QuickContact/QuickContact'
 import { FaRegCheckCircle } from "react-icons/fa";
-import ServiceDetailsShowcase from './ServiceDetailsShowcase';
+import Showcase from '../Showcase/Showcase';
 
 function ServiceDetails() {
   return (
     <>
-      <ServiceDetailsShowcase/>
+      <Showcase backgroundImage='/service-details.png' title='Browse Our' highlights='Resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
+        adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
+      '/>
       <div>
         <div className='container mx-auto py-28'>
           <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-20'>
@@ -106,7 +108,7 @@ function ServiceDetails() {
 
 
         </div>
-        <QuickContact />
+        <QuickContact title='Contact Us to Get Your Desired Services' />
       </div>
     </>
   )

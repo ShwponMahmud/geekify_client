@@ -1,12 +1,14 @@
 import React from 'react'
-import RemoteSupportShowcase from './RemoteSupportShowcase'
 import Image from 'next/image'
 import QuickContact from '../sharedComponents/QuickContact/QuickContact'
+import Showcase from '../Showcase/Showcase'
 
 function RemoteSupportComponent() {
   return (
     <>
-      <RemoteSupportShowcase />
+      <Showcase backgroundImage='/remote-support-banner.png' title='Browse Our' highlights='Resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
+        adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
+      '/>
       <div>
         <div className='container mx-auto py-28'>
           <div>

@@ -14,7 +14,7 @@ const QuickContact: React.FC<QuickContactProps> = ({ title }) => {
         <div className="bg-sectionBackgroundColor py-28">
           <div className="container mx-auto">
             <div>
-              <p className="text-4xl font-bold leading-[50px] text-center text-primaryColor pb-12 max-w-[700px] mx-auto">
+              <p className="text-4xl font-bold leading-[50px] text-center text-primaryColor pb-12 max-w-[900px] mx-auto">
                 {title}
               </p>
             </div>

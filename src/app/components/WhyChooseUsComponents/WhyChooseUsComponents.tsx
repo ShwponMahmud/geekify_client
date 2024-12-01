@@ -1,13 +1,16 @@
 import React from 'react'
 import QuickContact from '../sharedComponents/QuickContact/QuickContact'
 import Image from 'next/image'
-import WhyChooseShowcase from './WhyChooseShowcase'
+import Showcase from '../Showcase/Showcase';
 
 const title: string = "If you need remote Service?";
+
 function WhyChooseUsComponents() {
   return (
     <>
-      <WhyChooseShowcase/>
+      <Showcase backgroundImage='/why-choose-us.png' title='Browse our' highlights='resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
+        adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
+      '/>
       <div>
         <div className='container mx-auto py-28'>
           <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-20'>
