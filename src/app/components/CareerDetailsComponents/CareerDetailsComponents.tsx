@@ -20,9 +20,9 @@ function CareerDetailsComponents() {
 
       <div>
         <div className='container mx-auto'>
-          <div className='grid grid-cols-1 md:grid-cols-6 py-28'>
+          <div className='grid grid-cols-1 md:grid-cols-6 py-8 md:py-14 lg:py-20 xl:py-28'>
             <div className='col-span-4'>
-              <h5 className='text-4xl font-bold pb-8'>Executive Assistant</h5>
+              <h5 className='text-3xl md:text-3xl lg:text-5xl font-semibold pb-4 md:pb-7'>Executive Assistant</h5>
               <div className='pb-10'>
                 <h6 className='text-2xl font-medium pb-4'>Who Are We Looking For</h6>
                 <ul className='list-disc pl-5'>
@@ -128,7 +128,7 @@ function CareerDetailsComponents() {
 
 
             <div className='col-span-2'>
-              <div className='bg-sectionBackgroundColor p-10'>
+              <div className='bg-sectionBackgroundColor p-5 lg:p-10'>
                 <div className='flex justify-center'>
                   <button className='py-2 px-6 mx-auto font-medium border-[1px] rounded-md border-primaryColor text-primaryColor hover:bg-primaryColor hover:text-white transition-[.5s]'>Apply Now</button>
                 </div>
@@ -184,7 +184,7 @@ function CareerDetailsComponents() {
                   </div>
                 </div>
 
-                <div className='text-center pt-12'>
+                <div className='text-center pt-5 lg:pt-12'>
                   <a href="" className='text-[27px] font-bold underline text-center'>View All Jobs</a>
                 </div>
               </div>
@@ -200,7 +200,7 @@ function CareerDetailsComponents() {
               </div>
             </div>
           </div>
-          <div className='flex justify-center pb-28 mt-[-60px]'>
+          <div className='flex justify-center pb-8 md:pb-14 lg:pb-20 xl:pb-28 lg:mt-[-60px]'>
             <button className='py-2 px-6 mx-auto font-medium border-[1px] rounded-md border-primaryColor text-primaryColor hover:bg-primaryColor hover:text-white transition-[.5s]'>Apply Now</button>
           </div>
         </div>

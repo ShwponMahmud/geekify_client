@@ -7,6 +7,28 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      xsm: "380px",
+      sm: "576px", 
+      md: "768px",
+      lg: "992px",
+      xl: "1280px",
+      sxl: "1300px",
+      xxl: "1440px",
+      xxlDW: "1400px", 
+    },
+    container: {
+			center: true,
+			padding: {
+				DEFAULT: "15px",
+				xxl: "3rem",
+				xl: "3rem",
+				lg: "3rem",
+				md: "30px",
+				sm: "18px",
+				xs: "15px",
+			},
+		},
     extend: {
       colors: {
         background: "var(--background)",
@@ -27,8 +49,7 @@ export default {
       },
       zIndex: {
         zIndex: "100"
-      }
-      
+      },
     },
   },
   plugins: [

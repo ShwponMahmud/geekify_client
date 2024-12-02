@@ -8,13 +8,13 @@ import Link from 'next/link'
 function ServiceAreasComponent() {
   return (
     <>
-      <Showcase backgroundImage='about-us-banner.png' title='Our Service' highlights='Areas' paragraph='Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+      <Showcase backgroundImage='/about-us-banner.png' title='Our Service' highlights='Areas' paragraph='Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
       Lorem Ipsum has been the industry Lorem Ipsum has been the industry' />
 
       <div>
-        <div className='container mx-auto py-28'>
+        <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
           <div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-9'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-9 lg:gap-6 xl:gap-9'>
               <div className='rounded-lg border hover:shadow-[0px_2px_4px_2px_#00000040] transition-[1s] p-7'>
                 <Image src='/new-south-wales.png' width={348} height={280} alt='new south wales' className='w-[100%] h-auto' />
                 <h5 className='text-[20px] leading-[27px] tracking-[1.2%] font-bold text-primaryColor py-3'>New South Wales</h5>
