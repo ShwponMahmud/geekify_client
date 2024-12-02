@@ -3,8 +3,8 @@ import React from "react";
 function SearchService() {
   return (
     <>
-      <div className="container mx-auto pt-28 ">
-        <div className="flex justify-center items-center mb-8 md:mb-[52px]">
+      <div className="container mx-auto pt-8 md:pt-14 lg:pt-20 xl:pt-28">
+        <div className="flex justify-center items-center mb-5 xl:mb-[52px]">
           <input
             type="search"
             className="w-[100%] md:w-[50%] lg:w-[30%] py-[6px] px-5 border-[3px] border-primaryColor rounded-l-[10px] font-semibold text-[17px] leading-[34px] text-[#20313B] focus:outline-none"

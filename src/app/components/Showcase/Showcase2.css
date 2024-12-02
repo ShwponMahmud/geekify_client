@@ -1,0 +1,14 @@
+.bookNowBtn {
+  border: 1px solid var(--primary_color);
+  border-radius: 5px;
+  color: var(--primary_color);
+  font-size: 20px;
+  font-weight: 600;
+  padding: 12px 40px;
+  margin-top: 25px;
+  transition: all .5s;
+}
+.bookNowBtn:hover {
+  background-color: var(--primary_color);
+  color: #ffffff;
+}

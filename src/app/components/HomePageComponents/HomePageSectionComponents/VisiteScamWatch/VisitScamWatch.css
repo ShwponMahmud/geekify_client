@@ -5,7 +5,7 @@
     linear-gradient(#00000049, #00000049),
     url("../../..../../../../../assets/images/scambanner.jpg")
       center center fixed;
-  background-attachment: fixed;
+  background-attachment: fixed;  
   background-repeat: no-repeat;
   background-size: cover;
 }
