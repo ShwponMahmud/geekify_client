@@ -9,7 +9,7 @@ function QuickLink() {
     <>
       <div className="quick_link_section">
         <div className="container mx-auto">
-          <div className="quick_link grid grid-cols-3 gap-8 text-white transition-[.5s]">
+          <div className="quick_link grid grid-cols-3 gap-8 text-white">
             <div className="phone ">
               <span><FiPhoneCall /></span>
               1300 894 946

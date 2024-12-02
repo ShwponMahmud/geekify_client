@@ -1,0 +1,177 @@
+
+
+/* Hide the default select */
+.hidden-select {
+  display: none;
+}
+
+/* Custom switch container */
+.switch-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Custom switch design */
+.custom-switch {
+  position: relative;
+  display: flex;
+  width: 200px;
+  height: 40px;
+  background: #e0e0e0;
+  border-radius: 20px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* Individual options */
+.switch-option {
+  flex: 1;
+  text-align: center;
+  line-height: 40px;
+  color: #666;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 2;
+  transition: color 0.3s ease;
+}
+
+/* Active state styling */
+.switch-option.active {
+  color: #fff;
+}
+
+/* Toggle slider */
+.switch-toggle {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  width: 48%;
+  background: var(--primary_color);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+
+
+
+
+
+
+/* Toggle Switch */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+input:checked + .slider {
+  background-color: #ff6d00;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Parking Options */
+.parking-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.parking-button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 2px solid #ff6d00;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #ff6d00;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.parking-button.active {
+  background-color: #ff6d00;
+  color: #fff;
+}
+
+/* Address Input */
+.address-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.address-input input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.add-button {
+  padding: 10px 20px;
+  background-color: #ff6d00;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #e65b00;
+}
