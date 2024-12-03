@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Head from "next/head";
+import BookingOnlineNav from "../components/BookingOnlineComponents/BookingOnlineNav/BookingOnlineNav";
 
 export const metadata: Metadata = {
   title: "Geekify booking online",
@@ -19,7 +20,7 @@ export default function layout({children,}: Readonly<{children: React.ReactNode;
         />
       </Head>
       <body>
-        booking online navbar
+        <BookingOnlineNav/>
         {children}
       </body>
     </html>
