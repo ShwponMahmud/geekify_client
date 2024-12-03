@@ -7,7 +7,7 @@ import { FaLinkedinIn, FaInstagram, FaXTwitter } from "react-icons/fa6";
 function BlogAuthorAboutDetails() {
   return (
     <>
-      <div className="w-[800px] md:max-w-[100%] blog_author_about_details_section border border-borderColor p-[30px] rounded-[10px] ">
+      <div className="w-full blog_author_about_details_section border border-borderColor p-[20px] md:p-[30px] rounded-[10px] max-w-[800px]">
         <div className="author_about flex gap-5">
           <div>
             <div className="author_avatar">
@@ -28,7 +28,7 @@ function BlogAuthorAboutDetails() {
                 aliquid, quod quos facere vel laudantium?
               </p>
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-wrap items-center gap-5">
               <button className="mt-5 border border-primaryColor rounded-3xl py-2 px-7 text-[15px] hover:bg-primaryColor hover:text-white transition-[.5s]">
                 Lets Chat
               </button>

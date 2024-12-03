@@ -5,7 +5,7 @@ import blogBanner from "../../../../assets/images/why-choose-us-banner.jpg";
 function BlogDetailsView() {
   return (
     <>
-      <div className="blog_details_view_section py-28">
+      <div className="blog_details_view_section py-8 md:py-14 lg:py-20">
         <div className="blog_details_view_heading mb-14">
           <h1 className="text-4xl text-deepGrayColor font-semibold">
             Why DIY Computer Repair is Not Practical | Geek Talks

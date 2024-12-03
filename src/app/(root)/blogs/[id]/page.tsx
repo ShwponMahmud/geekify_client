@@ -7,8 +7,8 @@ import React from "react";
 function page() {
   return (
     <>
-      <div className="blog_details_page mt-[70px]">
-        <div className="container mx-auto mb-20">
+      <div className="blog_details_page mt-20 md:mt-10 lg:mt-0 py-8 md:py-14 lg:py-20 xl:py-28">
+        <div className="container mx-auto">
           <BlogDetailsView />
           <BlogAuthorAboutDetails />
           <CreateComments />
