@@ -7,9 +7,9 @@ import { FaRegSquareCheck } from "react-icons/fa6";
 function WhyChooseUs() {
   return (
     <>
-      <div className="why_choose_us_section py-28">
+      <div className="why_choose_us_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
-          <div className="why_choose_us_content_container grid grid-cols-2 gap-16">
+          <div className="why_choose_us_content_container grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
             <div className="why_choose_us_banner  ">
               <Image className="rounded-lg" src={banner} alt="" />
             </div>

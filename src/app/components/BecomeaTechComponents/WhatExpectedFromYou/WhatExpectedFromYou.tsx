@@ -8,12 +8,12 @@ import expectedIcon4 from "../../../../assets/icons/expected-icon (4).png";
 function WhatExpectedFromYou() {
   return (
     <>
-      <div className="what_expected_from_you_section py-28 bg-sectionBackgroundColor">
+      <div className="what_expected_from_you_section py-8 md:py-14 lg:py-20 xl:py-28 bg-sectionBackgroundColor mb-[2px]">
         <div className="container mx-auto text-center text-deepGrayColor">
-          <h2 className="text-3xl font-bold ">What is expected from you?</h2>
-          <p className="w-[60%] mx-auto pt-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia placeat ipsa eaque ratione at quo quasi nesciunt, vero aspernatur possimus similique sint consectetur. Enim asperiores, architecto ea doloribus quibusdam quod.</p>
+          <h2 className="text-2xl md:text-3xl lg:text-5xl font-semibold pb-5">What is expected from you?</h2>
+          <p className="lg:w-[60%] mx-auto pt-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia placeat ipsa eaque ratione at quo quasi nesciunt, vero aspernatur possimus similique sint consectetur. Enim asperiores, architecto ea doloribus quibusdam quod.</p>
 
-          <div className="grid grid-cols-4 gap-10 pt-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 pt-20">
             <div className="justify-items-center">
               <Image width={140} src={expectedIcon1} alt="" />
               <p className="mt-7">

@@ -43,9 +43,9 @@ const OurPopularServices = async () => {
 
   return (
     <>
-      <div className="our_popular_service_section py-28">
+      <div className="our_popular_service_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
-          <div className="our_popular_service_heading text-center">
+          <div className="w-full lg:w-[60%] mx-auto text-center">
             <h1 className="mb-5 text-4xl font-bold">
               Our Popular <span>Services</span>
             </h1>
@@ -56,7 +56,7 @@ const OurPopularServices = async () => {
             </p>
           </div>
 
-          <div className="our_popular_service_content_container grid grid-cols-3 gap-5 mt-20">
+          <div className="our_popular_service_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8 lg:mt-20">
             {services?.map((service) => (
               <div className="our_service_content_card text-center">
                 <div>

@@ -11,6 +11,7 @@ function page() {
       <BecomeTechShowcase/>
       <AboutPositionAndBenefit/>
       <WhatExpectedFromYou/>
+      <QuickContact title="If you think to become a tech, let's start"/>
     </div>
     </>
   )

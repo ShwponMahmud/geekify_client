@@ -4,23 +4,17 @@ function GetFreeConsultation() {
   return (
     <>
       <div className="get_free_consultation_section">
-        <h2 className="text-3xl font-bold text-primaryColor mb-5">
+        <h2 className="text-3xl font-bold text-primaryColor mb-5 text-center md:text-left">
           Get a Free Consultation
         </h2>
-        <p className="text-deepGrayColor mb-5">
+        <p className="text-deepGrayColor mb-5 text-center md:text-left">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod mollitia
           a incidunt dignissimos quam eius asperiores, consequuntur omnis sit
           beatae iure perferendis ipsam ex, vitae ducimus officiis facilis
-          veritatis sunt. a incidunt dignissimos quam eius asperiores,
-          consequuntur omnis sit beatae iure perferendis ipsam ex, vitae ducimus
-          officiis facilis veritatis sunt. a incidunt dignissimos quam eius
-          asperiores, consequuntur omnis sit beatae iure perferendis ipsam ex,
-          vitae ducimus officiis facilis veritatis sunt. Lorem ipsum dolor, sit
-          amet consectetur adipisicing elit. Veniam amet vitae necessitatibus?
-          Tenetur vitae, cupiditate dolorum nihil voluptatibus sint cumque?
+          veritatis sunt.
         </p>
 
-        <div className="get_consultation_form border rounded-[10px] mt-10 py-12 px-10 hover:shadow-hoverBoxShadow transition-[.5s]">
+        <div className="get_consultation_form border rounded-[10px] mt-10 py-5 lg:py-12 px-5 lg:px-10 hover:shadow-hoverBoxShadow transition-[.5s]">
           <form action="" className="">
             <div className="grid grid-cols-2 gap-4">
               <div>

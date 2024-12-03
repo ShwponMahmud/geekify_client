@@ -5,14 +5,14 @@ import "./ViewComments.css";
 function ViewComments() {
   return (
     <>
-      <div className="view_comments_section_container py-10">
+      <div className="view_comments_section_container pt-10">
         <h2 className="text-[30px] font-bold text-deepGrayColor py-2">
           Comments (40)
         </h2>
         <hr />
 
         <div className="comments_content_view mt-10">
-          <div className="w-[800px] md:max-w-[100%] blog_author_about_details_section ">
+          <div className="max-w-[800px] blog_author_about_details_section ">
             <div className="author_about flex gap-5">
               <div>
                 <div className="author_avatar">

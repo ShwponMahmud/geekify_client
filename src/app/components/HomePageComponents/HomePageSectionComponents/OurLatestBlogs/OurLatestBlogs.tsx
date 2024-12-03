@@ -4,9 +4,9 @@ import blogThumnail from "../../../../../assets/images/why-choose-us-banner.jpg"
 function OurLatestBlogs() {
   return (
     <div>
-      <div className="our_latest_blogs_section py-28">
+      <div className="our_latest_blogs_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
-          <div className="our_latest_blogs_heading_container w-120 m-auto text-center mb-12">
+          <div className="our_latest_blogs_heading_container w-full lg:w-120 m-auto text-center mb-12">
             <h1 className="text-4xl font-bold mb-5">Our latest Blogs</h1>
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum
@@ -15,7 +15,7 @@ function OurLatestBlogs() {
             </p>
           </div>
 
-          <div className="our_latest_blog_content_container grid grid-cols-3 gap-6">
+          <div className="our_latest_blog_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="our_latest_blog_content_card py-4 px-5 shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md ">
               <Image src={blogThumnail} alt="" className="rounded-md" />
               <div className="flex justify-between my-4 text-primaryColor">

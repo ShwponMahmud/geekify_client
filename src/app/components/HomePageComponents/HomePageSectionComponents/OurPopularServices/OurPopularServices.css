@@ -1,6 +1,6 @@
 .our_popular_service_heading{
     width: 60%;
-    margin: auto;
+    margin: 0 auto;
 }
 .our_popular_service_heading h1{
     color: var(--dark_color);

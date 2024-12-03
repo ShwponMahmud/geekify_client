@@ -6,8 +6,8 @@ import { FaLinkedinIn, FaInstagram, FaXTwitter } from "react-icons/fa6";
 function ScamAlertDetails() {
   return (
     <>
-      <div className="container mx-auto py-20">
-        <div className="scam_alert_details_content_container grid grid-cols-3 justify-between gap-10 text-deepGrayColor">
+      <div className="container mx-auto mt-28 py-8 md:py-14 lg:py-20 xl:py-28">
+        <div className="scam_alert_details_content_container grid grid-cols-1 xl:grid-cols-2 justify-between gap-10 text-deepGrayColor">
           <div className="col-span-2">
             <h1 className="text-3xl font-semibold mb-5">
               Why DIY Computer Repair is Not Practical | Geek Talks

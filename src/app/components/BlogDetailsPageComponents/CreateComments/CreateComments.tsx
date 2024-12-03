@@ -3,8 +3,8 @@ import React from "react";
 function CreateComments() {
   return (
     <>
-      <div className="create_comments_section mt-10 border border-borderColor rounded-[10px] w-[800px]">
-        <div className="create_comments_container p-10 text-deepGrayColor">
+      <div className="create_comments_section mt-10 border border-borderColor rounded-[10px] max-w-[800px]">
+        <div className="create_comments_container p-5 md:p-10 text-deepGrayColor">
           <h2 className="text-2xl font-semibold mb-5">Leave A Reply</h2>
           <small>
             Your email address will not be published. Required fields are marked

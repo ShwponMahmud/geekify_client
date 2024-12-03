@@ -10,9 +10,9 @@ import "./BookingOnlineGetOff.css";
 function BookOnlineGetOff() {
   return (
     <>
-      <div className="book_online_get_off_section py-28">
+      <div className="book_online_get_off_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
-          <div className="book_online_get_off_heading text-center">
+          <div className="w-full lg:w-[60%] mx-auto text-center">
             <h1 className="text-4xl font-bold mb-6">
               Book online and get 10% off
             </h1>
@@ -22,7 +22,7 @@ function BookOnlineGetOff() {
               voluptatem nisi, hic ipsum corrupti exercitationem labore laborum?
             </p>
           </div>
-          <div className="book_online_get_off_content_container flex items-center justify-evenly gap-3 mt-16 ">
+          <div className="book_online_get_off_content_container flex flex-wrap items-center justify-evenly gap-3 mt-16 ">
             <div className="justify-items-center text-grayColor hover:text-primaryColor">
               <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
                 <TbHandClick className="text-4xl" />

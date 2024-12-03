@@ -7,10 +7,10 @@ import appStoreBtnImg from "../../../../../assets/images/Apple download button.p
 function GeekifyAppStore() {
   return (
     <>
-      <div className="geekify_app_store_section bg-sectionBackgroundColor mt-28 pt-28">
+      <div className="geekify_app_store_section bg-sectionBackgroundColor pt-8 md:pt-14 lg:pt-20 xl:pt-28">
         <div className="container mx-auto">
-          <div className="geekify_app_store_content_container grid grid-cols-2 gap-10 ">
-            <div className="mt-20">
+          <div className="geekify_app_store_content_container grid lg:grid-cols-2 gap-10 ">
+            <div>
               <h1 className="text-4xl font-semibold">
                 Book Anytime, Anywhere: Download Geekify on App Store for free. 
               </h1>
