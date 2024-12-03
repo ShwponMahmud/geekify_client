@@ -2,8 +2,8 @@ import React from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
 interface StarRatingProps {
-  rating: number; // e.g., 4.5
-  totalStars?: number; // Default to 5 stars
+  rating: number;
+  totalStars?: number; 
 }
 
 const StarRating: React.FC<StarRatingProps> = ({ rating, totalStars = 5 }) => {
