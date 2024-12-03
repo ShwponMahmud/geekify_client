@@ -2,18 +2,51 @@ import SearchService from "@/app/components/ServiceComponents/SearchService/Sear
 import Services from "@/app/components/ServiceComponents/Services/Services";
 import QuickContact from "@/app/components/sharedComponents/QuickContact/QuickContact";
 import Showcase from "@/app/components/Showcase/Showcase";
+import { baseUrl } from "@/assets/baseUrl";
 import React from "react";
+
+interface Service {
+  id: number;
+  name: string;
+  meta_description: string;
+  image: string;
+}
 
 const title: string = "If you need remote Service?";
 
-function page() {
+const page = async () => {
+  let services: Service[] = [];
+
+  try {
+    const response = await fetch(`${baseUrl}/api/v1/services`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": `secret`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch services");
+    }
+
+    const responseData = await response.json();
+    services = responseData.data || [];
+  } catch (error) {
+    console.error("Error fetching services:", error);
+  }
+
   return (
     <div>
-      <Showcase backgroundImage='/service-image.png' title='Browse Our' highlights='Resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
+      <Showcase
+        backgroundImage="/service-image.png"
+        title="Browse Our"
+        highlights="Resources"
+        paragraph="One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
         adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
-      '/>
+      "
+      />
       <SearchService />
-      <Services />
+      <Services services={services} />
       <QuickContact title={title} />
     </div>
   );

@@ -1,47 +1,46 @@
 import React from "react";
 import "./OurPopularServices.css";
 import Image from "next/image";
-import icon1 from "../../../../../assets/icons/_x30_23---USB-Restore.png";
+import icon1 from "../../../../../assets/icons/Smartphone.png";
 import icon2 from "../../../../../assets/icons/Group.png";
-import icon3 from "../../../../../assets/icons/Vector.png";
-import icon4 from "../../../../../assets/icons/Package.png";
-import icon5 from "../../../../../assets/icons/Smartphone.png";
-import icon6 from "../../../../../assets/icons/Group 34541.png";
+import icon3 from "../../../../../assets/icons/Package.png";
+import icon4 from "../../../../../assets/icons/Group 34541.png";
+import icon5 from "../../../../../assets/icons/_x30_23---USB-Restore.png";
+import icon6 from "../../../../../assets/icons/Vector.png";
+import { baseUrl } from "@/assets/baseUrl";
+import Link from "next/link";
 
-const services = [
-  {
-    title: "Data Recovery & Consultation Services",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit suscipit egestas. Nunc eget congue ante. ",
-    icon: icon1,
-  },
-  {
-    title: "PC Configuration Solution",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit suscipit egestas. Nunc eget congue ante. ",
-    icon: icon2,
-  },
-  {
-    title: "Spyware, Anti-Virus & Networking Solution",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit suscipit egestas. Nunc eget congue ante. ",
-    icon: icon3,
-  },
-  {
-    title: "Miscellaneous Services",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit suscipit egestas. Nunc eget congue ante. ",
-    icon: icon4,
-  },
-  {
-    title: "Cloud Application Development",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit suscipit egestas. Nunc eget congue ante. ",
-    icon: icon5,
-  },
-  {
-    title: "Website and app Development",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus hendrerit suscipit egestas. Nunc eget congue ante. ",
-    icon: icon6,
-  },
-];
+interface service {
+  id: number;
+  name: string;
+  meta_description: string;
+  icon: string;
+}
 
-function OurPopularServices() {
+const OurPopularServices = async () => {
+  let services: service[] = [];
+
+  try {
+    const response = await fetch(
+      `${baseUrl}/api/v1/services?paginate=1&pagination=6`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": `secret`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch services");
+    }
+
+    const responseData = await response.json();
+    services = responseData.data || [];
+  } catch (error) {
+    console.error("Error fetching services:", error);
+  }
+
   return (
     <>
       <div className="our_popular_service_section py-28">
@@ -58,17 +57,36 @@ function OurPopularServices() {
           </div>
 
           <div className="our_popular_service_content_container grid grid-cols-3 gap-5 mt-20">
-            {services.map((service) => (
+            {services?.map((service) => (
               <div className="our_service_content_card text-center">
                 <div>
                   <div className="icon mb-5 justify-items-center">
-                    <Image width={70} src={service.icon} alt="" />
+                    <Image
+                      width={70}
+                      src={
+                        service?.name ==
+                        "Computer - Installation, Configuration, Fixing"
+                          ? icon1
+                          : service?.name == "Computer Troubleshooting"
+                          ? icon2
+                          : service?.name == "New Computer Setup"
+                          ? icon3
+                          : service?.name == "Data Backup, Restore"
+                          ? icon4
+                          : service?.name == "Data Recovery"
+                          ? icon5
+                          : service?.name == "Virus and Spyware Removal"
+                          ? icon6
+                          : ""
+                      }
+                      alt=""
+                    />
                   </div>
                   <div className="title text-xl font-semibold">
-                    <h2>{service.title}</h2>
+                    <h2>{service?.name}</h2>
                   </div>
                   <div className="des mt-4 text-gray-500">
-                    <p>{service.des}</p>
+                    <p>{service.meta_description}</p>
                   </div>
                 </div>
               </div>
@@ -76,12 +94,14 @@ function OurPopularServices() {
           </div>
 
           <div className="view_all_service_btn_container flex justify-center">
-            <button >View All Services</button>
+            <Link href={`/services`}>
+              <button>View All Services</button>
+            </Link>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default OurPopularServices;
