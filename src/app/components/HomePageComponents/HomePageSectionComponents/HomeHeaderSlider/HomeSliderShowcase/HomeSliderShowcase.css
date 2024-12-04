@@ -5,7 +5,7 @@
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
 }
-.showcase_section::before,
+ .showcase_section::before,
 .showcase_section::after {
   height: 72vh;
   content: "";
@@ -20,7 +20,6 @@
   -moz-transform: skewX(150deg);
   -ms-transform: skewX(150deg);
 }
-
 .showcase_section_content .bookNowBtn {
   border: 1px solid var( --primary_color);
   border-radius: 5px;
@@ -87,4 +86,27 @@
 .request_call_back:hover,
 .book_online:hover {
   background-color: var(--primary_color);
+}
+
+@media (max-width: 991px){
+  .showcase_section {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  }
+   .showcase_section::before,
+  .showcase_section::after {
+    height: auto;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background-color: transparent;
+    background-size: cover;
+  }
+  .swiper-wrapper{
+    padding-bottom: 0 !important;
+  }
 }
