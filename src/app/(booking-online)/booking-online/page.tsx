@@ -14,13 +14,13 @@ function page() {
     <>
       <div className="booking_online">
         <BookingOnlineProgress/>
-        {/* <BookingOnlineWelcome/> */}
-        {/* <EnterPhoneSendCode/> */}
-        {/* <ServiceType/> */}
-        {/* <ServiceForm/> */}
-        {/* <ChooseDateTime/> */}
-        {/* <ContactInformation/> */}
-        {/* <ServiceBookingSummery/> */}
+        <BookingOnlineWelcome/>
+        <EnterPhoneSendCode/>
+        <ServiceType/>
+        <ServiceForm/>
+        <ChooseDateTime/>
+        <ContactInformation/>
+        <ServiceBookingSummery/>
         <PaymentDetails/>
       </div>
     </>

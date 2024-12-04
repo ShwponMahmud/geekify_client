@@ -6,7 +6,7 @@ import { baseUrl } from "@/assets/baseUrl";
 import React from "react";
 
 interface Service {
-  id: number;
+  slug: string;
   name: string;
   meta_description: string;
   image: string;
@@ -18,7 +18,7 @@ const page = async () => {
   let services: Service[] = [];
 
   try {
-    const response = await fetch(`${baseUrl}/api/v1/services`, {
+    const response = await fetch(`${baseUrl}/services?with_relation[]=media`, {
       headers: {
         "Content-Type": "application/json",
         "Client-Secret": `secret`,

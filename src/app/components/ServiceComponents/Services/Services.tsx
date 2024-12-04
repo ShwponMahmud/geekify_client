@@ -1,8 +1,9 @@
 import { baseUrl } from "@/assets/baseUrl";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Service {
-  id: number;
+  slug: string;
   name: string;
   meta_description: string;
   image: string;
@@ -29,9 +30,11 @@ const Services: React.FC<ServicesProps> = ({ services }) => {
               <h5 className="text-[15px] leading-[20px] tracking-[.3px] font-bold text-[#231F20] p-[20px]">
                 {service?.name}
               </h5>
-              <button className="text-[16px] font-semibold text-primaryColor border border-primaryColor hover:text-white hover:bg-primaryColor rounded-[10px] py-[10px] px-5 ml-[20px] mb-[20px] transition-[.5s]">
-                Explore More
-              </button>
+              <Link href={`/services/${service?.slug}`}>
+                <button className="text-[16px] font-semibold text-primaryColor border border-primaryColor hover:text-white hover:bg-primaryColor rounded-[10px] py-[10px] px-5 ml-[20px] mb-[20px] transition-[.5s]">
+                  Explore More
+                </button>{" "}
+              </Link>
             </div>
           ))}
         </div>

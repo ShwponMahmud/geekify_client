@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 import { FaFacebookF } from "react-icons/fa";
@@ -61,24 +62,24 @@ const Footer = () => {
             <h5 className="font-semibold text-lg mb-4">Company</h5>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <Link href={"/about-us"} className="hover:text-gray-300">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <Link href={"/contact-us"} className="hover:text-gray-300">
                   Contact Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <Link href="/career" className="hover:text-gray-300">
                   Careers
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <Link href={"/become-a-tech"} className="hover:text-gray-300">
                   Become A Tech
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#" className="hover:text-gray-300">
@@ -97,17 +98,17 @@ const Footer = () => {
             <h5 className="font-semibold text-lg mb-4">Services</h5>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <Link href={"/services"} className="hover:text-gray-300">
                   Our Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <Link href="/remote-support" className="hover:text-gray-300">
                   Remote Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <a href={"/contact-us"} className="hover:text-gray-300">
                   Tech Support
                 </a>
               </li>
@@ -118,12 +119,12 @@ const Footer = () => {
             <h5 className="font-semibold text-lg mb-4">Discover</h5>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <a href={"/customer-review"} className="hover:text-gray-300">
                   Customer Review
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-gray-300">
+                <a href={"/why-choose-us"} className="hover:text-gray-300">
                   Why Choose Us
                 </a>
               </li>
