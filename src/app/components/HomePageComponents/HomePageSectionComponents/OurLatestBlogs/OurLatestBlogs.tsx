@@ -1,6 +1,8 @@
 import Image from "next/image";
 import React from "react";
 import blogThumnail from "../../../../../assets/images/why-choose-us-banner.jpg";
+import { baseUrl } from "@/assets/baseUrl";
+import Link from "next/link";
 
 interface Blog {
   id: number;
@@ -16,9 +18,38 @@ interface Blog {
   image: string;
   thumbnail: string;
   meta_data: string;
+  blogCategory: {
+    id: number;
+    name: string;
+    slug: string;
+    status: string;
+  };
 }
 
-function OurLatestBlogs() {
+const OurLatestBlogs = async () => {
+  let blogs: Blog[] = [];
+
+  try {
+    const response = await fetch(
+      `${baseUrl}/blogs?with_relation[]= media&with_relation[]= blogCategory`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": `secret`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch blogs");
+    }
+
+    const responseData = await response.json();
+    blogs = (responseData.data || []).slice(0, 6);
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+  }
+
   return (
     <div>
       <div className="our_latest_blogs_section py-8 md:py-14 lg:py-20 xl:py-28">
@@ -33,29 +64,40 @@ function OurLatestBlogs() {
           </div>
 
           <div className="our_latest_blog_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="our_latest_blog_content_card py-4 px-5 shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md ">
-              <Image src={blogThumnail} alt="" className="rounded-md" />
-              <div className="flex justify-between my-4 text-primaryColor">
-                <div className="category cursor-pointer">Category</div>
-                <div className="date">25/11/2024</div>
+            {blogs.map((blog) => (
+              <div className=" our_latest_blog_content_card shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md ">
+                <div className="w-[432px] h-[250px] overflow-hidden relative border">
+                  <Image
+                    width={432}
+                    height={300}
+                    src={blog?.thumbnail}
+                    alt="blog"
+                    className="rounded-md "
+                  />
+                </div>
+                <div className="p-4 ">
+                  <h2 className="text-[18px] font-semibold text-gray-900">{blog?.title}</h2>
+                  <div className=" mt-5 ">
+                    <div className="category cursor-pointer text-[14px] mb-3">
+                      <b className="text-primaryColor">Category:</b> {blog?.blogCategory?.name}
+                    </div>
+                    <div className="date text-[14px]"><b className="text-primaryColor">Created Date:</b> {blog?.created_at}</div>
+                  </div>
+                </div>
               </div>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla
-                mollitia animi dolorem, id quos dicta. Officia, similique amet
-                qui, incidunt temporibus illum quibusdam dolores ipsa, excepturi
-                sapiente vel. Quibusdam, perferendis?
-              </p>
-            </div>
+            ))}
           </div>
           <div className="our_blog_see_more_btn_container flex justify-center mt-14">
-            <button className="bg-primaryColor text-white border-none rounded py-3 px-8">
+            <Link href={"/blogs"}>
+            <button className="bg-primaryColor text-white rounded py-3 px-8 hover:bg-white hover:text-primaryColor border border-primaryColor transition-[.5s]">
               See More
             </button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default OurLatestBlogs;
