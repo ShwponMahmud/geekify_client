@@ -22,7 +22,7 @@ const OurPopularServices = async () => {
 
   try {
     const response = await fetch(
-      `${baseUrl}/api/v1/services?paginate=1&pagination=6`,
+      `${baseUrl}/services?paginate=1&pagination=6&with_relation[]=media`,
       {
         headers: {
           "Content-Type": "application/json",

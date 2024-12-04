@@ -4,20 +4,33 @@ import "./CustomerSpeakForUs.css";
 import { baseUrl } from "@/assets/baseUrl";
 import TruncateText from "@/app/components/sharedComponents/TruncateText/TruncateText";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import Link from "next/link";
+
 
 interface customerReview {
   id: number;
-  name: string;
   rating: number;
   comment: string;
   status: string;
+  user: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    full_name: string;
+    email: string;
+    phone_number: string;
+    avatar: string;
+    thumbnail: string;
+  };
   created_at: string;
 }
+
 
 interface StarRatingProps {
   rating: number;
   totalStars?: number;
 }
+
 
 const StarRating: React.FC<StarRatingProps> = ({ rating, totalStars = 5 }) => {
   const stars = [];
@@ -35,23 +48,27 @@ const StarRating: React.FC<StarRatingProps> = ({ rating, totalStars = 5 }) => {
   return <div style={{ display: "flex", gap: "4px" }}>{stars}</div>;
 };
 
+
 const CardFooter: React.FC<{ rating: number }> = ({ rating }) => (
   <div>
     <StarRating rating={rating} />
   </div>
 );
 
+
 async function CustomerSpeakForUs() {
   let customerReviews: customerReview[] = [];
-  const itemsPerPage = 6;
 
   try {
-    const response = await fetch(`${baseUrl}/customer-opinions`, {
-      headers: {
-        "Content-Type": "application/json",
-        "Client-Secret": `secret`,
-      },
-    });
+    const response = await fetch(
+      `${baseUrl}/customer-opinions?with_relation[]=user.media`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": `secret`,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to fetch customer review");
@@ -79,11 +96,11 @@ async function CustomerSpeakForUs() {
             </p>
           </div>
           <div className="customer_speak_for_us_content_container my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-5 mt-16 md:mt-20 lg:mt-28">
-            {customerReviews?.map((review) => (
+            {customerReviews?.map((customerReview) => (
               <div className="customer_speak_content_card mb-10">
                 <div className="customer_avatar">
                   <Image
-                    src="/customerImg.png"
+                    src={customerReview?.user?.avatar}
                     alt="customer"
                     width={80}
                     height={80}
@@ -92,20 +109,28 @@ async function CustomerSpeakForUs() {
                 </div>
 
                 <div className="customer_name_title">
-                  <h4 className="text-xl font-semibold">Customer Name</h4>
-                  <p>Customer Title</p>
+                  <h4 className="text-xl font-semibold">{customerReview?.user?.full_name}</h4>
+                  <p className="text-[14px] text-grayColor">{customerReview?.created_at}</p>
                 </div>
                 <div className="customer_message">
-                  {TruncateText(review?.comment, 20)}
+                  {TruncateText(customerReview?.comment, 20)}
                 </div>
 
                 {/* <RatingCard rating={review.rating}  /> */}
 
                 <div className="justify-items-center py-4">
-                  <CardFooter rating={review.rating} />
+                  <CardFooter rating={customerReview.rating} />
                 </div>
               </div>
             ))}
+          </div>
+          <div className="flex justify-center mb-28">
+            <Link href={"/customer-review"}>
+              {" "}
+              <button className="bg-primaryColor text-white rounded-md py-[10px] px-[20px]">
+                See More
+              </button>
+            </Link>
           </div>
         </div>
       </div>
