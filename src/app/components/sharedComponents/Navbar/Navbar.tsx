@@ -30,26 +30,26 @@ export default function Navbar() {
       as="nav"
       className="bg-white py-5 top-0 fixed h-[100px] w-[100%] md:px-2 shadow-lg shadow-gray-200/50 z-zIndex "
     >
-      <div className="container mx-auto ">
+      <div className="max-w-[1340px] mx-auto lg:px-10">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
             {/* Mobile menu button*/}
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <DisclosureButton className="group relative inline-flex items-center cursor-pointer justify-center rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
                 aria-hidden="true"
-                className="block size-6 group-data-[open]:hidden"
+                className="block size-8 group-data-[open]:hidden"
               />
               <XMarkIcon
                 aria-hidden="true"
-                className="hidden size-6 group-data-[open]:block"
+                className="hidden size-8 group-data-[open]:block"
               />
             </DisclosureButton>
           </div>
 
-          <div className="flex flex-1 items-center justify-center md:items-stretch md:justify-start">
-            <div className="flex shrink-0 items-center">
+          <div className="flex flex-1 items-center justify-center mr-32 sm:mr-0 md:items-stretch md:justify-start">
+            <div className="flex items-center">
               <Image
                 alt="Geekify logo"
                 src="/logo.png"
@@ -58,8 +58,8 @@ export default function Navbar() {
                 height={40}
               />
             </div>
-            <div className="hidden md:ml-4 md:block ">
-              <div className="flex space-x-4">
+            <div className="hidden md:ml-4 md:block">
+              <div className="flex lg:space-x-4">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
@@ -84,14 +84,14 @@ export default function Navbar() {
                 className="relative rounded bg-none border-solid border-[1px] border-orange-500 py-2 px-2 text-orange-500 outline-none hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
               >
                 <span className="absolute -inset-1.5" />
-                <span className="size-1">Booking Online</span>
+                <span className="size-1">Book Online</span>
               </button>
             </Link>
           </div>
         </div>
       </div>
 
-      <DisclosurePanel className="md:hidden">
+      <DisclosurePanel className="md:hidden bg-orange-500">
         <div className="space-y-1 px-2 pb-3 pt-2">
           {navigation.map((item) => (
             <DisclosureButton
