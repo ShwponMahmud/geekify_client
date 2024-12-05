@@ -42,6 +42,9 @@ async function page({ params }: ServiceDetailsParams) {
   } catch (error) {
     console.error("Error fetching service:", error);
   }
+
+
+  
   return (
     <>
       <ServiceDetails service={service} />
