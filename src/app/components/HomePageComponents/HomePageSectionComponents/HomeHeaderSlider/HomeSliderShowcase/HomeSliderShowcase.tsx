@@ -8,7 +8,7 @@ const HomeSliderShowcase: React.FC = () => {
     <>
       <div className="showcase_section mt-[100px]">
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 ">
-          <div className="mt-10 lg:mt-28">
+          <div className="mt-10 lg:mt-28 xxl:mt-40">
             <TextSlider/>
           </div>
           <div>
