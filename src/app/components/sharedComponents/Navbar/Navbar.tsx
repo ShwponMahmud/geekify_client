@@ -30,7 +30,7 @@ export default function Navbar() {
       as="nav"
       className="bg-white py-5 top-0 fixed h-[100px] w-[100%] md:px-2 shadow-lg shadow-gray-200/50 z-zIndex "
     >
-      <div className="max-w-[1340px] mx-auto lg:px-10">
+      <div className="max-w-[1340px] mx-auto ">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
             {/* Mobile menu button*/}

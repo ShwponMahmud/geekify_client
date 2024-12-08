@@ -10,19 +10,6 @@
   background-size: cover;
 }
 
-.common_showcase_section_content .bookNowBtn {
-  border: 1px solid var(--primary_color);
-  border-radius: 5px;
-  color: #ffffff;
-  font-size: 20px;
-  padding: 12px 40px;
-  margin-top: 25px;
-  transition: all .5s;
-}
-.common_showcase_section_content .bookNowBtn:hover {
-  background-color: var(--primary_color);
-  color: #ffffff;
-}
 .showcase_section_content p {
   font-size: 24px !important;
   font-weight: 500;

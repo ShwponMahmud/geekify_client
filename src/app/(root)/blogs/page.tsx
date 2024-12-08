@@ -1,6 +1,6 @@
 import BlogsCategories from '@/app/components/BlogPageComponents/BlogsCategories/BlogsCategories'
 import BlogShowcase from '@/app/components/BlogPageComponents/BlogsShowcase/BlogShowcase';
-import BlogsView from '@/app/components/BlogPageComponents/BlogsView/BlogsView'
+import Blogs from '@/app/components/BlogPageComponents/Blogs/Blogs'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 
 
@@ -12,7 +12,7 @@ function page() {
     <div className="mx-auto">
       <BlogShowcase/>
       <BlogsCategories/>
-      <BlogsView/>
+      <Blogs/>
       <QuickContact title={title}/>
     </div>
   )

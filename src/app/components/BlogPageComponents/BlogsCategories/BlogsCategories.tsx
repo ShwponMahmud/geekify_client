@@ -1,41 +1,50 @@
-import React from "react";
+import { baseUrl } from "@/assets/baseUrl";
+import BlogCategoryBtn from "./BlogCategoryBtn";
+import BlogSearch from "../BlogSearch/BlogSearch";
 
-const blogsCategories = [
-  {
-    id: 1,
-    categoryName: "Tips for good computer health",
-  },
-  {
-    id: 2,
-    categoryName: "Email configuration",
-  },
-  {
-    id: 3,
-    categoryName: "Cyber security",
-  },
-  {
-    id: 4,
-    categoryName: "Technical service",
-  },
-  {
-    id: 2,
-    categoryName: "Email configuration",
-  },
-  {
-    id: 3,
-    categoryName: "Cyber security",
-  },
-  
-];
-function BlogsCategories() {
+interface BlogCategories {
+  id: number;
+  name: string;
+  slug: string;
+  status: string;
+}
+
+async function BlogsCategories() {
+  let blogsCategories: BlogCategories[] = [];
+
+  try {
+    const response = await fetch(`${baseUrl}/blog-categories`, {
+      headers: {
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/json",
+        "Client-Secret": `secret`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch blogs categories");
+    }
+
+    const responseData = await response.json();
+    blogsCategories = responseData.data || [];
+  } catch (error) {
+    console.error("Error fetching blogs categories:", error);
+  }
+
   return (
     <>
       <div className="blog_category_filter_section py-8 md:py-14 lg:py-20">
         <div className="container mx-auto">
-          <div className="flex flex-col sm:flex-wrap sm:flex-row gap-5">
-            {blogsCategories.map((category) => (
-              <div className="border borderColor py-3 px-5 rounded-3xl cursor-pointer hover:border-primaryColor hover:text-primaryColor transition-[.5s]">{category.categoryName}</div>
-            ))}
+          <div className="">
+            <div className="flex justify-between overflow-hidden items-center mb-5 ">
+              <small>Search By Blogs Category:</small>
+              <BlogSearch />
+            </div>
+            <div className="flex flex-col sm:flex-wrap sm:flex-row gap-4">
+              {blogsCategories.map((category) => (
+                <BlogCategoryBtn category={category} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

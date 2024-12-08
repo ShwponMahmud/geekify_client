@@ -12,7 +12,7 @@ const HomeSliderShowcase: React.FC = () => {
             <TextSlider/>
           </div>
           <div>
-            <Slider />
+            {/* <Slider /> */}
           </div>
         </div>
       </div>

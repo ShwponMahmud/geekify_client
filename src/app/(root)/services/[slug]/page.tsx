@@ -19,8 +19,6 @@ interface Service {
 async function page({ params }: ServiceDetailsParams) {
   const { slug } = params;
 
-  // console.log(slug)
-
   let service: Service | null = null
 
   try {

@@ -9,7 +9,7 @@ function BlogShowcase() {
           <div className="common_showcase_section_content ">
             <div className="text-center text-white mt-56 ">
               <h1 className="title text-7xl font-bold ">
-                Browse our <span className="highlight_title">resources</span>
+                Our <span className="highlight_title">Blogs</span>
               </h1>
               <p className="mt-8 ">
                 One-stop solution for your IT needs, Order any service, anytime.
