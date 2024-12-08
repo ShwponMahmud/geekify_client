@@ -1,20 +1,18 @@
 import Image from "next/image";
-import React from "react";
-import blogBanner from "../../../../assets/images/why-choose-us-banner.jpg";
 
 interface Blog {
   id: number;
-  title: string;
+  title: string | any;
   slug: string;
   read_time: string;
   read_count: number;
   is_featured: string;
   status: string;
-  description: string | undefined;
+  description: string | any;
   created_at: string;
   updated_at: string;
   image: string;
-  thumbnail: string;
+  thumbnail: string | any;
   meta_data: string;
   blogCategory: {
     id: number;
@@ -43,17 +41,18 @@ const BlogDetailsView = async ({ blog }: BlogDetailsProps) => {
             , {blog?.created_at}
           </p>
 
-          <div className="blog_details_view_banner pt-10">
+          <div className="blog_details_view_banner w-[100%] h-[600px] overflow-hidden relative border rounded-lg mt-5">
             <Image
-              className="rounded-[10px]"
-              src={blogBanner}
-              alt="blog banner"
+              width={1450}
+              height={600}
+              src={blog?.thumbnail}
+              alt={blog?.title}
             />
           </div>
         </div>
 
         <div className="blog_detail_view_content text-deepGrayColor">
-          {/* dangerouslySetInnerHTML={{ __html: blog?.description ?? "",}} */}
+          <div dangerouslySetInnerHTML={{ __html: blog?.description }} />
         </div>
       </div>
     </>

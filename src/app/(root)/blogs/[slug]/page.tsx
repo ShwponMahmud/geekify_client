@@ -5,11 +5,6 @@ import ViewComments from "@/app/components/BlogDetailsPageComponents/ViewComment
 import { baseUrl } from "@/assets/baseUrl";
 
 
-
-interface blogParams {
-  params: { slug: string };
-}
-
 interface Blog {
   id: number;
   title: string;
@@ -32,9 +27,13 @@ interface Blog {
   };
 }
 
-const page = async ({ params }: blogParams) =>{
-  const { slug } = params;
+interface blogParams {
+  params: { slug: string | any };
+}
 
+
+const page = async ({ params }: blogParams) =>{
+  const {slug} = await params;
   let blog: Blog | null = null
 
   try {

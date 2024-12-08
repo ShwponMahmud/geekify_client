@@ -6,7 +6,6 @@ import TruncateText from "@/app/components/sharedComponents/TruncateText/Truncat
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import Link from "next/link";
 
-
 interface customerReview {
   id: number;
   rating: number;
@@ -25,12 +24,10 @@ interface customerReview {
   created_at: string;
 }
 
-
 interface StarRatingProps {
   rating: number;
   totalStars?: number;
 }
-
 
 const StarRating: React.FC<StarRatingProps> = ({ rating, totalStars = 5 }) => {
   const stars = [];
@@ -48,13 +45,11 @@ const StarRating: React.FC<StarRatingProps> = ({ rating, totalStars = 5 }) => {
   return <div style={{ display: "flex", gap: "4px" }}>{stars}</div>;
 };
 
-
 const CardFooter: React.FC<{ rating: number }> = ({ rating }) => (
   <div>
     <StarRating rating={rating} />
   </div>
 );
-
 
 async function CustomerSpeakForUs() {
   let customerReviews: customerReview[] = [];
@@ -109,8 +104,12 @@ async function CustomerSpeakForUs() {
                 </div>
 
                 <div className="customer_name_title">
-                  <h4 className="text-xl font-semibold">{customerReview?.user?.full_name}</h4>
-                  <p className="text-[14px] text-grayColor">{customerReview?.created_at}</p>
+                  <h4 className="text-xl font-semibold">
+                    {customerReview?.user?.full_name}
+                  </h4>
+                  <p className="text-[14px] text-grayColor">
+                    {customerReview?.created_at}
+                  </p>
                 </div>
                 <div className="customer_message">
                   {TruncateText(customerReview?.comment, 20)}

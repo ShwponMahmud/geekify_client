@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --primary_color:  #F76A2A;
+  --primary_color: #f76a2a;
   --dark_color: #011627;
   --dark_gray: #7e7e7e;
   --deep_dark_gray: #494949;
@@ -25,12 +25,22 @@ body {
   overflow-x: hidden;
 }
 
-.bookNowBtn{
+.bookNowBtn, .bookNowBtn1 {
+  background-color: var(--primary_color);
   border: 1px solid var(--primary_color);
-    padding: 10px 20px;
-    background-color: var(--primary_color);
-    color: white;
-    margin-top: 50px;
-    border-radius: 5px;
-    transition: all .5s;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 12px 40px;
+  margin-top: 25px;
+  transition: all .5s;
+}
+.bookNowBtn:hover {
+  background-color: transparent;
+  color: white;
+}
+.bookNowBtn1:hover {
+  background-color: transparent;
+  color: var(--primary_color);
 }
