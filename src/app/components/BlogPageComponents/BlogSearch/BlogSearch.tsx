@@ -10,18 +10,20 @@ type FormData = {
 };
 
 export default function BlogSearch() {
-  const dispatch = useAppDispatch()
   const [isHovered, setIsHovered] = useState(false);
+  const dispatch = useAppDispatch()
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    // dispatch(pickBlogCategoryByName(data?.search));
     const normalizedSearchQuery = data?.search?.trim().toLowerCase();
     dispatch(pickBlogCategoryByName(normalizedSearchQuery)); 
+
+    reset();
   };
 
   return (
