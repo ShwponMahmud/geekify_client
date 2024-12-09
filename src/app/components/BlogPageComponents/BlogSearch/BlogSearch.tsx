@@ -5,11 +5,17 @@ import { useState } from "react";
 export default function BlogSearch() {
   const [isHovered, setIsHovered] = useState(false);
 
+
+
   return (
-    <div className="flex items-center justify-end">
+    <div
+      className={`flex items-center justify-end ${
+        isHovered ? "w-[256px]" : "w-24"
+      }`}
+    >
       <div
         className={`flex items-center bg-white border-2 border-orange-500 rounded-full overflow-hidden transition-all duration-500 ${
-          isHovered ? "w-64" : "w-14 contents"
+          isHovered ? "w-64" : "w-24 contents"
         }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -23,7 +29,7 @@ export default function BlogSearch() {
         />
 
         <button
-          className={` bg-orange-500 w-16 h-12 flex justify-center items-center text-white rounded-full`}
+          className={` bg-orange-500 w-24 h-12 flex justify-center items-center text-white rounded-full`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
