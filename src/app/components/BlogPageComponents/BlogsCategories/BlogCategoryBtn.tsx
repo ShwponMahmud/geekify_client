@@ -1,14 +1,14 @@
 "use client";
 
 import { useAppDispatch } from "@/app/rtk-state/hooks";
-import { pickCategory } from "@/app/rtk-state/reducers/categorySlice";
+import { pickBlogCategoryBySlug } from "@/app/rtk-state/reducers/categorySlice";
 
 
 function BlogCategoryBtn({ category }: any) {
   const dispatch = useAppDispatch()
 
   const handlePickCategorySlug = (categorySlug: string) => {
-    dispatch(pickCategory(categorySlug))
+    dispatch(pickBlogCategoryBySlug(categorySlug))
   };
 
   return (

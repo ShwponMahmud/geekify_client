@@ -14,13 +14,16 @@ export const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    pickCategory: (state, action: PayloadAction<string>) => {
+    pickBlogCategoryBySlug: (state, action: PayloadAction<string>) => {
+      state.value = action.payload;
+    },
+    pickBlogCategoryByName: (state, action: PayloadAction<string>) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { pickCategory } = categorySlice.actions;
+export const { pickBlogCategoryBySlug, pickBlogCategoryByName } = categorySlice.actions;
 
 export const selectCategory = (state: RootState) => state.category.value;
 
