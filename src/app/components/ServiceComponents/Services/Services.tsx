@@ -22,6 +22,9 @@ const Services: React.FC<ServicesProps> = ({ services }) => {
       )
     : services;
 
+
+    console.log(services)
+
   return (
     <>
       <div className="container mx-auto pt-5 xl:pt-10 pb-8 md:pb-14 lg:pb-20 xl:pb-28">

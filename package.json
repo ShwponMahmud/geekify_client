@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "@react-google-maps/api": "^2.20.3",
     "@reduxjs/toolkit": "^2.4.0",
     "next": "15.0.3",
     "rating-star": "^1.1.0",
