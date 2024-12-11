@@ -3,7 +3,7 @@
 import { useAppDispatch } from "@/app/rtk-state/hooks";
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { pickBlogCategoryByName } from "@/app/rtk-state/reducers/categorySlice";
+import { pickBlogCategoryByName } from "@/app/rtk-state/reducers/blogCategorySlice";
 
 type FormData = {
   search: string;

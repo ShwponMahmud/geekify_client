@@ -1,9 +1,39 @@
-import React from "react";
+"use client"
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
+import { SubmitUserInfo } from "@/app/rtk-state/reducers/userSlice";
 
 export default function UserInfoSubmit() {
+  const dispatch = useAppDispatch();
+  const users = useAppSelector((state) => state?.users);
+
+  const [userInfoFormData, setUserInfoFormData] = useState({
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    email: "",
+  });
+
+
+
+  // user info form data handler...
+  const handleUserInfoChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = event.target;
+    setUserInfoFormData({ ...userInfoFormData, [name]: value });
+  };
+
+  // user info submit handler.....
+  const userInfoSubmitHandler = (e: any) => {
+    e.preventDefault();
+    dispatch(SubmitUserInfo(userInfoFormData)).unwrap();
+  }
+
+  
   return (
     <>
-      <form className="space-y-4">
+      <form className="">
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label
@@ -13,6 +43,8 @@ export default function UserInfoSubmit() {
               First Name
             </label>
             <input
+              onChange={handleUserInfoChange}
+              name="first_name"
               type="text"
               id="firstName"
               placeholder="Your first name"
@@ -27,6 +59,8 @@ export default function UserInfoSubmit() {
               Last Name
             </label>
             <input
+              onChange={handleUserInfoChange}
+              name="last_name"
               type="text"
               id="lastName"
               placeholder="Your last name"
@@ -35,7 +69,7 @@ export default function UserInfoSubmit() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 mt-4">
           <div>
             <label
               htmlFor="phoneNumber"
@@ -44,6 +78,8 @@ export default function UserInfoSubmit() {
               Phone Number
             </label>
             <input
+              onChange={handleUserInfoChange}
+              name="phone_number"
               type="text"
               id="phoneNumber"
               placeholder="Your phone number"
@@ -59,6 +95,8 @@ export default function UserInfoSubmit() {
               Email Address
             </label>
             <input
+              onChange={handleUserInfoChange}
+              name="email"
               type="email"
               id="email"
               placeholder="Your email"

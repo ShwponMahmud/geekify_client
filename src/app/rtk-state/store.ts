@@ -1,13 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
-import categoryReducer from './reducers/categorySlice'
+import categoryReducer from './reducers/blogCategorySlice'
 import serviceReducer from './reducers/serviceSlice'
-import userReducer from './reducers/contactSlice'
+import userReducer from './reducers/userSlice'
+import addressReducer from './reducers/addressSlice'
+import contactsReducer from './reducers/contactsSlice'
 
 export const store = configureStore({
   reducer: {
     category: categoryReducer,
     services: serviceReducer,
-    users: userReducer
+    users: userReducer,
+    addresses:addressReducer,
+    contacts: contactsReducer
   },
 })
 
