@@ -35,10 +35,14 @@ interface BlogViewProps {
 
 export default function BlogView({ blogs }: BlogViewProps) {
   const categorySlug = useAppSelector((state) => state.category.value);
-
   const filteredBlogs = categorySlug
-    ? blogs.filter((blog) => blog?.blogCategory?.slug == categorySlug)
-    : blogs;
+  ? blogs.filter((blog) => 
+      blog?.blogCategory?.slug === categorySlug || 
+      blog?.blogCategory?.name?.toLocaleLowerCase().includes(categorySlug)
+    )
+  : blogs;
+
+  // const filteredBlogs = categorySlug ? blogs.filter((blog) => blog?.blogCategory?.slug || blog?.blogCategory?.name == categorySlug) : blogs;
 
   // const blogsToDisplay = filteredBlogs.length > 0 ? filteredBlogs : blogs;
 

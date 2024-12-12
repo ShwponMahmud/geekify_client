@@ -2,6 +2,12 @@ import { Metadata } from "next";
 import Head from "next/head";
 import Navbar from "../components/sharedComponents/Navbar/Navbar";
 import Footer from "../components/sharedComponents/Footer/Footer";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"], 
+});
 
 export const metadata: Metadata = {
   title: "Geekify",
@@ -20,7 +26,7 @@ export default function layout({children,}: Readonly<{children: React.ReactNode;
           type="image/x-icon"
         />
       </Head>
-      <body>
+      <body className={montserrat.className}>
         <Navbar />
         {children}
         <Footer/>
