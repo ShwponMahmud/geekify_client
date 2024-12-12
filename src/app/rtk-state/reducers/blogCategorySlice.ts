@@ -25,6 +25,6 @@ export const categorySlice = createSlice({
 
 export const { pickBlogCategoryBySlug, pickBlogCategoryByName } = categorySlice.actions;
 
-export const selectCategory = (state: RootState) => state.category.value;
+export const selectCategory = (state: RootState) => state.blogCategory.value;
 
 export default categorySlice.reducer;

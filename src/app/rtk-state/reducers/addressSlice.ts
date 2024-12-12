@@ -47,7 +47,7 @@ const initialState: AddressState = {
 
 // Async thunk for fetching address info submit
 export const SubmitAddressInfo = createAsyncThunk(
-  "userInfoSubmit",
+  "addressInfoSubmit",
   async (formData: AddressFormData) => {
     const response = await fetch(`${baseUrl}/addresses`, {
       method: "POST",
@@ -89,6 +89,7 @@ export const addressSlice = createSlice({
       )
       .addCase(SubmitAddressInfo.rejected, (state, action) => {
         state.isLoading = false;
+        state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
       })
   },

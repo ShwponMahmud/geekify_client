@@ -58,7 +58,7 @@ const OurPopularServices = async () => {
 
           <div className="our_popular_service_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8 lg:mt-20">
             {services?.map((service) => (
-              <div className="our_service_content_card text-center">
+              <div className="our_service_content_card text-center" key={service.id}>
                 <div>
                   <div className="icon mb-5 justify-items-center">
                     <Image

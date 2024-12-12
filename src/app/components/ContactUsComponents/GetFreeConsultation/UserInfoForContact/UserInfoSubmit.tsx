@@ -1,11 +1,10 @@
 "use client"
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
-import { SubmitUserInfo } from "@/app/rtk-state/reducers/userSlice";
+import { SubmitUserInfo } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
 
 export default function UserInfoSubmit() {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state?.users);
 
   const [userInfoFormData, setUserInfoFormData] = useState({
     first_name: "",

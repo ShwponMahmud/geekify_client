@@ -31,7 +31,7 @@ const initialState: ContactsState = {
 
 // Async thunk for fetching address info submit
 export const SubmitContactsInfo = createAsyncThunk(
-  "userInfoSubmit",
+  "contactInfoSubmit",
   async (formData: ContactsFormData) => {
     const response = await fetch(`${baseUrl}/contacts`, {
       method: "POST",
@@ -54,7 +54,7 @@ export const SubmitContactsInfo = createAsyncThunk(
 
 
 export const contactsSlice = createSlice({
-  name: "user",
+  name: "contacts",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -73,6 +73,7 @@ export const contactsSlice = createSlice({
       )
       .addCase(SubmitContactsInfo.rejected, (state, action) => {
         state.isLoading = false;
+        state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
       })
   },
