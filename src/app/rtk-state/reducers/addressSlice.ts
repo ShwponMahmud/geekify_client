@@ -4,23 +4,23 @@ import { RootState } from "../store";
 import { baseUrl } from "@/assets/baseUrl";
 
 
-export interface AddressData {
-  id: number;
-  subpremise: null;
-  street: string;
-  suburb: string;
-  state: string;
-  post_code: string;
-  country: string;
-  user: null;
-  admin: null;
-  employee: null;
-  labUser: null;
-  customer: null;
-  warehouse: null;
-  business: null;
-  vendor: null
-}
+// export interface AddressData {
+//   id: number;
+//   subpremise: null;
+//   street: string;
+//   suburb: string;
+//   state: string;
+//   post_code: string;
+//   country: string;
+//   user: null;
+//   admin: null;
+//   employee: null;
+//   labUser: null;
+//   customer: null;
+//   warehouse: null;
+//   business: null;
+//   vendor: null
+// }
 
 export interface AddressFormData {
   street: string;
@@ -34,7 +34,7 @@ export interface AddressState {
   isLoading: boolean;
   status: string;
   error: string | null;
-  address: AddressData[];
+  address: any[];
 }
 
 const initialState: AddressState = {
@@ -64,7 +64,8 @@ export const SubmitAddressInfo = createAsyncThunk(
       throw new Error("Failed to submit address info");
     }
 
-    return response.json();
+    const data = await response.json();
+    return data.data;
   }
 );
 
@@ -84,7 +85,8 @@ export const addressSlice = createSlice({
         (state, action: PayloadAction<Array<any>>) => {
           state.isLoading = false;
           state.status = "success";
-          state.address = action.payload;
+          // state.address.push(action.payload)
+          state.address = [action.payload];
         }
       )
       .addCase(SubmitAddressInfo.rejected, (state, action) => {

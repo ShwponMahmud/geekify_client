@@ -1,7 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import GetUser from "./UserInfoForContact/GetUser";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { SubmitContactsInfo } from "@/app/rtk-state/reducers/contactsSlice";
 import { FormEvent, useRef, useState } from "react";
 import {
@@ -13,7 +12,8 @@ import {
 import { SubmitAddressInfo } from "@/app/rtk-state/reducers/addressSlice";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import { SubmitUserInfo } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 const libraries: "places"[] = ["places"];
 
 // type FormValues = {
@@ -90,11 +90,23 @@ function GetFreeConsultation() {
     email: "",
   });
 
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [formData, setFormData] = useState({
     request_for: "",
     date_time: "",
     message: "",
   });
+
+  const handleDateTimeChange = (date: Date | null) => {
+    setSelectedDate(date);
+
+    if (date) {
+      setFormData((prevData) => ({
+        ...prevData,
+        date_time: date.toISOString(),
+      }));
+    }
+  };
 
   // user info form data handler...
   const handleUserInfoChange = (
@@ -204,7 +216,7 @@ function GetFreeConsultation() {
       state: matchState?.short_name,
     };
 
-    dispatch(SubmitAddressInfo(AddressInfoForSubmit)).unwrap();
+    dispatch(SubmitAddressInfo(AddressInfoForSubmit));
   };
 
   // contact form submit methods.......
@@ -217,32 +229,34 @@ function GetFreeConsultation() {
     });
   };
 
-  const contactSubmitData = {
-    ...formData,
-    // user_id: userId,
-    // address_id: addressId,
-  };
-
-
   const ContactsSubmit = async (e: any) => {
     e.preventDefault();
-    // const userInfo = userInfoAfterSubmit;
-    // const address = addressInfo;
 
-    // console.log(userInfoAfterSubmit?.userInfo?[0])
+    const userId = userInfoAfterSubmit?.userInfo[0]?.id;
+    const addressId = addressInfo?.address[0]?.id;
+
+    const contactSubmitData = {
+      ...formData,
+      user_id: userId,
+      address_id: addressId,
+    };
+
+    dispatch(SubmitContactsInfo(contactSubmitData));
   };
 
+
+ 
   return (
     <>
       <div className="get_free_consultation_section">
         <h2 className="text-3xl font-bold text-primaryColor mb-5 text-center md:text-left">
-          Service Request 
+          Service Request
         </h2>
         <p className="text-deepGrayColor mb-5 text-center md:text-left">
           Please enter your details and one of our team members will get back to
           you as soon as possible!
         </p>
-<p>{addressInfo?.address[0]?.street}</p>
+
         <div className="get_consultation_form border rounded-[10px] mt-10 py-5 lg:py-12 px-5 lg:px-10 hover:shadow-hoverBoxShadow transition-[.5s]">
           {users.status === "" ? (
             <div className="user_request_form_container">
@@ -471,78 +485,6 @@ function GetFreeConsultation() {
                 </div>
               </div>
               <div className="service_request_date_message_submit_form_container mt-5">
-                {/* <form className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        htmlFor="requestFor"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Request For
-                      </label>
-                      <select
-                        id="requestFor"
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
-                      >
-                        <option>Select a Request</option>
-                        <option value="" disabled>
-                          Select option
-                        </option>
-                        <option value="call">Let us call you</option>
-                        <option value="email">Let us reply via email</option>
-                        <option value="advice">You got some advise</option>
-                        <option value="complaints">Disputes/Complaints</option>
-                        <option value="free-hosting">
-                          One year free hosting
-                        </option>
-                        <option value="smart-home">
-                          Query about Smart Home Solutions
-                        </option>
-                        <option value="quotation">
-                          Request for a Quotation
-                        </option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="time"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        When do you need this done?
-                      </label>
-                      <input
-                        type="date"
-                        id="time"
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      placeholder="Write your message"
-                      rows={4}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
-                    ></textarea>
-                  </div>
-
-                  <button
-                    onClick={AddressInfoSubmitHandler}
-                    type="submit"
-                    className="w-full bg-orange-600 text-white py-2 px-4 rounded-md shadow hover:bg-orange-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
-                  >
-                    Send Request
-                  </button>
-                </form> */}
-
                 <form className="space-y-4" onSubmit={ContactsSubmit}>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -577,11 +519,22 @@ function GetFreeConsultation() {
                       >
                         When do you need this done?
                       </label>
-                      <input
+                      {/* <input
                         type="date"
                         id="date_time"
                         name="date_time"
                         onChange={handleContactFormInputChange}
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
+                      /> */}
+                      <DatePicker
+                        selected={selectedDate}
+                        onChange={handleDateTimeChange}
+                        showTimeSelect
+                        timeIntervals={1}
+                        dateFormat="d MMMM yyyy, h:mm:ss"
+                        placeholderText="Select date and time"
+                        isClearable
+                        customInput={<input type="text" />}
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
                       />
                     </div>
@@ -612,20 +565,8 @@ function GetFreeConsultation() {
                   </button>
                 </form>
               </div>
-              {/* <button
-                type="submit"
-                onClick={userInfoSubmitHandler}
-                className="w-full bg-orange-600 text-white py-2 px-4 rounded-md shadow hover:bg-orange-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
-              >
-                Send Request
-              </button>
-              <button
-                type="submit"
-                onClick={AddressInfoSubmitHandler}
-                className="w-full bg-orange-600 text-white py-2 px-4 rounded-md shadow hover:bg-orange-700 focus:ring-2 focus:ring-orange-500 focus:outline-none"
-              >
-                Send Request
-              </button> */}
+
+              
             </div>
           )}
         </div>

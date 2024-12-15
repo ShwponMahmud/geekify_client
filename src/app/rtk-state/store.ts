@@ -6,6 +6,7 @@ import SubmitUserInfoReducer from './reducers/userInfoSubmitSlice'
 import addressReducer from './reducers/addressSlice'
 import contactsReducer from './reducers/contactsSlice'
 // import { getDefaultMiddleware } from '@reduxjs/toolkit';
+import testReducer from "./reducers/bookingSlice"
 
 const saveStateToLocalStorage = (state: RootState) => {
   try {
@@ -31,6 +32,7 @@ const loadStateFromLocalStorage = () => {
       userInfoAfterSubmit: parsedState.userInfoAfterSubmit || undefined,
       addresses: parsedState.addresses || undefined,
       contacts: parsedState.contacts || undefined,
+      tests: parsedState.tests || undefined,
     };
   } catch (e) {
     console.error('Error loading state from localStorage:', e);
@@ -48,7 +50,8 @@ export const store = configureStore({
     users: userReducer,
     userInfoAfterSubmit: SubmitUserInfoReducer,
     addresses:addressReducer,
-    contacts: contactsReducer
+    contacts: contactsReducer,
+    tests: testReducer,
   },
   preloadedState,
   

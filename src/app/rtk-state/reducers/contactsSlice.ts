@@ -48,7 +48,8 @@ export const SubmitContactsInfo = createAsyncThunk(
       throw new Error("Failed to submit contacts info");
     }
 
-    return response.json();
+    const data = await response.json();
+    return data.data;
   }
 );
 
@@ -68,7 +69,7 @@ export const contactsSlice = createSlice({
         (state, action: PayloadAction<Array<any>>) => {
           state.isLoading = false;
           state.status = "success";
-          state.contacts = action.payload;
+          state.contacts = [action.payload];
         }
       )
       .addCase(SubmitContactsInfo.rejected, (state, action) => {

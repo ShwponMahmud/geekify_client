@@ -1,45 +1,50 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface ServiceState {
+// export interface testData {
+//   id: string,
+   
+// }
+export interface testState {
   isLoading: boolean,
   error: any,
-  services: [],
+  test: any[],
 }
 
-const initialState: ServiceState = {
+const initialState: testState = {
   isLoading: false,
   error: null,
-  services: [],
+  test: [],
 };
 
 
-export const getServices = createAsyncThunk("services", async () => {
+export const getTest = createAsyncThunk("tests", async () => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+  
   return response.json();
 });
 
 
-export const serviceSlice = createSlice({
-  name: "counter",
+export const testSlice = createSlice({
+  name: "test",
   initialState,
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(getServices.pending, (state) => {
+    builder.addCase(getTest.pending, (state) => {
        state.isLoading = true;
        state.error = null;
     });
-    builder.addCase(getServices.fulfilled, (state, action) => {
+    builder.addCase(getTest.fulfilled, (state, action) => {
        state.isLoading = false;
-       state.services = action.payload; 
+       state.test = action.payload; 
     });
-    builder.addCase(getServices.rejected, (state, action) => {
+    builder.addCase(getTest.rejected, (state, action) => {
        state.isLoading = false;
        state.error = action.error.message; 
     });
   },
 });
 
-export const {} = serviceSlice.actions;
+export const {} = testSlice.actions;
 
-export default serviceSlice.reducer;
+export default testSlice.reducer;

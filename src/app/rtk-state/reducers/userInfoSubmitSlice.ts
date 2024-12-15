@@ -10,25 +10,25 @@ export interface UserInfoFormData {
   email: string;
 }
 
-export interface userData {
-  id: number;
-  first_name: string;
-  last_name: string;
-  full_name: string;
-  email: string;
-  phone_number: null;
-  date_of_birth: string;
-  avatar: string;
-  thumbnail: string;
-  customer: null;
-  orders: [];
-}
+// export interface userData {
+//   id: number;
+//   first_name: string;
+//   last_name: string;
+//   full_name: string;
+//   email: string;
+//   phone_number: null;
+//   date_of_birth: string;
+//   avatar: string;
+//   thumbnail: string;
+//   customer: null;
+//   orders: [];
+// }
 
 export interface UserInfoState {
   isLoading: boolean;
   status: string;
   error: string | null;
-  userInfo: userData[];
+  userInfo: any[];
 }
 
 const initialState: UserInfoState = {
@@ -55,7 +55,8 @@ export const SubmitUserInfo = createAsyncThunk(
       throw new Error("Failed to submit users info");
     }
 
-    return response.json();
+    const data = await response.json();
+    return data.data;
   }
 );
 
@@ -74,7 +75,7 @@ export const userInfoSubmitSlice = createSlice({
         (state, action: PayloadAction<Array<any>>) => {
           state.isLoading = false;
           state.status = "success";
-          state.userInfo = action.payload;
+          state.userInfo = [action.payload];
         }
       )
       .addCase(SubmitUserInfo.rejected, (state, action) => {

@@ -7,25 +7,25 @@ export interface CustomFormData {
   email: string;
 }
 
-export interface userData {
-  id: number;
-  first_name: string;
-  last_name: string;
-  full_name: string;
-  email: string;
-  phone_number: null;
-  date_of_birth: string;
-  avatar: string;
-  thumbnail: string;
-  customer: null;
-  orders: [];
-}
+// export interface userData {
+//   id: number;
+//   first_name: string;
+//   last_name: string;
+//   full_name: string;
+//   email: string;
+//   phone_number: null;
+//   date_of_birth: string;
+//   avatar: string;
+//   thumbnail: string;
+//   customer: null;
+//   orders: [];
+// }
 
 export interface UserState {
   isLoading: boolean;
   status: string;
   error: string | null;
-  user: userData[];
+  user: any[];
 }
 
 const initialState: UserState = {
@@ -55,7 +55,8 @@ export const getUser = createAsyncThunk(
       throw new Error("Failed to fetch users");
     }
 
-    return response.json();
+    const data = await response.json();
+    return data.data;
   }
 );
 
@@ -76,7 +77,7 @@ export const userSlice = createSlice({
         (state, action: PayloadAction<Array<any>>) => {
           state.isLoading = false;
           state.status = "success";
-          state.user = action.payload;
+          state.user = [action.payload];
         }
       )
       .addCase(getUser.rejected, (state, action) => {
