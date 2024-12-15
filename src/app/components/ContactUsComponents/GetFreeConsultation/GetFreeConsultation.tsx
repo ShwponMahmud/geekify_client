@@ -512,7 +512,7 @@ function GetFreeConsultation() {
                       </select>
                     </div>
 
-                    <div>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
                       <label
                         htmlFor="time"
                         className="block text-sm font-medium text-gray-700"
@@ -531,11 +531,11 @@ function GetFreeConsultation() {
                         onChange={handleDateTimeChange}
                         showTimeSelect
                         timeIntervals={1}
-                        dateFormat="d MMMM yyyy, h:mm:ss"
+                        dateFormat="YYYY-MM-DD HH:mm:ss"
                         placeholderText="Select date and time"
                         isClearable
                         customInput={<input type="text" />}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
+                        className="w-[100%] mt-1 block border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
                       />
                     </div>
                   </div>
