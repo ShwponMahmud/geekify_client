@@ -14,6 +14,7 @@ import { BsFillInfoCircleFill } from "react-icons/bs";
 import { SubmitUserInfo } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 const libraries: "places"[] = ["places"];
 
 // type FormValues = {
@@ -258,13 +259,13 @@ function GetFreeConsultation() {
         </p>
 
         <div className="get_consultation_form border rounded-[10px] mt-10 py-5 lg:py-12 px-5 lg:px-10 hover:shadow-hoverBoxShadow transition-[.5s]">
-          {users.status === "" ? (
+          {users.status === "" || users.status === "failed" ? (
             <div className="user_request_form_container">
               <GetUser />
             </div>
           ) : (
             <div className="contact_submit_forms_container">
-              <div className="user_details_submit_form_container">
+              {!users?.user[0]?.id &&<div className="user_details_submit_form_container">
                 <form className="">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -337,8 +338,8 @@ function GetFreeConsultation() {
                     </div>
                   </div>
                 </form>
-              </div>
-              <div className="address_info_get_modify_submit_container">
+              </div>}
+              {!users?.user[0]?.id &&<div className="address_info_get_modify_submit_container">
                 <div className=" mt-4">
                   <form action="">
                     <div className="">
@@ -483,8 +484,9 @@ function GetFreeConsultation() {
                     </div>
                   )}
                 </div>
-              </div>
-              <div className="service_request_date_message_submit_form_container mt-5">
+              </div>}
+
+              {users?.user[0]?.id &&<div className="service_request_date_message_submit_form_container mt-5">
                 <form className="space-y-4" onSubmit={ContactsSubmit}>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
@@ -564,7 +566,7 @@ function GetFreeConsultation() {
                     Send Request
                   </button>
                 </form>
-              </div>
+              </div>}
 
               
             </div>

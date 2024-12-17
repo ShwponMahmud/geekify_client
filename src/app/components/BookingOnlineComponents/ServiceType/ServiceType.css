@@ -64,7 +64,7 @@
 .toggle-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .switch {
@@ -127,8 +127,8 @@ input:checked + .slider:before {
 .parking-button {
   flex: 1;
   margin: 0 5px;
-  padding: 5px 10px;
-  border: 2px solid #ff6d00;
+  padding:  10px;
+  border: 1px solid #ff6d00;
   border-radius: 5px;
   background-color: #fff;
   color: #ff6d00;
