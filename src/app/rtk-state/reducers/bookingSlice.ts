@@ -3,14 +3,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface otpFormData {
-  username: string | undefined,
-  preferred_channel: string
-
+  username: string | undefined;
+  preferred_channel: string;
 }
 export interface otpData {
-  username: string | undefined,
-  code: string
-
+  username: string | undefined;
+  code: string;
 }
 export interface BookingState {
   isLoading: boolean;
@@ -20,7 +18,11 @@ export interface BookingState {
   otpReqData: any[];
   otpVerifySuccess: string;
   otpVerifyData: any[];
-  booking: any[];
+  serviceType: string;
+  serviceAddress: any[];
+  billingAddress: any[];
+  parkingOption: string | null;
+  serviceSelectAndQuestions: string
 }
 
 const initialState: BookingState = {
@@ -31,40 +33,46 @@ const initialState: BookingState = {
   otpReqData: [],
   otpVerifySuccess: "",
   otpVerifyData: [],
-  booking: [],
+  serviceType: "",
+  serviceAddress: [],
+  billingAddress: [],
+  parkingOption: "",
+  serviceSelectAndQuestions: ""
 };
 
-export const getOTP = createAsyncThunk("otpReqByEmailOrPhone", async (formData: otpFormData) => {
-  const response = await fetch(`${baseUrl}/otp`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Client-Secret": "secret",
-    },
-    body: JSON.stringify(
-      formData,
-    ),
-  });
+export const getOTP = createAsyncThunk(
+  "otpReqByEmailOrPhone",
+  async (formData: otpFormData) => {
+    const response = await fetch(`${baseUrl}/otp`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
 
-  const data = await response.json();
-  return data.data;
-});
+    const data = await response.json();
+    return data.data;
+  }
+);
 
-export const submitOTP = createAsyncThunk("otpSubmitForVerify", async (formData: otpData) => {
-  const response = await fetch(`${baseUrl}/otp/verify`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Client-Secret": "secret",
-    },
-    body: JSON.stringify(
-      formData,
-    ),
-  });
+export const submitOTP = createAsyncThunk(
+  "otpSubmitForVerify",
+  async (formData: otpData) => {
+    const response = await fetch(`${baseUrl}/otp/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
 
-  const data = await response.json();
-  return data.data;
-});
+    const data = await response.json();
+    return data.data;
+  }
+);
 
 export const bookingSlice = createSlice({
   name: "booking",
@@ -72,6 +80,23 @@ export const bookingSlice = createSlice({
   reducers: {
     startBooking: (state, action: PayloadAction<string>) => {
       state.bookingStart = action.payload;
+    },
+    serviceTypeSelect: (state, action: PayloadAction<string>) => {
+      state.serviceType = action.payload;
+      state.otpVerifySuccess = "";
+    },
+    serviceAddressSelect: (state, action: PayloadAction<any>) => {
+      state.serviceAddress = [action.payload];
+      
+    },
+    billingAddressSelect: (state, action: PayloadAction<any[]>) => {
+      state.billingAddress = [action.payload];
+    },
+    parkingOptionSelect: (state, action: PayloadAction<string | null>) => {
+      state.parkingOption = action.payload;
+    },
+    serviceSelectAndQuestions: (state, action: PayloadAction<string>) => {
+      state.serviceSelectAndQuestions = action.payload;
     },
   },
   extraReducers(builder) {
@@ -81,7 +106,7 @@ export const bookingSlice = createSlice({
     });
     builder.addCase(getOTP.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.otpReqSuccess = "success"
+      state.otpReqSuccess = "success";
       state.otpReqData = [action.payload];
     });
     builder.addCase(getOTP.rejected, (state, action) => {
@@ -96,16 +121,15 @@ export const bookingSlice = createSlice({
       state.isLoading = false;
       state.otpVerifySuccess = "success";
       state.otpVerifyData = [action.payload];
-      state.bookingStart = "progress"
+      state.bookingStart = "progress";
     });
     builder.addCase(submitOTP.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });
-    
   },
 });
 
-export const { startBooking } = bookingSlice.actions;
+export const { startBooking, serviceTypeSelect, serviceAddressSelect, billingAddressSelect, parkingOptionSelect, serviceSelectAndQuestions } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

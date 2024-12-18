@@ -20,8 +20,8 @@ function page() {
         {bookingInfo?.bookingStart === "" && <BookingOnlineWelcome />}
         {bookingInfo?.bookingStart === "start" && <EnterPhoneSendCode />}
         {bookingInfo?.otpVerifySuccess === "success" &&<ServiceType />}
-        {/* <ServiceForm /> */}
-        {/* <ChooseDateTime /> */}
+        {bookingInfo?.serviceType === "Onsite" && <ServiceForm />}
+        {/* {bookingInfo.serviceSelectAndQuestions === "next" && <ChooseDateTime />} */}
         {/* <ContactInformation /> */}
         {/* <ServiceBookingSummery /> */}
         {/* <PaymentDetails /> */}

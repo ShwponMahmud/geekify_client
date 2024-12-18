@@ -7,13 +7,20 @@ import {
   GoogleMap,
   useLoadScript,
 } from "@react-google-maps/api";
+import {
+  billingAddressSelect,
+  serviceAddressSelect,
+} from "@/app/rtk-state/reducers/bookingSlice";
+import { useAppDispatch } from "@/app/rtk-state/hooks";
 
 const libraries: "places"[] = ["places"];
+
 type AddressComponents = {
   street: string;
   suburb: string;
-  state: string | any;
+  state: string | undefined;
   post_code: string;
+  subpremise: string;
   country: string;
 };
 
@@ -64,6 +71,7 @@ const defaultAustralianStates = [
 ];
 
 export default function AddressEditAddModal() {
+  const dispatch = useAppDispatch();
   // Get Address Methods by google map...............
   const [address, setAddress] = useState<string>("");
   const [suggestions, setSuggestions] = useState<
@@ -76,6 +84,7 @@ export default function AddressEditAddModal() {
       suburb: "",
       state: "",
       post_code: "",
+      subpremise: "",
       country: "",
     }
   );
@@ -108,6 +117,7 @@ export default function AddressEditAddModal() {
       suburb: "",
       state: "",
       post_code: "",
+      subpremise: "",
       country: "",
     };
 
@@ -141,6 +151,26 @@ export default function AddressEditAddModal() {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedState(event.target.value);
+  };
+
+  const AddressInfo = {
+    ...addressComponents,
+    state: selectedState ? selectedState : addressComponents.state,
+  };
+
+  const matchState = defaultAustralianStates.find(
+    (i) => i.name == AddressInfo.state
+  );
+
+  const AddressInfoForSubmit = {
+    ...addressComponents,
+    state: matchState?.short_name,
+  };
+
+  const SaveAddress = () => {
+    dispatch(serviceAddressSelect(AddressInfoForSubmit));
+
+    console.log(AddressInfoForSubmit);
   };
 
   return (
@@ -230,7 +260,7 @@ export default function AddressEditAddModal() {
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label
                     htmlFor="state"
@@ -273,7 +303,7 @@ export default function AddressEditAddModal() {
                   <input
                     type="text"
                     id="zipcode"
-                    placeholder="3065"
+                    placeholder="Zip code"
                     value={addressComponents.post_code}
                     onChange={(e) =>
                       setAddressComponents({
@@ -284,10 +314,39 @@ export default function AddressEditAddModal() {
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
                   />
                 </div>
+                <div>
+                  <label
+                    htmlFor="zipcode"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Flat/Unit
+                  </label>
+                  <input
+                    type="text"
+                    id="flatUnit"
+                    placeholder="Flat/Unit"
+                    value={addressComponents.subpremise}
+                    onChange={(e) =>
+                      setAddressComponents({
+                        ...addressComponents,
+                        subpremise: e.target.value,
+                      })
+                    }
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
+                  />
+                </div>
               </div>
             </form>
           </div>
         )}
+        <div className="mt-4">
+          <Button
+            className="inline-flex items-center gap-2 rounded-md bg-primaryColor py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+            onClick={SaveAddress}
+          >
+            Save
+          </Button>
+        </div>
       </div>
     </>
   );

@@ -18,7 +18,7 @@ const EnterPhoneSendCode: React.FC = () => {
   const [otpCode, setOtpCode] = useState<string>("");
   const dispatch = useAppDispatch();
   const bookingInfo = useAppSelector((state) => state?.booking);
-  const [minutes, setMinutes] = useState(5);
+  const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
   const handleCheckboxChange = (value: string) => {
@@ -56,6 +56,7 @@ const EnterPhoneSendCode: React.FC = () => {
   // otp timer function....................
   useEffect(() => {
     if (bookingInfo.otpReqSuccess === "success") {
+      setMinutes(0);
       const interval = setTimeout(() => {
         if (seconds > 0) {
           setSeconds(seconds - 1);
@@ -178,7 +179,7 @@ const EnterPhoneSendCode: React.FC = () => {
                       {seconds > 0 || minutes > 0 ? null : (
                         <span
                           onClick={resendOtpHandler}
-                          className="resendOtpBtn bg-primaryColor text-white text-[14px] rounded-md py-[3px] px-[5px] text-primaryColor"
+                          className="resendOtpBtn bg-primaryColor cursor-pointer text-white text-[14px] rounded-md py-[3px] px-[5px] text-primaryColor"
                         >
                           Resend OTP
                         </span>
