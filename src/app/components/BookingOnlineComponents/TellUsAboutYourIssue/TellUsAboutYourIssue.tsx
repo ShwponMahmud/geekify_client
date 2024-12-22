@@ -2,22 +2,118 @@
 
 import React, { useState } from "react";
 import "./ServiceForm.css";
-import { serviceSelectAndQuestions } from "@/app/rtk-state/reducers/bookingSlice";
+import {
+  currentInternetProvider,
+  descriptionNote,
+  doYouKnowPasswordForIt,
+  existingAntivirusName,
+  haveExistingAntivirus,
+  haveExistingNetwork,
+  necessaryCables,
+  needRouters,
+  operatingSystem,
+  otherInternetProvider,
+  otpVerifySuccessReStore,
+  serviceAddressParkingSubmitAfterNextStep,
+  serviceName,
+  serviceQuestionInfoNextStep,
+  whatIsYourEmailAddress,
+  whatTypeOfPhoneIsIt,
+  whereIsData,
+  whereIsDataBackedUpOn,
+} from "@/app/rtk-state/reducers/bookingSlice";
 import { useAppDispatch } from "@/app/rtk-state/hooks";
 
 const ServiceForm: React.FC = () => {
   const [selectedService, setSelectedService] = useState("");
   const [selectedPlatform, setSelectedPlatform] = useState("");
   const [issueDescription, setIssueDescription] = useState("");
-  const dispatch = useAppDispatch()
+  const [necessaryCablesSelect, setNecessaryCables] = useState("");
+  const [whereDataBackedUp, setWhereDataBackedUpOn] = useState("");
+  const [whereIsTheData, setWhereIsTheData] = useState("");
+  const [haveExistingAntivirusSelect, setHaveExistingAntivirus] = useState("");
+  const [antivirusName, setAntivirusName] = useState("");
+  const [whatTypeOfPhoneIsItSelect, setWhatTypeOfPhoneIsItSelect] = useState("");
+  const [haveExistingNetworkSelect, setHaveExistingNetworkSelect] = useState("");
+  const [currentInternetProviderSelect, setCurrentInternetProviderSelect] = useState("");
+  const [otherInternetProviderSelect, setOtherInternetProviderSelect] = useState("");
+  const [needRoutersSelect, setNeedRoutersSelect] = useState("");
+  const [whatsYourEmailAddress, setWhatIsYourEmailAddress] = useState("");
+  const [doYouKnowPasswordForItSelect, setDoYouKnowPasswordForItSelect] = useState("");
 
-  // const questionsHandler = () => {
-  if (selectedService == "Computer- installation configuring and fixing") {
-  }
-  // }
+  const dispatch = useAppDispatch();
+
+ 
+
+  const ServiceName: any = {
+    service_name: selectedService,
+  };
+  const platform: any = {
+    platform: selectedPlatform,
+  };
+  const note: any = {
+    note: issueDescription,
+  };
+  const NecessaryCables: any = {
+    have_necessary_cables: necessaryCablesSelect,
+  };
+  const WhereIsDataBackedUpOn: any = {
+    where_is_data_backed_up_on: whereDataBackedUp,
+  };
+  const WhereIsData: any = {
+    where_is_the_data: whereIsTheData,
+  };
+  const HaveExistingAntivirus: any = {
+    have_existing_antivirus: haveExistingAntivirusSelect,
+  };
+  const AntivirusName: any = {
+    antivirus_Name: antivirusName,
+  };
+  const WhatTypeOfPhoneIsIt: any = {
+    what_type_of_phone_is_it: whatTypeOfPhoneIsItSelect,
+  };
+  const HaveExistingNetworkSelect: any = {
+    have_existing_network: haveExistingNetworkSelect,
+  };
+  const CurrentInternetProviderSelect: any = {
+    current_internet_provider: currentInternetProviderSelect,
+  };
+  const OtherInternetProviderSelect: any = {
+    other_internet_provider: otherInternetProviderSelect,
+  };
+  const NeedRoutersSelect: any = {
+    need_routers: needRoutersSelect,
+  };
+  const WhatIsYourEmailAddress: any = {
+    what_is_your_email_address: whatsYourEmailAddress,
+  };
+  const DoYouKnowPasswordForItSelect: any = {
+    do_you_know_password_for_it: doYouKnowPasswordForItSelect,
+  };
 
   const submitServiceInfoAndNextStepHandler = () => {
-    dispatch(serviceSelectAndQuestions("next"))
+    dispatch(serviceName(ServiceName));
+    dispatch(operatingSystem(platform));
+    dispatch(descriptionNote(note));
+    dispatch(necessaryCables(NecessaryCables));
+    dispatch(whereIsDataBackedUpOn(WhereIsDataBackedUpOn));
+    dispatch(whereIsData(WhereIsData));
+    dispatch(haveExistingAntivirus(HaveExistingAntivirus));
+    dispatch(existingAntivirusName(AntivirusName));
+    dispatch(whatTypeOfPhoneIsIt(WhatTypeOfPhoneIsIt));
+    dispatch(haveExistingNetwork(HaveExistingNetworkSelect));
+    dispatch(currentInternetProvider(CurrentInternetProviderSelect));
+    dispatch(otherInternetProvider(OtherInternetProviderSelect));
+    dispatch(needRouters(NeedRoutersSelect));
+    dispatch(whatIsYourEmailAddress(WhatIsYourEmailAddress));
+    dispatch(doYouKnowPasswordForIt(DoYouKnowPasswordForItSelect));
+    dispatch(serviceQuestionInfoNextStep("next"));
+    dispatch(serviceAddressParkingSubmitAfterNextStep(""));
+  };
+
+  const PrevButtonHandler = () => {
+    dispatch(serviceAddressParkingSubmitAfterNextStep(""));
+    dispatch(otpVerifySuccessReStore("success"));
   };
 
   return (
@@ -32,7 +128,23 @@ const ServiceForm: React.FC = () => {
         <select
           id="service"
           value={selectedService}
-          onChange={(e) => setSelectedService(e.target.value)}
+          onChange={(e) => {
+            setSelectedService(e.target.value)
+            setSelectedPlatform("")
+            setIssueDescription("")
+            setNecessaryCables("")
+            setWhereDataBackedUpOn("")
+            setWhereIsTheData("")
+            setHaveExistingAntivirus("")
+            setAntivirusName("")
+            setWhatTypeOfPhoneIsItSelect("")
+            setHaveExistingNetworkSelect("")
+            setCurrentInternetProviderSelect("")
+            setOtherInternetProviderSelect("")
+            setNeedRoutersSelect("")
+            setWhatIsYourEmailAddress("")
+            setDoYouKnowPasswordForItSelect("")
+          }}
           className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
         >
           <option value="" disabled>
@@ -95,11 +207,11 @@ const ServiceForm: React.FC = () => {
           </label>
           <select
             id="necessaryCables"
-            value={selectedPlatform}
-            onChange={(e) => setSelectedPlatform(e.target.value)}
+            value={necessaryCablesSelect}
+            onChange={(e) => setNecessaryCables(e.target.value)}
           >
-            <option value="">Yes</option>
-            <option value="Windows">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
           </select>
         </div>
       )}
@@ -112,15 +224,15 @@ const ServiceForm: React.FC = () => {
           </label>
           <select
             id="dataBackedUp"
-            value={selectedPlatform}
-            onChange={(e) => setSelectedPlatform(e.target.value)}
+            value={whereDataBackedUp}
+            onChange={(e) => setWhereDataBackedUpOn(e.target.value)}
           >
             <option value="" disabled>
               Select
             </option>
-            <option value="">External HD</option>
-            <option value="Windows">Another computer</option>
-            <option value="Windows">Cloud</option>
+            <option value="External HD">External HD</option>
+            <option value="Another computer">Another computer</option>
+            <option value="Cloud">Cloud</option>
           </select>
         </div>
       )}
@@ -132,59 +244,67 @@ const ServiceForm: React.FC = () => {
           </label>
           <select
             id="DataRecovery"
-            value={selectedPlatform}
-            onChange={(e) => setSelectedPlatform(e.target.value)}
+            value={whereIsTheData}
+            onChange={(e) => setWhereIsTheData(e.target.value)}
           >
             <option value="" disabled>
               Select
             </option>
-            <option value="">External HD</option>
-            <option value="Windows">Computer</option>
-            <option value="Windows">Phone</option>
+            <option value="External HD">External HD</option>
+            <option value="Computer">Computer</option>
+            <option value="Phone">Phone</option>
           </select>
         </div>
       )}
       {selectedService === "Virus and spy removal" ||
       selectedService === "Antivirus installation" ? (
         <div className="form-group">
-          <label htmlFor="necessary cables">
+          <label htmlFor="Antivirus">
             Do you have an existing antivirus? If Yes what is it?
           </label>
           <select
-            id="necessaryCables"
-            value={selectedPlatform}
-            onChange={(e) => setSelectedPlatform(e.target.value)}
+            id="antivirus"
+            value={haveExistingAntivirusSelect}
+            onChange={(e) => setHaveExistingAntivirus(e.target.value)}
           >
             <option value="" disabled>
               Select
             </option>
-            <option value="">Yes</option>
-            <option value="Windows">No</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
           </select>
-          <input
-            type="text"
-            placeholder="Existing antivirus name"
-            className="mt-5"
-          />
+
+          {haveExistingAntivirusSelect === "Yes" && (
+            <>
+              <label htmlFor="Antivirus" className="mt-5">
+                Existing antivirus name?
+              </label>
+              <input
+                onChange={(e) => setAntivirusName(e.target.value)}
+                type="text"
+                placeholder="Existing antivirus name"
+              />
+            </>
+          )}
         </div>
       ) : (
         ""
       )}
       {selectedService === "Smartphone device setup" && (
         <div className="form-group">
-          <label htmlFor="necessary cables">
+          <label htmlFor="smartphone device setup">
             What type of phone is it? (Android, IOS, Windows)
           </label>
           <select
-            id="necessaryCables"
-            value={selectedPlatform}
-            onChange={(e) => setSelectedPlatform(e.target.value)}
+            id="smartPhoneDeviceSetup"
+            value={whatTypeOfPhoneIsItSelect}
+            onChange={(e) => setWhatTypeOfPhoneIsItSelect(e.target.value)}
           >
             <option value="" disabled>
               Select
             </option>
-            <option value="">Android</option>
-            <option value="Windows">IOS</option>
+            <option value="Android">Android</option>
+            <option value="IOS">IOS</option>
             <option value="Windows">Windows</option>
           </select>
         </div>
@@ -192,13 +312,11 @@ const ServiceForm: React.FC = () => {
       {selectedService === "Home network Wi-Fi Setup" && (
         <>
           <div className="form-group">
-            <label htmlFor="necessary cables">
-              Do you have existing network?
-            </label>
+            <label htmlFor="network">Do you have existing network?</label>
             <select
-              id="necessaryCables"
-              value={selectedPlatform}
-              onChange={(e) => setSelectedPlatform(e.target.value)}
+              id="networkSetup"
+              value={haveExistingNetworkSelect}
+              onChange={(e) => setHaveExistingNetworkSelect(e.target.value)}
             >
               <option value="" disabled>
                 Select
@@ -207,32 +325,53 @@ const ServiceForm: React.FC = () => {
               <option value="No">No</option>
             </select>
           </div>
+          {haveExistingNetworkSelect === "Yes" && (
+            <div className="form-group">
+              <div>
+                <label htmlFor="internet provider">
+                  Who is your current internet service provider?
+                </label>
+                <select
+                  id="internetProvider"
+                  value={currentInternetProviderSelect}
+                  onChange={(e) =>
+                    setCurrentInternetProviderSelect(e.target.value)
+                  }
+                >
+                  <option value="" disabled>
+                    Select
+                  </option>
+                  <option value="OPTUS">OPTUS</option>
+                  <option value="TELSTRA">TELSTRA</option>
+                  <option value="TPG">TPG</option>
+                  <option value="VODAPHONE">VODAPHONE</option>
+                  <option value="IINET">IINET</option>
+                  <option value="OTHER">OTHER</option>
+                </select>
+              </div>
+
+              {currentInternetProviderSelect === "OTHER" && (
+                <div>
+                  <label htmlFor="need routers" className="mt-5">
+                    Other Provider Name?
+                  </label>
+                  <input
+                    onChange={(e) =>
+                      setOtherInternetProviderSelect(e.target.value)
+                    }
+                    type="text"
+                    placeholder="Enter Other Provider"
+                  />
+                </div>
+              )}
+            </div>
+          )}
           <div className="form-group">
-            <label htmlFor="necessary cables">
-              Who is your current internet service provider?
-            </label>
+            <label htmlFor="need routers">Do you need routers?</label>
             <select
-              id="necessaryCables"
-              value={selectedPlatform}
-              onChange={(e) => setSelectedPlatform(e.target.value)}
-            >
-              <option value="" disabled>
-                Select
-              </option>
-              <option value="Yes">OPTUS</option>
-              <option value="No">TELSTRA</option>
-              <option value="No">TPG</option>
-              <option value="No">VODAPHONE</option>
-              <option value="No">IINET</option>
-              <option value="No">OTHER</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="necessary cables">Do you need routers?</label>
-            <select
-              id="necessaryCables"
-              value={selectedPlatform}
-              onChange={(e) => setSelectedPlatform(e.target.value)}
+              id="needRouters"
+              value={needRoutersSelect}
+              onChange={(e) => setNeedRoutersSelect(e.target.value)}
             >
               <option value="" disabled>
                 Select
@@ -246,23 +385,24 @@ const ServiceForm: React.FC = () => {
       {selectedService === "Email Account setup" && (
         <>
           <div className="form-group">
-            <label htmlFor="necessary cables">
+            <label htmlFor="email setup">
               What is your email address?
             </label>
             <input
               type="text"
-              placeholder="Existing antivirus name"
+              placeholder="Enter Email"
               className=""
+              onChange={(e) => setWhatIsYourEmailAddress(e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="necessary cables">
+            <label htmlFor="password">
               Do you know the password for it?
             </label>
             <select
-              id="necessaryCables"
-              value={selectedPlatform}
-              onChange={(e) => setSelectedPlatform(e.target.value)}
+              id="password"
+              value={doYouKnowPasswordForItSelect}
+              onChange={(e) => setDoYouKnowPasswordForItSelect(e.target.value)}
             >
               <option value="" disabled>
                 Select
@@ -286,16 +426,16 @@ const ServiceForm: React.FC = () => {
 
       {/* Continue Button */}
       <div className="flex justify-between mt-5">
-              <button className="border border-primaryColor text-primaryColor py-[7px] px-[30px] rounded-md ">
-                Prev
-              </button>
-              <button
-                onClick={submitServiceInfoAndNextStepHandler}
-                className="bg-grayColor hover:bg-primaryColor transition-[.5s] text-white py-[7px] px-[30px] rounded-md "
-              >
-                Next
-              </button>
-            </div>
+        <button onClick={PrevButtonHandler} className="border border-primaryColor text-primaryColor py-[7px] px-[30px] rounded-md ">
+          Prev
+        </button>
+        <button
+          onClick={submitServiceInfoAndNextStepHandler}
+          className="bg-grayColor hover:bg-primaryColor transition-[.5s] text-white py-[7px] px-[30px] rounded-md "
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

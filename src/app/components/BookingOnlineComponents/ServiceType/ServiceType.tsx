@@ -5,7 +5,10 @@ import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import AddressEditAddModal from "./Address/AddressEditAddModal";
 import {
+  billingAddressSelect,
+  otpVerifySuccessReStore,
   parkingOptionSelect,
+  serviceAddressParkingSubmitAfterNextStep,
   serviceAddressSelect,
   serviceTypeSelect,
 } from "@/app/rtk-state/reducers/bookingSlice";
@@ -65,15 +68,15 @@ const SwitchSelect: React.FC = () => {
     setAddNewAddressView(false);
   };
 
-  
-
   const handleSelectedServiceAddressChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedValue = event.target.value;
 
     // Parse the selected value back into an Address object
-    const [street, suburb, state, post_code, subpremise] = selectedValue.split(",").map((val) => val.trim());
+    const [street, suburb, state, post_code, subpremise] = selectedValue
+      .split(",")
+      .map((val) => val.trim());
 
     setSelectedServiceAddress({
       street,
@@ -90,9 +93,15 @@ const SwitchSelect: React.FC = () => {
 
   const submitAddressInfoAndNextStepHandler = () => {
     dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-
+    dispatch(serviceAddressSelect(selectedServiceAddress));
+    if (isBillingSame) {
+      dispatch(billingAddressSelect(selectedServiceAddress));
+    }
     dispatch(parkingOptionSelect(selectedParking));
+    dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
   };
+
+  
 
   return (
     <div className="service_type_section">
@@ -234,10 +243,13 @@ const SwitchSelect: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="flex justify-between mt-5">
-              <button className="border border-primaryColor text-primaryColor py-[7px] px-[30px] rounded-md ">
+            <div className="flex justify-end mt-5">
+              {/* <button
+                // onClick={PrevButtonHandler}
+                className="border border-primaryColor text-primaryColor py-[7px] px-[30px] rounded-md "
+              >
                 Prev
-              </button>
+              </button> */}
               <button
                 onClick={submitAddressInfoAndNextStepHandler}
                 className="bg-grayColor hover:bg-primaryColor transition-[.5s] text-white py-[7px] px-[30px] rounded-md "
@@ -337,7 +349,6 @@ const SwitchSelect: React.FC = () => {
                     </div>
                   )}
                 {addNewAddressView == true && <AddressEditAddModal />}
-                
               </DialogPanel>
             </div>
           </div>

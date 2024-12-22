@@ -19,10 +19,30 @@ export interface BookingState {
   otpVerifySuccess: string;
   otpVerifyData: any[];
   serviceType: string;
-  serviceAddress: any[];
+  serviceAddress: any;
   billingAddress: any[];
   parkingOption: string | null;
-  serviceSelectAndQuestions: string
+  serviceAddressParkingSubmitAfterNextStep: string;
+  serviceName: any;
+  operatingSystem: any;
+  descriptionNote: any,
+  necessaryCables: {},
+  whereIsDataBackedUpOn:{},
+  whereIsData : {},
+  haveExistingAntivirus: {},
+  existingAntivirusName: {},
+  whatTypeOfPhoneIsIt: {},
+  haveExistingNetwork: {},
+  currentInternetProvider:{},
+  otherInternetProvider: {}
+  needRouters: {},
+  whatIsYourEmailAddress: {},
+  doYouKnowPasswordForIt: {},
+  serviceQuestionInfoNextStep: string,
+  choosePreferredDateAndTime: any,
+  choosePreferredDateAndTimeNextStep: string,
+  contactInformationForBooking: any,
+  contactInformationForBookingNestStep: string,
 }
 
 const initialState: BookingState = {
@@ -34,10 +54,30 @@ const initialState: BookingState = {
   otpVerifySuccess: "",
   otpVerifyData: [],
   serviceType: "",
-  serviceAddress: [],
+  serviceAddress: {},
   billingAddress: [],
   parkingOption: "",
-  serviceSelectAndQuestions: ""
+  serviceAddressParkingSubmitAfterNextStep: "",
+  serviceName: {},
+  operatingSystem: {},
+  descriptionNote: {},
+  necessaryCables: {},
+  whereIsDataBackedUpOn:{},
+  whereIsData : {},
+  haveExistingAntivirus: {},
+  existingAntivirusName: {},
+  whatTypeOfPhoneIsIt: {},
+  haveExistingNetwork: {},
+  currentInternetProvider:{},
+  otherInternetProvider: {},
+  needRouters: {},
+  whatIsYourEmailAddress: {},
+  doYouKnowPasswordForIt: {},
+  serviceQuestionInfoNextStep: "",
+  choosePreferredDateAndTime: {},
+  choosePreferredDateAndTimeNextStep: "",
+  contactInformationForBooking: {},
+  contactInformationForBookingNestStep: ""
 };
 
 export const getOTP = createAsyncThunk(
@@ -86,8 +126,7 @@ export const bookingSlice = createSlice({
       state.otpVerifySuccess = "";
     },
     serviceAddressSelect: (state, action: PayloadAction<any>) => {
-      state.serviceAddress = [action.payload];
-      
+      state.serviceAddress = action.payload;
     },
     billingAddressSelect: (state, action: PayloadAction<any[]>) => {
       state.billingAddress = [action.payload];
@@ -95,8 +134,71 @@ export const bookingSlice = createSlice({
     parkingOptionSelect: (state, action: PayloadAction<string | null>) => {
       state.parkingOption = action.payload;
     },
-    serviceSelectAndQuestions: (state, action: PayloadAction<string>) => {
-      state.serviceSelectAndQuestions = action.payload;
+    serviceAddressParkingSubmitAfterNextStep: (state, action: PayloadAction<string>) => {
+      state.serviceAddressParkingSubmitAfterNextStep = action.payload;
+    },
+    serviceName: (state, action: PayloadAction<string>) => {
+      state.serviceName = action.payload;
+    },
+    operatingSystem: (state, action: PayloadAction<string>) => {
+      state.operatingSystem = action.payload;
+    },
+    descriptionNote: (state, action: PayloadAction<string>) => {
+      state.descriptionNote = action.payload;
+    },
+    necessaryCables: (state, action: PayloadAction<string>) => {
+      state.necessaryCables = action.payload;
+    },
+    whereIsDataBackedUpOn: (state, action: PayloadAction<string>) => {
+      state.whereIsDataBackedUpOn = action.payload;
+    },
+    whereIsData: (state, action: PayloadAction<string>) => {
+      state.whereIsData = action.payload;
+    },
+    haveExistingAntivirus: (state, action: PayloadAction<string>) => {
+      state.haveExistingAntivirus = action.payload;
+    },
+    existingAntivirusName: (state, action: PayloadAction<string>) => {
+      state.existingAntivirusName = action.payload;
+    },
+    whatTypeOfPhoneIsIt: (state, action: PayloadAction<string>) => {
+      state.whatTypeOfPhoneIsIt = action.payload;
+    },
+    haveExistingNetwork: (state, action: PayloadAction<string>) => {
+      state.haveExistingNetwork = action.payload;
+    },
+    currentInternetProvider: (state, action: PayloadAction<string>) => {
+      state.currentInternetProvider = action.payload;
+    },
+    otherInternetProvider: (state, action: PayloadAction<string>) => {
+      state.otherInternetProvider = action.payload;
+    },
+    needRouters: (state, action: PayloadAction<string>) => {
+      state.needRouters = action.payload;
+    },
+    whatIsYourEmailAddress: (state, action: PayloadAction<string>) => {
+      state.whatIsYourEmailAddress = action.payload;
+    },
+    doYouKnowPasswordForIt: (state, action: PayloadAction<string>) => {
+      state.doYouKnowPasswordForIt = action.payload;
+    },
+    serviceQuestionInfoNextStep: (state, action: PayloadAction<string>) => {
+      state.serviceQuestionInfoNextStep = action.payload;
+    },
+    choosePreferredDateAndTime: (state, action: PayloadAction<string>) => {
+      state.choosePreferredDateAndTime = action.payload;
+    },
+    choosePreferredDateAndTimeNextStep: (state, action: PayloadAction<string>) => {
+      state.choosePreferredDateAndTimeNextStep = action.payload;
+    },
+    contactInformationForBooking: (state, action: PayloadAction<any>) => {
+      state.contactInformationForBooking = action.payload;
+    },
+    contactInformationForBookingNestStep: (state, action: PayloadAction<string>) => {
+      state.contactInformationForBookingNestStep = action.payload;
+    },
+    otpVerifySuccessReStore: (state, action: PayloadAction<string>) => {
+      state.otpVerifySuccess = action.payload;
     },
   },
   extraReducers(builder) {
@@ -130,6 +232,34 @@ export const bookingSlice = createSlice({
   },
 });
 
-export const { startBooking, serviceTypeSelect, serviceAddressSelect, billingAddressSelect, parkingOptionSelect, serviceSelectAndQuestions } = bookingSlice.actions;
+export const {
+  startBooking,
+  serviceTypeSelect,
+  serviceAddressSelect,
+  billingAddressSelect,
+  parkingOptionSelect,
+  serviceAddressParkingSubmitAfterNextStep,
+  serviceName,
+  operatingSystem,
+  descriptionNote,
+  necessaryCables,
+  whereIsDataBackedUpOn,
+  whereIsData,
+  haveExistingAntivirus,
+  existingAntivirusName,
+  whatTypeOfPhoneIsIt,
+  haveExistingNetwork,
+  currentInternetProvider,
+  otherInternetProvider,
+  needRouters,
+  whatIsYourEmailAddress,
+  doYouKnowPasswordForIt,
+  serviceQuestionInfoNextStep,
+  choosePreferredDateAndTime,
+  choosePreferredDateAndTimeNextStep,
+  contactInformationForBooking,
+  contactInformationForBookingNestStep,
+  otpVerifySuccessReStore
+} = bookingSlice.actions;
 
 export default bookingSlice.reducer;

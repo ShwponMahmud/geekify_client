@@ -11,10 +11,12 @@ const BookingOnlineProgress: React.FC = () => {
     const updateProgress = () => {
       let step = 1; 
       if (bookingInfo.bookingStart === "start") step = 1;
-      if (bookingInfo.otpReqSuccess === "success") step = 2;
-      if (bookingInfo.otpVerifySuccess === "success") step = 3;
-      if (bookingInfo.serviceType === "Onsite") step = 4;
-      // if (bookingInfo.serviceSelectAndQuestions === "next") step = 5;
+      if (bookingInfo.otpReqSuccess === "success") step = 1;
+      if (bookingInfo.otpVerifySuccess === "success") step = 2;
+      if (bookingInfo.serviceAddressParkingSubmitAfterNextStep === "next") step = 3;
+      if (bookingInfo.serviceQuestionInfoNextStep === "next") step = 4;
+      if (bookingInfo.choosePreferredDateAndTimeNextStep === "next") step = 5;
+      if (bookingInfo.contactInformationForBookingNestStep === "next") step = 5;
       
 
       setCurrentStep(step);

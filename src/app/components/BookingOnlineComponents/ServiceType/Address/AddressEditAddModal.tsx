@@ -170,14 +170,25 @@ export default function AddressEditAddModal() {
   const SaveAddress = () => {
     dispatch(serviceAddressSelect(AddressInfoForSubmit));
 
-    console.log(AddressInfoForSubmit);
+    const successElement = document.querySelector<HTMLElement>(".show_success_text");
+    const addressModifyContainer = document.querySelector<HTMLElement>(".address_modify_container");
+    const addressInputContainer = document.querySelector<HTMLElement>(".address_input_container");
+    if (successElement) {
+      successElement.innerHTML = "Address Saved Successfully!";
+    }
+    if (addressModifyContainer) {
+      addressModifyContainer.style.display = "none";
+    }
+    if (addressInputContainer) {
+      addressInputContainer.style.display = "none";
+    }
   };
 
   return (
     <>
       <div className=" mt-4">
         <form action="">
-          <div className="">
+          <div className="address_input_container">
             <label
               htmlFor="address"
               className="block text-sm font-medium text-gray-700"
@@ -339,6 +350,7 @@ export default function AddressEditAddModal() {
             </form>
           </div>
         )}
+        <p className="show_success_text text-center  text-green-600 text-3xl font-semibold mt-5"></p>
         <div className="mt-4">
           <Button
             className="inline-flex items-center gap-2 rounded-md bg-primaryColor py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"

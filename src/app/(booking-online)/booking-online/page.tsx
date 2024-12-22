@@ -20,10 +20,10 @@ function page() {
         {bookingInfo?.bookingStart === "" && <BookingOnlineWelcome />}
         {bookingInfo?.bookingStart === "start" && <EnterPhoneSendCode />}
         {bookingInfo?.otpVerifySuccess === "success" &&<ServiceType />}
-        {bookingInfo?.serviceType === "Onsite" && <ServiceForm />}
-        {/* {bookingInfo.serviceSelectAndQuestions === "next" && <ChooseDateTime />} */}
-        {/* <ContactInformation /> */}
-        {/* <ServiceBookingSummery /> */}
+        {bookingInfo?.serviceAddressParkingSubmitAfterNextStep === "next" && <ServiceForm />}
+        {bookingInfo.serviceQuestionInfoNextStep === "next" && <ChooseDateTime />}
+        {bookingInfo.choosePreferredDateAndTimeNextStep === "next" && <ContactInformation />}
+        {bookingInfo.contactInformationForBookingNestStep === "next" &&<ServiceBookingSummery />}
         {/* <PaymentDetails /> */}
       </div>
     </>
