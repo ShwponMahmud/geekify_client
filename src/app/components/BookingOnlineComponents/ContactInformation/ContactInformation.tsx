@@ -1,16 +1,17 @@
 
 "use client";
-import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { choosePreferredDateAndTimeNextStep, contactInformationForBooking, contactInformationForBookingNestStep, serviceQuestionInfoNextStep } from "@/app/rtk-state/reducers/bookingSlice";
 import React, { useState, FormEvent } from "react";
 
 const ContactInformation: React.FC = () => {
+  const bookingInfo = useAppSelector((state) => state?.booking);
   const dispatch = useAppDispatch();
   const [formValues, setFormValues] = useState({
-    fullName: "",
-    email: "",
-    phoneNumber: "",
-    contactWay: "",
+    fullName: bookingInfo?.contactInformationForBooking.fullName? bookingInfo?.contactInformationForBooking.fullName : "",
+    email: bookingInfo?.contactInformationForBooking.email? bookingInfo?.contactInformationForBooking.email : "",
+    phoneNumber: bookingInfo?.contactInformationForBooking.phoneNumber? bookingInfo?.contactInformationForBooking.phoneNumber : "",
+    contactWay: bookingInfo?.contactInformationForBooking.contactWay? bookingInfo?.contactInformationForBooking.contactWay : "",
   });
 
   const contactWays: string[] = ["SMS", "Call", "Email"];

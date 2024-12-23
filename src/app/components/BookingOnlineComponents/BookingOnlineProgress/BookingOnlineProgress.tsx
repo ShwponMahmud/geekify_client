@@ -27,7 +27,7 @@ const BookingOnlineProgress: React.FC = () => {
   
   return (
     <div className="">
-      <ProgressBar steps={7} currentStep={currentStep} />
+      <ProgressBar steps={6} currentStep={currentStep} />
       {/* <div style={{ marginTop: "20px" }}>
         <button onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}>
           Previous

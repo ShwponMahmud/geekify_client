@@ -22,24 +22,25 @@ import {
   whereIsData,
   whereIsDataBackedUpOn,
 } from "@/app/rtk-state/reducers/bookingSlice";
-import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 
 const ServiceForm: React.FC = () => {
-  const [selectedService, setSelectedService] = useState("");
-  const [selectedPlatform, setSelectedPlatform] = useState("");
-  const [issueDescription, setIssueDescription] = useState("");
-  const [necessaryCablesSelect, setNecessaryCables] = useState("");
-  const [whereDataBackedUp, setWhereDataBackedUpOn] = useState("");
-  const [whereIsTheData, setWhereIsTheData] = useState("");
-  const [haveExistingAntivirusSelect, setHaveExistingAntivirus] = useState("");
-  const [antivirusName, setAntivirusName] = useState("");
-  const [whatTypeOfPhoneIsItSelect, setWhatTypeOfPhoneIsItSelect] = useState("");
-  const [haveExistingNetworkSelect, setHaveExistingNetworkSelect] = useState("");
-  const [currentInternetProviderSelect, setCurrentInternetProviderSelect] = useState("");
-  const [otherInternetProviderSelect, setOtherInternetProviderSelect] = useState("");
-  const [needRoutersSelect, setNeedRoutersSelect] = useState("");
-  const [whatsYourEmailAddress, setWhatIsYourEmailAddress] = useState("");
-  const [doYouKnowPasswordForItSelect, setDoYouKnowPasswordForItSelect] = useState("");
+  const bookingInfo = useAppSelector((state) => state?.booking);
+  const [selectedService, setSelectedService] = useState(bookingInfo?.serviceName?.service_name ? bookingInfo?.serviceName?.service_name : "");
+  const [selectedPlatform, setSelectedPlatform] = useState(bookingInfo?.operatingSystem.platform ? bookingInfo?.operatingSystem.platform : "");
+  const [issueDescription, setIssueDescription] = useState(bookingInfo?.descriptionNote.note ? bookingInfo?.descriptionNote.note : "");
+  const [necessaryCablesSelect, setNecessaryCables] = useState(bookingInfo?.necessaryCables?.have_necessary_cables ? bookingInfo?.necessaryCables?.have_necessary_cables : "");
+  const [whereDataBackedUp, setWhereDataBackedUpOn] = useState(bookingInfo?.whereIsDataBackedUpOn?.where_is_data_backed_up_on ? bookingInfo?.whereIsDataBackedUpOn?.where_is_data_backed_up_on : "");
+  const [whereIsTheData, setWhereIsTheData] = useState(bookingInfo?.whereIsData?.where_is_the_data ? bookingInfo?.whereIsData?.where_is_the_data : "");
+  const [haveExistingAntivirusSelect, setHaveExistingAntivirus] = useState(bookingInfo?.haveExistingAntivirus?.have_existing_antivirus ? bookingInfo?.haveExistingAntivirus?.have_existing_antivirus : "");
+  const [antivirusName, setAntivirusName] = useState(bookingInfo?.existingAntivirusName?.antivirus_Name ?  bookingInfo?.existingAntivirusName?.antivirus_Name  : "");
+  const [whatTypeOfPhoneIsItSelect, setWhatTypeOfPhoneIsItSelect] = useState(bookingInfo?.whatTypeOfPhoneIsIt?.what_type_of_phone_is_it ? bookingInfo?.whatTypeOfPhoneIsIt?.what_type_of_phone_is_it :"");
+  const [haveExistingNetworkSelect, setHaveExistingNetworkSelect] = useState(bookingInfo?.haveExistingNetwork?.have_existing_network ? bookingInfo?.haveExistingNetwork?.have_existing_network : "");
+  const [currentInternetProviderSelect, setCurrentInternetProviderSelect] = useState(bookingInfo?.currentInternetProvider?.current_internet_provider ? bookingInfo?.currentInternetProvider?.current_internet_provider :"");
+  const [otherInternetProviderSelect, setOtherInternetProviderSelect] = useState(bookingInfo?.otherInternetProvider?.other_internet_provider ? bookingInfo?.otherInternetProvider?.other_internet_provider :"");
+  const [needRoutersSelect, setNeedRoutersSelect] = useState(bookingInfo?.needRouters?.need_routers ? bookingInfo?.needRouters?.need_routers : "");
+  const [whatsYourEmailAddress, setWhatIsYourEmailAddress] = useState(bookingInfo?.whatIsYourEmailAddress?.what_is_your_email_address ? bookingInfo?.whatIsYourEmailAddress?.what_is_your_email_address : "");
+  const [doYouKnowPasswordForItSelect, setDoYouKnowPasswordForItSelect] = useState(bookingInfo?.doYouKnowPasswordForIt?.do_you_know_password_for_it ? bookingInfo?.doYouKnowPasswordForIt?.do_you_know_password_for_it :"");
 
   const dispatch = useAppDispatch();
 

@@ -11,7 +11,7 @@ import {
   billingAddressSelect,
   serviceAddressSelect,
 } from "@/app/rtk-state/reducers/bookingSlice";
-import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 
 const libraries: "places"[] = ["places"];
 
@@ -71,6 +71,7 @@ const defaultAustralianStates = [
 ];
 
 export default function AddressEditAddModal() {
+  const bookingInfo = useAppSelector((state) => state?.booking);
   const dispatch = useAppDispatch();
   // Get Address Methods by google map...............
   const [address, setAddress] = useState<string>("");
@@ -167,12 +168,23 @@ export default function AddressEditAddModal() {
     state: matchState?.short_name,
   };
 
-  const SaveAddress = () => {
-    dispatch(serviceAddressSelect(AddressInfoForSubmit));
 
-    const successElement = document.querySelector<HTMLElement>(".show_success_text");
-    const addressModifyContainer = document.querySelector<HTMLElement>(".address_modify_container");
-    const addressInputContainer = document.querySelector<HTMLElement>(".address_input_container");
+  const SaveAddress = () => {
+    if (bookingInfo.serviceAddress?.setServiceAddress === "true") {
+      dispatch(serviceAddressSelect(AddressInfoForSubmit));
+    }
+    if (bookingInfo.billingAddress?.setBillingAddress === "true") {
+      dispatch(billingAddressSelect(AddressInfoForSubmit));
+    }
+
+    const successElement =
+      document.querySelector<HTMLElement>(".show_success_text");
+    const addressModifyContainer = document.querySelector<HTMLElement>(
+      ".address_modify_container"
+    );
+    const addressInputContainer = document.querySelector<HTMLElement>(
+      ".address_input_container"
+    );
     if (successElement) {
       successElement.innerHTML = "Address Saved Successfully!";
     }
@@ -193,7 +205,7 @@ export default function AddressEditAddModal() {
               htmlFor="address"
               className="block text-sm font-medium text-gray-700"
             >
-              Address
+              Add New Address
             </label>
             <div className="">
               <Autocomplete

@@ -10,6 +10,29 @@ export interface otpData {
   username: string | undefined;
   code: string;
 }
+export interface bookingSummerySubmitData {
+  preference: number,
+  type: number,
+  street: string,
+  suburb: string,
+  post_code: string,
+  country: string,
+  state: string,
+  service_id: string,
+  date: string | null,
+  time: string | null,
+  user_id: string,
+  requested_time_interval: string,
+  client_panel: number
+}
+
+export interface BookingQuestionsAnsData {
+  added_by: string,
+  appointment_id: string,
+  panel: string,
+  question: any[]
+}
+
 export interface BookingState {
   isLoading: boolean;
   error: any;
@@ -20,29 +43,31 @@ export interface BookingState {
   otpVerifyData: any[];
   serviceType: string;
   serviceAddress: any;
-  billingAddress: any[];
+  billingAddress: any;
   parkingOption: string | null;
   serviceAddressParkingSubmitAfterNextStep: string;
   serviceName: any;
   operatingSystem: any;
   descriptionNote: any,
-  necessaryCables: {},
-  whereIsDataBackedUpOn:{},
-  whereIsData : {},
-  haveExistingAntivirus: {},
-  existingAntivirusName: {},
-  whatTypeOfPhoneIsIt: {},
-  haveExistingNetwork: {},
-  currentInternetProvider:{},
-  otherInternetProvider: {}
-  needRouters: {},
-  whatIsYourEmailAddress: {},
-  doYouKnowPasswordForIt: {},
+  necessaryCables: any,
+  whereIsDataBackedUpOn:any,
+  whereIsData : any,
+  haveExistingAntivirus: any,
+  existingAntivirusName: any,
+  whatTypeOfPhoneIsIt: any,
+  haveExistingNetwork: any,
+  currentInternetProvider:any,
+  otherInternetProvider: any,
+  needRouters: any,
+  whatIsYourEmailAddress: any,
+  doYouKnowPasswordForIt: any,
   serviceQuestionInfoNextStep: string,
   choosePreferredDateAndTime: any,
   choosePreferredDateAndTimeNextStep: string,
   contactInformationForBooking: any,
   contactInformationForBookingNestStep: string,
+  bookingSummerySubmitResData: any[]
+
 }
 
 const initialState: BookingState = {
@@ -55,7 +80,7 @@ const initialState: BookingState = {
   otpVerifyData: [],
   serviceType: "",
   serviceAddress: {},
-  billingAddress: [],
+  billingAddress: {},
   parkingOption: "",
   serviceAddressParkingSubmitAfterNextStep: "",
   serviceName: {},
@@ -77,7 +102,8 @@ const initialState: BookingState = {
   choosePreferredDateAndTime: {},
   choosePreferredDateAndTimeNextStep: "",
   contactInformationForBooking: {},
-  contactInformationForBookingNestStep: ""
+  contactInformationForBookingNestStep: "",
+  bookingSummerySubmitResData: []
 };
 
 export const getOTP = createAsyncThunk(
@@ -113,6 +139,22 @@ export const submitOTP = createAsyncThunk(
     return data.data;
   }
 );
+export const submitBookingSummery = createAsyncThunk(
+  "submitBookingSummery",
+  async (formData: bookingSummerySubmitData) => {
+    const response = await fetch(`${baseUrl}/appointments/pre-store-appointment-data`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    return data.data;
+  }
+);
 
 export const bookingSlice = createSlice({
   name: "booking",
@@ -128,8 +170,8 @@ export const bookingSlice = createSlice({
     serviceAddressSelect: (state, action: PayloadAction<any>) => {
       state.serviceAddress = action.payload;
     },
-    billingAddressSelect: (state, action: PayloadAction<any[]>) => {
-      state.billingAddress = [action.payload];
+    billingAddressSelect: (state, action: PayloadAction<any>) => {
+      state.billingAddress = action.payload;
     },
     parkingOptionSelect: (state, action: PayloadAction<string | null>) => {
       state.parkingOption = action.payload;
@@ -226,6 +268,18 @@ export const bookingSlice = createSlice({
       state.bookingStart = "progress";
     });
     builder.addCase(submitOTP.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(submitBookingSummery.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(submitBookingSummery.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.bookingSummerySubmitResData = [action.payload];
+    });
+    builder.addCase(submitBookingSummery.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });

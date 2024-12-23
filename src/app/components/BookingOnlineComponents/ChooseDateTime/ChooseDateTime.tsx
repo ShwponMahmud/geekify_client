@@ -126,7 +126,7 @@
 "use client";
 import React, { useState } from "react";
 import Calendar from "./Calendar";
-import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import {
   choosePreferredDateAndTime,
   choosePreferredDateAndTimeNextStep,
@@ -135,9 +135,10 @@ import {
 } from "@/app/rtk-state/reducers/bookingSlice";
 
 const ChooseDateTime: React.FC = () => {
-  const [duration, setDuration] = useState<string>("1 Hour 00 Minute");
-  const [selectedDate, setSelectedDate] = useState<string>("");
-  const [selectedTime, setSelectedTime] = useState<string>("");
+  const bookingInfo = useAppSelector((state) => state?.booking);
+  const [duration, setDuration] = useState<string>(bookingInfo?.choosePreferredDateAndTime?.booking_duration ? bookingInfo?.choosePreferredDateAndTime?.booking_duration : "1 Hour 00 Minute");
+  const [selectedDate, setSelectedDate] = useState<string>(bookingInfo?.choosePreferredDateAndTime?.booking_schedule ? bookingInfo?.choosePreferredDateAndTime?.booking_schedule : "");
+  const [selectedTime, setSelectedTime] = useState<string>(bookingInfo?.choosePreferredDateAndTime?.selectedTime ? bookingInfo?.choosePreferredDateAndTime?.selectedTime : "");
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 

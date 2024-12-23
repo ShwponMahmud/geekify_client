@@ -86,7 +86,7 @@ const EnterPhoneSendCode: React.FC = () => {
   return (
     <div className="enter_phone_send_code_section">
       <div className="container mx-auto">
-        <div className="justify-items-center">
+        <div className="justify-items-center mt-10">
           <Image width={288} height={62} src="/logo.png" alt="Geekify logo" />
           <div className="p-10 mt-[40px] w-[500px] mx-auto  justify-items-center ">
             {bookingInfo.otpReqSuccess === "" ? (
@@ -138,8 +138,8 @@ const EnterPhoneSendCode: React.FC = () => {
                     placeholder="Enter phone number"
                     value={numberValue}
                     onChange={setNumberValue}
-                    className=" flex items-center border rounded-md mt-3 px-2 py-2 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
-                    style={{ outline: "none" }}
+                    className=" flex items-center border-none rounded-md mt-3 px-2 py-2 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
+                    style={{ outline: "none"}}
                   />
                 </div>}
 
