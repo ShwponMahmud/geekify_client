@@ -28,14 +28,6 @@ const SwitchSelect: React.FC = () => {
   const [addNewAddressView, setAddNewAddressView] = useState<boolean>(false);
   const [isBillingSame, setIsBillingSame] = useState(false);
   const [selectedParking, setSelectedParking] = useState<string | null>(bookingInfo?.parkingOption? bookingInfo?.parkingOption : null);
-  // const [selectedServiceAddress, setSelectedServiceAddress] = useState<any>({
-  //   street: {${bookingInfo?.serviceAddress?.street} ? `${bookingInfo?.serviceAddress?.street}` : `${bookingInfo?.otpVerifyData[0]?.data?.customer?.address?.street}`},
-  //   suburb: `${bookingInfo?.serviceAddress?.suburb} ? ${bookingInfo?.serviceAddress?.suburb} : ${bookingInfo?.otpVerifyData[0]?.data?.customer?.address?.suburb}`,
-  //   state: `${bookingInfo?.serviceAddress?.state} ? ${bookingInfo?.serviceAddress?.state} :${bookingInfo?.otpVerifyData[0]?.data?.customer?.address?.state}`,
-  //   post_code: `${bookingInfo?.serviceAddress?.post_code} ? ${bookingInfo?.serviceAddress?.post_code} :${bookingInfo?.otpVerifyData[0]?.data?.customer?.address?.post_code}`,
-  //   subpremise: `${bookingInfo?.serviceAddress?.subpremise} ? ${bookingInfo?.serviceAddress?.subpremise} :${bookingInfo?.otpVerifyData[0]?.data?.customer?.address?.subpremise}`,
-  // });
-
   const [selectedServiceAddress, setSelectedServiceAddress] = useState<any>({
     street: bookingInfo?.serviceAddress?.street
       ? bookingInfo.serviceAddress.street
@@ -297,11 +289,11 @@ const SwitchSelect: React.FC = () => {
                       : bookingInfo?.otpVerifyData?.[0]?.data?.email}
                   </li>
                 </ul>
-                <p className="mt-4">
+                {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length && <p className="mt-4">
                   <b>Note:</b> You already have{" "}
                   {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length}{" "}
                   Addresses.
-                </p>
+                </p>}
               </div>
 
               <div>
@@ -432,7 +424,8 @@ const SwitchSelect: React.FC = () => {
                     close
                   </Button>
                 </div>
-                {!addNewAddressView == true ? (
+                {addNewAddressView == false &&
+                  bookingInfo?.otpVerifyData[0]?.data?.addresses.length ? (
                   <DialogTitle as="h3" className="text-base/7 font-bold ">
                     <div className="flex gap-2 items-center pt-3">
                       <span>Select Address or </span>
@@ -501,7 +494,7 @@ const SwitchSelect: React.FC = () => {
                       </div>
                     </div>
                   )}
-                {addNewAddressView == true && <AddressEditAddModal />}
+                {bookingInfo?.otpVerifyData[0]?.data === null || addNewAddressView == true ? <AddressEditAddModal /> : ""}
               </DialogPanel>
             </div>
           </div>

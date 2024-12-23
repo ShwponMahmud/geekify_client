@@ -1,4 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
+import { SubmitAddressInfo } from "@/app/rtk-state/reducers/addressSlice";
 import {
   choosePreferredDateAndTimeNextStep,
   contactInformationForBookingNestStep,
@@ -9,6 +10,7 @@ import {
 } from "@/app/rtk-state/reducers/bookingSlice";
 import { useState } from "react";
 import { LuPenSquare } from "react-icons/lu";
+
 
 
 function ServiceBookingSummery() {
@@ -95,8 +97,22 @@ function ServiceBookingSummery() {
     ],
   };
 
+
+
   const bookingSummerySaveAndSubmitHandler = () => {
-    dispatch(submitBookingSummery(bookingSummerySubmitData));
+    
+    if(bookingInfo?.otpVerifyData[0]?.data === null){
+
+      const AddressInfoForSubmit = {
+        ...bookingInfo.serviceAddress, country: "Australia"
+      };
+
+      dispatch(SubmitAddressInfo(AddressInfoForSubmit));
+      // dispatch(submitBookingSummery(bookingSummerySubmitData));
+    }else{
+      dispatch(submitBookingSummery(bookingSummerySubmitData));
+
+    }
   };
 
   return (
