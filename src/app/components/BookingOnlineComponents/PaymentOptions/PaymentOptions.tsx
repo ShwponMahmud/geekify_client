@@ -4,18 +4,27 @@ import masterCardIcon from "@/assets/icons/master card.png";
 import afterPayIcon from "@/assets/icons/afterPay.png";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
-import { formatDate, formatTime, formatTimeInterval } from "../ServiceBookingSummery/ServiceBookingSummery";
-import { contactInformationForBookingNestStep, submitBookingSummery } from "@/app/rtk-state/reducers/bookingSlice";
+import {
+  formatDate,
+  formatTime,
+  formatTimeInterval,
+} from "../ServiceBookingSummery/ServiceBookingSummery";
+import {
+  contactInformationForBookingNestStep,
+  paymentOptionSelected,
+  submitBookingSummery,
+} from "@/app/rtk-state/reducers/bookingSlice";
 
 const PaymentOptions: React.FC = () => {
   const bookingInfo = useAppSelector((state) => state?.booking);
-  const user = useAppSelector((state) => state?.users.user);
+  const customer = useAppSelector((state) => state?.customer.customer);
   const dispatch = useAppDispatch();
 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const handleSelect = (option: string) => {
     setSelectedOption(option);
+    dispatch(paymentOptionSelected(option))
   };
 
   const isSelected = (option: string) => selectedOption === option;
@@ -30,7 +39,7 @@ const PaymentOptions: React.FC = () => {
     state: bookingInfo?.serviceAddress?.state,
     user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
       ? bookingInfo?.otpVerifyData?.[0]?.data?.id
-      : user?.[0]?.id,
+      : customer?.id,
     service_id: "1",
     date: formatDate(bookingInfo?.choosePreferredDateAndTime?.booking_schedule),
     time: formatTime(bookingInfo?.choosePreferredDateAndTime?.selectedTime),
@@ -38,20 +47,31 @@ const PaymentOptions: React.FC = () => {
       bookingInfo?.choosePreferredDateAndTime?.booking_duration
     ),
     client_panel: 0,
-    online_discount: selectedOption === "full" ? 1 : selectedOption === "half" ? 1 : selectedOption === "quarter" ? 1 : 0,
-    online_discount_amount: selectedOption === "full" ? 15.0 : selectedOption === "half" ? 10.0 : selectedOption === "quarter" ? 5.0 : null
+    online_discount:
+      selectedOption === "full"
+        ? 1
+        : selectedOption === "half"
+        ? 1
+        : selectedOption === "quarter"
+        ? 1
+        : 0,
+    online_discount_amount:
+      selectedOption === "full"
+        ? 15.0
+        : selectedOption === "half"
+        ? 10.0
+        : selectedOption === "quarter"
+        ? 5.0
+        : null,
   };
-
 
   const discountPaymentAmountGetHandler = () => {
     dispatch(submitBookingSummery(bookingSummerySubmitData));
-    console.log(bookingSummerySubmitData)
-    console.log(selectedOption)
-  }
+  };
 
   const preHandler = () => {
     dispatch(contactInformationForBookingNestStep("next"));
-  }
+  };
 
   return (
     <div className="py-5 flex flex-col items-center justify-center ">
@@ -67,7 +87,7 @@ const PaymentOptions: React.FC = () => {
           {/* Full Payment Card */}
           <div
             className={`border rounded-lg p-6 ${
-              isSelected("full")
+              isSelected("full") || bookingInfo?.paymentOptionSelected === "full"
                 ? "bg-orange-100 border-orange-500"
                 : "bg-white"
             }`}
@@ -77,14 +97,17 @@ const PaymentOptions: React.FC = () => {
             </h2>
             <p
               className={` text-md font-semibold mb-4 text-center ${
-                isSelected("full") ? "text-orange-500" : "text-gray-600"
+                isSelected("full") || bookingInfo?.paymentOptionSelected === "full" ? "text-orange-500" : "text-gray-600"
               }`}
             >
               Save 15.0%
             </p>
-            {isSelected("full") && (
+            {bookingInfo?.paymentOptionSelected === "full" && (
               <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                $209.81
+                $
+                {(bookingInfo?.bookingSummerySubmitResData?.grand_total / 100)
+                  .toString()
+                  .padStart(2, "0")}
               </p>
             )}
             <ul className="text-sm text-gray-700 space-y-2 mb-6">
@@ -93,22 +116,24 @@ const PaymentOptions: React.FC = () => {
               <li>✔ Early access to new features</li>
               <li>✔ Available phone support</li>
             </ul>
-            <button
-              className={`px-4 py-2 rounded-lg w-full ${
-                isSelected("full")
-                  ? "bg-orange-500 text-white"
-                  : "bg-gray-500 text-white"
-              }`}
-              onClick={() => handleSelect("full")}
-            >
-              {isSelected("full") ? "Selected" : "Select"}
-            </button>
+            <span onClick={discountPaymentAmountGetHandler}>
+              <button
+                className={`px-4 py-2 rounded-lg w-full ${
+                  isSelected("full") || bookingInfo?.paymentOptionSelected === "full"
+                    ? "bg-orange-500 text-white"
+                    : "bg-gray-500 text-white"
+                }`}
+                onClick={() => handleSelect("full")}
+              >
+                {isSelected("full") ? "Selected" : "Select"}
+              </button>
+            </span>
           </div>
 
           {/* Half Payment Card */}
           <div
             className={`border rounded-lg p-6 relative ${
-              isSelected("half")
+              isSelected("half") || bookingInfo?.paymentOptionSelected === "half"
                 ? "bg-orange-100 border-orange-500"
                 : "bg-white"
             }`}
@@ -118,14 +143,16 @@ const PaymentOptions: React.FC = () => {
             </h2>
             <p
               className={`text-center text-md font-semibold mb-4 ${
-                isSelected("half") ? "text-orange-500" : "text-gray-600"
+                isSelected("half") || bookingInfo?.paymentOptionSelected === "half" ? "text-orange-500" : "text-gray-600"
               }`}
             >
               Save 10.0%
             </p>
-            {isSelected("half") && (
+            { bookingInfo?.paymentOptionSelected === "half" && (
               <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                $209.81
+                ${(bookingInfo?.bookingSummerySubmitResData?.grand_total / 100)
+                  .toString()
+                  .padStart(2, "0")}
               </p>
             )}
             <p className="text-sm text-gray-700 mb-6">
@@ -135,23 +162,25 @@ const PaymentOptions: React.FC = () => {
               <br />✔ Email support
             </p>
             <div className="absolute bottom-[25px] left-0 right-0 px-6">
-              <button
-                className={`px-4 py-2 rounded-lg w-full ${
-                  isSelected("half")
-                    ? "bg-orange-500 text-white"
-                    : "bg-gray-500 text-white"
-                }`}
-                onClick={() => handleSelect("half")}
-              >
-                {isSelected("half") ? "Selected" : "Select"}
-              </button>
+              <span onClick={discountPaymentAmountGetHandler}>
+                <button
+                  className={`px-4 py-2 rounded-lg w-full ${
+                    isSelected("half") || bookingInfo?.paymentOptionSelected === "half"
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-500 text-white"
+                  }`}
+                  onClick={() => handleSelect("half")}
+                >
+                  {isSelected("half") ? "Selected" : "Select"}
+                </button>
+              </span>
             </div>
           </div>
 
           {/* Quarter Payment Card */}
           <div
             className={`border rounded-lg p-6 relative ${
-              isSelected("quarter")
+              isSelected("quarter") || bookingInfo?.paymentOptionSelected === "quarter"
                 ? "bg-orange-100 border-orange-500"
                 : "bg-white"
             }`}
@@ -161,14 +190,16 @@ const PaymentOptions: React.FC = () => {
             </h2>
             <p
               className={`text-center text-md font-semibold mb-4 ${
-                isSelected("quarter") ? "text-orange-500" : "text-gray-600"
+                isSelected("quarter") || bookingInfo?.paymentOptionSelected === "quarter" ? "text-orange-500" : "text-gray-600"
               }`}
             >
               Save 5.0%
             </p>
-            {isSelected("quarter") && (
+            { bookingInfo?.paymentOptionSelected === "quarter" && (
               <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                $209.81
+                ${(bookingInfo?.bookingSummerySubmitResData?.grand_total / 100)
+                  .toString()
+                  .padStart(2, "0")}
               </p>
             )}
             <p className="text-sm text-gray-700 mb-6">
@@ -176,16 +207,18 @@ const PaymentOptions: React.FC = () => {
               <br />✔ Remaining 75% later
             </p>
             <div className="absolute bottom-[25px] left-0 right-0 px-6">
-              <button
-                className={`px-4 py-2 rounded-lg w-full ${
-                  isSelected("quarter")
-                    ? "bg-orange-500 text-white"
-                    : "bg-gray-500 text-white"
-                }`}
-                onClick={() => handleSelect("quarter")}
-              >
-                {isSelected("quarter") ? "Selected" : "Select"}
-              </button>
+              <span onClick={discountPaymentAmountGetHandler}>
+                <button
+                  className={`px-4 py-2 rounded-lg w-full ${
+                    isSelected("quarter") || bookingInfo?.paymentOptionSelected === "quarter" 
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-500 text-white"
+                  }`}
+                  onClick={() => handleSelect("quarter")}
+                >
+                  {isSelected("quarter") ? "Selected" : "Select"}
+                </button>
+              </span>
             </div>
           </div>
 
@@ -203,25 +236,30 @@ const PaymentOptions: React.FC = () => {
               02 9158 9800
             </p>
             <div className="absolute bottom-[25px] left-0 right-0 px-6">
-              <button
-                className={`px-4 py-2 rounded-lg w-full ${
-                  isSelected("undecided")
-                    ? "bg-orange-500 text-white"
-                    : "bg-gray-500 text-white"
-                }`}
-                onClick={() => handleSelect("undecided")}
-              >
-                {isSelected("undecided") ? "Selected" : "Select"}
-              </button>
+              <span onClick={discountPaymentAmountGetHandler}>
+                <button
+                  className={`px-4 py-2 rounded-lg w-full ${
+                    isSelected("undecided")
+                      ? "bg-orange-500 text-white"
+                      : "bg-gray-500 text-white"
+                  }`}
+                  onClick={() => handleSelect("undecided")}
+                >
+                  {isSelected("undecided") ? "Selected" : "Select"}
+                </button>
+              </span>
             </div>
           </div>
         </div>
 
         <div className="mt-6 flex justify-between items-center">
-          <button onClick={preHandler} className="text-orange-500 border border-orange-500 px-4 py-2 rounded-lg">
+          <button
+            onClick={preHandler}
+            className="text-orange-500 border border-orange-500 px-4 py-2 rounded-lg"
+          >
             Prev
           </button>
-          <button onClick={discountPaymentAmountGetHandler} className="bg-orange-500 text-white px-6 py-2 rounded-lg">
+          <button className="bg-orange-500 text-white px-6 py-2 rounded-lg">
             Proceed to Pay
           </button>
         </div>

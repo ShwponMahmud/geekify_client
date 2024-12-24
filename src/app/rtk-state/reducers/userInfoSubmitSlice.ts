@@ -29,6 +29,7 @@ export interface UserInfoState {
   status: string;
   error: string | null;
   userInfo: any;
+  userInfoStatus : string;
 }
 
 const initialState: UserInfoState = {
@@ -36,6 +37,7 @@ const initialState: UserInfoState = {
   status: "",
   error: null,
   userInfo: {},
+  userInfoStatus: ""
 };
 
 // Async thunk for fetching users info submit
@@ -63,7 +65,11 @@ export const SubmitUserInfo = createAsyncThunk(
 export const userInfoSubmitSlice = createSlice({
   name: "userInfo",
   initialState,
-  reducers: {},
+  reducers: {
+    userInfoStatus: (state, action: PayloadAction<string>) => {
+      state.userInfoStatus = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(SubmitUserInfo.pending, (state) => {
@@ -86,6 +92,7 @@ export const userInfoSubmitSlice = createSlice({
   },
 });
 
+export const {userInfoStatus} = userInfoSubmitSlice.actions
 // Selector
 export const selectUsers = (state: RootState) => state.userInfoAfterSubmit;
 

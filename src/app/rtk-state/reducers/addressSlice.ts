@@ -37,6 +37,7 @@ export interface AddressState {
   status: string;
   error: string | null;
   address: any[];
+  SubmitAddressInfoStatus: string;
 }
 
 const initialState: AddressState = {
@@ -44,6 +45,7 @@ const initialState: AddressState = {
   status: "",
   error: null,
   address: [],
+  SubmitAddressInfoStatus: ""
 };
 
 
@@ -75,7 +77,11 @@ export const SubmitAddressInfo = createAsyncThunk(
 export const addressSlice = createSlice({
   name: "addresses",
   initialState,
-  reducers: {},
+  reducers: {
+    SubmitAddressInfoStatus: (state, action: PayloadAction<string>) => {
+      state.SubmitAddressInfoStatus = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(SubmitAddressInfo.pending, (state) => {
@@ -99,6 +105,8 @@ export const addressSlice = createSlice({
   },
 });
 
+
+export const {SubmitAddressInfoStatus} = addressSlice.actions
 // Selector
 export const selectAddresses = (state: RootState) => state.addresses;
 

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
-import { SubmitAddressInfo } from "@/app/rtk-state/reducers/addressSlice";
+import { SubmitAddressInfo, SubmitAddressInfoStatus } from "@/app/rtk-state/reducers/addressSlice";
 import {
   choosePreferredDateAndTimeNextStep,
   contactInformationForBookingNestStep,
@@ -9,7 +9,7 @@ import {
   submitBookingSummery,
 } from "@/app/rtk-state/reducers/bookingSlice";
 import { createCustomer } from "@/app/rtk-state/reducers/customerSlice";
-import { SubmitUserInfo } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
+import { SubmitUserInfo, userInfoStatus } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
 import { getUser } from "@/app/rtk-state/reducers/userSlice";
 import { useEffect, useState } from "react";
 import { LuPenSquare } from "react-icons/lu";
@@ -207,77 +207,97 @@ function ServiceBookingSummery() {
   //   }, [addressInfo]);
   // }
 
- // Local state to track status
- const [isAddressSubmitted, setIsAddressSubmitted] = useState(false);
- const [isCustomerCreated, setIsCustomerCreated] = useState(false);
- const [isBookingSubmitted, setIsBookingSubmitted] = useState(false);
+  // Local state to track status
+  const [isAddressSubmitted, setIsAddressSubmitted] = useState(false);
+  const [isCustomerCreated, setIsCustomerCreated] = useState(false);
+  const [isBookingSubmitted, setIsBookingSubmitted] = useState(false);
+  const [isUserGet, setIsUserGet] = useState(false);
 
- const bookingSummerySaveAndSubmitHandler = () => {
-   if (bookingInfo?.otpVerifyData?.[0]?.data === null) {
-     const name = bookingInfo.contactInformationForBooking.fullName.split(" ");
+  const bookingSummerySaveAndSubmitHandler = () => {
+    if (bookingInfo?.otpVerifyData?.[0]?.data === null) {
+      const name = bookingInfo.contactInformationForBooking.fullName.split(" ");
 
-     const userContactInfo = {
-       first_name: name[0],
-       last_name: name[1],
-       phone_number: bookingInfo.contactInformationForBooking.phoneNumber,
-       email: bookingInfo.contactInformationForBooking.email,
-     };
+      // user create......
+      const userContactInfo = {
+        first_name: name[0],
+        last_name: name[1],
+        phone_number: bookingInfo.contactInformationForBooking.phoneNumber,
+        email: bookingInfo.contactInformationForBooking.email,
+      };
 
-     dispatch(SubmitUserInfo(userContactInfo));
-   } else {
-     dispatch(submitBookingSummery(bookingSummerySubmitData));
-   }
- };
+      dispatch(SubmitUserInfo(userContactInfo));
+      dispatch(userInfoStatus("true"))
+      
+    } else {
+      dispatch(submitBookingSummery(bookingSummerySubmitData));
+    }
+  };
 
- useEffect(() => {
-   if (userInfo.status === "success" && !isAddressSubmitted) {
-     const AddressInfoForSubmit = {
-       ...bookingInfo.serviceAddress,
-       country: "Australia",
-       user_id: userInfo?.userInfo?.id,
-     };
-     dispatch(SubmitAddressInfo(AddressInfoForSubmit));
-     setIsAddressSubmitted(true); // Prevents re-dispatching
-   }
- }, [userInfo, bookingInfo.serviceAddress, isAddressSubmitted, dispatch]);
+  // Address info submit........
+  useEffect(() => {
+    if (userInfo.userInfoStatus === "true" && !isAddressSubmitted) {
+      const AddressInfoForSubmit = {
+        ...bookingInfo.serviceAddress,
+        country: "Australia",
+        user_id: userInfo?.userInfo?.id,
+      };
+      dispatch(SubmitAddressInfo(AddressInfoForSubmit));
+      setIsAddressSubmitted(true); 
+      dispatch(userInfoStatus(""))
+      dispatch(SubmitAddressInfoStatus("true"))
+    }
+  }, [userInfo, bookingInfo.serviceAddress, isAddressSubmitted, dispatch]);
 
- useEffect(() => {
-   if (addressInfo.status === "success" && !isCustomerCreated) {
-     const CustomFormData = {
-       email: bookingInfo?.contactInformationForBooking?.email,
-     };
-     dispatch(getUser(CustomFormData));
+  // get user .......
+  useEffect(() => {
+    if (addressInfo.SubmitAddressInfoStatus === "true" && !isUserGet) {
+      const CustomFormData = {
+        email: bookingInfo?.contactInformationForBooking?.email,
+      };
 
-     const CustomerFormData = {
-       address_id: addressInfo?.address?.[0]?.id,
-       user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
-         ? bookingInfo?.otpVerifyData?.[0]?.data?.id
-         : userInfo?.userInfo?.id,
-       type: 1,
-       status: 1,
-       newsletter_subscription: 1,
-     };
+      dispatch(getUser(CustomFormData));
+      setIsUserGet(true);
+      dispatch(SubmitAddressInfoStatus(""))
+      
+    }
+  }, [addressInfo, bookingInfo?.contactInformationForBooking, isUserGet]);
 
-     dispatch(createCustomer(CustomerFormData));
-     console.log(CustomerFormData);
-     setIsCustomerCreated(true); // Prevents re-dispatching
-   }
- }, [
-   addressInfo,
-   bookingInfo?.otpVerifyData,
-   bookingInfo?.contactInformationForBooking?.email,
-   userInfo?.userInfo?.id,
-   isCustomerCreated,
-   dispatch,
- ]);
+  // customer create.....
+  useEffect(() => {
+    if (addressInfo.SubmitAddressInfoStatus === "true" && !isCustomerCreated) {
+      const CustomerFormData = {
+        address_id: addressInfo?.address?.[0]?.id,
+        user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+          : userInfo?.userInfo?.id,
+        type: 1,
+        status: 1,
+        newsletter_subscription: 1,
+      };
 
- useEffect(() => {
-   if (addressInfo.status === "success" && !isBookingSubmitted) {
-     dispatch(submitBookingSummery(bookingSummerySubmitData));
-     setIsBookingSubmitted(true); // Prevents re-dispatching
-   }
- }, [addressInfo, bookingSummerySubmitData, isBookingSubmitted, dispatch]);
+      dispatch(createCustomer(CustomerFormData));
+      setIsCustomerCreated(true);
+      dispatch(SubmitAddressInfoStatus(""))
+    }
+  }, [
+    addressInfo,
+    addressInfo?.address?.[0]?.id,
+    bookingInfo?.otpVerifyData,
+    userInfo?.userInfo?.id,
+    isCustomerCreated,
+    dispatch,
+  ]);
 
+  //  submit booking summery.......
+  useEffect(() => {
+    if (addressInfo.SubmitAddressInfoStatus === "true" && !isBookingSubmitted) {
+      dispatch(submitBookingSummery(bookingSummerySubmitData));
+      setIsBookingSubmitted(true);
+      dispatch(contactInformationForBookingNestStep(""));
+    }
+  }, [addressInfo, bookingSummerySubmitData, isBookingSubmitted, dispatch]);
+
+  
   return (
     <>
       <div className="service_booking_summery_section mt-10 ">
