@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ServiceType.css";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
@@ -11,6 +11,8 @@ import {
   serviceAddressParkingSubmitAfterNextStep,
   serviceAddressSelect,
   serviceTypeSelect,
+  setBillingAddressModal,
+  setServiceAddressModal,
 } from "@/app/rtk-state/reducers/bookingSlice";
 
 type Address = {
@@ -24,10 +26,14 @@ type Address = {
 const SwitchSelect: React.FC = () => {
   const bookingInfo = useAppSelector((state) => state?.booking);
   const [serviceTypeSelectedOption, setServiceTypeSelectedOption] =
-    useState<string>(bookingInfo?.serviceType? bookingInfo?.serviceType : "Onsite");
+    useState<string>(
+      bookingInfo?.serviceType ? bookingInfo?.serviceType : "Onsite"
+    );
   const [addNewAddressView, setAddNewAddressView] = useState<boolean>(false);
   const [isBillingSame, setIsBillingSame] = useState(false);
-  const [selectedParking, setSelectedParking] = useState<string | null>(bookingInfo?.parkingOption? bookingInfo?.parkingOption : null);
+  const [selectedParking, setSelectedParking] = useState<string | null>(
+    bookingInfo?.parkingOption ? bookingInfo?.parkingOption : null
+  );
   const [selectedServiceAddress, setSelectedServiceAddress] = useState<any>({
     street: bookingInfo?.serviceAddress?.street
       ? bookingInfo.serviceAddress.street
@@ -47,11 +53,20 @@ const SwitchSelect: React.FC = () => {
   });
 
   const [selectedBillingAddress, setSelectedBillingAddress] = useState<any>({
-    street: bookingInfo?.billingAddress?.street? bookingInfo?.billingAddress?.street : "",
-    suburb: bookingInfo?.billingAddress?.suburb? bookingInfo?.billingAddress?.suburb : "",
-    state: bookingInfo?.billingAddress?.state? bookingInfo?.billingAddress?.state : "",
-    post_code: bookingInfo?.billingAddress?.post_code? bookingInfo?.billingAddress?.post_code : "",
-    subpremise: bookingInfo?.billingAddress?.subpremise? bookingInfo?.billingAddress?.subpremise : "",
+    street:
+      bookingInfo?.billingAddress?.street &&
+      bookingInfo?.billingAddress?.street,
+    suburb:
+      bookingInfo?.billingAddress?.suburb &&
+      bookingInfo?.billingAddress?.suburb,
+    state:
+      bookingInfo?.billingAddress?.state && bookingInfo?.billingAddress?.state,
+    post_code:
+      bookingInfo?.billingAddress?.post_code &&
+      bookingInfo?.billingAddress?.post_code,
+    subpremise:
+      bookingInfo?.billingAddress?.subpremise &&
+      bookingInfo?.billingAddress?.subpremise,
   });
   const dispatch = useAppDispatch();
 
@@ -78,7 +93,7 @@ const SwitchSelect: React.FC = () => {
   function close() {
     setIsOpen(false);
   }
-
+  console.log(bookingInfo.newCustomerAddressStatus);
   const addNewAddressViewHandler = () => {
     setAddNewAddressView(true);
   };
@@ -96,16 +111,16 @@ const SwitchSelect: React.FC = () => {
       .split(",")
       .map((val) => val.trim());
 
-    {
-      bookingInfo?.serviceAddress?.setServiceAddress === "true" &&
-        setSelectedServiceAddress({
-          street,
-          suburb,
-          state,
-          post_code,
-          subpremise: subpremise || "",
-        });
+    if (bookingInfo?.serviceAddress?.setServiceAddress === "true") {
+      setSelectedServiceAddress({
+        street,
+        suburb,
+        state,
+        post_code,
+        subpremise: subpremise || "",
+      });
     }
+
     if (bookingInfo.billingAddress?.setBillingAddress === "true") {
       setSelectedBillingAddress({
         street,
@@ -118,18 +133,10 @@ const SwitchSelect: React.FC = () => {
   };
 
   const setServiceAddressHandler = () => {
-    dispatch(
-      serviceAddressSelect({
-        setServiceAddress: "true",
-      })
-    );
+    dispatch(setServiceAddressModal("true"));
   };
   const handleBillingAddress = () => {
-    dispatch(
-      billingAddressSelect({
-        setBillingAddress: "true",
-      })
-    );
+    dispatch(setBillingAddressModal("true"));
   };
 
   const SaveAddress = () => {
@@ -150,7 +157,11 @@ const SwitchSelect: React.FC = () => {
     }
   };
 
-  if (isBillingSame || selectedBillingAddress.street) {
+  if (
+    isBillingSame ||
+    selectedBillingAddress.street ||
+    bookingInfo?.billingAddress?.street
+  ) {
     const billingAddressProvidedAlertElement =
       document.querySelector<HTMLElement>(".billing_address_Provided_alert");
     const billingAddressSetAlertElement = document.querySelector<HTMLElement>(
@@ -194,17 +205,17 @@ const SwitchSelect: React.FC = () => {
       }
     }
 
-    if (isBillingSame) {
+    if (isBillingSame === true) {
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      dispatch(serviceAddressSelect(selectedServiceAddress));
-      dispatch(billingAddressSelect(selectedServiceAddress));
+      dispatch(serviceAddressSelect(bookingInfo?.serviceAddress? bookingInfo?.serviceAddress : selectedServiceAddress));
+      dispatch(billingAddressSelect(bookingInfo?.serviceAddress? bookingInfo?.serviceAddress : selectedServiceAddress));
       dispatch(parkingOptionSelect(selectedParking));
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
     }
     if (selectedBillingAddress.street) {
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      dispatch(serviceAddressSelect(selectedServiceAddress));
-      dispatch(billingAddressSelect(selectedBillingAddress));
+      dispatch(serviceAddressSelect(bookingInfo?.serviceAddress? bookingInfo?.serviceAddress : selectedServiceAddress));
+      dispatch(billingAddressSelect(bookingInfo?.billingAddress? bookingInfo?.billingAddress : selectedBillingAddress));
       dispatch(parkingOptionSelect(selectedParking));
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
     }
@@ -265,35 +276,56 @@ const SwitchSelect: React.FC = () => {
               <div>
                 <ul className="list-disc px-5 text-deepGrayColor">
                   <li>
-                    <b>Street:</b> {selectedServiceAddress?.street}
+                    <b>Street:</b>{" "}
+                    {bookingInfo?.serviceAddress?.street
+                      ? bookingInfo?.serviceAddress?.street
+                      : selectedServiceAddress?.street}
                   </li>
                   <li>
-                    <b>City: </b> {selectedServiceAddress?.suburb}
+                    <b>City: </b>{" "}
+                    {bookingInfo?.serviceAddress?.suburb
+                      ? bookingInfo?.serviceAddress?.suburb
+                      : selectedServiceAddress?.suburb}
                   </li>
                   <li>
-                    <b>State/Area/Province:</b> {selectedServiceAddress?.state}
+                    <b>State/Area/Province:</b>{" "}
+                    {bookingInfo?.serviceAddress?.state
+                      ? bookingInfo?.serviceAddress?.state
+                      : selectedServiceAddress?.state}
                   </li>
                   <li>
-                    <b>Flat/Unit:</b> {selectedServiceAddress?.subpremise}
+                    <b>Flat/Unit:</b>{" "}
+                    {bookingInfo?.serviceAddress?.subpremise
+                      ? bookingInfo?.serviceAddress?.subpremise
+                      : selectedServiceAddress?.subpremise}
                   </li>
-                  <li>
-                    <b>Phone Number:</b>{" "}
-                    {selectedServiceAddress?.phone_number
-                      ? selectedServiceAddress?.phone_number
-                      : bookingInfo?.otpVerifyData?.[0]?.data?.phone_number}
-                  </li>
-                  <li>
-                    <b>Email:</b>{" "}
-                    {selectedServiceAddress?.email
-                      ? selectedServiceAddress?.email
-                      : bookingInfo?.otpVerifyData?.[0]?.data?.email}
-                  </li>
+
+                  {selectedServiceAddress?.phone_number ||
+                    (bookingInfo?.otpVerifyData?.[0]?.data?.phone_number && (
+                      <li>
+                        <b>Phone Number:</b>{" "}
+                        {selectedServiceAddress?.phone_number
+                          ? selectedServiceAddress?.phone_number
+                          : bookingInfo?.otpVerifyData?.[0]?.data?.phone_number}
+                      </li>
+                    ))}
+                  {selectedServiceAddress?.email ||
+                    (bookingInfo?.otpVerifyData?.[0]?.data?.email && (
+                      <li>
+                        <b>Email:</b>{" "}
+                        {selectedServiceAddress?.email
+                          ? selectedServiceAddress?.email
+                          : bookingInfo?.otpVerifyData?.[0]?.data?.email}
+                      </li>
+                    ))}
                 </ul>
-                {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length && <p className="mt-4">
-                  <b>Note:</b> You already have{" "}
-                  {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length}{" "}
-                  Addresses.
-                </p>}
+                {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length && (
+                  <p className="mt-4">
+                    <b>Note:</b> You already have{" "}
+                    {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length}{" "}
+                    Addresses.
+                  </p>
+                )}
               </div>
 
               <div>
@@ -326,29 +358,28 @@ const SwitchSelect: React.FC = () => {
                 <div className="mb-5">
                   <ul className="list-disc px-5 text-deepGrayColor">
                     <li>
-                      <b>Street:</b> {selectedBillingAddress?.street}
+                      <b>Street:</b>{" "}
+                      {bookingInfo?.billingAddress?.street
+                        ? bookingInfo?.billingAddress?.street
+                        : selectedBillingAddress?.street}
                     </li>
                     <li>
-                      <b>City: </b> {selectedBillingAddress?.suburb}
+                      <b>City: </b>{" "}
+                      {bookingInfo?.billingAddress?.suburb
+                        ? bookingInfo?.billingAddress?.suburb
+                        : selectedBillingAddress?.suburb}
                     </li>
                     <li>
                       <b>State/Area/Province:</b>{" "}
-                      {selectedBillingAddress?.state}
+                      {bookingInfo?.billingAddress?.state
+                        ? bookingInfo?.billingAddress?.state
+                        : selectedBillingAddress?.state}
                     </li>
                     <li>
-                      <b>Flat/Unit:</b> {selectedBillingAddress?.subpremise}
-                    </li>
-                    <li>
-                      <b>Phone Number:</b>{" "}
-                      {selectedBillingAddress?.phone_number
-                        ? selectedBillingAddress?.phone_number
-                        : bookingInfo?.otpVerifyData?.[0]?.data?.phone_number}
-                    </li>
-                    <li>
-                      <b>Email:</b>{" "}
-                      {selectedBillingAddress?.email
-                        ? selectedBillingAddress?.email
-                        : bookingInfo?.otpVerifyData?.[0]?.data?.email}
+                      <b>Flat/Unit:</b>{" "}
+                      {bookingInfo?.billingAddress?.subpremise
+                        ? bookingInfo?.billingAddress?.subpremise
+                        : selectedBillingAddress?.subpremise}
                     </li>
                   </ul>
                 </div>
@@ -425,7 +456,7 @@ const SwitchSelect: React.FC = () => {
                   </Button>
                 </div>
                 {addNewAddressView == false &&
-                  bookingInfo?.otpVerifyData[0]?.data?.addresses.length ? (
+                bookingInfo?.otpVerifyData[0]?.data?.addresses.length ? (
                   <DialogTitle as="h3" className="text-base/7 font-bold ">
                     <div className="flex gap-2 items-center pt-3">
                       <span>Select Address or </span>
@@ -494,7 +525,12 @@ const SwitchSelect: React.FC = () => {
                       </div>
                     </div>
                   )}
-                {bookingInfo?.otpVerifyData[0]?.data === null || addNewAddressView == true ? <AddressEditAddModal /> : ""}
+                {bookingInfo?.otpVerifyData[0]?.data === null ||
+                addNewAddressView == true ? (
+                  <AddressEditAddModal />
+                ) : (
+                  ""
+                )}
               </DialogPanel>
             </div>
           </div>

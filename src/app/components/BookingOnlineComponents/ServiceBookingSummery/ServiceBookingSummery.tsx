@@ -8,13 +8,52 @@ import {
   serviceQuestionInfoNextStep,
   submitBookingSummery,
 } from "@/app/rtk-state/reducers/bookingSlice";
-import { useState } from "react";
+import { createCustomer } from "@/app/rtk-state/reducers/customerSlice";
+import { SubmitUserInfo } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
+import { getUser } from "@/app/rtk-state/reducers/userSlice";
+import { useEffect, useState } from "react";
 import { LuPenSquare } from "react-icons/lu";
 
+export const formatDate = (date: string | undefined) => {
+  if (!date) return null;
+  const d = new Date(date);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}-${String(d.getDate()).padStart(2, "0")}`;
+};
 
+// Function to convert time to 24-hour format
+export const formatTime = (time: string): string => {
+  const [hours, minutes] = time.split(/[: ]/);
+  const meridian = time.split(" ")[1];
+  let hour24 = parseInt(hours);
+
+  if (meridian === "PM" && hour24 !== 12) {
+    hour24 += 12; // Add 12 hours for PM (except 12 PM)
+  } else if (meridian === "AM" && hour24 === 12) {
+    hour24 = 0; // Set 12 AM to 0 hours
+  }
+
+  return `${hour24.toString().padStart(2, "0")}:${minutes}`;
+};
+
+export const formatTimeInterval = (interval: string): string => {
+  const match = interval.match(/(\d+)\s*Hours?\s*(\d+)?\s*Minutes?/i);
+  if (match) {
+    const hours = match[1] ? parseInt(match[1], 10) : 0;
+    const minutes = match[2] ? parseInt(match[2], 10) : 0;
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
+  }
+  throw new Error("Invalid time interval format");
+};
 
 function ServiceBookingSummery() {
   const bookingInfo = useAppSelector((state) => state?.booking);
+  const userInfo = useAppSelector((state) => state?.userInfoAfterSubmit);
+  const addressInfo = useAppSelector((state) => state?.addresses);
   const dispatch = useAppDispatch();
 
   const BookingSummeryEdit = () => {
@@ -30,39 +69,41 @@ function ServiceBookingSummery() {
     dispatch(contactInformationForBookingNestStep(""));
   };
 
-  const formatDate = (date: string | undefined) => {
-    if (!date) return null;
-    const d = new Date(date);
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  };
-
+  // export const formatDate = (date: string | undefined) => {
+  //   if (!date) return null;
+  //   const d = new Date(date);
+  //   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(
+  //     2,
+  //     "0"
+  //   )}-${String(d.getDate()).padStart(2, "0")}`;
+  // };
 
   // Function to convert time to 24-hour format
-  const formatTime = (time: string): string => {
-    const [hours, minutes] = time.split(/[: ]/);
-    const meridian = time.split(" ")[1];
-    let hour24 = parseInt(hours);
+  // const formatTime = (time: string): string => {
+  //   const [hours, minutes] = time.split(/[: ]/);
+  //   const meridian = time.split(" ")[1];
+  //   let hour24 = parseInt(hours);
 
-    if (meridian === "PM" && hour24 !== 12) {
-      hour24 += 12; // Add 12 hours for PM (except 12 PM)
-    } else if (meridian === "AM" && hour24 === 12) {
-      hour24 = 0; // Set 12 AM to 0 hours
-    }
+  //   if (meridian === "PM" && hour24 !== 12) {
+  //     hour24 += 12; // Add 12 hours for PM (except 12 PM)
+  //   } else if (meridian === "AM" && hour24 === 12) {
+  //     hour24 = 0; // Set 12 AM to 0 hours
+  //   }
 
-    return `${hour24.toString().padStart(2, "0")}:${minutes}`;
-  };
+  //   return `${hour24.toString().padStart(2, "0")}:${minutes}`;
+  // };
 
-  const formatTimeInterval = (interval: string): string => {
-    const match = interval.match(/(\d+)\s*Hours?\s*(\d+)?\s*Minutes?/i);
-    if (match) {
-      const hours = match[1] ? parseInt(match[1], 10) : 0;
-      const minutes = match[2] ? parseInt(match[2], 10) : 0;
-      return `${hours.toString().padStart(2, "0")}:${minutes
-        .toString()
-        .padStart(2, "0")}`;
-    }
-    throw new Error("Invalid time interval format");
-  }
+  // const formatTimeInterval = (interval: string): string => {
+  //   const match = interval.match(/(\d+)\s*Hours?\s*(\d+)?\s*Minutes?/i);
+  //   if (match) {
+  //     const hours = match[1] ? parseInt(match[1], 10) : 0;
+  //     const minutes = match[2] ? parseInt(match[2], 10) : 0;
+  //     return `${hours.toString().padStart(2, "0")}:${minutes
+  //       .toString()
+  //       .padStart(2, "0")}`;
+  //   }
+  //   throw new Error("Invalid time interval format");
+  // };
 
   const bookingSummerySubmitData = {
     preference: bookingInfo?.serviceType === "Onsite" ? 0 : 1,
@@ -72,12 +113,15 @@ function ServiceBookingSummery() {
     post_code: bookingInfo?.serviceAddress?.post_code,
     country: bookingInfo?.serviceAddress?.country,
     state: bookingInfo?.serviceAddress?.state,
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+      : userInfo?.userInfo?.id,
     service_id: "1",
     date: formatDate(bookingInfo?.choosePreferredDateAndTime?.booking_schedule),
     time: formatTime(bookingInfo?.choosePreferredDateAndTime?.selectedTime),
-    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id,
-    requested_time_interval:
-    formatTimeInterval(bookingInfo?.choosePreferredDateAndTime?.booking_duration),
+    requested_time_interval: formatTimeInterval(
+      bookingInfo?.choosePreferredDateAndTime?.booking_duration
+    ),
     client_panel: 0,
   };
 
@@ -97,23 +141,142 @@ function ServiceBookingSummery() {
     ],
   };
 
+  // const bookingSummerySaveAndSubmitHandler = () => {
+  //   if (bookingInfo?.otpVerifyData[0]?.data === null) {
+  //     const name = bookingInfo.contactInformationForBooking.fullName.split(" ");
 
+  //     // user create......
+  //     const userContactInfo = {
+  //       first_name: name[0],
+  //       last_name: name[1],
+  //       phone_number: bookingInfo.contactInformationForBooking.phoneNumber,
+  //       email: bookingInfo.contactInformationForBooking.email,
+  //     };
 
-  const bookingSummerySaveAndSubmitHandler = () => {
-    
-    if(bookingInfo?.otpVerifyData[0]?.data === null){
+  //     dispatch(SubmitUserInfo(userContactInfo));
+  //   } else {
+  //     dispatch(submitBookingSummery(bookingSummerySubmitData));
+  //   }
+  // };
 
-      const AddressInfoForSubmit = {
-        ...bookingInfo.serviceAddress, country: "Australia"
-      };
+  // // Address info submit........
+  // if (userInfo.status === "success") {
+  //   useEffect(() => {
+  //     const AddressInfoForSubmit = {
+  //       ...bookingInfo.serviceAddress,
+  //       country: "Australia",
+  //       user_id: userInfo?.userInfo?.id,
+  //     };
+  //     dispatch(SubmitAddressInfo(AddressInfoForSubmit));
+  //   }, [userInfo]);
+  // }
 
-      dispatch(SubmitAddressInfo(AddressInfoForSubmit));
-      // dispatch(submitBookingSummery(bookingSummerySubmitData));
-    }else{
-      dispatch(submitBookingSummery(bookingSummerySubmitData));
+  // // get user .......
+  // if (addressInfo.status === "success") {
+  //   useEffect(() => {
+  //     const CustomFormData = {
+  //       email: bookingInfo?.contactInformationForBooking?.email,
+  //     };
 
-    }
-  };
+  //     dispatch(getUser(CustomFormData));
+  //   }, [addressInfo]);
+  // }
+
+  // // customer create.....
+  // if (addressInfo.status === "success") {
+  //   useEffect(() => {
+  //     const CustomerFormData = {
+  //       address_id: addressInfo?.address?.[0]?.id,
+  //       user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+  //         ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+  //         : userInfo?.userInfo?.id,
+  //       type: 1,
+  //       status: 1,
+  //       newsletter_subscription: 1,
+  //     };
+
+  //     dispatch(createCustomer(CustomerFormData));
+  //     console.log(CustomerFormData);
+  //   }, [addressInfo]);
+  // }
+
+  // if (addressInfo.status === "success") {
+  //   useEffect(() => {
+  //     dispatch(submitBookingSummery(bookingSummerySubmitData));
+  //     // dispatch(contactInformationForBookingNestStep(""));
+  //   }, [addressInfo]);
+  // }
+
+ // Local state to track status
+ const [isAddressSubmitted, setIsAddressSubmitted] = useState(false);
+ const [isCustomerCreated, setIsCustomerCreated] = useState(false);
+ const [isBookingSubmitted, setIsBookingSubmitted] = useState(false);
+
+ const bookingSummerySaveAndSubmitHandler = () => {
+   if (bookingInfo?.otpVerifyData?.[0]?.data === null) {
+     const name = bookingInfo.contactInformationForBooking.fullName.split(" ");
+
+     const userContactInfo = {
+       first_name: name[0],
+       last_name: name[1],
+       phone_number: bookingInfo.contactInformationForBooking.phoneNumber,
+       email: bookingInfo.contactInformationForBooking.email,
+     };
+
+     dispatch(SubmitUserInfo(userContactInfo));
+   } else {
+     dispatch(submitBookingSummery(bookingSummerySubmitData));
+   }
+ };
+
+ useEffect(() => {
+   if (userInfo.status === "success" && !isAddressSubmitted) {
+     const AddressInfoForSubmit = {
+       ...bookingInfo.serviceAddress,
+       country: "Australia",
+       user_id: userInfo?.userInfo?.id,
+     };
+     dispatch(SubmitAddressInfo(AddressInfoForSubmit));
+     setIsAddressSubmitted(true); // Prevents re-dispatching
+   }
+ }, [userInfo, bookingInfo.serviceAddress, isAddressSubmitted, dispatch]);
+
+ useEffect(() => {
+   if (addressInfo.status === "success" && !isCustomerCreated) {
+     const CustomFormData = {
+       email: bookingInfo?.contactInformationForBooking?.email,
+     };
+     dispatch(getUser(CustomFormData));
+
+     const CustomerFormData = {
+       address_id: addressInfo?.address?.[0]?.id,
+       user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+         ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+         : userInfo?.userInfo?.id,
+       type: 1,
+       status: 1,
+       newsletter_subscription: 1,
+     };
+
+     dispatch(createCustomer(CustomerFormData));
+     console.log(CustomerFormData);
+     setIsCustomerCreated(true); // Prevents re-dispatching
+   }
+ }, [
+   addressInfo,
+   bookingInfo?.otpVerifyData,
+   bookingInfo?.contactInformationForBooking?.email,
+   userInfo?.userInfo?.id,
+   isCustomerCreated,
+   dispatch,
+ ]);
+
+ useEffect(() => {
+   if (addressInfo.status === "success" && !isBookingSubmitted) {
+     dispatch(submitBookingSummery(bookingSummerySubmitData));
+     setIsBookingSubmitted(true); // Prevents re-dispatching
+   }
+ }, [addressInfo, bookingSummerySubmitData, isBookingSubmitted, dispatch]);
 
   return (
     <>

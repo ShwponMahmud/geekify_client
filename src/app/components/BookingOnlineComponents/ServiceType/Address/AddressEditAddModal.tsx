@@ -9,7 +9,10 @@ import {
 } from "@react-google-maps/api";
 import {
   billingAddressSelect,
+  newCustomerAddressStatus,
   serviceAddressSelect,
+  setBillingAddressModal,
+  setServiceAddressModal,
 } from "@/app/rtk-state/reducers/bookingSlice";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 
@@ -170,12 +173,29 @@ export default function AddressEditAddModal() {
 
 
   const SaveAddress = () => {
-    if (bookingInfo.serviceAddress?.setServiceAddress === "true") {
+    // if (bookingInfo.serviceAddress?.setServiceAddress === "true" || bookingInfo?.serviceAddress?.street || bookingInfo?.serviceAddress?.street === "") {
+    if (bookingInfo?.setServiceAddressModal === "true") {
       dispatch(serviceAddressSelect(AddressInfoForSubmit));
+      dispatch(setServiceAddressModal(""));
     }
-    if (bookingInfo.billingAddress?.setBillingAddress === "true") {
+
+    // else{
+    //   dispatch(serviceAddressSelect(AddressInfoForSubmit));
+    //   dispatch(newCustomerAddressStatus("true"));
+    // }
+    
+    // if (bookingInfo.billingAddress?.setBillingAddress === "true" || bookingInfo?.billingAddress?.street || bookingInfo?.billingAddress?.street === "") {
+    if (bookingInfo?.setBillingAddressModal === "true") {
       dispatch(billingAddressSelect(AddressInfoForSubmit));
+      dispatch(
+            setBillingAddressModal("")
+          );
     }
+    // else{
+    //   dispatch(billingAddressSelect(AddressInfoForSubmit));
+    //   dispatch(newCustomerAddressStatus("true"));
+    // }
+  
 
     const successElement =
       document.querySelector<HTMLElement>(".show_success_text");

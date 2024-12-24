@@ -23,10 +23,12 @@ import { baseUrl } from "@/assets/baseUrl";
 // }
 
 export interface AddressFormData {
+  user_id: number
   street: string;
   suburb: string;
   state: string | any;
   post_code: string;
+  subpremise: string;
   country: string;
 }
 

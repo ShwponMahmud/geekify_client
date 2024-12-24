@@ -5,6 +5,7 @@ import ChooseDateTime from "@/app/components/BookingOnlineComponents/ChooseDateT
 import ContactInformation from "@/app/components/BookingOnlineComponents/ContactInformation/ContactInformation";
 import EnterPhoneSendCode from "@/app/components/BookingOnlineComponents/EnterPhoneSendCode/EnterPhoneSendCode";
 import PaymentDetails from "@/app/components/BookingOnlineComponents/PaymentDetails/PaymentDetails";
+import PaymentOptions from "@/app/components/BookingOnlineComponents/PaymentOptions/PaymentOptions";
 import ServiceBookingSummery from "@/app/components/BookingOnlineComponents/ServiceBookingSummery/ServiceBookingSummery";
 import ServiceType from "@/app/components/BookingOnlineComponents/ServiceType/ServiceType";
 import ServiceForm from "@/app/components/BookingOnlineComponents/TellUsAboutYourIssue/TellUsAboutYourIssue";
@@ -24,6 +25,7 @@ function page() {
         {bookingInfo.serviceQuestionInfoNextStep === "next" && <ChooseDateTime />}
         {bookingInfo.choosePreferredDateAndTimeNextStep === "next" && <ContactInformation />}
         {bookingInfo.contactInformationForBookingNestStep === "next" &&<ServiceBookingSummery />}
+        {/* {bookingInfo?.bookingSummerySubmitResData?.status === true && <PaymentOptions/>} */}
         {/* <PaymentDetails /> */}
       </div>
     </>

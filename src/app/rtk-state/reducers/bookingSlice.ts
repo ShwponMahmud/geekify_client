@@ -43,7 +43,10 @@ export interface BookingState {
   otpVerifyData: any[];
   serviceType: string;
   serviceAddress: any;
+  setServiceAddressModal: string;
+  newCustomerAddressStatus: string;
   billingAddress: any;
+  setBillingAddressModal: string;
   parkingOption: string | null;
   serviceAddressParkingSubmitAfterNextStep: string;
   serviceName: any;
@@ -66,7 +69,7 @@ export interface BookingState {
   choosePreferredDateAndTimeNextStep: string,
   contactInformationForBooking: any,
   contactInformationForBookingNestStep: string,
-  bookingSummerySubmitResData: any[]
+  bookingSummerySubmitResData: any
 
 }
 
@@ -80,7 +83,10 @@ const initialState: BookingState = {
   otpVerifyData: [],
   serviceType: "",
   serviceAddress: {},
+  setServiceAddressModal: "",
+  newCustomerAddressStatus: "",
   billingAddress: {},
+  setBillingAddressModal: "",
   parkingOption: "",
   serviceAddressParkingSubmitAfterNextStep: "",
   serviceName: {},
@@ -103,7 +109,7 @@ const initialState: BookingState = {
   choosePreferredDateAndTimeNextStep: "",
   contactInformationForBooking: {},
   contactInformationForBookingNestStep: "",
-  bookingSummerySubmitResData: []
+  bookingSummerySubmitResData: {}
 };
 
 export const getOTP = createAsyncThunk(
@@ -170,8 +176,17 @@ export const bookingSlice = createSlice({
     serviceAddressSelect: (state, action: PayloadAction<any>) => {
       state.serviceAddress = action.payload;
     },
+    setServiceAddressModal: (state, action: PayloadAction<string>) => {
+      state.setServiceAddressModal = action.payload;
+    },
+    newCustomerAddressStatus: (state, action: PayloadAction<string>) => {
+      state.newCustomerAddressStatus = action.payload;
+    },
     billingAddressSelect: (state, action: PayloadAction<any>) => {
       state.billingAddress = action.payload;
+    },
+    setBillingAddressModal: (state, action: PayloadAction<string>) => {
+      state.setBillingAddressModal = action.payload;
     },
     parkingOptionSelect: (state, action: PayloadAction<string | null>) => {
       state.parkingOption = action.payload;
@@ -277,7 +292,7 @@ export const bookingSlice = createSlice({
     });
     builder.addCase(submitBookingSummery.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.bookingSummerySubmitResData = [action.payload];
+      state.bookingSummerySubmitResData = action.payload;
     });
     builder.addCase(submitBookingSummery.rejected, (state, action) => {
       state.isLoading = false;
@@ -290,7 +305,10 @@ export const {
   startBooking,
   serviceTypeSelect,
   serviceAddressSelect,
+  setServiceAddressModal,
+  newCustomerAddressStatus,
   billingAddressSelect,
+  setBillingAddressModal,
   parkingOptionSelect,
   serviceAddressParkingSubmitAfterNextStep,
   serviceName,

@@ -28,14 +28,14 @@ export interface UserInfoState {
   isLoading: boolean;
   status: string;
   error: string | null;
-  userInfo: any[];
+  userInfo: any;
 }
 
 const initialState: UserInfoState = {
   isLoading: false,
   status: "",
   error: null,
-  userInfo: [],
+  userInfo: {},
 };
 
 // Async thunk for fetching users info submit
@@ -75,7 +75,7 @@ export const userInfoSubmitSlice = createSlice({
         (state, action: PayloadAction<Array<any>>) => {
           state.isLoading = false;
           state.status = "success";
-          state.userInfo = [action.payload];
+          state.userInfo = action.payload;
         }
       )
       .addCase(SubmitUserInfo.rejected, (state, action) => {

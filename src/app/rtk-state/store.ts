@@ -7,6 +7,7 @@ import SubmitUserInfoReducer from './reducers/userInfoSubmitSlice'
 import addressReducer from './reducers/addressSlice'
 import contactsReducer from './reducers/contactsSlice'
 import bookingReducer from "./reducers/bookingSlice"
+import customerReducer from "./reducers/customerSlice";
 
 const saveStateToLocalStorage = (state: RootState) => {
   try {
@@ -33,6 +34,7 @@ const loadStateFromLocalStorage = () => {
       addresses: parsedState.addresses || undefined,
       contacts: parsedState.contacts || undefined,
       booking: parsedState.booking || undefined,
+      customer: parsedState.customer || undefined,
     };
   } catch (e) {
     console.error('Error loading state from localStorage:', e);
@@ -52,6 +54,7 @@ export const store = configureStore({
     addresses:addressReducer,
     contacts: contactsReducer,
     booking: bookingReducer,
+    customer: customerReducer
   },
   preloadedState,
   
