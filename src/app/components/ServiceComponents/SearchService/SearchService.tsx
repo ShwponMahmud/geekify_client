@@ -38,7 +38,7 @@ function SearchService() {
             <button
               type="submit"
               style={{ clipPath: "polygon(100% -290%, 0% 100%, 100% 100%)" }}
-              className="py-[13.6px] w-[180px] text-right ml-[-50px] px-8 bg-primaryColor text-white font-bold text-[22px] leading-[25px] rounded-r-[10px] clip-path-[polygon(100%_25%,0%_100%,100%_100%)]"
+              className="pt-[14px] pb-[13px] w-[180px] text-right ml-[-50px] px-8 bg-primaryColor text-white text-xl leading-[25px] font-medium rounded-r-[10px] clip-path-[polygon(100%_25%,0%_100%,100%_100%)]"
             >
               Search
             </button>

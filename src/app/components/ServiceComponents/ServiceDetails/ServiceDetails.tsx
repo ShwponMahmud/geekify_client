@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import QuickContact from "../sharedComponents/QuickContact/QuickContact";
+import QuickContact from "../../sharedComponents/QuickContact/QuickContact";
 import { FaRegCheckCircle } from "react-icons/fa";
-import Showcase from "../Showcase/Showcase";
+import Showcase from "../../Showcase/Showcase";
 
 interface Service {
   name: string;

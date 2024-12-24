@@ -7,10 +7,12 @@ import GeekifyAppStore from '../HomePageSectionComponents/GeekifyAppStore/Geekif
 import OurLatestBlogs from '../HomePageSectionComponents/OurLatestBlogs/OurLatestBlogs'
 import VisitScamWatch from '../HomePageSectionComponents/VisiteScamWatch/VisitScamWatch'
 import HomeSliderShowcase from '../HomePageSectionComponents/HomeHeaderSlider/HomeSliderShowcase/HomeSliderShowcase'
+import Navbar from '../../sharedComponents/Navbar/Navbar'
 
 function HomePage() {
   return (
     <div className='mx-auto'>
+      <Navbar/>
       <HomeSliderShowcase/>
       <OurPopularServices/>
       <WhyChooseUs/>

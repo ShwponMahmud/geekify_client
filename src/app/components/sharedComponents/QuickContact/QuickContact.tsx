@@ -5,18 +5,20 @@ import { LuCalendarCheck2 } from "react-icons/lu";
 
 interface QuickContactProps {
   title: string;
+  paragraph?: string
 }
 
-const QuickContact: React.FC<QuickContactProps> = ({ title }) => {
+const QuickContact: React.FC<QuickContactProps> = ({ title, paragraph }) => {
   return (
     <>
       <section>
         <div className="bg-sectionBackgroundColor py-8 md:py-14 lg:py-20 xl:py-28">
           <div className="container mx-auto">
             <div>
-              <p className="text-3xl md:text-4xl font-bold leading-[50px] text-center text-primaryColor pb-5 md:pb-9 lg:pb-12 max-w-[900px] mx-auto">
+              <h3 className="text-2xl md:text-4xl font-bold text-center text-primaryColor max-w-[900px] mx-auto">
                 {title}
-              </p>
+              </h3>
+              <p className="py-7 font-medium text-center text-xl">{paragraph}</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-14">

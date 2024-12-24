@@ -58,38 +58,90 @@ const OurPopularServices = async () => {
 
           <div className="our_popular_service_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8 lg:mt-20">
             {services?.map((service) => (
+              // <div className="our_service_content_card text-center">
+              //   <div>
+              //     <div className="icon mb-5 justify-items-center">
+              //       <Image
+              //         width={70}
+              //         src={
+              //           service?.name ==
+              //           "Computer - Installation, Configuration, Fixing"
+              //             ? icon1
+              //             : service?.name == "Computer Troubleshooting"
+              //             ? icon2
+              //             : service?.name == "New Computer Setup"
+              //             ? icon3
+              //             : service?.name == "Data Backup, Restore"
+              //             ? icon4
+              //             : service?.name == "Data Recovery"
+              //             ? icon5
+              //             : service?.name == "Virus and Spyware Removal"
+              //             ? icon6
+              //             : ""
+              //         }
+              //         alt=""
+              //       />
+              //     </div>
+              //     <div className="title text-xl font-semibold">
+              //       <h2>{service?.name}</h2>
+              //     </div>
+              //     <div className="des mt-4 text-gray-500">
+              //       <p>{service.meta_description}</p>
+              //     </div>
+              //   </div>
+              // </div>
+
               <div className="our_service_content_card text-center">
-                <div>
-                  <div className="icon mb-5 justify-items-center">
-                    <Image
-                      width={70}
-                      src={
-                        service?.name ==
-                        "Computer - Installation, Configuration, Fixing"
-                          ? icon1
-                          : service?.name == "Computer Troubleshooting"
-                          ? icon2
-                          : service?.name == "New Computer Setup"
-                          ? icon3
-                          : service?.name == "Data Backup, Restore"
-                          ? icon4
-                          : service?.name == "Data Recovery"
-                          ? icon5
-                          : service?.name == "Virus and Spyware Removal"
-                          ? icon6
-                          : ""
-                      }
-                      alt=""
-                    />
+                <Link
+                  href={
+                    service?.name === "Computer - Installation, Configuration, Fixing"
+                      ? "/services/computer-installation-configuration-fixing"
+                      : service?.name === "Computer Troubleshooting"
+                        ? "/services/computer-troubleshooting"
+                        : service?.name === "New Computer Setup"
+                          ? "/services/new-computer-setup"
+                          : service?.name === "Data Backup, Restore"
+                            ? "/services/data-backup-restore"
+                            : service?.name === "Data Recovery"
+                              ? "/services/data-recovery"
+                              : service?.name === "Virus and Spyware Removal"
+                                ? "/services/virus-spyware-removal"
+                                : "#"
+                  }
+                >
+                  <div>
+                    <div className="icon mb-5 justify-items-center">
+                      <Image
+                        width={70}
+                        src={
+                          service?.name ===
+                            "Computer - Installation, Configuration, Fixing"
+                            ? icon1
+                            : service?.name === "Computer Troubleshooting"
+                              ? icon2
+                              : service?.name === "New Computer Setup"
+                                ? icon3
+                                : service?.name === "Data Backup, Restore"
+                                  ? icon4
+                                  : service?.name === "Data Recovery"
+                                    ? icon5
+                                    : service?.name === "Virus and Spyware Removal"
+                                      ? icon6
+                                      : ""
+                        }
+                        alt=""
+                      />
+                    </div>
+                    <div className="title text-xl font-semibold">
+                      <h2>{service?.name}</h2>
+                    </div>
+                    <div className="des mt-4 text-gray-500">
+                      <p>{service.meta_description}</p>
+                    </div>
                   </div>
-                  <div className="title text-xl font-semibold">
-                    <h2>{service?.name}</h2>
-                  </div>
-                  <div className="des mt-4 text-gray-500">
-                    <p>{service.meta_description}</p>
-                  </div>
-                </div>
+                </Link>
               </div>
+
             ))}
           </div>
 
