@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { SubmitAddressInfo, SubmitAddressInfoStatus } from "@/app/rtk-state/reducers/addressSlice";
 import {
+  bookingSummerySaveAndContinue,
   choosePreferredDateAndTimeNextStep,
   contactInformationForBookingNestStep,
   otpVerifySuccessReStore,
@@ -294,6 +295,7 @@ function ServiceBookingSummery() {
       dispatch(submitBookingSummery(bookingSummerySubmitData));
       setIsBookingSubmitted(true);
       dispatch(contactInformationForBookingNestStep(""));
+      dispatch(bookingSummerySaveAndContinue("next"));
     }
   }, [addressInfo, bookingSummerySubmitData, isBookingSubmitted, dispatch]);
 

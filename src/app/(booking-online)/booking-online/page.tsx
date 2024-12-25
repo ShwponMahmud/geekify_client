@@ -25,8 +25,9 @@ function page() {
         {bookingInfo.serviceQuestionInfoNextStep === "next" && <ChooseDateTime />}
         {bookingInfo.choosePreferredDateAndTimeNextStep === "next" && <ContactInformation />}
         {bookingInfo.contactInformationForBookingNestStep === "next" &&<ServiceBookingSummery />}
-        {bookingInfo?.bookingSummerySubmitResData?.status === true && <PaymentOptions/>}
-        <PaymentDetails />
+        {bookingInfo?.bookingSummerySaveAndContinue === "next" && <PaymentOptions/>}
+        {bookingInfo?.paymentOptionSelectedAndProceedToPay === "next" && <PaymentDetails />}
+        
       </div>
     </>
   );

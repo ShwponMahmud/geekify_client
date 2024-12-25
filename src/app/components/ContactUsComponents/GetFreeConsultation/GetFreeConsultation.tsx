@@ -215,6 +215,8 @@ function GetFreeConsultation() {
     const AddressInfoForSubmit = {
       ...addressComponents,
       state: matchState?.short_name,
+      subpremise: "",
+      user_id: "",
     };
 
     dispatch(SubmitAddressInfo(AddressInfoForSubmit));
