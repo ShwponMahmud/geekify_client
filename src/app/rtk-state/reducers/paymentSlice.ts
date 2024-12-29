@@ -14,6 +14,7 @@ export interface PaymentState {
   createPaymentResData: any;
   createCardPaymentsResData: any;
   createAppointmentsResData: any;
+  appointmentChargeResData: any;
 }
 
 const initialState: PaymentState = {
@@ -26,7 +27,8 @@ const initialState: PaymentState = {
   PaymentsCreateByTokenResData: {},
   createPaymentResData: {},
   createCardPaymentsResData: {},
-  createAppointmentsResData: {}
+  createAppointmentsResData: {},
+  appointmentChargeResData:{}
 };
 
 // card token create..................
@@ -262,6 +264,43 @@ export const CreateAppointments = createAsyncThunk(
 );
 
 
+// Create Appointment Charge......................
+export interface createAppointmentChargeFormData {
+  appointment_id: number | any;
+  amount: number;
+  type: number | any;
+  name: string | any;
+}
+
+// Async thunk for create appointments charges.
+export const CreateAppointmentsCharge = createAsyncThunk(
+  "createAppointmentsCharge",
+  async (formData: createAppointmentChargeFormData) => {
+    const response = await fetch(`${baseUrl}/appointment-charges`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+
+
+
+
 
 export const paymentSlice = createSlice({
   name: "payments",
@@ -389,6 +428,24 @@ export const paymentSlice = createSlice({
         }
       )
       .addCase(CreateAppointments.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(CreateAppointmentsCharge.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.appointmentChargeResData = "";
+      })
+      .addCase(
+        CreateAppointmentsCharge.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.appointmentChargeResData = action.payload;
+        }
+      )
+      .addCase(CreateAppointmentsCharge.rejected, (state, action) => {
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";

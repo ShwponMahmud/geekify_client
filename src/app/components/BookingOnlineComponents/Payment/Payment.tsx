@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import {
   CardTokenCreate,
   CreateAppointments,
+  CreateAppointmentsCharge,
   CreateCardPayments,
   CreatePayments,
   createTokenFormData,
@@ -203,6 +204,28 @@ export default function Payment() {
       dispatch(CreateAppointments(CreateAppointmentsFormData));
     }
   }, [paymentInfo?.createCardPaymentsResData.status]);
+
+
+
+
+
+  // Create Appointments Charge.......
+  // const CreateAppointmentsChargeFormData = {
+  //   appointment_id: ,
+  //   amount: ,
+  //   type: ,
+  //   name: ,
+  // }
+
+  // useEffect(() => {
+  //   dispatch(CreateAppointmentsCharge(CreateAppointmentsChargeFormData))
+  // }, [])
+
+
+
+
+
+
 
   return (
     <>
