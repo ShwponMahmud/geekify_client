@@ -9,28 +9,30 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
 
 
 // import required modules
-import { Autoplay, EffectFade } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import Image from 'next/image';
 
 const Slider = () => {
   return (
     <>
       <Swiper
-        effect={'fade'}
-        fadeEffect={{
-          crossFade: true
-        }}
+        // effect={'fade'}
+        // fadeEffect={{
+        //   crossFade: true
+        // }}
         autoplay={
           {
-            delay: 5000,
+            delay: 2000,
             disableOnInteraction: true
           }
         }
-        speed={2500}
-        modules={[EffectFade, Autoplay]}
+        navigation={true}
+        speed={1000}
+        modules={[ Autoplay, Navigation]}
         className="mySwiper pb-0 mb-0"
       >
         <SwiperSlide style={{

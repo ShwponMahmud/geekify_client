@@ -59,7 +59,10 @@ const Footer = () => {
 
           {/* Links Section */}
           <div>
-            <h5 className="font-semibold text-lg mb-4 border-b-2">Company</h5>
+            <div>
+              <h5 className="font-semibold text-lg mb-4">Company </h5>
+              <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
+            </div>
             <ul className="space-y-4">
               <li>
                 <Link href={"/about-us"} className="hover:text-gray-300">
@@ -95,7 +98,10 @@ const Footer = () => {
           </div>
 
           <div>
-            <h5 className="font-semibold text-lg mb-4">Services</h5>
+            <div>
+              <h5 className="font-semibold text-lg mb-4">Services</h5>
+              <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
+            </div>
             <ul className="space-y-4">
               <li>
                 <Link href={"/services"} className="hover:text-gray-300">
@@ -116,7 +122,10 @@ const Footer = () => {
           </div>
 
           <div>
-            <h5 className="font-semibold text-lg mb-4">Discover</h5>
+            <div>
+              <h5 className="font-semibold text-lg mb-4">Discover </h5>
+              <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
+            </div>
             <ul className="space-y-4">
               <li>
                 <a href={"/customer-review"} className="hover:text-gray-300">
@@ -138,7 +147,10 @@ const Footer = () => {
 
           {/* Contact Section */}
           <div>
-            <h5 className="font-semibold text-lg mb-4">Contact Us</h5>
+            <div>
+              <h5 className="font-semibold text-lg mb-4">Contact Us</h5>
+              <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
+            </div>
             <ul className="space-y-4">
               <li className="flex gap-3">
                 <svg

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { baseUrl } from "@/assets/baseUrl";
 import { ServiceAreasData } from "@/assets/data/ServiceAreasData";
@@ -16,11 +16,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoMdArrowDropright } from "react-icons/io";
+import './Navbar.css';
 
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Services", href: "/services", current: false, dropdown: true },
-  { name: "Service Areas", href: "/service-areas", current: false, dropdown: true },
+  {
+    name: "Service Areas",
+    href: "/service-areas",
+    current: false,
+    dropdown: true,
+  },
   { name: "Scam Alert", href: "/scam-alert", current: false },
   // { name: "Become a Member", href: "/become-a-member", current: false },
   { name: "Blogs", href: "/blogs", current: false },
@@ -47,8 +53,8 @@ export default function Navbar() {
   const [services, setServices] = useState<Service[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
 
-  console.log(services)
-  
+  console.log(ServiceAreasData);
+
   useEffect(() => {
     if (hovered === "Services") {
       const fetchServices = async () => {
@@ -75,7 +81,6 @@ export default function Navbar() {
     }
   }, [hovered]);
 
-    
   return (
     <Disclosure
       as="nav"
@@ -108,14 +113,15 @@ export default function Navbar() {
                   className="h-8 w-auto md:h-14 md:w-auto"
                   width={350}
                   height={80}
-                /></a>
+                />
+              </a>
             </div>
             <div className="hidden md:flex items-center space-x-6">
               {navigation.map((item) => (
                 <div
                   key={item.name}
                   className="relative group"
-                  onMouseEnter={() => setHovered(item.name)}
+                  onMouseEnter={() => setHovered(item.name === 'Services' ? 'Services' : item.name === 'Service Areas' ? 'Service Areas' : null)}
                   onMouseLeave={() => setHovered(null)}
                 >
                   <Link
@@ -127,11 +133,17 @@ export default function Navbar() {
 
                   {/* Mega Dropdown */}
                   {item.dropdown && hovered === item.name && (
-                    <div className="fixed inset-x-0 h-auto bg-white flex justify-center transition-all duration-1000 ease-custom-bezier items-center pt-10 pb-10">
+                    <div
+                      className={`fixed inset-x-0 h-auto bg-white flex justify-center items-center pt-10 pb-10
+                            transition-all duration-700 ease-[cubic-bezier(0.340, 0.370, 0.055, 1.560)]
+                            ${
+                              hovered
+                                ? "opacity-100 translate-y-0 pointer-events-auto"
+                                : "opacity-0 -translate-y-5 pointer-events-none"
+                            }`}
+                    >
                       <div className="h-full px-4">
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                          
-
                           {hovered === "Services" &&
                             services.map((service) => (
                               <div key={service.slug}>
@@ -139,7 +151,8 @@ export default function Navbar() {
                                   href={`/services/${service.slug}`}
                                   className="text-gray-600 hover:tracking-[1px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
                                 >
-                                  <IoMdArrowDropright className="text-2xl text-[#1d5f89]" /> {service.name}
+                                  <IoMdArrowDropright className="text-2xl text-[#1d5f89]" />{" "}
+                                  {service.name}
                                 </Link>
                               </div>
                             ))}
@@ -151,7 +164,8 @@ export default function Navbar() {
                                   href={`/service-areas/${area.slug}`}
                                   className="text-gray-600 hover:tracking-[1px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
                                 >
-                                  <IoMdArrowDropright className="text-2xl text-[#1d5f89]" /> {area.mainAreaName}
+                                  <IoMdArrowDropright className="text-2xl text-[#1d5f89]" />{" "}
+                                  {area.mainAreaName}
                                 </Link>
                               </div>
                             ))}
@@ -171,13 +185,11 @@ export default function Navbar() {
                 <span></span>
                 Book Online
                 <br />
-                And Get <strong className="animate-pulse text-[16px]">15%</strong> Off
-
+                <strong> And Get{" "}
+                  <strong className="animate-pulse text-[20px] font-extrabold text-[#F76A2A]">15%</strong> Off</strong>
               </a>
             </div>
           </div>
-
-          
         </div>
       </div>
 
@@ -204,7 +216,6 @@ export default function Navbar() {
     </Disclosure>
   );
 }
-
 
 // 'use client';
 // import { useEffect, useState } from "react";
@@ -298,7 +309,7 @@ export default function Navbar() {
 //                         <div className="fixed inset-x-0 h-screen bg-gray-100 flex justify-center duration-1000 items-center pt-20">
 //                           <div className="container mx-auto h-full px-4">
 //                             <div className="grid grid-cols-3 gap-4">
-                            
+
 //                             {
 //                               services.map((service) => (
 //                                 <div key={service.slug}>
@@ -336,5 +347,3 @@ export default function Navbar() {
 //     </div>
 //   );
 // }
-
-
