@@ -174,17 +174,16 @@
   /* background: linear-gradient(-30deg, #3d0b0b 50%, #2b0808 50%); */
   background: #1A547B;
   /* border: 2px solid var(--primary_color); */
-  padding: 10px 20px;
+  padding: 8px 16px;
   margin: 12px;
   display: inline-block;
   -webkit-transform: translate(0%, 0%);
           transform: translate(0%, 0%);
   overflow: hidden;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: .03px;
   font-weight: 500;
-  border-radius: 10px;
   line-height: 20px;
   text-align: center;
   text-decoration: none;

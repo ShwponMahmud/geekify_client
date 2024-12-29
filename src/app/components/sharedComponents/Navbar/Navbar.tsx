@@ -17,6 +17,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoMdArrowDropright } from "react-icons/io";
 import './Navbar.css';
+import { Span } from "next/dist/trace";
+import { FaArrowDown } from "react-icons/fa";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { BiSolidRightArrow } from "react-icons/bi";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -47,13 +51,14 @@ interface ServiceArea {
   slug: string;
   name: string;
   description: string;
+  districtAreas: []
 }
 
 export default function Navbar() {
   const [services, setServices] = useState<Service[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
 
-  console.log(ServiceAreasData);
+  const serviceAreas = ServiceAreasData[0].districtAreas;
 
   useEffect(() => {
     if (hovered === "Services") {
@@ -105,14 +110,14 @@ export default function Navbar() {
           </div>
 
           <div className="flex flex-1 items-center justify-center mr-32 md:mr-0 md:items-stretch md:justify-between">
-            <div className="flex items-center">
+            <div className="flex items-center z-50">
               <a href="/">
                 <Image
                   alt="Geekify logo"
                   src="/logo.png"
-                  className="h-8 w-auto md:h-14 md:w-auto"
-                  width={350}
-                  height={80}
+                  className="w-auto h-auto"
+                  width={230}
+                  height={50}
                 />
               </a>
             </div>
@@ -126,49 +131,59 @@ export default function Navbar() {
                 >
                   <Link
                     href={item.href}
-                    className="text-gray-700 hover:text-red-500 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-700 hover:text-primaryColor uppercase px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    {item.name}
+                    {item.name} 
+                    {(item.name === "Services" || item.name === "Service Areas") && (
+                      < MdKeyboardArrowDown className="inline-block text-primaryColor text-3xl mt-[-5px]" />
+                    )}
                   </Link>
 
                   {/* Mega Dropdown */}
                   {item.dropdown && hovered === item.name && (
                     <div
-                      className={`fixed inset-x-0 h-auto bg-white flex justify-center items-center pt-10 pb-10
-                            transition-all duration-700 ease-[cubic-bezier(0.340, 0.370, 0.055, 1.560)]
-                            ${
-                              hovered
-                                ? "opacity-100 translate-y-0 pointer-events-auto"
-                                : "opacity-0 -translate-y-5 pointer-events-none"
-                            }`}
+                      className={`fixed inset-x-0 h-auto bg-white flex justify-center items-center pt-16 pb-10`}
                     >
-                      <div className="h-full px-4">
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      <div className="h-full w-full mx-auto lg:pl-32">
+                        <div >
                           {hovered === "Services" &&
-                            services.map((service) => (
-                              <div key={service.slug}>
-                                <Link
-                                  href={`/services/${service.slug}`}
-                                  className="text-gray-600 hover:tracking-[1px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
-                                >
-                                  <IoMdArrowDropright className="text-2xl text-[#1d5f89]" />{" "}
-                                  {service.name}
-                                </Link>
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                {
+                                services.map((service) => (
+                                  <div key={service.slug}>
+                                    <Link
+                                      href={`/services/${service.slug}`}
+                                      className="text-gray-600 hover:tracking-[1px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
+                                    >
+                                      <BiSolidRightArrow className="text-sm text-[#1d5f89]" />{" "}
+                                      {service.name}
+                                    </Link>
+                                  </div>
+                                ))
+                                }
                               </div>
-                            ))}
+                            }
 
                           {hovered === "Service Areas" &&
-                            ServiceAreasData.map((area) => (
-                              <div key={area.slug}>
-                                <Link
-                                  href={`/service-areas/${area.slug}`}
-                                  className="text-gray-600 hover:tracking-[1px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
-                                >
-                                  <IoMdArrowDropright className="text-2xl text-[#1d5f89]" />{" "}
-                                  {area.mainAreaName}
-                                </Link>
-                              </div>
-                            ))}
+                            <>
+                            <h3 className="text-3xl font-semibold pb-5 text-[#1d5f89] w-full">Our Service Areas</h3> 
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                              {
+                                serviceAreas.map((area) => (
+                                  <div key={area.slug}>
+                                    <Link
+                                      href={`/service-areas/${area.slug}`}
+                                      className="text-gray-600 hover:tracking-[1px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
+                                    >
+                                      <BiSolidRightArrow className="text-sm text-[#1d5f89]" />{" "}
+                                      {area.name}
+                                    </Link>
+                                  </div>
+                                ))
+                              }
+                            </div>
+                            </>
+                          }
                         </div>
                       </div>
                     </div>
@@ -186,7 +201,7 @@ export default function Navbar() {
                 Book Online
                 <br />
                 <strong> And Get{" "}
-                  <strong className="animate-pulse text-[20px] font-extrabold text-[#F76A2A]">15%</strong> Off</strong>
+                  <strong className="animate-pulse text-[16px] font-extrabold text-[#F76A2A]">15%</strong> Off</strong>
               </a>
             </div>
           </div>
