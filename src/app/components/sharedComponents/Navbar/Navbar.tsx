@@ -53,7 +53,7 @@ export default function Navbar() {
   const [services, setServices] = useState<Service[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
 
-  console.log(ServiceAreasData);
+
 
   useEffect(() => {
     if (hovered === "Services") {

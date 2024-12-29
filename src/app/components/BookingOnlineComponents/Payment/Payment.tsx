@@ -34,6 +34,9 @@ export default function Payment() {
   const users = useAppSelector((state) => state?.users);
   const customer = useAppSelector((state) => state?.customer.customer);
   const address = useAppSelector((state) => state?.addresses?.address);
+  const appointmentResData = useAppSelector(
+    (state) => state?.payment?.createAppointmentsResData
+  );
 
   const [isCouponChecked, setIsCouponChecked] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
@@ -197,33 +200,181 @@ export default function Payment() {
     preference: 0,
   };
 
-  // console.log(CreateAppointmentsFormData);
-
   useEffect(() => {
-    if (paymentInfo?.createCardPaymentsResData.status) {
+    if (paymentInfo?.createCardPaymentsResData?.status) {
       dispatch(CreateAppointments(CreateAppointmentsFormData));
     }
-  }, [paymentInfo?.createCardPaymentsResData.status]);
-
-
+  }, [paymentInfo?.createCardPaymentsResData?.status]);
 
 
 
   // Create Appointments Charge.......
-  // const CreateAppointmentsChargeFormData = {
-  //   appointment_id: ,
-  //   amount: ,
-  //   type: ,
-  //   name: ,
-  // }
+  const charges = [];
+  if (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status) {
+    charges.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.gst_charge?.amount,
+      type: 3,
+      name: "GST",
+    });
+  }
 
-  // useEffect(() => {
-  //   dispatch(CreateAppointmentsCharge(CreateAppointmentsChargeFormData))
-  // }, [])
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+  ) {
+    charges.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+      type: 2,
+      name: "Coupon Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+      type: 2,
+      name: "Applied Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+      ?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+          ?.amount,
+      type: 2,
+      name: "Credited Payment Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.parking_discount?.amount,
+      type: 2,
+      name: "Parking Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+      type: 2,
+      name: "Loyalty Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+          ?.amount,
+      type: 2,
+      name: "Online Appointment Discount",
+    });
+  }
+
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.distance_surcharge
+      ?.applied_status &&
+    bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount > 0
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount,
+      type: 1,
+      name: "Distance Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.amount,
+      type: 1,
+      name: "Holiday Surcharge",
+    });
+  }
+  if (bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.applied_status) {
+    charges.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.amount,
+      type: 1,
+      name: "Fuel Levy Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge
+      ?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge?.amount,
+      type: 1,
+      name: "City Area Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.amount,
+      type: 1,
+      name: "Same Day Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.amount,
+      type: 1,
+      name: "Timebase Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.applied_status
+  ) {
+    charges.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.amount,
+      type: 1,
+      name: "Weekend Surcharge",
+    });
+  }
+
+  if (bookingInfo?.bookingSummerySubmitResData?.service_price) {
+    charges.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.service_price,
+      type: 0,
+      name: "Service Charge",
+    });
+  }
+
+  const CreateAppointmentsChargeFormData = {
+    appointment_id: appointmentResData?.id,
+    charges: charges,
+  };
 
 
+  useEffect(() => {
+    if (appointmentResData?.status) {
+      dispatch(CreateAppointmentsCharge(CreateAppointmentsChargeFormData));
+    }
+  }, [appointmentResData?.status]);
 
 
+  useEffect(() => {CreateAppointmentNotes}, [])
 
 
 

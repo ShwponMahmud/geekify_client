@@ -15,6 +15,7 @@ export interface PaymentState {
   createCardPaymentsResData: any;
   createAppointmentsResData: any;
   appointmentChargeResData: any;
+  createAppointmentNotesResData: any
 }
 
 const initialState: PaymentState = {
@@ -28,7 +29,8 @@ const initialState: PaymentState = {
   createPaymentResData: {},
   createCardPaymentsResData: {},
   createAppointmentsResData: {},
-  appointmentChargeResData:{}
+  appointmentChargeResData: {},
+  createAppointmentNotesResData: {},
 };
 
 // card token create..................
@@ -220,8 +222,6 @@ export const CreateCardPayments = createAsyncThunk(
   }
 );
 
-
-
 // Create Appointment......................
 export interface createAppointmentFormData {
   customer_id: number | any;
@@ -235,7 +235,7 @@ export interface createAppointmentFormData {
   status: number | any;
   parking: number;
   length: number | any;
-  preference: number 
+  preference: number;
 }
 
 // Async thunk for create appointments.
@@ -263,20 +263,17 @@ export const CreateAppointments = createAsyncThunk(
   }
 );
 
-
 // Create Appointment Charge......................
-export interface createAppointmentChargeFormData {
+export interface createAppointmentChargeListFormData {
   appointment_id: number | any;
-  amount: number;
-  type: number | any;
-  name: string | any;
+  charges: any;
 }
 
 // Async thunk for create appointments charges.
 export const CreateAppointmentsCharge = createAsyncThunk(
   "createAppointmentsCharge",
-  async (formData: createAppointmentChargeFormData) => {
-    const response = await fetch(`${baseUrl}/appointment-charges`, {
+  async (formData: createAppointmentChargeListFormData) => {
+    const response = await fetch(`${baseUrl}/appointment-charges/store-list`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -297,10 +294,39 @@ export const CreateAppointmentsCharge = createAsyncThunk(
   }
 );
 
+// Create Appointment Notes......................
+export interface createAppointmentNotesFormData {
+  user_id: number;
+  appointment_id: number | any;
+  user_type: number;
+  type: number;
+  description: string;
+}
 
+// Async thunk for create appointments notes.
+export const CreateAppointmentNotes = createAsyncThunk(
+  "createAppointmentNotes",
+  async (formData: createAppointmentNotesFormData) => {
+    const response = await fetch(`${baseUrl}/appointment-notes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
 
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
 
-
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
 
 export const paymentSlice = createSlice({
   name: "payments",
@@ -450,6 +476,24 @@ export const paymentSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
       })
+      .addCase(CreateAppointmentNotes.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.createAppointmentNotesResData = "";
+      })
+      .addCase(
+        CreateAppointmentNotes.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.createAppointmentNotesResData = action.payload;
+        }
+      )
+      .addCase(CreateAppointmentNotes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      });
   },
 });
 
