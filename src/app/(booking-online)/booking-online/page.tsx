@@ -9,24 +9,48 @@ import PaymentOptions from "@/app/components/BookingOnlineComponents/PaymentOpti
 import ServiceBookingSummery from "@/app/components/BookingOnlineComponents/ServiceBookingSummery/ServiceBookingSummery";
 import ServiceType from "@/app/components/BookingOnlineComponents/ServiceType/ServiceType";
 import ServiceForm from "@/app/components/BookingOnlineComponents/TellUsAboutYourIssue/TellUsAboutYourIssue";
-import { useAppSelector } from "@/app/rtk-state/hooks";
-
+import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
+import {
+  GetAfterPaySurcharge,
+  GetCardSurcharge,
+} from "@/app/rtk-state/reducers/paymentSlice";
+import { useEffect } from "react";
 
 function page() {
   const bookingInfo = useAppSelector((state) => state?.booking);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(GetCardSurcharge());
+    dispatch(GetAfterPaySurcharge());
+  }, []);
+
+
   return (
     <>
       <div className="booking_online">
         <BookingOnlineProgress />
         {bookingInfo?.bookingStart === "" && <BookingOnlineWelcome />}
         {bookingInfo?.bookingStart === "start" && <EnterPhoneSendCode />}
-        {bookingInfo?.otpVerifySuccess === "success" &&<ServiceType />}
-        {bookingInfo?.serviceAddressParkingSubmitAfterNextStep === "next" && <ServiceForm />}
-        {bookingInfo.serviceQuestionInfoNextStep === "next" && <ChooseDateTime />}
-        {bookingInfo.choosePreferredDateAndTimeNextStep === "next" && <ContactInformation />}
-        {bookingInfo.contactInformationForBookingNestStep === "next" &&<ServiceBookingSummery />}
-        {/* {bookingInfo?.bookingSummerySubmitResData?.status === true && <PaymentOptions/>} */}
-        {/* <PaymentDetails /> */}
+        {bookingInfo?.otpVerifySuccess === "success" && <ServiceType />}
+        {bookingInfo?.serviceAddressParkingSubmitAfterNextStep === "next" && (
+          <ServiceForm />
+        )}
+        {bookingInfo.serviceQuestionInfoNextStep === "next" && (
+          <ChooseDateTime />
+        )}
+        {bookingInfo.choosePreferredDateAndTimeNextStep === "next" && (
+          <ContactInformation />
+        )}
+        {bookingInfo.contactInformationForBookingNestStep === "next" && (
+          <ServiceBookingSummery />
+        )}
+        {bookingInfo?.bookingSummerySaveAndContinue === "next" && (
+          <PaymentOptions />
+        )}
+        {bookingInfo?.paymentOptionSelectedAndProceedToPay === "next" && (
+          <PaymentDetails />
+        )}
       </div>
     </>
   );

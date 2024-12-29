@@ -69,7 +69,10 @@ export interface BookingState {
   choosePreferredDateAndTimeNextStep: string,
   contactInformationForBooking: any,
   contactInformationForBookingNestStep: string,
-  bookingSummerySubmitResData: any
+  bookingSummerySubmitResData: any,
+  bookingSummerySaveAndContinue: string,
+  paymentOptionSelected: any,
+  paymentOptionSelectedAndProceedToPay: string
 
 }
 
@@ -109,7 +112,10 @@ const initialState: BookingState = {
   choosePreferredDateAndTimeNextStep: "",
   contactInformationForBooking: {},
   contactInformationForBookingNestStep: "",
-  bookingSummerySubmitResData: {}
+  bookingSummerySubmitResData: {},
+  bookingSummerySaveAndContinue: "",
+  paymentOptionSelected: "",
+  paymentOptionSelectedAndProceedToPay: ""
 };
 
 export const getOTP = createAsyncThunk(
@@ -257,6 +263,15 @@ export const bookingSlice = createSlice({
     otpVerifySuccessReStore: (state, action: PayloadAction<string>) => {
       state.otpVerifySuccess = action.payload;
     },
+    bookingSummerySaveAndContinue: (state, action: PayloadAction<string>) => {
+      state.bookingSummerySaveAndContinue = action.payload;
+    },
+    paymentOptionSelected: (state, action: PayloadAction<string | any>) => {
+      state.paymentOptionSelected = action.payload;
+    },
+    paymentOptionSelectedAndProceedToPay: (state, action: PayloadAction<string>) => {
+      state.paymentOptionSelectedAndProceedToPay = action.payload;
+    },
   },
   extraReducers(builder) {
     builder.addCase(getOTP.pending, (state) => {
@@ -331,7 +346,10 @@ export const {
   choosePreferredDateAndTimeNextStep,
   contactInformationForBooking,
   contactInformationForBookingNestStep,
-  otpVerifySuccessReStore
+  otpVerifySuccessReStore,
+  bookingSummerySaveAndContinue,
+  paymentOptionSelected,
+  paymentOptionSelectedAndProceedToPay
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

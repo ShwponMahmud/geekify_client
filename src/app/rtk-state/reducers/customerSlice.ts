@@ -35,9 +35,9 @@ export const createCustomer = createAsyncThunk(
         "Content-Type": "application/json",
         "Client-Secret": "secret",
       },
-      body: JSON.stringify({
-        search_query: formData
-      }),
+      body: JSON.stringify(
+         formData
+      ),
     });
 
     if (!response.ok) {

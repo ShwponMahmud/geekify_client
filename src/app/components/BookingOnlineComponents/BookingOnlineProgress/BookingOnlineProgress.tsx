@@ -1,11 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "../ProgressBar/ProgressBar";
-import { useAppSelector } from "@/app/rtk-state/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
+import { bookingSummerySaveAndContinue } from "@/app/rtk-state/reducers/bookingSlice";
 
 const BookingOnlineProgress: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const bookingInfo = useAppSelector((state) => state?.booking);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const updateProgress = () => {
@@ -25,6 +27,10 @@ const BookingOnlineProgress: React.FC = () => {
 
     updateProgress();
   }, [bookingInfo]);
+
+  const next = () => {
+dispatch(bookingSummerySaveAndContinue("next"));
+  }
   
   return (
     <div className="">
@@ -34,7 +40,7 @@ const BookingOnlineProgress: React.FC = () => {
           Previous
         </button>
         <button
-          onClick={() => setCurrentStep((prev) => Math.min(7, prev + 1))}
+          onClick={next}
           style={{ marginLeft: "10px" }}
         >
           Next
