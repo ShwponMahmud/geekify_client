@@ -9,6 +9,7 @@ import PaymentOptions from "@/app/components/BookingOnlineComponents/PaymentOpti
 import ServiceBookingSummery from "@/app/components/BookingOnlineComponents/ServiceBookingSummery/ServiceBookingSummery";
 import ServiceType from "@/app/components/BookingOnlineComponents/ServiceType/ServiceType";
 import ServiceForm from "@/app/components/BookingOnlineComponents/TellUsAboutYourIssue/TellUsAboutYourIssue";
+import BookingTermsAndConditions from "@/app/components/BookingTermsConditions/BookingTermsAndConditions";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import {
   GetAfterPaySurcharge,
@@ -52,6 +53,7 @@ function page() {
           <PaymentDetails />
         )}
       </div>
+      <BookingTermsAndConditions />
     </>
   );
 }

@@ -197,7 +197,7 @@ export default function Navbar() {
                                         <ul className="">
                                           {area?.districtAreas &&
                                             area?.districtAreas.map((item) => (
-                                              <li className="cursor-pointer ml-5 hover:tracking-[1px] hover:text-[#1d5f89] duration-500">{item?.name}</li>
+                                              <Link href={item?.slug} className="cursor-pointer ml-5 hover:tracking-[1px] hover:text-[#1d5f89] duration-500">{item?.name}</Link>
                                             ))}
                                         </ul>
                                       )}
