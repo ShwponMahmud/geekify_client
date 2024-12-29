@@ -54,16 +54,16 @@
     margin-right: 150px;
 }
 .quick_link_section {
-  background-color: var(--dark_color);
+  background-color: var(--background_color);
   height: auto;
-  padding: 70px 0;
+  padding: 50px 0;
   display: flex;
   align-items: center;
 }
 .quick_link_section .phone,
 .request_call_back,
 .book_online {
-  background-color: #dbdbdb25;
+  background-color: #f4f4f4;
   border: 1px solid rgba(116, 116, 116, 0.281);
   border-radius: 10px;
   padding: 40px;

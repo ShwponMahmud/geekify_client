@@ -65,7 +65,7 @@ async function page({ params }: ServiceDetailsParams) {
             : slug === "data-backup-restore" ? (<DataBackupRestore service={service} />)
               : slug === "data-recovery" ? (<DataRecoveryDetails service={service} />)
                 : slug === "new-computer-setup" ? (<NewComputerSetup service={service} />)
-                  : slug === "virus-spyware-removal" ? (<VirusSpywareRemoval service={service} />)
+                  : slug === "virus-and-spyware-removal" ? (<VirusSpywareRemoval service={service} />)
                     : slug === "anti-virus-installation" ? (<AntiVirusInstallation service={service} />)
                       : slug === "smartphone-device-setup" ? (<SmartPhoneDeviceSetup service={service} />)
                         : slug === "home-network-wifi-set-up" ? (<HomeNetworkWifiSetup service={service} />)

@@ -374,7 +374,17 @@ export default function Payment() {
   }, [appointmentResData?.status]);
 
 
-  useEffect(() => {CreateAppointmentNotes}, [])
+  // const createAppointmentNotesFormData = {
+  //   user_id: number,
+  //   appointment_id: number | any;
+  //   user_type: number;
+  //   type: number;
+  //   description: string;
+  // }
+
+  // useEffect(() => {
+  //   dispatch(CreateAppointmentNotes())
+  // }, [])
 
 
 
