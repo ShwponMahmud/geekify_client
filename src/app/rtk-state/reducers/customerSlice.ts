@@ -3,49 +3,45 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { baseUrl } from "@/assets/baseUrl";
 
-
-
-export interface ContactsFormData {
+export interface CustomerFormData {
   user_id: number;
   address_id: number;
-  request_for: string;
-  date_time: string;
-  message: string;
-  // g_recaptcha_response: string;
+  type: number;
+  status: number;
+  newsletter_subscription: number
 }
 
-export interface ContactsState {
+export interface CustomerState {
   isLoading: boolean;
   status: string;
   error: string | null;
-  contacts: any[];
+  customer: any;
 }
 
-const initialState: ContactsState = {
+const initialState: CustomerState = {
   isLoading: false,
   status: "",
   error: null,
-  contacts: [],
+  customer: {}
 };
 
-
-// Async thunk for fetching address info submit
-export const SubmitContactsInfo = createAsyncThunk(
-  "contactInfoSubmit",
-  async (formData: ContactsFormData) => {
-    const response = await fetch(`${baseUrl}/contacts`, {
+// Async thunk for fetching users
+export const createCustomer = createAsyncThunk(
+  "customer",
+  async (formData: CustomerFormData) => {
+    const response = await fetch(`${baseUrl}/customers`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Client-Secret": "secret",
       },
-      body: JSON.stringify(
-        formData,
-      ),
+      body: JSON.stringify({
+        search_query: formData
+      }),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to submit contacts info");
+      throw new Error("Failed to fetch users");
     }
 
     const data = await response.json();
@@ -54,25 +50,24 @@ export const SubmitContactsInfo = createAsyncThunk(
 );
 
 
-export const contactsSlice = createSlice({
-  name: "contacts",
+
+export const customerSlice = createSlice({
+  name: "customer",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(SubmitContactsInfo.pending, (state) => {
+      .addCase(createCustomer.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(
-        SubmitContactsInfo.fulfilled,
-        (state, action: PayloadAction<Array<any>>) => {
+      .addCase(createCustomer.fulfilled, (state, action: PayloadAction<Array<any>>) => {
           state.isLoading = false;
           state.status = "success";
-          state.contacts = [action.payload];
+          state.customer = action.payload;
         }
       )
-      .addCase(SubmitContactsInfo.rejected, (state, action) => {
+      .addCase(createCustomer.rejected, (state, action) => {
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
@@ -81,7 +76,7 @@ export const contactsSlice = createSlice({
 });
 
 // Selector
-export const selectContacts = (state: RootState) => state.contacts;
+export const selectCustomer = (state: RootState) => state.customer;
 
 // Reducer export
-export default contactsSlice.reducer;
+export default customerSlice.reducer;

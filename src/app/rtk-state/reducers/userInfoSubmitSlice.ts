@@ -3,7 +3,10 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { baseUrl } from "@/assets/baseUrl";
 
-export interface CustomFormData {
+export interface UserInfoFormData {
+  first_name: string;
+  last_name: string;
+  phone_number: string;
   email: string;
 }
 
@@ -21,38 +24,35 @@ export interface CustomFormData {
 //   orders: [];
 // }
 
-export interface UserState {
+export interface UserInfoState {
   isLoading: boolean;
   status: string;
   error: string | null;
-  user: any[];
+  userInfo: any;
 }
 
-const initialState: UserState = {
+const initialState: UserInfoState = {
   isLoading: false,
   status: "",
   error: null,
-  user: []
+  userInfo: {},
 };
 
-// Async thunk for fetching users
-export const getUser = createAsyncThunk(
-  "user/fetchUsers",
-  async (formData: CustomFormData) => {
-    const response = await fetch(`${baseUrl}/users/find`, {
+// Async thunk for fetching users info submit
+export const SubmitUserInfo = createAsyncThunk(
+  "userInfoSubmit",
+  async (formData: UserInfoFormData) => {
+    const response = await fetch(`${baseUrl}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Client-Secret": "secret",
       },
-      body: JSON.stringify({
-        search_query: formData,
-        with_relation: ["customer.address", "addresses"],
-      }),
+      body: JSON.stringify(formData),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to fetch users");
+      throw new Error("Failed to submit users info");
     }
 
     const data = await response.json();
@@ -60,36 +60,34 @@ export const getUser = createAsyncThunk(
   }
 );
 
-
-
-export const userSlice = createSlice({
-  name: "user",
+export const userInfoSubmitSlice = createSlice({
+  name: "userInfo",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getUser.pending, (state) => {
+      .addCase(SubmitUserInfo.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(
-        getUser.fulfilled,
+        SubmitUserInfo.fulfilled,
         (state, action: PayloadAction<Array<any>>) => {
           state.isLoading = false;
           state.status = "success";
-          state.user = [action.payload];
+          state.userInfo = action.payload;
         }
       )
-      .addCase(getUser.rejected, (state, action) => {
+      .addCase(SubmitUserInfo.rejected, (state, action) => {
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
-      })
+      });
   },
 });
 
 // Selector
-export const selectUsers = (state: RootState) => state.users;
+export const selectUsers = (state: RootState) => state.userInfoAfterSubmit;
 
 // Reducer export
-export default userSlice.reducer;
+export default userInfoSubmitSlice.reducer;

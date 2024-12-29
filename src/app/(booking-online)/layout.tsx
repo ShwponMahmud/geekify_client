@@ -1,6 +1,12 @@
 import { Metadata } from "next";
 import Head from "next/head";
 import BookingOnlineNav from "../components/BookingOnlineComponents/BookingOnlineNav/BookingOnlineNav";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"], 
+});
 
 export const metadata: Metadata = {
   title: "Geekify booking online",
@@ -19,7 +25,7 @@ export default function layout({children,}: Readonly<{children: React.ReactNode;
           type="image/x-icon"
         />
       </Head>
-      <body>
+      <body className={montserrat.className}>
         <BookingOnlineNav/>
         {children}
       </body>
