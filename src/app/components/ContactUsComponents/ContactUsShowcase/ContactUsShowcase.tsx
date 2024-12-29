@@ -1,9 +1,12 @@
 import React from 'react'
 import './ContactUsShowcase.css'
+import Showcase from '../../Showcase/Showcase'
+import contactusbanner from '../../../../assets/images/contactusbanner.jpg'
 function ContactUsShowcase() {
   return (
     <>
-     <div className="common_showcase_section mt-[100px]">
+      <Showcase backgroundImage={contactusbanner} title='Contact' highlights='Us' paragraph='One-stop solution for your IT needs, Order any service, anytime.'/>
+     {/* <div className="common_showcase_section mt-[100px]">
         <div className="container mx-auto ">
           <div className="common_showcase_section_content ">
             <div className="text-center text-white mt-56 ">
@@ -20,7 +23,7 @@ function ContactUsShowcase() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

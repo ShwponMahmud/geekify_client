@@ -51,6 +51,12 @@ export default {
       zIndex: {
         zIndex: "100"
       },
+      transitionTimingFunction: {
+        'custom-bezier': 'cubic-bezier(0.340, 0.370, 0.055, 1.560)',
+      },
+      transitionDuration: {
+        '1000': '1000ms', // 1 second
+      },
     },
   },
   plugins: [

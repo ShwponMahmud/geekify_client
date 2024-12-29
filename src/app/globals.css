@@ -22,6 +22,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   overflow-x: hidden;
+  font-family: 'Montserrat', latin;
 }
 
 .bookNowBtn, .bookNowBtn1 {
@@ -43,3 +44,10 @@ body {
   background-color: transparent;
   color: var(--primary_color);
 }
+
+html {
+  height: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+

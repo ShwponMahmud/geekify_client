@@ -1,26 +1,11 @@
 import './BecomeTechShowcase.css'
+import becometechbanner from '../../../../assets/images/modern-prodigy-disassembling-electronics 15.png'
+import Showcase from '../../Showcase/Showcase'
 
 function BecomeTechShowcase() {
   return (
     <>
-      <div className="common_showcase_section mt-[100px]">
-        <div className="container mx-auto ">
-          <div className="common_showcase_section_content ">
-            <div className="text-center text-white mt-[20%] ">
-              <h1 className="title text-7xl font-bold ">
-                Become a <span className="highlight_title">Tech</span>
-              </h1>
-              <p className="mt-8 ">
-                One-stop solution for your IT needs, Order any service, anytime.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. <br />{" "}
-                Veniam quas nihil consequuntur consequatur deleniti quae quos
-                neque ullam natus tempora.
-              </p>
-
-            </div>
-          </div>
-        </div>
-      </div>
+      <Showcase title='Become a' highlights='Tech' backgroundImage={becometechbanner} paragraph='We are always on the lookout for talented techs!'/>
     </>
   )
 }

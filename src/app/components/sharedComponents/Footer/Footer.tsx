@@ -34,33 +34,36 @@ const Footer = () => {
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaFacebookF />
+                <FaFacebookF className="text-primaryColor"/>
               </a>
               <a
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaLinkedinIn />
+                <FaLinkedinIn className="text-primaryColor"/>
               </a>
               <a
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaInstagram />
+                <FaInstagram className="text-primaryColor"/>
               </a>
               <a
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaXTwitter />
+                <FaXTwitter className="text-primaryColor"/>
               </a>
             </div>
           </div>
 
           {/* Links Section */}
           <div>
-            <h5 className="font-semibold text-lg mb-4">Company</h5>
-            <ul className="space-y-2 text-sm">
+            <div>
+              <h5 className="font-semibold text-lg mb-4">Company </h5>
+              <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
+            </div>
+            <ul className="space-y-4">
               <li>
                 <Link href={"/about-us"} className="hover:text-gray-300">
                   About Us
@@ -95,8 +98,11 @@ const Footer = () => {
           </div>
 
           <div>
-            <h5 className="font-semibold text-lg mb-4">Services</h5>
-            <ul className="space-y-2 text-sm">
+            <div>
+              <h5 className="font-semibold text-lg mb-4">Services</h5>
+              <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
+            </div>
+            <ul className="space-y-4">
               <li>
                 <Link href={"/services"} className="hover:text-gray-300">
                   Our Service
@@ -116,8 +122,11 @@ const Footer = () => {
           </div>
 
           <div>
-            <h5 className="font-semibold text-lg mb-4">Discover</h5>
-            <ul className="space-y-2 text-sm">
+            <div>
+              <h5 className="font-semibold text-lg mb-4">Discover </h5>
+              <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
+            </div>
+            <ul className="space-y-4">
               <li>
                 <a href={"/customer-review"} className="hover:text-gray-300">
                   Customer Review
@@ -138,8 +147,11 @@ const Footer = () => {
 
           {/* Contact Section */}
           <div>
-            <h5 className="font-semibold text-lg mb-4">Contact Us</h5>
-            <ul className="space-y-4 text-sm">
+            <div>
+              <h5 className="font-semibold text-lg mb-4">Contact Us</h5>
+              <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
+            </div>
+            <ul className="space-y-4">
               <li className="flex gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -201,8 +213,8 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="text-center text-sm text-gray-500 pb-8">
-          Copyright By geekify.com.au @2024. All Right Reserved
+        <div className="text-center text-white pb-8">
+          Copyright By geekify.com.au @2024. All Rights Reserved
         </div>
       </footer>
     </>

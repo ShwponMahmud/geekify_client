@@ -10,8 +10,12 @@ import { BsFacebook, BsTwitterX, BsInstagram } from "react-icons/bs";
 import { FaLinkedinIn } from "react-icons/fa";
 import QuickContact from '../sharedComponents/QuickContact/QuickContact';
 import Showcase from '../Showcase/Showcase';
+import { baseUrl } from '@/assets/baseUrl';
 
-function CareerDetailsComponents() {
+
+async function CareerDetailsComponents({ careerDetail }: any) {
+
+
   return (
     <>
       <Showcase backgroundImage='/career-banner.png' title='Browse Our' highlights='Resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
@@ -22,107 +26,22 @@ function CareerDetailsComponents() {
         <div className='container mx-auto'>
           <div className='grid grid-cols-1 md:grid-cols-6 py-8 md:py-14 lg:py-20 xl:py-28'>
             <div className='col-span-4'>
-              <h5 className='text-3xl md:text-3xl lg:text-5xl font-semibold pb-4 md:pb-7'>Executive Assistant</h5>
+              <h5 className='text-3xl md:text-3xl lg:text-5xl font-semibold pb-4 md:pb-7'>{careerDetail.title}</h5>
               <div className='pb-10'>
-                <h6 className='text-2xl font-medium pb-4'>Who Are We Looking For</h6>
-                <ul className='list-disc pl-5'>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                  <li>Nullam dictum ligula a gravida porta.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                </ul>
-              </div>
-              <div className='pb-10'>
-                <h6 className='text-2xl font-medium pb-4'>What You Will Be Doing</h6>
-                <ul className='list-disc pl-5'>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                  <li>Nullam dictum ligula a gravida porta.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                </ul>
-              </div>
-              <div className='pb-10'>
-                <h6 className='text-2xl font-medium pb-4'>Bonus Points for Familiarity with</h6>
-                <ul className='list-disc pl-5'>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                  <li>Nullam dictum ligula a gravida porta.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                </ul>
-              </div>
-              <div className='pb-10'>
-                <h6 className='text-2xl font-medium pb-4'>Educational Requirement</h6>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                  galley of type and scrambled it to make a type specimen book. It has survived not only
-                </p>
-              </div>
-              <div className='pb-10'>
-                <h6 className='text-2xl font-medium pb-4'>Salary</h6>
-                <ul className='list-disc pl-5'>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                  <li>Nullam dictum ligula a gravida porta.</li>
-                </ul>
+                <h6 className='text-2xl font-medium pb-4'>Our Statement</h6>
+                <div dangerouslySetInnerHTML={{ __html: careerDetail?.description }} />
               </div>
               <div className='pb-10'>
                 <h6 className='text-2xl font-medium pb-4'>Working Hours</h6>
                 <ul className='list-disc pl-5'>
-                  <li>8 AM - 5 PM</li>
+                  <li>{careerDetail.working_hour}</li>
                 </ul>
               </div>
               <div className='pb-10'>
                 <h6 className='text-2xl font-medium pb-4'>Working Days</h6>
                 <ul className='list-disc pl-5'>
-                  <li>Weekly: 5 days.</li>
-                  <li>Weekend: Friday.Saturday</li>
+                  <li>{careerDetail.working_day}</li>
                 </ul>
-              </div>
-              <div className='pb-10'>
-                <h6 className='text-2xl font-medium pb-4'>Perks & Benefits You’ll Get </h6>
-                <ul className='list-disc pl-5'>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                  <li>Nullam dictum ligula a gravida porta.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                </ul>
-              </div>
-              <hr />
-              <div className='py-10'>
-                <h6 className='text-2xl font-medium pb-4'>The Application Process</h6>
-                <ul className='list-disc pl-5'>
-                  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-                  <li>Nullam dictum ligula a gravida porta.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                  <li>Nam pellentesque orci ut odio blandit, sit amet elementum augue venenatis.</li>
-                </ul>
-              </div>
-              <div className='pb-10'>
-                <h6 className='text-2xl font-medium pb-4'>Our Statement</h6>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                  galley of type and scrambled it to make a type specimen book. It has survived not only
-                </p>
               </div>
             </div>
 
@@ -138,49 +57,49 @@ function CareerDetailsComponents() {
                   <HiOutlineLocationMarker className='w-[40px] h-[50px]' />
                   <div>
                     <p className='text-gray-400'>Location</p>
-                    <p className='text-[17px] font-normal leading-6 '>Shouth Breeze Center,Banani11</p>
+                    <p className='text-[17px] font-normal leading-6 '>{careerDetail.location}</p>
                   </div>
                 </div>
                 <div className='flex items-center gap-3 pt-10'>
                   <IoBriefcaseOutline className='w-[40px] h-[50px]' />
                   <div>
                     <p className='text-gray-400'>Job Type</p>
-                    <p className='text-[17px] font-normal leading-6 '>Full Time</p>
+                    <p className='text-[17px] font-normal leading-6 '>{careerDetail.type}</p>
                   </div>
                 </div>
                 <div className='flex items-center gap-3 pt-10'>
                   <LuCalendarDays className='w-[40px] h-[50px]' />
                   <div>
                     <p className='text-gray-400'>Date Posted</p>
-                    <p className='text-[17px] font-normal leading-6 '>Posted 1 month ago</p>
+                    <p className='text-[17px] font-normal leading-6 '>{careerDetail.created_at}</p>
                   </div>
                 </div>
                 <div className='flex items-center gap-3 pt-10'>
                   <SlBookOpen className='w-[40px] h-[50px]' />
                   <div>
                     <p className='text-gray-400'>Experience</p>
-                    <p className='text-[17px] font-normal leading-6 '>Experience: 1-3 year</p>
+                    <p className='text-[17px] font-normal leading-6 '>{careerDetail.experience}</p>
                   </div>
                 </div>
                 <div className='flex items-center gap-3 pt-10'>
                   <IoMdTime className='w-[40px] h-[50px]' />
                   <div>
                     <p className='text-gray-400'>Working Hours</p>
-                    <p className='text-[17px] font-normal leading-6 '>9 AM - 6 PM</p>
+                    <p className='text-[17px] font-normal leading-6 '>{careerDetail.working_hour}</p>
                   </div>
                 </div>
                 <div className='flex items-center gap-3 pt-10'>
                   <CgCalendarNext className='w-[40px] h-[50px]' />
                   <div>
                     <p className='text-gray-400'>Weekly:5days</p>
-                    <p className='text-[17px] font-normal leading-6 '>Weekend: Saturday,Sunday</p>
+                    <p className='text-[17px] font-normal leading-6 '>{careerDetail.working_day}</p>
                   </div>
                 </div>
                 <div className='flex items-center gap-3 pt-10 pb-10'>
                   <PiChair className='w-[40px] h-[50px]' />
                   <div>
                     <p className='text-gray-400'>Vacancy</p>
-                    <p className='text-[17px] font-normal leading-6 '>No.of Vacancy:3</p>
+                    <p className='text-[17px] font-normal leading-6 '>{careerDetail.total_vacancy}</p>
                   </div>
                 </div>
 
@@ -204,7 +123,7 @@ function CareerDetailsComponents() {
             <button className='py-2 px-6 mx-auto font-medium border-[1px] rounded-md border-primaryColor text-primaryColor hover:bg-primaryColor hover:text-white transition-[.5s]'>Apply Now</button>
           </div>
         </div>
-        <QuickContact title='Need Tech Support?'/>
+        <QuickContact title='Need Tech Support?' />
       </div>
     </>
   )

@@ -65,7 +65,7 @@ const OurLatestBlogs = async () => {
 
           <div className="our_latest_blog_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogs.map((blog) => (
-              <div className=" our_latest_blog_content_card shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md ">
+              <Link href={`/blogs/${blog.slug}`} className=" our_latest_blog_content_card shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md ">
                 <div className="w-[100%] h-[250px] overflow-hidden relative border-b">
                   <Image
                     width={600}
@@ -84,7 +84,7 @@ const OurLatestBlogs = async () => {
                     <div className="date text-[14px]"><b className="text-primaryColor">Created Date:</b> {blog?.created_at}</div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
           <div className="our_blog_see_more_btn_container flex justify-center mt-14">
