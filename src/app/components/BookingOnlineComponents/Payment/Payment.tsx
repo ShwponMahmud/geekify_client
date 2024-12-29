@@ -3,7 +3,12 @@ import "./Payment.css";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { ToastContainer, toast } from "react-toastify";
 import {
+  AppointmentCreationNotify,
+  AppointmentHistoryCreate,
   CardTokenCreate,
+  CreateAppointmentCreator,
+  CreateAppointmentNotes,
+  CreateAppointmentPayments,
   CreateAppointments,
   CreateAppointmentsCharge,
   CreateCardPayments,
@@ -11,6 +16,7 @@ import {
   createTokenFormData,
   GetAfterPaySurcharge,
   GetCardSurcharge,
+  PaymentCreationNotify,
   PaymentsCreateByToken,
 } from "@/app/rtk-state/reducers/paymentSlice";
 import {
@@ -206,8 +212,6 @@ export default function Payment() {
     }
   }, [paymentInfo?.createCardPaymentsResData?.status]);
 
-
-
   // Create Appointments Charge.......
   const charges = [];
   if (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status) {
@@ -366,27 +370,92 @@ export default function Payment() {
     charges: charges,
   };
 
-
   useEffect(() => {
     if (appointmentResData?.status) {
       dispatch(CreateAppointmentsCharge(CreateAppointmentsChargeFormData));
     }
   }, [appointmentResData?.status]);
 
+  // Create Appointment Notes..........................
+  const createAppointmentNotesFormData = {
+    user_id: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    appointment_id: appointmentResData?.id,
+    user_type: 0,
+    type: 0,
+    description: bookingInfo?.descriptionNote?.note,
+  };
 
-  // const createAppointmentNotesFormData = {
-  //   user_id: number,
-  //   appointment_id: number | any;
-  //   user_type: number;
-  //   type: number;
-  //   description: string;
-  // }
+  useEffect(() => {
+    if (paymentInfo?.appointmentChargeResStatus === "success") {
+      dispatch(CreateAppointmentNotes(createAppointmentNotesFormData));
+    }
+  }, [paymentInfo?.appointmentChargeResStatus]);
 
-  // useEffect(() => {
-  //   dispatch(CreateAppointmentNotes())
-  // }, [])
+  // Create Appointment Payments.........................
+  const appointmentPaymentsFormData = {
+    payment_id: paymentInfo?.createPaymentResData?.id,
+    appointment_id: appointmentResData?.id,
+    transaction_date_time: paymentInfo?.createPaymentResData?.created_at,
+  };
 
+  useEffect(() => {
+    if (paymentInfo?.createAppointmentNotesResData?.user_type)
+      dispatch(CreateAppointmentPayments(appointmentPaymentsFormData));
+  }, [paymentInfo?.createAppointmentNotesResData?.user_type]);
 
+  // Create Appointment Creator..........................
+  const createAppointmentCreatorFormData = {
+    user_id: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    appointment_id: appointmentResData?.id,
+    panel: 1,
+  };
+
+  useEffect(() => {
+    if (paymentInfo?.CreateAppointmentPaymentsResData?.id) {
+      dispatch(CreateAppointmentCreator(createAppointmentCreatorFormData));
+    }
+  }, [paymentInfo?.CreateAppointmentPaymentsResData?.id]);
+
+  // Payment Send Creation Notify..................
+  const PaymentCreationNotifyFormData = {
+    id: paymentInfo?.createPaymentResData?.id,
+    notify_customer: 1,
+    notify_internal_user: 1,
+  };
+
+  // Appointment Creation Notify................
+  const AppointmentCreationNotifyFormData = {
+    appointment: appointmentResData?.id,
+    notify_customer: 1,
+    notify_internal_user: 1,
+  };
+
+  useEffect(() => {
+    if (paymentInfo?.createPaymentResData?.id && appointmentResData?.id) {
+      dispatch(PaymentCreationNotify(PaymentCreationNotifyFormData));
+      dispatch(AppointmentCreationNotify(AppointmentCreationNotifyFormData));
+    }
+  }, [paymentInfo?.createPaymentResData?.id && appointmentResData?.id]);
+
+  // Appointment History..
+  const AppointmentHistoryFormData = {
+    user_id: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    appointment_id: appointmentResData?.id,
+    panel: 1,
+    status: 0,
+  };
+
+  useEffect(() => {
+    if (paymentInfo?.CreateAppointmentCreatorResData?.id) {
+      dispatch(AppointmentHistoryCreate(AppointmentHistoryFormData));
+    }
+  }, [paymentInfo?.CreateAppointmentCreatorResData?.id]);
 
   return (
     <>
