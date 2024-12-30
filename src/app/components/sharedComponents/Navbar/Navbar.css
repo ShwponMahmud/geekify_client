@@ -1,3 +1,20 @@
+.mega-dropdown {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  position: absolute;
+  z-index: 10;
+  background: white;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mega-dropdown.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
 .animated-button {
   background: linear-gradient(-30deg, #fc7d06 50%, #fc7d06 50%);
@@ -11,7 +28,7 @@
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: rgba(2, 2, 2, 0.233) 3px 3px;
+  /* box-shadow: rgba(2, 2, 2, 0.233) 3px 3px; */
 }
 
 .animated-button::before {

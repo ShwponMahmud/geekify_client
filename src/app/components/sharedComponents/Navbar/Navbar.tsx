@@ -149,10 +149,12 @@ export default function Navbar() {
                     )}
                   </Link>
 
-                  {/* Mega Dropdown */}
                   {item?.dropdown && hovered === item?.name && (
                     <div
                       className={`fixed inset-x-0 h-auto bg-white shadow-md flex justify-center items-center pt-16 pb-10`}
+                      // className={`mega-dropdown fixed inset-x-0 h-auto bg-white shadow-md flex justify-center items-center pt-16 pb-10 ${
+                      //   hovered === item?.name ? "show fixed inset-x-0 h-auto bg-white shadow-md flex justify-center items-center pt-16 pb-10" : ""
+                      // }`}
                     >
                       <div className="h-full w-full mx-auto lg:pl-32">
                         <div>
@@ -192,7 +194,6 @@ export default function Navbar() {
                                       <BiSolidRightArrow className="text-sm text-[#1d5f89]" />{" "}
                                       {area?.mainAreaName}
                                     </Link>
-                                    {/* <hr /> */}
                                     {hoveredMainArea &&
                                       area?.slug === "New-South-Wales" && (
                                         <ul className="mt-3 grid grid-cols-2 gap-2 text-[14px]">
@@ -215,6 +216,7 @@ export default function Navbar() {
               ))}
             </div>
 
+
             <div className=" text-[14px]">
               <a href="/booking-online" className="animated-button">
                 <span></span>
@@ -226,7 +228,7 @@ export default function Navbar() {
                 <strong>
                   {" "}
                   And Get{" "}
-                  <strong className="animate-pulse text-[16px] font-extrabold text-[#303030] font-semibold">
+                  <strong className="animate-pulse text-[17px] text-[#303030] font-extrabold">
                     15%
                   </strong>{" "}
                   Off
