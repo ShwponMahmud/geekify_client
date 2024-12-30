@@ -28,9 +28,9 @@ const BookingOnlineProgress: React.FC = () => {
     updateProgress();
   }, [bookingInfo]);
 
-  const next = () => {
-dispatch(bookingSummerySaveAndContinue("next"));
-  }
+//   const next = () => {
+// dispatch(bookingSummerySaveAndContinue("next"));
+//   }
   
   return (
     <div className="">

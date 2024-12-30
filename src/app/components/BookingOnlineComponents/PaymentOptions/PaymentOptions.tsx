@@ -88,6 +88,7 @@ const PaymentOptions: React.FC = () => {
 
   const preHandler = () => {
     dispatch(contactInformationForBookingNestStep("next"));
+    dispatch(bookingSummerySaveAndContinue(""));
   };
   const proceedToPayNextHandler = () => {
     dispatch(paymentOptionSelectedAndProceedToPay("next"));

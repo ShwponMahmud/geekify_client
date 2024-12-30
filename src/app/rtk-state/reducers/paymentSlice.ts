@@ -21,7 +21,9 @@ export interface PaymentState {
   CreateAppointmentCreatorResData: any;
   PaymentCreationNotifyResData: any;
   appointmentCreationNotifyResData: any;
-  appointmentHistoryCreateResData: any
+  AppointmentDiscountStoreListCreateResData: any;
+  AppointmentDiscountStoreListCreateResStatus: string;
+  appointmentHistoryCreateResData: any;
 }
 
 const initialState: PaymentState = {
@@ -42,7 +44,9 @@ const initialState: PaymentState = {
   CreateAppointmentCreatorResData: {},
   PaymentCreationNotifyResData: {},
   appointmentCreationNotifyResData: {},
-  appointmentHistoryCreateResData: {}
+  AppointmentDiscountStoreListCreateResData: {},
+  AppointmentDiscountStoreListCreateResStatus: "",
+  appointmentHistoryCreateResData: {},
 };
 
 // card token create..................
@@ -475,6 +479,38 @@ export const AppointmentCreationNotify = createAsyncThunk(
 );
 
 //Appointment History Create..................
+export interface AppointmentDiscountStoreListFormData {
+  user_id: number;
+  reference: any;
+  discounts: any;
+}
+
+// Async thunk for Appointment History Create.
+export const AppointmentDiscountStoreListCreate = createAsyncThunk(
+  "appointmentDiscountStoreListCreate",
+  async (formData: AppointmentDiscountStoreListFormData) => {
+    const response = await fetch(`${baseUrl}/discounts/store-list`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+//Appointment History Create..................
 export interface AppointmentHistoryCreateFormData {
   user_id: number;
   appointment_id: number;
@@ -482,7 +518,7 @@ export interface AppointmentHistoryCreateFormData {
   status: number;
 }
 
-// Async thunk for Appointment Creation Notify.
+// Async thunk for Appointment History Create.
 export const AppointmentHistoryCreate = createAsyncThunk(
   "appointmentHistoryCreate",
   async (formData: AppointmentHistoryCreateFormData) => {
@@ -747,6 +783,26 @@ export const paymentSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
       })
+      .addCase(AppointmentDiscountStoreListCreate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.AppointmentDiscountStoreListCreateResData = "";
+      })
+      .addCase(
+        AppointmentDiscountStoreListCreate.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.AppointmentDiscountStoreListCreateResData = action.payload;
+          state.AppointmentDiscountStoreListCreateResStatus = "success";
+        }
+      )
+      .addCase(AppointmentDiscountStoreListCreate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+
       .addCase(AppointmentHistoryCreate.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -758,6 +814,24 @@ export const paymentSlice = createSlice({
           state.isLoading = false;
           state.status = "success";
           state.appointmentHistoryCreateResData = action.payload;
+          
+
+          state.cardToken = "";
+          state.cardSurcharge = "";
+          state.afterPaySurcharge = "";
+          state.PaymentsCreateByTokenResData = "";
+          state.createPaymentResData = "";
+          state.createCardPaymentsResData = "";
+          state.createAppointmentsResData = "";
+          state.appointmentChargeResData = "";
+          state.appointmentChargeResStatus = "";
+          state.createAppointmentNotesResData = "";
+          state.CreateAppointmentPaymentsResData = "";
+          state.CreateAppointmentCreatorResData = "";
+          state.PaymentCreationNotifyResData = "";
+          state.appointmentCreationNotifyResData = "";
+          state.AppointmentDiscountStoreListCreateResData = "";
+          state.AppointmentDiscountStoreListCreateResStatus = "";
         }
       )
       .addCase(AppointmentHistoryCreate.rejected, (state, action) => {

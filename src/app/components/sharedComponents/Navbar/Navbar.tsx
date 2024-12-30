@@ -173,16 +173,16 @@ export default function Navbar() {
                           )}
 
                           {hovered === "Service Areas" && (
-                            <>
+                            <div className="container">
                               <h3 className="text-xl font-semibold pb-5 text-[#1d5f89] w-full">
                                 Our Service Areas
                               </h3>
-                              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                              <div className=" grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {serviceAreas?.map((area) => (
                                   <div key={area?.slug}>
                                     <Link
                                       href={`/service-areas/${area?.slug}`}
-                                      className="text-gray-600 hover:tracking-[1px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
+                                      className="text-gray-600 hover:tracking-[1px] font-semibold hover:text-[#1d5f89] duration-500 flex items-center gap-1"
                                       onMouseOver={(e) =>
                                       {
                                         area?.slug === "New-South-Wales" ? setHoveredMainArea("New-South-Wales") : setHoveredMainArea(null)
@@ -192,19 +192,20 @@ export default function Navbar() {
                                       <BiSolidRightArrow className="text-sm text-[#1d5f89]" />{" "}
                                       {area?.mainAreaName}
                                     </Link>
+                                    {/* <hr /> */}
                                     {hoveredMainArea &&
                                       area?.slug === "New-South-Wales" && (
-                                        <ul className="">
+                                        <ul className="mt-3 grid grid-cols-2 gap-2 text-[14px]">
                                           {area?.districtAreas &&
                                             area?.districtAreas.map((item) => (
-                                              <Link href={item?.slug} className="cursor-pointer ml-5 hover:tracking-[1px] hover:text-[#1d5f89] duration-500">{item?.name}</Link>
+                                              <Link href={item?.slug} className="cursor-pointer ml-4 hover:tracking-[1px] hover:text-[#1d5f89] duration-500">{item?.name}</Link>
                                             ))}
                                         </ul>
                                       )}
                                   </div>
                                 ))}
                               </div>
-                            </>
+                            </div>
                           )}
                         </div>
                       </div>
@@ -225,7 +226,7 @@ export default function Navbar() {
                 <strong>
                   {" "}
                   And Get{" "}
-                  <strong className="animate-pulse text-[16px] font-extrabold text-[#29988b]">
+                  <strong className="animate-pulse text-[16px] font-extrabold text-[#1954f7] font-semibold">
                     15%
                   </strong>{" "}
                   Off
