@@ -92,7 +92,7 @@ export default function Navbar() {
       as="nav"
       className="bg-white py-5 top-0 fixed h-[100px] w-[100%] shadow-lg shadow-gray-200/50 z-zIndex "
     >
-      <div className="px-5 lg:px-0 md:container mx-auto">
+      <div className="px-3 md:container mx-auto">
         <div className="relative flex h-16 items-center justify-between">
           <div className="lg:hidden">
             {/* Mobile menu button*/}
@@ -117,7 +117,7 @@ export default function Navbar() {
                   alt="Geekify logo"
                   src="/logo.png"
                   className="w-auto h-auto"
-                  width={240}
+                  width={200}
                   height={40}
                 />
               </a>
@@ -156,7 +156,7 @@ export default function Navbar() {
                       //   hovered === item?.name ? "show fixed inset-x-0 h-auto bg-white shadow-md flex justify-center items-center pt-16 pb-10" : ""
                       // }`}
                     >
-                      <div className="h-full w-full mx-auto lg:pl-32">
+                      <div className="container h-full w-full mx-auto ">
                         <div>
                           {hovered === "Services" && (
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -175,7 +175,7 @@ export default function Navbar() {
                           )}
 
                           {hovered === "Service Areas" && (
-                            <div className="container">
+                            <div className="container px-0">
                               <h3 className="text-xl font-semibold pb-5 text-[#1d5f89] w-full">
                                 Our Service Areas
                               </h3>
@@ -185,11 +185,13 @@ export default function Navbar() {
                                     <Link
                                       href={`/service-areas/${area?.slug}`}
                                       className="text-gray-600 hover:tracking-[1px] hover:font-semibold hover:text-[#1d5f89] duration-500 flex items-center gap-1"
-                                      onMouseOver={(e) =>
-                                      {
-                                        area?.slug === "New-South-Wales" ? setHoveredMainArea("New-South-Wales") : setHoveredMainArea(null)
-                                      }
-                                      }
+                                      onMouseOver={(e) => {
+                                        area?.slug === "New-South-Wales"
+                                          ? setHoveredMainArea(
+                                              "New-South-Wales"
+                                            )
+                                          : setHoveredMainArea(null);
+                                      }}
                                     >
                                       <BiSolidRightArrow className="text-sm text-[#1d5f89]" />{" "}
                                       {area?.mainAreaName}
@@ -199,7 +201,12 @@ export default function Navbar() {
                                         <ul className="mt-3 grid grid-cols-2 gap-2 text-[14px]">
                                           {area?.districtAreas &&
                                             area?.districtAreas.map((item) => (
-                                              <Link href={item?.slug} className="cursor-pointer ml-4 hover:tracking-[1px] hover:text-[#1d5f89] duration-500">{item?.name}</Link>
+                                              <Link
+                                                href={item?.slug}
+                                                className="cursor-pointer ml-4 hover:tracking-[1px] hover:text-[#1d5f89] duration-500"
+                                              >
+                                                {item?.name}
+                                              </Link>
                                             ))}
                                         </ul>
                                       )}
@@ -216,9 +223,8 @@ export default function Navbar() {
               ))}
             </div>
 
-
             <div className=" text-[14px]">
-              <a href="/booking-online" className="animated-button">
+              <Link href="/booking-online" className="animated-button">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -228,12 +234,12 @@ export default function Navbar() {
                 <strong>
                   {" "}
                   And Get{" "}
-                  <strong className="animate-pulse text-[17px] text-[#303030] font-extrabold">
+                  <strong className="animate-pulse text-[15px] text-[#303030] font-extrabold">
                     15%
                   </strong>{" "}
                   Off
                 </strong>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

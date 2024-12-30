@@ -22,11 +22,11 @@ export default {
 			padding: {
 				DEFAULT: "15px",
 				xxl: "3rem",
-				xl: "3rem",
-				lg: "3rem",
-				md: "30px",
-				sm: "18px",
-				xs: "15px",
+				xl: "20px",
+				lg: "10px",
+				md: "8px",
+				sm: "6px",
+				xs: "5px",
 			},
 		},
     extend: {

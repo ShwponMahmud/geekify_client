@@ -14,11 +14,11 @@ function PaymentDetails() {
           <h2 className="text-center text-3xl font-semibold">
             Payment Details
           </h2>
-          <div className="w-[40%] mx-auto mt-5 border rounded-lg text-deepGrayColor overflow-hidden">
-            <div className="text-deepGrayColor font-semibold text-[17px] flex justify-between bg-[#f2f2f2] px-5 py-3">
+          <div className="w-[50%] mx-auto mt-5 border rounded-lg text-deepGrayColor overflow-hidden">
+            <div className="text-deepGrayColor font-semibold text-[17px] flex justify-between bg-[#f2f2f2] px-8 py-3">
               <span>Details</span> <span>Price</span>
             </div>
-            <div className="flex justify-between px-5 py-3 text-[13px] text-gray-500">
+            <div className="flex justify-between px-8 py-3 font-semibold text-[14px] text-gray-500">
               <b>Service</b>
               <span>
                 ${" "}
@@ -28,7 +28,7 @@ function PaymentDetails() {
               </span>
             </div>
             <hr />
-            <div className="flex justify-between px-5 py-3 text-[13px] text-gray-500">
+            <div className="flex justify-between px-8 py-3 font-semibold text-[14px] text-gray-500">
               <b>Surcharge</b>
               <span>
                 $
@@ -38,7 +38,7 @@ function PaymentDetails() {
               </span>
             </div>
             <hr />
-            <div className="flex justify-between px-5 py-3 text-[13px] text-gray-500">
+            <div className="flex justify-between px-8 py-3 font-semibold text-[14px] text-gray-500">
               <b>Sub Total</b>
               <span>
                 $
@@ -48,7 +48,7 @@ function PaymentDetails() {
               </span>
             </div>
             <hr />
-            <div className="flex justify-between px-5 py-3 text-[13px] text-gray-500">
+            <div className="flex justify-between px-8 py-3 font-semibold text-[14px] text-gray-500">
               <b>Discount</b>
               <span>
                 $
@@ -58,7 +58,7 @@ function PaymentDetails() {
               </span>
             </div>
             <hr />
-            <div className="flex justify-between px-5 py-3 text-[13px] text-gray-500">
+            <div className="flex justify-between px-8 py-3 font-semibold text-[14px] text-gray-500">
               <b>GST</b>
               <span>
                 $
@@ -68,7 +68,7 @@ function PaymentDetails() {
               </span>
             </div>
             <hr />
-            <div className="flex justify-between px-5 py-3 bg-[#f2f2f2]">
+            <div className="flex justify-between px-8 py-3 font-semibold bg-[#f2f2f2] text-gray-600">
               <b>Total Payable</b>
               <span>
                 $
@@ -78,7 +78,7 @@ function PaymentDetails() {
               </span>
             </div>
             <hr />
-            <div className="flex justify-between bg-[#b8f7de] px-5 py-3">
+            <div className="flex justify-between font-semibold bg-[#b8f7de] px-8 py-3 text-gray-600">
               <b>Paid</b>
               <span>
                 $
