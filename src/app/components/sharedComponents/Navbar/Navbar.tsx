@@ -92,37 +92,37 @@ export default function Navbar() {
       as="nav"
       className="bg-white py-5 top-0 fixed h-[100px] w-[100%] shadow-lg shadow-gray-200/50 z-zIndex "
     >
-      <div className="container mx-auto">
+      <div className="px-5 lg:px-0 md:container mx-auto">
         <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
+          <div className="lg:hidden">
             {/* Mobile menu button*/}
-            <DisclosureButton className="group relative inline-flex items-center cursor-pointer justify-center rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <DisclosureButton className="group relative inline-flex items-center cursor-pointer justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
                 aria-hidden="true"
-                className="block size-8 group-data-[open]:hidden"
+                className="block size-12 group-data-[open]:hidden"
               />
               <XMarkIcon
                 aria-hidden="true"
-                className="hidden size-8 group-data-[open]:block"
+                className="hidden size-12 group-data-[open]:block"
               />
             </DisclosureButton>
           </div>
 
-          <div className="flex flex-1 items-center justify-center mr-32 md:mr-0 md:items-stretch md:justify-between">
-            <div className="flex items-center z-50">
+          <div className="flex items-center justify-end md:items-stretch lg:justify-between md:w-[100%]">
+            <div className="hidden lg:flex items-center justify-center z-50">
               <a href="/">
                 <Image
                   alt="Geekify logo"
                   src="/logo.png"
-                  // className="w-auto h-auto"
+                  className="w-auto h-auto"
                   width={240}
                   height={40}
                 />
               </a>
             </div>
-            <div className="hidden md:flex items-center space-x-6">
+            <div className="hidden lg:flex items-center space-x-6">
               {navigation?.map((item) => (
                 <div
                   key={item?.name}
@@ -236,7 +236,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <DisclosurePanel className="md:hidden bg-orange-500">
+      <DisclosurePanel className="lg:hidden bg-sectionBackgroundColor">
         <div className="space-y-1 px-2 pb-3 pt-2">
           {navigation?.map((item) => (
             <DisclosureButton
@@ -246,8 +246,8 @@ export default function Navbar() {
               aria-current={item?.current ? "page" : undefined}
               className={classNames(
                 item?.current
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                  ? "bg-primaryColor text-white"
+                  : "text-gray-900 hover:bg-primaryColor hover:text-white",
                 "block rounded-md px-3 py-2 text-base font-medium"
               )}
             >

@@ -34,25 +34,25 @@ const Footer = () => {
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaFacebookF className="text-primaryColor"/>
+                <FaFacebookF className="text-primaryColor" />
               </a>
               <a
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaLinkedinIn className="text-primaryColor"/>
+                <FaLinkedinIn className="text-primaryColor" />
               </a>
               <a
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaInstagram className="text-primaryColor"/>
+                <FaInstagram className="text-primaryColor" />
               </a>
               <a
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaXTwitter className="text-primaryColor"/>
+                <FaXTwitter className="text-primaryColor" />
               </a>
             </div>
           </div>
@@ -85,12 +85,18 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="/information/terms-and-conditions" className="hover:text-gray-300">
+                <a
+                  href="/information/terms-and-conditions"
+                  className="hover:text-gray-300"
+                >
                   Terms & Conditions
                 </a>
               </li>
               <li>
-                <a href="/information/privacy-policy" className="hover:text-gray-300">
+                <a
+                  href="/information/privacy-policy"
+                  className="hover:text-gray-300"
+                >
                   Privacy Policy
                 </a>
               </li>
@@ -152,7 +158,7 @@ const Footer = () => {
               <div className="w-[63px] h-[2px] bg-white mt-[-8px] mb-4"></div>
             </div>
             <ul className="space-y-4">
-              <li className="flex gap-3">
+              <Link href={"tele:0291589800"} className="flex gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -167,9 +173,9 @@ const Footer = () => {
                     d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"
                   />
                 </svg>
-                <a href="">02 9158 9800</a>
-              </li>
-              <li className="flex gap-3">
+                <a href="tele: 0291589800">02 9158 9800</a>
+              </Link>
+              <Link href="mailto:cs@geekify.au" className="flex gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -187,7 +193,7 @@ const Footer = () => {
                 <a href="mailto:cs@geekify.au" className="hover:text-gray-300">
                   cs@geekify.au
                 </a>
-              </li>
+              </Link>
               <li className="flex gap-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -208,13 +214,12 @@ const Footer = () => {
                     d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
                   />
                 </svg>
-                <a href="">Camden, New <br /> South Wales 2570</a>
+                <a href="">
+                  Camden, New <br /> South Wales 2570
+                </a>
               </li>
             </ul>
           </div>
-        </div>
-        <div className="text-center text-white pb-8">
-          Copyright By geekify.com.au @2024. All Rights Reserved
         </div>
       </footer>
     </>
