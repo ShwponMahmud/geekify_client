@@ -10,10 +10,14 @@ import {
   parkingOptionSelect,
   serviceAddressParkingSubmitAfterNextStep,
   serviceAddressSelect,
+  serviceLocationTypeSelect,
   serviceTypeSelect,
   setBillingAddressModal,
   setServiceAddressModal,
 } from "@/app/rtk-state/reducers/bookingSlice";
+import { FaChalkboardTeacher, FaHome } from "react-icons/fa";
+import { IoBusinessSharp } from "react-icons/io5";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 type Address = {
   street: string;
@@ -25,6 +29,12 @@ type Address = {
 
 const SwitchSelect: React.FC = () => {
   const bookingInfo = useAppSelector((state) => state?.booking);
+  const [
+    serviceLocationTypeSelectedOption,
+    setServiceLocationTypeSelectedOption,
+  ] = useState<string>(
+    bookingInfo?.serviceLocationType ? bookingInfo?.serviceLocationType : "Home"
+  );
   const [serviceTypeSelectedOption, setServiceTypeSelectedOption] =
     useState<string>(
       bookingInfo?.serviceType ? bookingInfo?.serviceType : "Onsite"
@@ -83,6 +93,9 @@ const SwitchSelect: React.FC = () => {
 
   let [isOpen, setIsOpen] = useState(false);
 
+  const handleLocationTypeOptionClick = (value: string) => {
+    setServiceLocationTypeSelectedOption(value);
+  };
   const handleOptionClick = (value: string) => {
     setServiceTypeSelectedOption(value);
   };
@@ -93,7 +106,6 @@ const SwitchSelect: React.FC = () => {
   function close() {
     setIsOpen(false);
   }
-  console.log(bookingInfo.newCustomerAddressStatus);
   const addNewAddressViewHandler = () => {
     setAddNewAddressView(true);
   };
@@ -206,16 +218,42 @@ const SwitchSelect: React.FC = () => {
     }
 
     if (isBillingSame === true) {
+      dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      dispatch(serviceAddressSelect(bookingInfo?.serviceAddress? bookingInfo?.serviceAddress : selectedServiceAddress));
-      dispatch(billingAddressSelect(bookingInfo?.serviceAddress? bookingInfo?.serviceAddress : selectedServiceAddress));
+      dispatch(
+        serviceAddressSelect(
+          bookingInfo?.serviceAddress
+            ? bookingInfo?.serviceAddress
+            : selectedServiceAddress
+        )
+      );
+      dispatch(
+        billingAddressSelect(
+          bookingInfo?.serviceAddress
+            ? bookingInfo?.serviceAddress
+            : selectedServiceAddress
+        )
+      );
       dispatch(parkingOptionSelect(selectedParking));
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
     }
     if (selectedBillingAddress.street) {
+      dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      dispatch(serviceAddressSelect(bookingInfo?.serviceAddress? bookingInfo?.serviceAddress : selectedServiceAddress));
-      dispatch(billingAddressSelect(bookingInfo?.billingAddress? bookingInfo?.billingAddress : selectedBillingAddress));
+      dispatch(
+        serviceAddressSelect(
+          bookingInfo?.serviceAddress
+            ? bookingInfo?.serviceAddress
+            : selectedServiceAddress
+        )
+      );
+      dispatch(
+        billingAddressSelect(
+          bookingInfo?.billingAddress
+            ? bookingInfo?.billingAddress
+            : selectedBillingAddress
+        )
+      );
       dispatch(parkingOptionSelect(selectedParking));
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
     }
@@ -226,52 +264,137 @@ const SwitchSelect: React.FC = () => {
       <div className="container mx-auto justify-items-center py-10">
         <div className="w-[60%] ">
           <h1 className="text-3xl font-bold mb-5">Address </h1>
-          <p>Please choose how you would like us to deliver this service</p>
 
-          <div className="w-[200px] mt-4">
-            <div className="switch-wrapper">
-              {/* Hidden select for accessibility */}
-              <select
-                id="work-mode"
-                className="hidden-select"
-                value={serviceTypeSelectedOption}
-                onChange={(e) => setServiceTypeSelectedOption(e.target.value)}
-              >
-                <option value="Onsite">On-site</option>
-                <option value="Remote">Remote</option>
-              </select>
+          <div className="border p-5 rounded-lg">
+            <p>Please choose who requires this service.</p>
 
-              {/* Custom Switch */}
-              <div className="custom-switch">
-                <div
-                  className={`switch-option ${
-                    serviceTypeSelectedOption === "Onsite" ? "active" : ""
-                  }`}
-                  onClick={() => handleOptionClick("Onsite")}
-                >
-                  On-site
+            <div className="flex justify-between">
+              <div className="w-[200px] mt-5">
+                <div className="switch-wrapper">
+                  {/* Hidden select for accessibility */}
+                  <select
+                    id="work-mode"
+                    className="hidden-select"
+                    value={serviceLocationTypeSelectedOption}
+                    onChange={(e) =>
+                      setServiceLocationTypeSelectedOption(e.target.value)
+                    }
+                  >
+                    <option value="Home">Home</option>
+                    <option value="Business">Business</option>
+                  </select>
+
+                  {/* Custom Switch */}
+                  <div className="custom-switch">
+                    <div
+                      className={`switch-option ${
+                        serviceLocationTypeSelectedOption === "Home"
+                          ? "active"
+                          : ""
+                      }`}
+                      onClick={() => handleLocationTypeOptionClick("Home")}
+                    >
+                      Home
+                    </div>
+                    <div
+                      className={`switch-option ${
+                        serviceLocationTypeSelectedOption === "Business"
+                          ? "active"
+                          : ""
+                      }`}
+                      onClick={() => handleLocationTypeOptionClick("Business")}
+                    >
+                      Business
+                    </div>
+                    <div
+                      className="switch-toggle"
+                      style={{
+                        left:
+                          serviceLocationTypeSelectedOption === "Home"
+                            ? "5px"
+                            : "50%",
+                      }}
+                    ></div>
+                  </div>
                 </div>
-                <div
-                  className={`switch-option ${
-                    serviceTypeSelectedOption === "Remote" ? "active" : ""
-                  }`}
-                  onClick={() => handleOptionClick("Remote")}
-                >
-                  Remote
-                </div>
-                <div
-                  className="switch-toggle"
-                  style={{
-                    left:
-                      serviceTypeSelectedOption === "Onsite" ? "5px" : "50%",
-                  }}
-                ></div>
               </div>
+              {serviceLocationTypeSelectedOption == "Home" && (
+                <span className="text-[60px] text-gray-400">
+                  <FaHome />
+                </span>
+              )}
+              {serviceLocationTypeSelectedOption == "Business" && (
+                <span className="text-[60px] text-gray-400">
+                  <IoBusinessSharp />
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="border p-5 rounded-lg mt-10">
+            <p>Please choose how you would like us to deliver this service.</p>
+
+            <div className="flex justify-between">
+              <div className="w-[200px] mt-5">
+                <div className="switch-wrapper">
+                  {/* Hidden select for accessibility */}
+                  <select
+                    id="work-mode"
+                    className="hidden-select"
+                    value={serviceTypeSelectedOption}
+                    onChange={(e) =>
+                      setServiceTypeSelectedOption(e.target.value)
+                    }
+                  >
+                    <option value="Onsite">On-site</option>
+                    <option value="Remote">Remote</option>
+                  </select>
+
+                  {/* Custom Switch */}
+                  <div className="custom-switch">
+                    <div
+                      className={`switch-option ${
+                        serviceTypeSelectedOption === "Onsite" ? "active" : ""
+                      }`}
+                      onClick={() => handleOptionClick("Onsite")}
+                    >
+                      On-site
+                    </div>
+                    <div
+                      className={`switch-option ${
+                        serviceTypeSelectedOption === "Remote" ? "active" : ""
+                      }`}
+                      onClick={() => handleOptionClick("Remote")}
+                    >
+                      Remote
+                    </div>
+                    <div
+                      className="switch-toggle"
+                      style={{
+                        left:
+                          serviceTypeSelectedOption === "Onsite"
+                            ? "5px"
+                            : "50%",
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              {serviceTypeSelectedOption == "Onsite" && (
+                <span className="text-[60px] text-gray-400">
+                  <FaMapLocationDot />
+                </span>
+              )}
+              {serviceTypeSelectedOption == "Remote" && (
+                <span className="text-[60px] text-gray-400">
+                  <FaChalkboardTeacher />
+                </span>
+              )}
             </div>
           </div>
 
           <div className="enter_full_address_section mt-10">
-            <p>Enter your full address (Add unit or building number)</p>
+            <p>Enter your full address (Add unit or building number).</p>
             <div className=" flex justify-between border rounded-lg p-[20px] mt-5">
               <div>
                 <ul className="list-disc px-5 text-deepGrayColor">
@@ -334,7 +457,7 @@ const SwitchSelect: React.FC = () => {
                   className="bg-primaryColor border border-primaryColor text-white rounded-md py-[7px] px-[10px] flex content-center text-[15px] hover:bg-white hover:text-primaryColor hover:border-primaryColor transition-[.5s]
               "
                 >
-                  <span onClick={setServiceAddressHandler}>Edit Address</span>
+                  <span onClick={setServiceAddressHandler}>Edit Address.</span>
                 </button>
               </div>
             </div>
@@ -349,7 +472,7 @@ const SwitchSelect: React.FC = () => {
                 />
                 <span className="slider"></span>
               </label>
-              <span>Billing Address is same as my home Address</span>
+              <span>Billing Address is same as my home Address.</span>
             </div>
             {isBillingSame ? (
               ""
@@ -397,24 +520,26 @@ const SwitchSelect: React.FC = () => {
             )}
             <p className="billing_address_alert text-red-500 text-md font-semibold mt-5"></p>
             <p className="billing_address_Provided_alert text-green-500 text-md font-semibold mt-5"></p>
-            <div className="parking_select_section mt-5">
-              <span>
-                Please choose the parking option available at your location
-              </span>
-              <div className="parking-options mt-3">
-                {parkingOptions.map((option) => (
-                  <button
-                    key={option}
-                    className={`parking-button ${
-                      selectedParking === option ? "active" : ""
-                    }`}
-                    onClick={() => handleParkingSelect(option)}
-                  >
-                    {option}
-                  </button>
-                ))}
+            {serviceTypeSelectedOption !== "Remote" && (
+              <div className="parking_select_section mt-5">
+                <span>
+                  Please choose the parking option available at your location.
+                </span>
+                <div className="parking-options mt-3">
+                  {parkingOptions.map((option) => (
+                    <button
+                      key={option}
+                      className={`parking-button ${
+                        selectedParking === option ? "active" : ""
+                      }`}
+                      onClick={() => handleParkingSelect(option)}
+                    >
+                      {option}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
             <div className="flex justify-end mt-5">
               {/* <button
                 // onClick={PrevButtonHandler}

@@ -15,7 +15,16 @@ export interface PaymentState {
   createCardPaymentsResData: any;
   createAppointmentsResData: any;
   appointmentChargeResData: any;
-  createAppointmentNotesResData: any
+  appointmentChargeResStatus: string;
+  createAppointmentNotesResData: any;
+  CreateAppointmentPaymentsResData: any;
+  CreateAppointmentCreatorResData: any;
+  PaymentCreationNotifyResData: any;
+  appointmentCreationNotifyResData: any;
+  AppointmentDiscountStoreListCreateResData: any;
+  AppointmentDiscountStoreListCreateResStatus: string;
+  appointmentHistoryCreateResData: any;
+  couponDiscountCreateResData: any;
 }
 
 const initialState: PaymentState = {
@@ -30,7 +39,16 @@ const initialState: PaymentState = {
   createCardPaymentsResData: {},
   createAppointmentsResData: {},
   appointmentChargeResData: {},
+  appointmentChargeResStatus: "",
   createAppointmentNotesResData: {},
+  CreateAppointmentPaymentsResData: {},
+  CreateAppointmentCreatorResData: {},
+  PaymentCreationNotifyResData: {},
+  appointmentCreationNotifyResData: {},
+  AppointmentDiscountStoreListCreateResData: {},
+  AppointmentDiscountStoreListCreateResStatus: "",
+  appointmentHistoryCreateResData: {},
+  couponDiscountCreateResData: {},
 };
 
 // card token create..................
@@ -328,6 +346,238 @@ export const CreateAppointmentNotes = createAsyncThunk(
   }
 );
 
+// Create Appointment payments ......................
+export interface createAppointmentPaymentsFormData {
+  payment_id: number;
+  appointment_id: number;
+  transaction_date_time: string | any;
+}
+
+// Async thunk for create appointments payments.
+export const CreateAppointmentPayments = createAsyncThunk(
+  "createAppointmentPayments",
+  async (formData: createAppointmentPaymentsFormData) => {
+    const response = await fetch(`${baseUrl}/appointment-payments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+// Create Appointment Creator......................
+export interface createAppointmentCreatorFormData {
+  user_id: number;
+  appointment_id: number;
+  panel: string | any;
+}
+
+// Async thunk for create appointments Creator.
+export const CreateAppointmentCreator = createAsyncThunk(
+  "createAppointmentCreator",
+  async (formData: createAppointmentCreatorFormData) => {
+    const response = await fetch(`${baseUrl}/appointment-creators`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+// Payment Send Creation Notify..................
+export interface PaymentCreationNotifyFormData {
+  id: number;
+  notify_customer: number;
+  notify_internal_user: number;
+}
+
+// Async thunk for Payment Creation Notify.
+export const PaymentCreationNotify = createAsyncThunk(
+  "PaymentCreationNotify",
+  async (formData: PaymentCreationNotifyFormData) => {
+    const response = await fetch(
+      `${baseUrl}/payments/send-creation-notify/${formData?.id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+//Appointment Creation Notify..................
+export interface AppointmentCreationNotifyFormData {
+  appointment: number;
+  notify_customer: number;
+  notify_internal_user: number;
+}
+
+// Async thunk for Appointment Creation Notify.
+export const AppointmentCreationNotify = createAsyncThunk(
+  "AppointmentCreationNotify",
+  async (formData: AppointmentCreationNotifyFormData) => {
+    const response = await fetch(
+      `${baseUrl}/appointments/send-creation-notify/${formData?.appointment}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+//Appointment History Create..................
+export interface AppointmentDiscountStoreListFormData {
+  user_id: number;
+  reference: any;
+  discounts: any;
+}
+
+// Async thunk for Appointment History Create.
+export const AppointmentDiscountStoreListCreate = createAsyncThunk(
+  "appointmentDiscountStoreListCreate",
+  async (formData: AppointmentDiscountStoreListFormData) => {
+    const response = await fetch(`${baseUrl}/discounts/store-list`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+//Appointment History Create..................
+export interface AppointmentHistoryCreateFormData {
+  user_id: number;
+  appointment_id: number;
+  panel: number;
+  status: number;
+}
+
+// Async thunk for Appointment History Create.
+export const AppointmentHistoryCreate = createAsyncThunk(
+  "appointmentHistoryCreate",
+  async (formData: AppointmentHistoryCreateFormData) => {
+    const response = await fetch(`${baseUrl}/appointment-histories`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+//Coupon discount create..................
+export interface CouponFormData {
+  coupon_id: number;
+  user_id: number;
+  reference: any;
+  discount_amount: number;
+}
+
+// Async thunk for Coupon discount create.
+export const CouponDiscountCreate = createAsyncThunk(
+  "couponDiscountCreate",
+  async (formData: CouponFormData) => {
+    const response = await fetch(`${baseUrl}/coupon-usages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
 export const paymentSlice = createSlice({
   name: "payments",
   initialState,
@@ -389,7 +639,7 @@ export const paymentSlice = createSlice({
       .addCase(PaymentsCreateByToken.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        state.PaymentsCreateByTokenResData = {};
+        // state.PaymentsCreateByTokenResData = {};
       })
       .addCase(
         PaymentsCreateByToken.fulfilled,
@@ -462,6 +712,7 @@ export const paymentSlice = createSlice({
         state.isLoading = true;
         state.error = null;
         state.appointmentChargeResData = "";
+        state.appointmentChargeResStatus = "";
       })
       .addCase(
         CreateAppointmentsCharge.fulfilled,
@@ -469,6 +720,7 @@ export const paymentSlice = createSlice({
           state.isLoading = false;
           state.status = "success";
           state.appointmentChargeResData = action.payload;
+          state.appointmentChargeResStatus = "success";
         }
       )
       .addCase(CreateAppointmentsCharge.rejected, (state, action) => {
@@ -490,6 +742,151 @@ export const paymentSlice = createSlice({
         }
       )
       .addCase(CreateAppointmentNotes.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(CreateAppointmentPayments.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.CreateAppointmentPaymentsResData = "";
+      })
+      .addCase(
+        CreateAppointmentPayments.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.CreateAppointmentPaymentsResData = action.payload;
+        }
+      )
+      .addCase(CreateAppointmentPayments.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(CreateAppointmentCreator.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.CreateAppointmentCreatorResData = "";
+      })
+      .addCase(
+        CreateAppointmentCreator.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.CreateAppointmentCreatorResData = action.payload;
+        }
+      )
+      .addCase(CreateAppointmentCreator.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(PaymentCreationNotify.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.PaymentCreationNotifyResData = "";
+      })
+      .addCase(
+        PaymentCreationNotify.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.PaymentCreationNotifyResData = action.payload;
+        }
+      )
+      .addCase(PaymentCreationNotify.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(AppointmentCreationNotify.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.appointmentCreationNotifyResData = "";
+      })
+      .addCase(
+        AppointmentCreationNotify.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.appointmentCreationNotifyResData = action.payload;
+        }
+      )
+      .addCase(AppointmentCreationNotify.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(AppointmentDiscountStoreListCreate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.AppointmentDiscountStoreListCreateResData = "";
+      })
+      .addCase(
+        AppointmentDiscountStoreListCreate.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.AppointmentDiscountStoreListCreateResData = action.payload;
+          state.AppointmentDiscountStoreListCreateResStatus = "success";
+        }
+      )
+      .addCase(AppointmentDiscountStoreListCreate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+
+      .addCase(AppointmentHistoryCreate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.appointmentHistoryCreateResData = "";
+      })
+      .addCase(
+        AppointmentHistoryCreate.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.appointmentHistoryCreateResData = action.payload;
+
+          state.cardToken = "";
+          state.cardSurcharge = "";
+          state.afterPaySurcharge = "";
+          state.PaymentsCreateByTokenResData = "";
+          state.createPaymentResData = "";
+          state.createCardPaymentsResData = "";
+          state.createAppointmentsResData = "";
+          state.appointmentChargeResData = "";
+          state.appointmentChargeResStatus = "";
+          state.createAppointmentNotesResData = "";
+          state.CreateAppointmentPaymentsResData = "";
+          state.CreateAppointmentCreatorResData = "";
+          state.PaymentCreationNotifyResData = "";
+          state.appointmentCreationNotifyResData = "";
+          state.AppointmentDiscountStoreListCreateResData = "";
+          state.AppointmentDiscountStoreListCreateResStatus = "";
+        }
+      )
+      .addCase(AppointmentHistoryCreate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(CouponDiscountCreate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.couponDiscountCreateResData = "";
+      })
+      .addCase(
+        CouponDiscountCreate.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.couponDiscountCreateResData = action.payload;
+        }
+      )
+      .addCase(CouponDiscountCreate.rejected, (state, action) => {
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";

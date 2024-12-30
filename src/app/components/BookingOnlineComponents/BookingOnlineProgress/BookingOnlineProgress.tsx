@@ -19,7 +19,8 @@ const BookingOnlineProgress: React.FC = () => {
       if (bookingInfo.serviceQuestionInfoNextStep === "next") step = 4;
       if (bookingInfo.choosePreferredDateAndTimeNextStep === "next") step = 5;
       if (bookingInfo.contactInformationForBookingNestStep === "next") step = 5;
-      if (bookingInfo?.bookingSummerySubmitResData?.status === true) step = 6;
+      if (bookingInfo?.bookingSummerySaveAndContinue === "next") step = 6;
+      if (bookingInfo?.paymentOptionSelectedAndProceedToPay === "next") step = 6;
       
 
       setCurrentStep(step);
@@ -28,9 +29,9 @@ const BookingOnlineProgress: React.FC = () => {
     updateProgress();
   }, [bookingInfo]);
 
-  const next = () => {
-dispatch(bookingSummerySaveAndContinue("next"));
-  }
+//   const next = () => {
+// dispatch(bookingSummerySaveAndContinue("next"));
+//   }
   
   return (
     <div className="">

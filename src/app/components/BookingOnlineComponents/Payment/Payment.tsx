@@ -3,7 +3,14 @@ import "./Payment.css";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { ToastContainer, toast } from "react-toastify";
 import {
+  AppointmentCreationNotify,
+  AppointmentDiscountStoreListCreate,
+  AppointmentHistoryCreate,
   CardTokenCreate,
+  CouponDiscountCreate,
+  CreateAppointmentCreator,
+  CreateAppointmentNotes,
+  CreateAppointmentPayments,
   CreateAppointments,
   CreateAppointmentsCharge,
   CreateCardPayments,
@@ -11,6 +18,7 @@ import {
   createTokenFormData,
   GetAfterPaySurcharge,
   GetCardSurcharge,
+  PaymentCreationNotify,
   PaymentsCreateByToken,
 } from "@/app/rtk-state/reducers/paymentSlice";
 import {
@@ -18,6 +26,7 @@ import {
   formatTime,
   formatTimeInterval,
 } from "../ServiceBookingSummery/ServiceBookingSummery";
+import { bookingSummerySaveAndContinue, paymentOptionSelectedAndProceedToPay } from "@/app/rtk-state/reducers/bookingSlice";
 
 interface CardDetails {
   cardNumber: string;
@@ -38,6 +47,7 @@ export default function Payment() {
     (state) => state?.payment?.createAppointmentsResData
   );
 
+  // console.log(users)
   const [isCouponChecked, setIsCouponChecked] = useState(false);
   const [isTermsChecked, setIsTermsChecked] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
@@ -206,8 +216,6 @@ export default function Payment() {
     }
   }, [paymentInfo?.createCardPaymentsResData?.status]);
 
-
-
   // Create Appointments Charge.......
   const charges = [];
   if (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status) {
@@ -366,27 +374,164 @@ export default function Payment() {
     charges: charges,
   };
 
-
   useEffect(() => {
     if (appointmentResData?.status) {
       dispatch(CreateAppointmentsCharge(CreateAppointmentsChargeFormData));
     }
   }, [appointmentResData?.status]);
 
+  // Create Appointment Notes..........................
+  const createAppointmentNotesFormData = {
+    user_id: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    appointment_id: appointmentResData?.id,
+    user_type: 0,
+    type: 0,
+    description: bookingInfo?.descriptionNote?.note,
+  };
 
-  // const createAppointmentNotesFormData = {
-  //   user_id: number,
-  //   appointment_id: number | any;
-  //   user_type: number;
-  //   type: number;
-  //   description: string;
-  // }
+  useEffect(() => {
+    if (paymentInfo?.appointmentChargeResStatus === "success") {
+      dispatch(CreateAppointmentNotes(createAppointmentNotesFormData));
+    }
+  }, [paymentInfo?.appointmentChargeResStatus]);
+
+  // Create Appointment Payments.........................
+  const appointmentPaymentsFormData = {
+    payment_id: paymentInfo?.createPaymentResData?.id,
+    appointment_id: appointmentResData?.id,
+    transaction_date_time: paymentInfo?.createPaymentResData?.created_at,
+  };
+
+  useEffect(() => {
+    if (paymentInfo?.createAppointmentNotesResData?.user_type)
+      dispatch(CreateAppointmentPayments(appointmentPaymentsFormData));
+  }, [paymentInfo?.createAppointmentNotesResData?.user_type]);
+
+  // Create Appointment Creator..........................
+  const createAppointmentCreatorFormData = {
+    user_id: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    appointment_id: appointmentResData?.id,
+    panel: 1,
+  };
+
+  useEffect(() => {
+    if (paymentInfo?.CreateAppointmentPaymentsResData?.id) {
+      dispatch(CreateAppointmentCreator(createAppointmentCreatorFormData));
+    }
+  }, [paymentInfo?.CreateAppointmentPaymentsResData?.id]);
+
+  // Payment Send Creation Notify..................
+  const PaymentCreationNotifyFormData = {
+    id: paymentInfo?.createPaymentResData?.id,
+    notify_customer: 1,
+    notify_internal_user: 1,
+  };
+
+  // Appointment Creation Notify................
+  const AppointmentCreationNotifyFormData = {
+    appointment: appointmentResData?.id,
+    notify_customer: 1,
+    notify_internal_user: 1,
+  };
 
   // useEffect(() => {
-  //   dispatch(CreateAppointmentNotes())
-  // }, [])
+  //   if (paymentInfo?.createPaymentResData?.id && appointmentResData?.id) {
+  //     dispatch(PaymentCreationNotify(PaymentCreationNotifyFormData));
+  //     dispatch(AppointmentCreationNotify(AppointmentCreationNotifyFormData));
+  //   }
+  // }, [paymentInfo?.createPaymentResData?.id && appointmentResData?.id]);
 
 
+
+  // Appointment Discount Store list................
+  let discountsArray = [];
+
+      if (bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status) {
+        discountsArray.push({
+          "amount": bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+          "type": 3,
+        });
+      }
+      if (bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status) {
+        discountsArray.push({
+          "amount": bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+          "type": 1,
+        });
+      }
+      if (bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount?.applied_status) {
+        discountsArray.push({
+          "amount": bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount?.amount,
+          "type": 0,
+        });
+      }
+      if (bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status) {
+        discountsArray.push({
+          "amount": bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+          "type": 7,
+        });
+      }
+      if (bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.applied_status) {
+        discountsArray.push({
+          "amount": bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.amount,
+          "type": 6,
+        });
+      }
+
+  const AppointmentDiscountStoreListFormData = {
+    user_id: userInfo?.userInfo?.id
+    ? userInfo?.userInfo?.id
+    : users?.user?.[0]?.id,
+    reference: paymentInfo?.createAppointmentsResData?.reference,
+    discounts: discountsArray
+  }
+
+  useEffect(() => {
+    if (paymentInfo?.CreateAppointmentCreatorResData?.id) {
+      dispatch(AppointmentDiscountStoreListCreate(AppointmentDiscountStoreListFormData))
+    }
+  }, [paymentInfo?.CreateAppointmentCreatorResData?.id]);
+  
+
+  // Appointment History..
+  const AppointmentHistoryFormData = {
+    user_id: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    appointment_id: appointmentResData?.id,
+    panel: 1,
+    status: 0,
+  };
+
+  useEffect(() => {
+    if (paymentInfo?.AppointmentDiscountStoreListCreateResStatus === "success") {
+      dispatch(AppointmentHistoryCreate(AppointmentHistoryFormData));
+    }
+  }, [paymentInfo?.AppointmentDiscountStoreListCreateResStatus]);
+
+
+
+  // Coupon Usage................
+  const CouponFormData = {
+    coupon_id: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.coupon_id,
+    user_id: userInfo?.userInfo?.id
+    ? userInfo?.userInfo?.id
+    : users?.user?.[0]?.id,
+    reference: paymentInfo?.createAppointmentsResData?.reference,
+    discount_amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+  }
+
+  const CouponDiscountCreateHandler = () => {
+    dispatch(CouponDiscountCreate(CouponFormData))
+  }
+
+  const prevHandler = () => {
+    dispatch(bookingSummerySaveAndContinue("next"))
+    dispatch(paymentOptionSelectedAndProceedToPay(""))
+  }
 
   return (
     <>
@@ -409,8 +554,9 @@ export default function Payment() {
                     type="text"
                     placeholder="Enter a Coupon Code"
                     className="border p-[10px] w-[100%] text-[14px] mt-4 rounded-md"
+                    required
                   />
-                  <button className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2">
+                  <button type="submit" onClick={CouponDiscountCreateHandler} className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2">
                     Apply
                   </button>
                 </form>
@@ -467,7 +613,7 @@ export default function Payment() {
 
                 {/* Card Details Section */}
                 {selectedPaymentMethod === "cardPayment" && (
-                  <div className="bg-blue-50 p-4 rounded-md space-y-4 mt-5 text-[14px]">
+                  <div className="bg-[#f1f1f1] p-4 rounded-md space-y-4 mt-5 text-[14px]">
                     <div>
                       <label htmlFor="cardNumber" className="text-gray-700">
                         Card number
@@ -532,7 +678,7 @@ export default function Payment() {
 
             {/* Buttons */}
             <div className="flex justify-between mt-5">
-              <button className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-100">
+              <button onClick={prevHandler} className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-100">
                 Prev
               </button>
               {isTermsChecked ? (

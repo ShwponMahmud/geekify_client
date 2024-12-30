@@ -41,6 +41,7 @@ export interface BookingState {
   otpReqData: any[];
   otpVerifySuccess: string;
   otpVerifyData: any[];
+  serviceLocationType: string;
   serviceType: string;
   serviceAddress: any;
   setServiceAddressModal: string;
@@ -85,6 +86,7 @@ const initialState: BookingState = {
   otpVerifySuccess: "",
   otpVerifyData: [],
   serviceType: "",
+  serviceLocationType: "",
   serviceAddress: {},
   setServiceAddressModal: "",
   newCustomerAddressStatus: "",
@@ -177,6 +179,10 @@ export const bookingSlice = createSlice({
     },
     serviceTypeSelect: (state, action: PayloadAction<string>) => {
       state.serviceType = action.payload;
+      state.otpVerifySuccess = "";
+    },
+    serviceLocationTypeSelect: (state, action: PayloadAction<string>) => {
+      state.serviceLocationType = action.payload;
       state.otpVerifySuccess = "";
     },
     serviceAddressSelect: (state, action: PayloadAction<any>) => {
@@ -318,6 +324,7 @@ export const bookingSlice = createSlice({
 
 export const {
   startBooking,
+  serviceLocationTypeSelect,
   serviceTypeSelect,
   serviceAddressSelect,
   setServiceAddressModal,

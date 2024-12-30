@@ -59,7 +59,7 @@ const PaymentOptions: React.FC = () => {
 
   const bookingSummerySubmitData = {
     preference: bookingInfo?.serviceType === "Onsite" ? 0 : 1,
-    type: 1,
+    type: bookingInfo?.serviceLocationType === "Home" ? 0 : 1,
     street: bookingInfo?.serviceAddress?.street,
     suburb: bookingInfo?.serviceAddress?.suburb,
     post_code: bookingInfo?.serviceAddress?.post_code,
@@ -88,6 +88,7 @@ const PaymentOptions: React.FC = () => {
 
   const preHandler = () => {
     dispatch(contactInformationForBookingNestStep("next"));
+    dispatch(bookingSummerySaveAndContinue(""));
   };
   const proceedToPayNextHandler = () => {
     dispatch(paymentOptionSelectedAndProceedToPay("next"));

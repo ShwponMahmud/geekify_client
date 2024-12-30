@@ -6,7 +6,6 @@ function PaymentDetails() {
     (state) => state?.booking.bookingSummerySubmitResData
   );
 
-  console.log(bookingSummerySubmitResData);
 
   return (
     <>

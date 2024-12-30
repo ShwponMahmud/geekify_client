@@ -53,6 +53,7 @@ export const formatTimeInterval = (interval: string): string => {
 
 function ServiceBookingSummery() {
   const bookingInfo = useAppSelector((state) => state?.booking);
+  const user = useAppSelector((state) => state?.users.user);
   const userInfo = useAppSelector((state) => state?.userInfoAfterSubmit);
   const addressInfo = useAppSelector((state) => state?.addresses);
   const dispatch = useAppDispatch();
@@ -108,7 +109,7 @@ function ServiceBookingSummery() {
 
   const bookingSummerySubmitData = {
     preference: bookingInfo?.serviceType === "Onsite" ? 0 : 1,
-    type: 1,
+    type: bookingInfo?.serviceLocationType === "Home" ? 0 : 1,
     street: bookingInfo?.serviceAddress?.street,
     suburb: bookingInfo?.serviceAddress?.suburb,
     post_code: bookingInfo?.serviceAddress?.post_code,
@@ -208,6 +209,8 @@ function ServiceBookingSummery() {
   //   }, [addressInfo]);
   // }
 
+
+  
   // Local state to track status
   const [isAddressSubmitted, setIsAddressSubmitted] = useState(false);
   const [isCustomerCreated, setIsCustomerCreated] = useState(false);
@@ -265,13 +268,13 @@ function ServiceBookingSummery() {
 
   // customer create.....
   useEffect(() => {
-    if (addressInfo.SubmitAddressInfoStatus === "true" && !isCustomerCreated) {
+    if (addressInfo.SubmitAddressInfoStatus === "true" && !isCustomerCreated && !user?.[0]?.customer?.id) {
       const CustomerFormData = {
         address_id: addressInfo?.address?.[0]?.id,
         user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
           ? bookingInfo?.otpVerifyData?.[0]?.data?.id
           : userInfo?.userInfo?.id,
-        type: 1,
+        type: bookingInfo?.serviceLocationType === "Home" ? 0 : 1,
         status: 1,
         newsletter_subscription: 1,
       };
@@ -285,6 +288,7 @@ function ServiceBookingSummery() {
     addressInfo?.address?.[0]?.id,
     bookingInfo?.otpVerifyData,
     userInfo?.userInfo?.id,
+    user,
     isCustomerCreated,
     dispatch,
   ]);
@@ -340,6 +344,15 @@ function ServiceBookingSummery() {
             </li>
             <hr className="mb-4" />
             <li className="flex list-disc mb-3">
+              <b className="w-[40%]">Requires for:</b>
+              <div className="w-[100%] flex justify-between gap-2">
+                <span>{bookingInfo?.serviceLocationType}</span>{" "}
+                <button className="justify-items-end">
+                  {/* <LuPenSquare /> */}
+                </button>
+              </div>
+            </li>
+            <li className="flex list-disc mb-3">
               <b className="w-[40%]">Delivery Type:</b>
               <div className="w-[100%] flex justify-between gap-2">
                 <span>{bookingInfo?.serviceType}</span>{" "}
@@ -370,6 +383,17 @@ function ServiceBookingSummery() {
                 </button>
               </div>
             </li>
+            {bookingInfo?.serviceLocationType === "Business" && <li className="flex list-disc mb-3">
+              <b className="w-[40%]">Business Name:</b>
+              <div className="w-[100%] flex justify-between gap-2">
+                <span>
+                  {bookingInfo?.contactInformationForBooking?.businessName}
+                </span>{" "}
+                <button className="justify-items-end">
+                  {/* <LuPenSquare /> */}
+                </button>
+              </div>
+            </li>}
             <li className="flex list-disc mb-3">
               <b className="w-[40%]">Email:</b>
               <div className="w-[100%] flex justify-between gap-2">
