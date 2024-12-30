@@ -24,6 +24,7 @@ export interface PaymentState {
   AppointmentDiscountStoreListCreateResData: any;
   AppointmentDiscountStoreListCreateResStatus: string;
   appointmentHistoryCreateResData: any;
+  couponDiscountCreateResData: any;
 }
 
 const initialState: PaymentState = {
@@ -47,6 +48,7 @@ const initialState: PaymentState = {
   AppointmentDiscountStoreListCreateResData: {},
   AppointmentDiscountStoreListCreateResStatus: "",
   appointmentHistoryCreateResData: {},
+  couponDiscountCreateResData: {},
 };
 
 // card token create..................
@@ -543,6 +545,39 @@ export const AppointmentHistoryCreate = createAsyncThunk(
   }
 );
 
+//Coupon discount create..................
+export interface CouponFormData {
+  coupon_id: number;
+  user_id: number;
+  reference: any;
+  discount_amount: number;
+}
+
+// Async thunk for Coupon discount create.
+export const CouponDiscountCreate = createAsyncThunk(
+  "couponDiscountCreate",
+  async (formData: CouponFormData) => {
+    const response = await fetch(`${baseUrl}/coupon-usages`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
 export const paymentSlice = createSlice({
   name: "payments",
   initialState,
@@ -814,7 +849,6 @@ export const paymentSlice = createSlice({
           state.isLoading = false;
           state.status = "success";
           state.appointmentHistoryCreateResData = action.payload;
-          
 
           state.cardToken = "";
           state.cardSurcharge = "";
@@ -835,6 +869,24 @@ export const paymentSlice = createSlice({
         }
       )
       .addCase(AppointmentHistoryCreate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(CouponDiscountCreate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.couponDiscountCreateResData = "";
+      })
+      .addCase(
+        CouponDiscountCreate.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.couponDiscountCreateResData = action.payload;
+        }
+      )
+      .addCase(CouponDiscountCreate.rejected, (state, action) => {
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";

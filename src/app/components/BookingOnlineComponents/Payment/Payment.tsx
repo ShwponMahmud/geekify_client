@@ -7,6 +7,7 @@ import {
   AppointmentDiscountStoreListCreate,
   AppointmentHistoryCreate,
   CardTokenCreate,
+  CouponDiscountCreate,
   CreateAppointmentCreator,
   CreateAppointmentNotes,
   CreateAppointmentPayments,
@@ -513,6 +514,19 @@ export default function Payment() {
 
 
 
+  // Coupon Usage................
+  const CouponFormData = {
+    coupon_id: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.coupon_id,
+    user_id: userInfo?.userInfo?.id
+    ? userInfo?.userInfo?.id
+    : users?.user?.[0]?.id,
+    reference: paymentInfo?.createAppointmentsResData?.reference,
+    discount_amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+  }
+
+  const CouponDiscountCreateHandler = () => {
+    dispatch(CouponDiscountCreate(CouponFormData))
+  }
 
   const prevHandler = () => {
     dispatch(bookingSummerySaveAndContinue("next"))
@@ -540,8 +554,9 @@ export default function Payment() {
                     type="text"
                     placeholder="Enter a Coupon Code"
                     className="border p-[10px] w-[100%] text-[14px] mt-4 rounded-md"
+                    required
                   />
-                  <button className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2">
+                  <button type="submit" onClick={CouponDiscountCreateHandler} className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2">
                     Apply
                   </button>
                 </form>

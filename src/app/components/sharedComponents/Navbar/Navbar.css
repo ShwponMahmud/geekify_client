@@ -11,7 +11,7 @@
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: rgba(4, 84, 255, 0.479) 5px 5px;
+  box-shadow: rgba(2, 2, 2, 0.233) 5px 5px;
 }
 
 .animated-button::before {
@@ -41,7 +41,7 @@
   width: 100%;
   height: 2px;
   background: -webkit-gradient(linear, right top, left top, from(rgba(8, 20, 43, 0)), to(#1954f7));
-  background: linear-gradient(to left, rgba(8, 20, 43, 0), #1954f7);
+  background: linear-gradient(to left, rgba(8, 20, 43, 0), #1f1f1f);
   -webkit-animation: 2s animateTop linear infinite;
           animation: 2s animateTop linear infinite;
 }
@@ -74,7 +74,7 @@
   height: 100%;
   width: 2px;
   background: -webkit-gradient(linear, left bottom, left top, from(rgba(8, 20, 43, 0)), to(#1954f7));
-  background: linear-gradient(to top, rgba(8, 20, 43, 0), #1954f7);
+  background: linear-gradient(to top, rgba(8, 20, 43, 0), #1f1f1f);
   -webkit-animation: 2s animateRight linear -1s infinite;
           animation: 2s animateRight linear -1s infinite;
 }
@@ -107,7 +107,7 @@
   width: 100%;
   height: 2px;
   background: -webkit-gradient(linear, left top, right top, from(rgba(8, 20, 43, 0)), to(#1954f7));
-  background: linear-gradient(to right, rgba(8, 20, 43, 0), #1954f7);
+  background: linear-gradient(to right, rgba(8, 20, 43, 0), #1f1f1f);
   -webkit-animation: 2s animateBottom linear infinite;
           animation: 2s animateBottom linear infinite;
 }
@@ -140,7 +140,7 @@
   height: 100%;
   width: 2px;
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(8, 20, 43, 0)), to(#1954f7));
-  background: linear-gradient(to bottom, rgba(8, 20, 43, 0), #1954f7);
+  background: linear-gradient(to bottom, rgba(8, 20, 43, 0), #1f1f1f);
   -webkit-animation: 2s animateLeft linear -1s infinite;
           animation: 2s animateLeft linear -1s infinite;
 }
