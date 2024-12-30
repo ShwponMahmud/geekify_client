@@ -3,6 +3,7 @@ import Head from "next/head";
 import Navbar from "../components/sharedComponents/Navbar/Navbar";
 import Footer from "../components/sharedComponents/Footer/Footer";
 import { Montserrat } from "next/font/google";
+import BottomFooter from "../components/sharedComponents/BottomFooter/BottomFooter";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function layout({children,}: Readonly<{children: React.ReactNode;
         <Navbar />
         {children}
         <Footer/>
+        <BottomFooter/>
       </body>
     </html>
   );

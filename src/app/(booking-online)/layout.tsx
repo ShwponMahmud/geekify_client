@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import Head from "next/head";
 import BookingOnlineNav from "../components/BookingOnlineComponents/BookingOnlineNav/BookingOnlineNav";
 import { Montserrat } from "next/font/google";
+import BookingFooter from "../components/sharedComponents/BookingFooter/BookingFooter";
+import BottomFooter from "../components/sharedComponents/BottomFooter/BottomFooter";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -28,6 +30,8 @@ export default function layout({children,}: Readonly<{children: React.ReactNode;
       <body className={montserrat.className}>
         <BookingOnlineNav/>
         {children}
+        <BookingFooter />
+        <BottomFooter />
       </body>
     </html>
   );

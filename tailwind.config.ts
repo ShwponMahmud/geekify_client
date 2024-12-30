@@ -57,6 +57,9 @@ export default {
       transitionDuration: {
         '1000': '1000ms', // 1 second
       },
+      transitionProperty: {
+        'max-height': 'max-height',
+      },
     },
   },
   plugins: [

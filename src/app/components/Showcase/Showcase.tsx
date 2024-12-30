@@ -13,7 +13,7 @@ interface ShowcaseProps {
 const Showcase: React.FC<ShowcaseProps> = ({ backgroundImage, title, highlights, paragraph, btn }) => {
   return (
     <>
-      <div className="flex justify-center items-center w-[100%] h-[75vh] bg-blend-multiply bg-[rgba(0,0,0,.5)]" style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', width: '100%', backgroundPosition: 'center', 
+      <div className="flex justify-center items-center w-[100%] h-[90vh] bg-blend-multiply bg-[rgba(0,0,0,.5)]" style={{ backgroundImage: `url(${backgroundImage})`, backgroundRepeat: 'no-repeat', width: '100%', backgroundPosition: 'center', 
       backgroundSize: 'cover' }}>
         <div className="container mx-auto px-5">
           <div>
