@@ -152,7 +152,7 @@ export default function Navbar() {
                   {/* Mega Dropdown */}
                   {item?.dropdown && hovered === item?.name && (
                     <div
-                      className={`fixed inset-x-0 h-auto bg-white flex justify-center items-center pt-16 pb-10`}
+                      className={`fixed inset-x-0 h-auto bg-white shadow-md flex justify-center items-center pt-16 pb-10`}
                     >
                       <div className="h-full w-full mx-auto lg:pl-32">
                         <div>
@@ -162,7 +162,7 @@ export default function Navbar() {
                                 <div key={service?.slug}>
                                   <Link
                                     href={`/services/${service?.slug}`}
-                                    className="text-gray-600 hover:tracking-[1px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
+                                    className="text-gray-600 hover:tracking-[1px] text-[15px] hover:text-[#1d5f89] duration-500 flex items-center gap-1"
                                   >
                                     <BiSolidRightArrow className="text-sm text-[#1d5f89]" />{" "}
                                     {service?.name}
@@ -182,7 +182,7 @@ export default function Navbar() {
                                   <div key={area?.slug}>
                                     <Link
                                       href={`/service-areas/${area?.slug}`}
-                                      className="text-gray-600 hover:tracking-[1px] font-semibold hover:text-[#1d5f89] duration-500 flex items-center gap-1"
+                                      className="text-gray-600 hover:tracking-[1px] hover:font-semibold hover:text-[#1d5f89] duration-500 flex items-center gap-1"
                                       onMouseOver={(e) =>
                                       {
                                         area?.slug === "New-South-Wales" ? setHoveredMainArea("New-South-Wales") : setHoveredMainArea(null)

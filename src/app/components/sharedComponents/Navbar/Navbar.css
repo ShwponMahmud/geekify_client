@@ -7,11 +7,11 @@
           transform: translate(0%, 0%);
   overflow: hidden;
   color: white;
-  font-size: 14px;
+  font-size: 13px;
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: rgba(2, 2, 2, 0.233) 5px 5px;
+  box-shadow: rgba(2, 2, 2, 0.233) 3px 3px;
 }
 
 .animated-button::before {

@@ -17,7 +17,7 @@ import {
 } from "@/app/rtk-state/reducers/bookingSlice";
 import { FaChalkboardTeacher, FaHome } from "react-icons/fa";
 import { IoBusinessSharp } from "react-icons/io5";
-import { FaNetworkWired } from "react-icons/fa6";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 type Address = {
   street: string;
@@ -319,12 +319,12 @@ const SwitchSelect: React.FC = () => {
                 </div>
               </div>
               {serviceLocationTypeSelectedOption == "Home" && (
-                <span className="text-[70px] text-gray-400">
+                <span className="text-[60px] text-gray-400">
                   <FaHome />
                 </span>
               )}
               {serviceLocationTypeSelectedOption == "Business" && (
-                <span className="text-[70px] text-gray-400">
+                <span className="text-[60px] text-gray-400">
                   <IoBusinessSharp />
                 </span>
               )}
@@ -381,12 +381,12 @@ const SwitchSelect: React.FC = () => {
                 </div>
               </div>
               {serviceTypeSelectedOption == "Onsite" && (
-                <span className="text-[70px] text-gray-400">
-                  <FaNetworkWired />
+                <span className="text-[60px] text-gray-400">
+                  <FaMapLocationDot />
                 </span>
               )}
               {serviceTypeSelectedOption == "Remote" && (
-                <span className="text-[70px] text-gray-400">
+                <span className="text-[60px] text-gray-400">
                   <FaChalkboardTeacher />
                 </span>
               )}
@@ -394,7 +394,7 @@ const SwitchSelect: React.FC = () => {
           </div>
 
           <div className="enter_full_address_section mt-10">
-            <p>Enter your full address (Add unit or building number)</p>
+            <p>Enter your full address (Add unit or building number).</p>
             <div className=" flex justify-between border rounded-lg p-[20px] mt-5">
               <div>
                 <ul className="list-disc px-5 text-deepGrayColor">
@@ -457,7 +457,7 @@ const SwitchSelect: React.FC = () => {
                   className="bg-primaryColor border border-primaryColor text-white rounded-md py-[7px] px-[10px] flex content-center text-[15px] hover:bg-white hover:text-primaryColor hover:border-primaryColor transition-[.5s]
               "
                 >
-                  <span onClick={setServiceAddressHandler}>Edit Address</span>
+                  <span onClick={setServiceAddressHandler}>Edit Address.</span>
                 </button>
               </div>
             </div>
@@ -472,7 +472,7 @@ const SwitchSelect: React.FC = () => {
                 />
                 <span className="slider"></span>
               </label>
-              <span>Billing Address is same as my home Address</span>
+              <span>Billing Address is same as my home Address.</span>
             </div>
             {isBillingSame ? (
               ""
@@ -523,7 +523,7 @@ const SwitchSelect: React.FC = () => {
             {serviceTypeSelectedOption !== "Remote" && (
               <div className="parking_select_section mt-5">
                 <span>
-                  Please choose the parking option available at your location
+                  Please choose the parking option available at your location.
                 </span>
                 <div className="parking-options mt-3">
                   {parkingOptions.map((option) => (

@@ -288,6 +288,7 @@ function ServiceBookingSummery() {
     addressInfo?.address?.[0]?.id,
     bookingInfo?.otpVerifyData,
     userInfo?.userInfo?.id,
+    user,
     isCustomerCreated,
     dispatch,
   ]);
@@ -382,7 +383,7 @@ function ServiceBookingSummery() {
                 </button>
               </div>
             </li>
-            <li className="flex list-disc mb-3">
+            {bookingInfo?.serviceLocationType === "Business" && <li className="flex list-disc mb-3">
               <b className="w-[40%]">Business Name:</b>
               <div className="w-[100%] flex justify-between gap-2">
                 <span>
@@ -392,7 +393,7 @@ function ServiceBookingSummery() {
                   {/* <LuPenSquare /> */}
                 </button>
               </div>
-            </li>
+            </li>}
             <li className="flex list-disc mb-3">
               <b className="w-[40%]">Email:</b>
               <div className="w-[100%] flex justify-between gap-2">
