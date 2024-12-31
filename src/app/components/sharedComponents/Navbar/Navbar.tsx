@@ -240,7 +240,6 @@ export default function Navbar(): JSX.Element {
               </a>
             </div>
           </div>
-        </div>
       </div>
 
       {/* Mobile Menu */}

@@ -33,23 +33,10 @@ const Slider = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundImage: 'url("/banner-1.png")',
-              backgroundSize: "cover, cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center, center",
-              objectFit: "contain",
-              height: "90vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
             }}
           >
             <div className="w-full container mx-auto">
-            <div className="w-full container mx-auto">
               <div className="text-white">
-                <h1 className="title text-5xl md:text-8xl md:leading-[100px] tracking-wider font-extrabold mx-auto lg:mx-0">
-                  You <span className="text-primaryColor"> Point</span> It{" "}
-                  <br />
                 <h1 className="title text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold mx-auto lg:mx-0">
                   You <span className="text-primaryColor"> Point</span> It{" "}
                   <br />
@@ -83,23 +70,11 @@ const Slider = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              backgroundImage: ' url("/banner-2.png")',
-              backgroundSize: "cover, cover",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center, center",
-              objectFit: "contain",
-              height: "90vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
             }}
           >
-            <div className="w-full container mx-auto">
+            
             <div className="w-full container mx-auto">
               <div className="text-white">
-                <h1 className="title text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-extrabold mx-auto lg:mx-0">
-                  You <span className="text-primaryColor"> Point</span> It{" "}
-                  <br />
                 <h1 className="title text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold mx-auto lg:mx-0">
                   You <span className="text-primaryColor"> Point</span> It{" "}
                   <br />
