@@ -134,21 +134,18 @@ export default function Payment() {
     }
   }, [paymentInfo]);
 
-  const surchargeDetail =
-    paymentInfo?.cardSurcharge[0]?.payment_card_surcharge?.value?.details.find(
-      (i: any) =>
-        i.name.toLowerCase() == paymentInfo?.cardToken?.card?.type.toLowerCase()
+  const surchargeDetail = paymentInfo?.cardSurcharge[0]?.payment_card_surcharge?.value?.details.find((i: any) =>
+      i.name.toLowerCase() == paymentInfo?.cardToken?.card?.type.toLowerCase()
     );
   const surchargeRate = surchargeDetail ? parseFloat(surchargeDetail.rate) : 0;
-  const surchargeAmount =
-    surchargeRate > 0 &&
-    (bookingInfo?.bookingSummerySubmitResData?.grand_total || 0) /
-      surchargeRate;
-  const totalAmount =
-    surchargeAmount + bookingInfo?.bookingSummerySubmitResData?.grand_total ||
-    0;
+  const surchargeAmount = surchargeRate > 0 && Math.round((bookingInfo?.bookingSummerySubmitResData?.grand_total || 0) * surchargeRate / 100);
+  const totalAmount = surchargeAmount + bookingInfo?.bookingSummerySubmitResData?.grand_total || 0;
 
   //
+
+  console.log(surchargeAmount)
+  // console.log(totalAmount);
+
   const paymentsCreateByTokenData = {
     amount: totalAmount,
     reference: "Online Appointment Form",
@@ -196,10 +193,15 @@ export default function Payment() {
     }
   }, [paymentInfo?.createPaymentResData?.id]);
 
+
+  const serviceIdFilter = bookingInfo?.filterServiceList?.find((service: any) => 
+    typeof service?.name === 'string' && 
+    service?.name === bookingInfo?.serviceName?.service_name
+  );
   // Create Appointments.....................
   const CreateAppointmentsFormData = {
     customer_id: customer?.id,
-    service_id: 1,
+    service_id: serviceIdFilter?.id,
     address_id: address?.[0]?.id,
     billing_address_id: address?.[0]?.id,
     platform: 1,

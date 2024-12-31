@@ -7,6 +7,7 @@ import {
   descriptionNote,
   doYouKnowPasswordForIt,
   existingAntivirusName,
+  filterServiceListStore,
   haveExistingAntivirus,
   haveExistingNetwork,
   necessaryCables,
@@ -24,27 +25,132 @@ import {
 } from "@/app/rtk-state/reducers/bookingSlice";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 
-const ServiceForm: React.FC = () => {
+export interface ServiceFormProps {
+  services: { name: string, id: number |any }[];
+}
+
+const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
+  // console.log(services);
   const bookingInfo = useAppSelector((state) => state?.booking);
-  const [selectedService, setSelectedService] = useState(bookingInfo?.serviceName?.service_name ? bookingInfo?.serviceName?.service_name : "");
-  const [selectedPlatform, setSelectedPlatform] = useState(bookingInfo?.operatingSystem.platform ? bookingInfo?.operatingSystem.platform : "");
-  const [issueDescription, setIssueDescription] = useState(bookingInfo?.descriptionNote.note ? bookingInfo?.descriptionNote.note : "");
-  const [necessaryCablesSelect, setNecessaryCables] = useState(bookingInfo?.necessaryCables?.have_necessary_cables ? bookingInfo?.necessaryCables?.have_necessary_cables : "");
-  const [whereDataBackedUp, setWhereDataBackedUpOn] = useState(bookingInfo?.whereIsDataBackedUpOn?.where_is_data_backed_up_on ? bookingInfo?.whereIsDataBackedUpOn?.where_is_data_backed_up_on : "");
-  const [whereIsTheData, setWhereIsTheData] = useState(bookingInfo?.whereIsData?.where_is_the_data ? bookingInfo?.whereIsData?.where_is_the_data : "");
-  const [haveExistingAntivirusSelect, setHaveExistingAntivirus] = useState(bookingInfo?.haveExistingAntivirus?.have_existing_antivirus ? bookingInfo?.haveExistingAntivirus?.have_existing_antivirus : "");
-  const [antivirusName, setAntivirusName] = useState(bookingInfo?.existingAntivirusName?.antivirus_Name ?  bookingInfo?.existingAntivirusName?.antivirus_Name  : "");
-  const [whatTypeOfPhoneIsItSelect, setWhatTypeOfPhoneIsItSelect] = useState(bookingInfo?.whatTypeOfPhoneIsIt?.what_type_of_phone_is_it ? bookingInfo?.whatTypeOfPhoneIsIt?.what_type_of_phone_is_it :"");
-  const [haveExistingNetworkSelect, setHaveExistingNetworkSelect] = useState(bookingInfo?.haveExistingNetwork?.have_existing_network ? bookingInfo?.haveExistingNetwork?.have_existing_network : "");
-  const [currentInternetProviderSelect, setCurrentInternetProviderSelect] = useState(bookingInfo?.currentInternetProvider?.current_internet_provider ? bookingInfo?.currentInternetProvider?.current_internet_provider :"");
-  const [otherInternetProviderSelect, setOtherInternetProviderSelect] = useState(bookingInfo?.otherInternetProvider?.other_internet_provider ? bookingInfo?.otherInternetProvider?.other_internet_provider :"");
-  const [needRoutersSelect, setNeedRoutersSelect] = useState(bookingInfo?.needRouters?.need_routers ? bookingInfo?.needRouters?.need_routers : "");
-  const [whatsYourEmailAddress, setWhatIsYourEmailAddress] = useState(bookingInfo?.whatIsYourEmailAddress?.what_is_your_email_address ? bookingInfo?.whatIsYourEmailAddress?.what_is_your_email_address : "");
-  const [doYouKnowPasswordForItSelect, setDoYouKnowPasswordForItSelect] = useState(bookingInfo?.doYouKnowPasswordForIt?.do_you_know_password_for_it ? bookingInfo?.doYouKnowPasswordForIt?.do_you_know_password_for_it :"");
+  const [selectedService, setSelectedService] = useState(
+    bookingInfo?.serviceName?.service_name
+      ? bookingInfo?.serviceName?.service_name
+      : ""
+  );
+  const [selectedPlatform, setSelectedPlatform] = useState(
+    bookingInfo?.operatingSystem.platform
+      ? bookingInfo?.operatingSystem.platform
+      : ""
+  );
+  const [issueDescription, setIssueDescription] = useState(
+    bookingInfo?.descriptionNote.note ? bookingInfo?.descriptionNote.note : ""
+  );
+  const [necessaryCablesSelect, setNecessaryCables] = useState(
+    bookingInfo?.necessaryCables?.have_necessary_cables
+      ? bookingInfo?.necessaryCables?.have_necessary_cables
+      : ""
+  );
+  const [whereDataBackedUp, setWhereDataBackedUpOn] = useState(
+    bookingInfo?.whereIsDataBackedUpOn?.where_is_data_backed_up_on
+      ? bookingInfo?.whereIsDataBackedUpOn?.where_is_data_backed_up_on
+      : ""
+  );
+  const [whereIsTheData, setWhereIsTheData] = useState(
+    bookingInfo?.whereIsData?.where_is_the_data
+      ? bookingInfo?.whereIsData?.where_is_the_data
+      : ""
+  );
+  const [haveExistingAntivirusSelect, setHaveExistingAntivirus] = useState(
+    bookingInfo?.haveExistingAntivirus?.have_existing_antivirus
+      ? bookingInfo?.haveExistingAntivirus?.have_existing_antivirus
+      : ""
+  );
+  const [antivirusName, setAntivirusName] = useState(
+    bookingInfo?.existingAntivirusName?.antivirus_Name
+      ? bookingInfo?.existingAntivirusName?.antivirus_Name
+      : ""
+  );
+  const [whatTypeOfPhoneIsItSelect, setWhatTypeOfPhoneIsItSelect] = useState(
+    bookingInfo?.whatTypeOfPhoneIsIt?.what_type_of_phone_is_it
+      ? bookingInfo?.whatTypeOfPhoneIsIt?.what_type_of_phone_is_it
+      : ""
+  );
+  const [haveExistingNetworkSelect, setHaveExistingNetworkSelect] = useState(
+    bookingInfo?.haveExistingNetwork?.have_existing_network
+      ? bookingInfo?.haveExistingNetwork?.have_existing_network
+      : ""
+  );
+  const [currentInternetProviderSelect, setCurrentInternetProviderSelect] =
+    useState(
+      bookingInfo?.currentInternetProvider?.current_internet_provider
+        ? bookingInfo?.currentInternetProvider?.current_internet_provider
+        : ""
+    );
+  const [otherInternetProviderSelect, setOtherInternetProviderSelect] =
+    useState(
+      bookingInfo?.otherInternetProvider?.other_internet_provider
+        ? bookingInfo?.otherInternetProvider?.other_internet_provider
+        : ""
+    );
+  const [needRoutersSelect, setNeedRoutersSelect] = useState(
+    bookingInfo?.needRouters?.need_routers
+      ? bookingInfo?.needRouters?.need_routers
+      : ""
+  );
+  const [whatsYourEmailAddress, setWhatIsYourEmailAddress] = useState(
+    bookingInfo?.whatIsYourEmailAddress?.what_is_your_email_address
+      ? bookingInfo?.whatIsYourEmailAddress?.what_is_your_email_address
+      : ""
+  );
+  const [doYouKnowPasswordForItSelect, setDoYouKnowPasswordForItSelect] =
+    useState(
+      bookingInfo?.doYouKnowPasswordForIt?.do_you_know_password_for_it
+        ? bookingInfo?.doYouKnowPasswordForIt?.do_you_know_password_for_it
+        : ""
+    );
 
   const dispatch = useAppDispatch();
 
- 
+  const newService = [
+    {
+      name: "Computer - Installation, Configuration, Fixing",
+    },
+    {
+      name: "Computer Troubleshooting",
+    },
+    {
+      name: "New Computer Setup",
+    },
+    {
+      name: "Data Backup or transfer",
+    },
+    {
+      name: "Data Recovery",
+    },
+    {
+      name: "Virus and Spyware Removal",
+    },
+    {
+      name: "Anti-Virus Installation",
+    },
+    {
+      name: "Smartphone Device Setup",
+    },
+    {
+      name: "Home Network WIFI Set Up",
+    },
+    {
+      name: "Email Account Set up",
+    },
+  ];
+
+  
+  const newServiceNames = newService.map((item) => item.name.toLowerCase());
+  const filterService = services.filter((service: string | any) =>
+    newServiceNames.includes(service.name.toLowerCase())
+  );
+
+  
 
   const ServiceName: any = {
     service_name: selectedService,
@@ -110,6 +216,7 @@ const ServiceForm: React.FC = () => {
     dispatch(doYouKnowPasswordForIt(DoYouKnowPasswordForItSelect));
     dispatch(serviceQuestionInfoNextStep("next"));
     dispatch(serviceAddressParkingSubmitAfterNextStep(""));
+    dispatch(filterServiceListStore(filterService));
   };
 
   const PrevButtonHandler = () => {
@@ -130,28 +237,40 @@ const ServiceForm: React.FC = () => {
           id="service"
           value={selectedService}
           onChange={(e) => {
-            setSelectedService(e.target.value)
-            setSelectedPlatform("")
-            setIssueDescription("")
-            setNecessaryCables("")
-            setWhereDataBackedUpOn("")
-            setWhereIsTheData("")
-            setHaveExistingAntivirus("")
-            setAntivirusName("")
-            setWhatTypeOfPhoneIsItSelect("")
-            setHaveExistingNetworkSelect("")
-            setCurrentInternetProviderSelect("")
-            setOtherInternetProviderSelect("")
-            setNeedRoutersSelect("")
-            setWhatIsYourEmailAddress("")
-            setDoYouKnowPasswordForItSelect("")
+            setSelectedService(e.target.value);
+            setSelectedPlatform("");
+            setIssueDescription("");
+            setNecessaryCables("");
+            setWhereDataBackedUpOn("");
+            setWhereIsTheData("");
+            setHaveExistingAntivirus("");
+            setAntivirusName("");
+            setWhatTypeOfPhoneIsItSelect("");
+            setHaveExistingNetworkSelect("");
+            setCurrentInternetProviderSelect("");
+            setOtherInternetProviderSelect("");
+            setNeedRoutersSelect("");
+            setWhatIsYourEmailAddress("");
+            setDoYouKnowPasswordForItSelect("");
           }}
           className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-3 pr-8 rounded leading-tight focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
         >
           <option value="" disabled>
             Select Service
           </option>
-          <option
+          {filterService?.map((service) => (
+            <option
+              className="block px-4 py-2 hover:bg-primaryColor hover:text-white transition-all duration-300 group"
+              value={service?.name}
+            >
+              {service?.name}
+            </option>
+          ))}
+
+          <option value="Data Backup or transfer">
+            Data Backup or transfer
+          </option>
+          {/* <option
             className="block px-4 py-2 hover:bg-primaryColor hover:text-white transition-all duration-300 group"
             value="Computer- installation configuring and fixing"
           >
@@ -173,15 +292,15 @@ const ServiceForm: React.FC = () => {
           <option value="Home network Wi-Fi Setup">
             Home network Wi-Fi Setup
           </option>
-          <option value="Email Account setup">Email Account setup</option>
+          <option value="Email Account setup">Email Account setup</option> */}
         </select>
       </div>
 
-      {selectedService == "Computer- installation configuring and fixing" ||
-      selectedService == "Computer troubleshooting" ||
-      selectedService == "New computer setup" ||
-      selectedService == "Virus and spy removal" ||
-      selectedService == "Antivirus installation" ? (
+      {selectedService == "Computer - Installation, Configuration, Fixing" ||
+      selectedService == "Computer Troubleshooting" ||
+      selectedService == "New Computer Setup" ||
+      selectedService == "Virus and Spyware Removal" ||
+      selectedService == "Anti-Virus Installation" ? (
         <div className="form-group">
           <label htmlFor="platform">What is the OS?</label>
           <select
@@ -201,7 +320,7 @@ const ServiceForm: React.FC = () => {
         ""
       )}
 
-      {selectedService == "New computer setup" && (
+      {selectedService == "New Computer Setup" && (
         <div className="form-group">
           <label htmlFor="necessary cables">
             Do you have all the necessary cables?
@@ -238,7 +357,7 @@ const ServiceForm: React.FC = () => {
         </div>
       )}
 
-      {selectedService == "Data recovery" && (
+      {selectedService == "Data Recovery" && (
         <div className="form-group">
           <label htmlFor="Data recovery">
             Where is the data? (External HD, Computer, Phone)
@@ -257,8 +376,8 @@ const ServiceForm: React.FC = () => {
           </select>
         </div>
       )}
-      {selectedService === "Virus and spy removal" ||
-      selectedService === "Antivirus installation" ? (
+      {selectedService === "Virus and Spyware Removal" ||
+      selectedService == "Anti-Virus Installation" ? (
         <div className="form-group">
           <label htmlFor="Antivirus">
             Do you have an existing antivirus? If Yes what is it?
@@ -291,7 +410,7 @@ const ServiceForm: React.FC = () => {
       ) : (
         ""
       )}
-      {selectedService === "Smartphone device setup" && (
+      {selectedService === "Smartphone Device Setup" && (
         <div className="form-group">
           <label htmlFor="smartphone device setup">
             What type of phone is it? (Android, IOS, Windows)
@@ -310,7 +429,7 @@ const ServiceForm: React.FC = () => {
           </select>
         </div>
       )}
-      {selectedService === "Home network Wi-Fi Setup" && (
+      {selectedService === "Home Network WIFI Set Up" && (
         <>
           <div className="form-group">
             <label htmlFor="network">Do you have existing network?</label>
@@ -383,12 +502,10 @@ const ServiceForm: React.FC = () => {
           </div>
         </>
       )}
-      {selectedService === "Email Account setup" && (
+      {selectedService === "Email Account Set up" && (
         <>
           <div className="form-group">
-            <label htmlFor="email setup">
-              What is your email address?
-            </label>
+            <label htmlFor="email setup">What is your email address?</label>
             <input
               type="text"
               placeholder="Enter Email"
@@ -397,9 +514,7 @@ const ServiceForm: React.FC = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">
-              Do you know the password for it?
-            </label>
+            <label htmlFor="password">Do you know the password for it?</label>
             <select
               id="password"
               value={doYouKnowPasswordForItSelect}
@@ -427,7 +542,10 @@ const ServiceForm: React.FC = () => {
 
       {/* Continue Button */}
       <div className="flex justify-between mt-5">
-        <button onClick={PrevButtonHandler} className="border border-primaryColor text-primaryColor py-[7px] px-[30px] rounded-md ">
+        <button
+          onClick={PrevButtonHandler}
+          className="border border-primaryColor text-primaryColor py-[7px] px-[30px] rounded-md "
+        >
           Prev
         </button>
         <button

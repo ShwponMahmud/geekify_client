@@ -15,17 +15,50 @@ import {
   GetAfterPaySurcharge,
   GetCardSurcharge,
 } from "@/app/rtk-state/reducers/paymentSlice";
-import { useEffect } from "react";
+import { baseUrl } from "@/assets/baseUrl";
+import { useEffect, useState } from "react";
+
+
 
 function page() {
   const bookingInfo = useAppSelector((state) => state?.booking);
   const dispatch = useAppDispatch();
+  const [services, setServices] = useState<any>([]);
 
   useEffect(() => {
     dispatch(GetCardSurcharge());
     dispatch(GetAfterPaySurcharge());
   }, []);
 
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch(
+          `${baseUrl}/services?status=1&with_relation[]=serviceCategory&show_online_appointment=1&source[]=10`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "Client-Secret": `secret`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch services");
+        }
+
+        const responseData = await response.json();
+        setServices(responseData.data || []);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+
+  // console.log(services)
 
   return (
     <>
@@ -35,7 +68,7 @@ function page() {
         {bookingInfo?.bookingStart === "start" && <EnterPhoneSendCode />}
         {bookingInfo?.otpVerifySuccess === "success" && <ServiceType />}
         {bookingInfo?.serviceAddressParkingSubmitAfterNextStep === "next" && (
-          <ServiceForm />
+          <ServiceForm services={services}/>
         )}
         {bookingInfo.serviceQuestionInfoNextStep === "next" && (
           <ChooseDateTime />

@@ -57,6 +57,12 @@ const PaymentOptions: React.FC = () => {
 
   const isSelected = (option: string) => selectedOption === option;
 
+
+  const serviceIdFilter = bookingInfo?.filterServiceList?.find((service: any) => 
+    typeof service?.name === 'string' && 
+    service?.name === bookingInfo?.serviceName?.service_name
+  );
+
   const bookingSummerySubmitData = {
     preference: bookingInfo?.serviceType === "Onsite" ? 0 : 1,
     type: bookingInfo?.serviceLocationType === "Home" ? 0 : 1,
@@ -68,7 +74,7 @@ const PaymentOptions: React.FC = () => {
     user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
       ? bookingInfo?.otpVerifyData?.[0]?.data?.id
       : customer?.id,
-    service_id: "1",
+    service_id: serviceIdFilter?.id,
     date: formatDate(bookingInfo?.choosePreferredDateAndTime?.booking_schedule),
     time: formatTime(bookingInfo?.choosePreferredDateAndTime?.selectedTime),
     requested_time_interval: formatTimeInterval(
