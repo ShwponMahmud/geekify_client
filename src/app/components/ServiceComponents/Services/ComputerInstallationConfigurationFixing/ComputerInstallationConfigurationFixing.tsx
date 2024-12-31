@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,43 @@ import Image from 'next/image'
 import React from 'react'
 
 function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question: "How long will the repair take?",
+      answer:
+        "Most repairs are completed within a few hours to a day. We also offer urgent repair services for immediate needs.",
+    },
+    {
+      question: "Do you provide a warranty for repairs?",
+      answer:
+        "Yes, all our repairs come with a standard warranty. Contact us for details about specific services.",
+    },
+    {
+      question: "Can you repair all brands of laptops?",
+      answer:
+        "Our technicians are experienced in handling all major brands, including Apple, Dell, HP, Lenovo, and more.",
+    },
+    {
+      question: "What if my computer problem isn’t listed?",
+      answer:
+        "We handle a wide range of laptop and computer issues. Feel free to contact us, and we’ll do our best to help.",
+      link: {
+        text: "laptop and computer issues",
+        url: "https://erieit.edu/10-common-problems-of-computer-hardware/",
+      },
+    },
+    {
+      question: "How much does a typical repair cost?",
+      answer:
+        "Costs vary depending on the issue, but we aim to keep our prices affordable. Reach out for a quote.",
+    },
+    {
+      question: "Do I need an appointment?",
+      answer:
+        "While walk-ins are welcome, we recommend scheduling an appointment to ensure faster service.",
+    },
+  ];
+
   return (
     <div>
       <Showcase
@@ -349,52 +387,8 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">1. How long will the repair take?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Most repairs are completed within a few hours to a day. We also offer urgent repair services for immediate needs.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">2. Do you provide a warranty for repairs?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, all our repairs come with a standard warranty. Contact us for details about specific services.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">3. Can you repair all brands of laptops?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Our technicians are experienced in handling all major brands, including Apple, Dell, HP, Lenovo, and more.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">4. What if my computer problem isn’t listed?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>We handle a wide range of <a href="https://erieit.edu/10-common-problems-of-computer-hardware/" className='text-primaryColor underline'>laptop and computer issues</a>.
-                Feel free to contact us, and we’ll do our best to
-                help.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">5. How much does a typical repair cost?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Costs vary depending on the issue, but we aim to keep our prices affordable. Reach out for a quote.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">6. Do I need an appointment?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>While walk-ins are welcome, we recommend scheduling an appointment to ensure faster service.</p>
-            </div>
-          </div>
-        </div>
+        
+        <Accordion items={faqItems} />
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>

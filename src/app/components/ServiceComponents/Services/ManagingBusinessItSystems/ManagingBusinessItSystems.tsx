@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,41 @@ import Image from 'next/image'
 import React from 'react'
 
 function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question: "What is IT consulting, and how can it benefit my business?",
+      answer:
+        "IT consultant provides expert advice on using technology to achieve business goals. It improves efficiency, security, and growth.",
+    },
+    {
+      question: "Do you offer 24/7 support for IT services?",
+      answer:
+        "Yes, we provide 24/7 support to ensure your IT systems run smoothly around the clock.",
+    },
+    {
+      question:
+        "Can Geeks CRS help my business transition to cloud-based solutions?",
+      answer:
+        "Yes, we specialize in cloud solutions that reduce costs, improve collaboration, and enhance scalability.",
+    },
+    {
+      question: "How does the initial consultation work?",
+      answer:
+        "The initial consultation is a discovery call where we understand your needs and create a customized IT strategy.",
+    },
+    {
+      question:
+        "Are Geeks CRS experienced with cybersecurity for Australian businesses?",
+      answer:
+        "Yes, we are cybersecurity experts, helping protect Australian businesses from cyber threats and ensuring compliance.",
+    },
+    {
+      question: "Does Geeks CRS only serve businesses in Sydney?",
+      answer:
+        "No, while based in Sydney, we offer IT consulting services to businesses nationwide across Australia.",
+    },
+  ];
+
   return (
     <div>
       <Showcase
@@ -410,50 +446,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">1. What is IT consulting, and how can it benefit my business?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>IT consultant provides expert advice on using technology to achieve business goals. It improves efficiency, security, and growth.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">2. Do you offer 24/7 support for IT services?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, we provide 24/7 support to ensure your IT systems run smoothly around the clock.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">3. Can Geeks CRS help my business transition to cloud-based solutions?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, we specialize in cloud solutions that reduce costs, improve collaboration, and enhance scalability.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">4. How does the initial consultation work?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>The initial consultation is a discovery call where we understand your needs and create a customized IT strategy.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">5. Are Geeks CRS experienced with cybersecurity for Australian businesses?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, we are cybersecurity experts, helping protect Australian businesses from cyber threats and ensuring compliance.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">6. Does Geeks CRS only serve businesses in Sydney?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>No, while based in Sydney, we offer IT consulting services to businesses nationwide across Australia.</p>
-            </div>
-          </div>
-        </div>
+        <Accordion items={faqItems} />
       </div>
 
 

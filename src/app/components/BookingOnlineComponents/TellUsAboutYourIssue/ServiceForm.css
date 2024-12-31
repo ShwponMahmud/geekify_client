@@ -97,3 +97,13 @@ textarea {
 .continue-button:hover {
   background-color: #e65b00;
 }
+
+
+@media (max-width: 600px) {
+  .progress-bar {
+    width: 100%;
+  }
+  .line {
+    width: 25px;
+  }
+}

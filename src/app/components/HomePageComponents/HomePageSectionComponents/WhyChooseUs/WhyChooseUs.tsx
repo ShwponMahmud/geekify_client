@@ -3,6 +3,7 @@ import banner from "../../../../../assets/images/why-choose-us-banner.jpg";
 import Image from "next/image";
 import "./WhyChooseUs.css";
 import { FaRegSquareCheck } from "react-icons/fa6";
+import Link from "next/link";
 
 function WhyChooseUs() {
   return (
@@ -29,21 +30,35 @@ function WhyChooseUs() {
 
                 <ul className="my-8">
                   <li>
-                    <span><FaRegSquareCheck /></span>{" "}Rework Assurance
+                    <span>
+                      <FaRegSquareCheck />
+                    </span>{" "}
+                    Rework Assurance
                   </li>
                   <li>
-                    <span><FaRegSquareCheck /></span>{" "}Background Check
+                    <span>
+                      <FaRegSquareCheck />
+                    </span>{" "}
+                    Background Check
                   </li>
                   <li>
-                    <span><FaRegSquareCheck /></span>{" "}24/7 Support
+                    <span>
+                      <FaRegSquareCheck />
+                    </span>{" "}
+                    24/7 Support
                   </li>
                   <li>
-                    <span><FaRegSquareCheck /></span>{" "}Expert Professional
+                    <span>
+                      <FaRegSquareCheck />
+                    </span>{" "}
+                    Expert Professional
                   </li>
                 </ul>
 
                 <div className="read_more_btn_container">
-                  <button>Read More</button>
+                  <Link href={`/why-choose-us`}>
+                    <button>Read More</button>
+                  </Link>
                 </div>
               </div>
             </div>

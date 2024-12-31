@@ -23,7 +23,7 @@ const QuickContact: React.FC<QuickContactProps> = ({ title, paragraph }) => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-14">
-              <Link href="tele: 0291589800" className="py-[20px] border-[3px] text-primaryColor border-primaryColor transition-[.5s] hover:bg-primaryColor hover:text-white rounded-[50px] flex justify-center gap-2 items-center">
+              <Link href="tel:0291589800" className="py-[20px] border-[3px] text-primaryColor border-primaryColor transition-[.5s] hover:bg-primaryColor hover:text-white rounded-[50px] flex justify-center gap-2 items-center">
                 <PiPhoneCallBold className="w-[31px] h-[28px]" />
                 <a
                   

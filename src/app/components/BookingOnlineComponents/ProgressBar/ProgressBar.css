@@ -2,8 +2,8 @@
 .progress-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  justify-content: center; 
+  width: 100%; 
   max-width: 500px;
   margin: 20px auto;
 }
@@ -48,4 +48,15 @@
 /* Active line styling */
 .line.active {
   background: #ff6d00;
+}
+
+@media (max-width: 600px) {
+  .progress-bar{
+    max-width: 200px;
+    margin-left: 20px;
+    padding-left: 0;
+  }
+  .line{
+    width: 10px;
+  }
 }

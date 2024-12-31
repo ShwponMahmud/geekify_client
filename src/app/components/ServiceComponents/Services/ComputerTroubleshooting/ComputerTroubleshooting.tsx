@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,59 @@ import Image from 'next/image'
 import React from 'react'
 
 function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question: "What types of computers do you repair?",
+      answer:
+        "We repair all major types and brands of computers, including desktops, laptops, and monitors. Our services cover various models, operating systems, and custom-built computers.",
+    },
+    {
+      question: "How do I know if my computer needs repair or replacement?",
+      answer:
+        "Our technicians can diagnose your device to determine the best course of action. Often, repairs are more affordable, but if replacement is more practical, we’ll advise you accordingly.",
+    },
+    {
+      question: "Can you provide on-site support at my home or business?",
+      answer:
+        "Yes, we offer convenient on-site computer repair and home IT support. Our team can come directly to you to handle repairs and set up tasks.",
+    },
+    {
+      question: "How long does a typical computer repair take?",
+      answer:
+        "Repair times vary by issue. Simple fixes may take just an hour or two, while complex repairs could take a couple of days. We always strive to provide fast service without compromising quality.",
+    },
+    {
+      question: "Do you offer a warranty on your repairs?",
+      answer:
+        "Yes, we offer warranties on most repairs to ensure peace of mind. We’ll provide specific details based on the type of service and parts involved.",
+    },
+    {
+      question: "Can you help with data recovery from my computer?",
+      answer:
+        "Absolutely. We have data recovery services to retrieve lost, deleted, or corrupted data. We’ll work to recover as much data as possible, depending on the condition of your device.",
+    },
+    {
+      question: "How do I schedule a repair or support appointment?",
+      answer:
+        "You can easily schedule an appointment by contacting us through email or by visiting our office during business hours.",
+    },
+    {
+      question: "Do you handle screen repairs and replacements for laptops?",
+      answer:
+        "Yes, we offer computer screen repair services, including laptop computer screen repairs and replacements for broken, cracked, or malfunctioning screens.",
+    },
+    {
+      question: "What kind of maintenance services do you offer?",
+      answer:
+        "Our maintenance services include software updates, virus scans, hardware cleaning, system optimization, and preventive checks to keep your computer running smoothly.",
+    },
+    {
+      question: "How much do your computer services cost?",
+      answer:
+        "Our rates vary depending on the type of service and complexity of the issue. We provide transparent estimates before starting any work. So you’ll know exactly what to expect.",
+    },
+  ];
+
   return (
     <div>
       <Showcase backgroundImage={service?.image} title={service?.name} paragraph="One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
@@ -312,94 +366,8 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">Q: What types of computers do you repair?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>We repair all major types and brands of computers, including desktops, laptops, and monitors. Our services cover various models, operating systems, and custom-built
-                computers.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: How do I know if my computer needs repair or replacement?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Our technicians can diagnose your device to determine the best course of action. Often, repairs are more affordable, but if replacement is more practical,
-                we’ll advise you accordingly.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Can you provide on-site support at my home or business?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>
-                Yes, we offer convenient on site computer repair and home IT support. Our team can come directly to you to handle repairs and set up tasks.
-              </p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: How long does a typical computer repair take?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>
-                Repair times vary by issue. Simple fixes may take just an hour or two, while complex repairs could take a couple of days. We always strive to provide fast service without
-                compromising quality.
-              </p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Do you offer a warranty on your repairs?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, we offer warranties on most repairs to ensure peace of mind. We’ll provide specific details based on the type of service and parts involved.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Can you help with data recovery from my computer?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Absolutely. We have data recovery services to retrieve lost, deleted, or corrupted data. We’ll work to recover as much data as possible, depending on the
-                condition of your device.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: How do I schedule a repair or support appointment?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>
-                You can easily schedule an appointment by contacting us through email, or by visiting our office during business hours.
-              </p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Do you handle screen repairs and replacements for laptops?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>
-                Yes, we offer computer screen repair services, including laptop computer screen repairs and replacements for broken, cracked, or malfunctioning screens.
-              </p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: What kind of maintenance services do you offer?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>
-                Our maintenance services include software updates, virus scans, hardware cleaning, system optimization, and preventive checks to keep your computer running smoothly.
-              </p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: How much do your computer services cost?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>
-                Our rates vary depending on the type of service and complexity of the issue. We provide transparent estimates before starting any work. So you’ll know exactly what to expect.
-              </p>
-            </div>
-          </div>
-        </div>
+
+        <Accordion items={faqItems} />
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>

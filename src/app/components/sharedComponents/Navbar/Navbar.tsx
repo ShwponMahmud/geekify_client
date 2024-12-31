@@ -226,7 +226,7 @@ export default function Navbar() {
                 <strong>
                   {" "}
                   And Get{" "}
-                  <strong className="animate-pulse text-[16px] font-extrabold text-[#303030] font-semibold">
+                  <strong className="animate-pulse text-[16px] font-extrabold text-[#303030]">
                     15%
                   </strong>{" "}
                   Off

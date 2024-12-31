@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,36 @@ import Image from 'next/image'
 import React from 'react'
 
 function DataBackupRestore({ service }: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question:
+        "What should I do first if I lose hard drive data from my hard disk?",
+      answer:
+        "Stop using the drive immediately to prevent overwriting files. Check the Recycle Bin and consider using data recovery software or professional services.",
+    },
+    {
+      question:
+        "Can I recover deleted files from a formatted hard disk recovery?",
+      answer:
+        "Yes, deleted files can often be recovered from a formatted hard drive, as data typically remains until overwritten.",
+    },
+    {
+      question: "Is it safe to use data recovery software on my own?",
+      answer:
+        "Using data recovery software can be safe if instructions are followed. If unsure, seek help from a professional to avoid further data loss.",
+    },
+    {
+      question: "How long does data recovery usually take?",
+      answer:
+        "Recovery time varies; simple cases may take hours, while complex ones can take days. We prioritize quick turnaround times.",
+    },
+    {
+      question: "What types of storage devices can you recover data from?",
+      answer:
+        "We recover data from hard disk drives (HDDs), solid-state drives (SSDs), USB drives, memory cards, and more.",
+    },
+  ];
+
   return (
     <div>
       <Showcase backgroundImage={service?.image} title={service?.name} />
@@ -353,43 +384,8 @@ function DataBackupRestore({ service }: ServiceDetailsProps) {
 
       <div className='container mx-auto'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">Q. What should I do first if I lose hard drive data from my hard disk?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Stop using the drive immediately to prevent overwriting files. Check the Recycle Bin and consider using data recovery software or professional services.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q. Can I recover deleted files from a formatted hard disk recovery?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, deleted files can often be recovered from a formatted hard drive, as data typically remains until overwritten.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q. Is it safe to use data recovery software on my own?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Using data recovery software can be safe if instructions are followed. If unsure, seek help from a professional to avoid further data loss.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q. How long does data recovery usually take?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Recovery time varies; simple cases may take hours, while complex ones can take days. We prioritise quick turnaround times.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q. What types of storage devices can you recover data from?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>We recover data from hard disk drives (HDDs), solid-state drives (SSDs), USB drives, memory cards, and more.</p>
-            </div>
-          </div>
-        </div>
+         
+        <Accordion items={faqItems} />
       </div>
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>

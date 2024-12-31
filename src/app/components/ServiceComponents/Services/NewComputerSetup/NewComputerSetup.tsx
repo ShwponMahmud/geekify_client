@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,40 @@ import Image from 'next/image'
 import React from 'react'
 
 function NewComputerSetup({ service }: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question: "What is included in a desktop computer package?",
+      answer:
+        "A typical desktop computer package includes a computer tower, monitor, keyboard, and mouse. Some packages may also include additional accessories like a webcam or speakers, depending on the brand and model.",
+    },
+    {
+      question:
+        "What is the difference between a desktop computer package and an all-in-one desktop?",
+      answer:
+        "A desktop computer package includes separate components (tower, monitor, etc.), whereas an all-in-one desktop integrates the computer components into the monitor itself, providing a more compact and streamlined design.",
+    },
+    {
+      question: "Can I upgrade my desktop computer package in the future?",
+      answer:
+        "Yes, many desktop computer packages allow for future upgrades. You can add more RAM, replace the hard drive with a larger one, or upgrade the graphics card to meet your evolving needs.",
+    },
+    {
+      question: "Are branded desktop computers better than custom-built ones?",
+      answer:
+        "Branded computers offer reliability, customer support, and warranties, making them a great choice for general users. Custom-built desktops, on the other hand, allow for more flexibility and personalization in terms of specifications.",
+    },
+    {
+      question: "How do I set up my desktop computer at home?",
+      answer:
+        "Setting up a desktop computer at home is simple. Plug in the monitor, keyboard, and mouse to the tower (or to the all-in-one system), connect to power, and follow the on-screen instructions. If you need help, Geeks CRS offers support for home computer setups.",
+    },
+    {
+      question: "Where can I find the best deals on desktop computer packages?",
+      answer:
+        "At Geeks CRS, we offer competitive pricing and frequent PC sales to ensure you get the best deals on desktop computer packages. Check out our current promotions or get in touch with us for more information.",
+    },
+  ];
+
   return (
     <div>
       <Showcase
@@ -393,68 +428,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className='w-full lg:w-[90%] mx-auto'>
-          <div className="join join-vertical">
-            <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-              <input type="radio" name="my-accordion-4" defaultChecked />
-              <div className="collapse-title text-xl font-medium">1. What is included in a desktop computer package?</div>
-              <div className="collapse-content">
-                <p className='text-[#3d3d3d]'>
-                  A typical desktop computer package includes a computer tower, monitor, keyboard, and mouse. Some packages may also include additional accessories like a webcam or speakers. That
-                  depends on the brand and model.
-                </p>
-              </div>
-            </div>
-            <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-              <input type="radio" name="my-accordion-4" />
-              <div className="collapse-title text-xl font-medium">2. What is the difference between a desktop computer package and an all-in-one desktop?</div>
-              <div className="collapse-content">
-                <p className='text-[#3d3d3d]'>
-                  A desktop computer package includes separate components (tower, monitor, etc.), whereas an all-in-one desktop integrates the computer components into the monitor itself. That
-                  provides a more compact and streamlined design.
-                </p>
-              </div>
-            </div>
-            <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-              <input type="radio" name="my-accordion-4" />
-              <div className="collapse-title text-xl font-medium">3. Can I upgrade my desktop computer package in the future?</div>
-              <div className="collapse-content">
-                <p className='text-[#3d3d3d]'>
-                  Yes, many desktop computer packages allow for future upgrades. You can add more RAM, replace the hard drive with a larger one, or upgrade the graphics card to meet your evolving
-                  needs.
-                </p>
-              </div>
-            </div>
-            <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-              <input type="radio" name="my-accordion-4" />
-              <div className="collapse-title text-xl font-medium">4. Are branded desktop computers better than custom-built ones?</div>
-              <div className="collapse-content">
-                <p className='text-[#3d3d3d]'>
-                  Branded computers offer reliability, customer support, and warranties. That makes them a great choice for general users. Custom-built desktops, on the other hand, allow for more
-                  flexibility and personalization in terms of specifications.
-                </p>
-              </div>
-            </div>
-            <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-              <input type="radio" name="my-accordion-4" />
-              <div className="collapse-title text-xl font-medium">5. How do I set up my desktop computer at home?</div>
-              <div className="collapse-content">
-                <p className='text-[#3d3d3d]'>Setting up a desktop computer at home is simple. Just plug in the monitor, keyboard, and mouse to the tower (or to the all-in-one system), connect to power, and follow the
-                  on-screen instructions. If you need help, our Geeks CRS offers support for home computer setups.</p>
-              </div>
-            </div>
-            <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-              <input type="radio" name="my-accordion-4" />
-              <div className="collapse-title text-xl font-medium">6. Where can I find the best deals on desktop computer packages?</div>
-              <div className="collapse-content">
-                <p className='text-[#3d3d3d]'>
-                  At Geeks CRS, we offer competitive pricing and frequent PC sales. That ensures you get the best deals on desktop computer packages. Check out our current promotions or get in touch
-                  with us for more information.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Accordion items={faqItems} />
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>

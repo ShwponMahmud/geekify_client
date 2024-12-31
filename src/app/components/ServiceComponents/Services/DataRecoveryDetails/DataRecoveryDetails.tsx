@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,34 @@ import Image from 'next/image'
 import React from 'react'
 
 function DataRecoveryDetails({ service }: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question: "How long does data recovery take?",
+      answer:
+        "The time it takes depends on the extent of the damage and the type of recovery required. Typically, we aim to complete most jobs within 3-5 business days.",
+    },
+    {
+      question: "Can data be recovered from a water-damaged hard drive?",
+      answer:
+        "Yes! In many cases, we can recover data from water-damaged hard drives. However, it’s important to avoid powering on the device and to contact us as soon as possible.",
+    },
+    {
+      question: "Is it possible to recover deleted files?",
+      answer:
+        "Yes, in most cases, deleted files can be recovered, especially if they haven’t been overwritten. The sooner you contact us, the better the chances of successful recovery.",
+    },
+    {
+      question: "What is the cost of data recovery?",
+      answer:
+        "Pricing depends on the complexity of the job and the amount of data being recovered. Contact us for a free quote.",
+    },
+    {
+      question: "What kind of devices can you recover data from?",
+      answer:
+        "We can recover data from a wide range of devices, including desktop computers, laptops, external hard drives, USB drives, SSDs, and RAID systems.",
+    },
+  ];
+
   return (
     <div>
       <Showcase
@@ -281,43 +310,7 @@ function DataRecoveryDetails({ service }: ServiceDetailsProps) {
 
       <div className='container mx-auto'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">Q: How long does data recovery take?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>The time it takes depends on the extent of the damage and the type of recovery required. Typically, we aim to complete most jobs within 3-5 business days.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Can data be recovered from a water-damaged hard drive?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes! In many cases, we can recover data from water-damaged hard drives. However, it’s important to avoid powering on the device and to contact us as soon as possible.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Is it possible to recover deleted files?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, in most cases, deleted files can be recovered, especially if they haven’t been overwritten. The sooner you contact us, the better the chances of successful recovery.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: What is the cost of data recovery?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Pricing depends on the complexity of the job and the amount of data being recovered. Contact us for a free quote.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: What kind of devices can you recover data from?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>We can recover data from a wide range of devices, including desktop computers, laptops, external hard drives, USB drives, SSDs, and RAID systems.</p>
-            </div>
-          </div>
-        </div>
+        <Accordion items={faqItems} />
       </div>
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>

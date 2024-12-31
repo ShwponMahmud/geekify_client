@@ -88,7 +88,7 @@ const EnterPhoneSendCode: React.FC = () => {
       <div className="container mx-auto">
         <div className="justify-items-center mt-10">
           <Image width={288} height={62} src="/logo.png" alt="Geekify logo" />
-          <div className="p-10 mt-[40px] w-[500px] mx-auto  justify-items-center ">
+          <div className="p-5 md:p-10 mt-[40px] md:w-[500px] mx-auto  justify-items-center ">
             {bookingInfo.otpReqSuccess === "" ? (
               <div className="enter_phone_number">
                 <div className="flex gap-7 mb-5 items-center">

@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,35 @@ import Image from 'next/image'
 import React from 'react'
 
 function EmailAccountSetup({ service }: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question:
+        "What is the difference between a personal and a business email?",
+      answer:
+        "A business email is tied to your company's domain name, while a personal email uses a free service like Gmail. Business communication emails look more professional and are better for branding and security.",
+    },
+    {
+      question: "How much does it cost to create a business email?",
+      answer:
+        "The cost varies depending on the domain name registration and the email hosting service you choose. Typically, it ranges from AU$ 181.9 per user per month.",
+    },
+    {
+      question: "Can I use my business email on multiple devices?",
+      answer:
+        "Yes! Most email hosting providers allow you to sync your business email across multiple devices. That includes smartphones, tablets, and computers with Google accounts.",
+    },
+    {
+      question: "Is it hard to create an email for a business?",
+      answer:
+        "No, creating an email for business is quite simple, especially with popular services like Google Workspace and Microsoft 365. These providers offer step-by-step guides and user-friendly interfaces for webmail.",
+    },
+    {
+      question: "Can I transfer my business email to another provider?",
+      answer:
+        "Yes, most email hosting services offer tools that make it easy to transfer your business email addresses from one provider to another without losing any data.",
+    },
+  ];
+
   return (
     <div>
       <Showcase
@@ -381,46 +411,7 @@ function EmailAccountSetup({ service }: ServiceDetailsProps) {
 
       <div className='container mx-auto'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">Q: What is the difference between a personal and a business email?    </div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>A business email is tied to your company's domain name, while a personal email uses a free service like Gmail. Business communication emails look more
-                professional and are better for branding and security</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: How much does it cost to create a business email?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>The cost varies depending on the domain name registration and the email hosting service you choose. Typically, it ranges from AU$ 181.9 per user per month.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Can I use my business email on multiple devices?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes! Most email hosting providers allow you to sync your business email across multiple devices. That includes smartphones, tablets, and computers with Google
-                accounts</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Is it hard to create an email for a business?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>No, creating an email for business is quite simple, especially with popular services like Google Workspace and Microsoft 365. These providers offer step-by-step
-                guides and user-friendly interfaces for webmail.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">Q: Can I transfer my business email to another provider?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, most email hosting services offer tools. That makes it easy to transfer your business email addresses from one provider to another without losing any data.</p>
-            </div>
-          </div>
-        </div>
+        <Accordion items={faqItems} />
       </div>
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
