@@ -17,7 +17,7 @@ const title: string = "If you need remote Service?";
 const page = async () => {
   let services: Service[] = [];
 
-  console.log(services)
+  // console.log(services)
 
   try {
     const response = await fetch(`${baseUrl}/services?with_relation[]=media`, {

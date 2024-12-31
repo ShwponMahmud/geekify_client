@@ -25,6 +25,7 @@ export interface PaymentState {
   AppointmentDiscountStoreListCreateResStatus: string;
   appointmentHistoryCreateResData: any;
   couponDiscountCreateResData: any;
+  appointmentQuestionSubmitResData : any;
 }
 
 const initialState: PaymentState = {
@@ -49,6 +50,7 @@ const initialState: PaymentState = {
   AppointmentDiscountStoreListCreateResStatus: "",
   appointmentHistoryCreateResData: {},
   couponDiscountCreateResData: {},
+  appointmentQuestionSubmitResData: {}
 };
 
 // card token create..................
@@ -578,6 +580,44 @@ export const CouponDiscountCreate = createAsyncThunk(
   }
 );
 
+
+//Appointment question submit create..................
+export interface AppointmentQuestionSubmitFormData {
+  added_by: number;
+  appointment_id: number;
+  panel: any;
+  question: any;
+}
+
+// Async thunk for Appointment question submit create.
+export const AppointmentQuestionSubmitCreate = createAsyncThunk(
+  "appointmentQuestionSubmitCreate",
+  async (formData: AppointmentQuestionSubmitFormData) => {
+    const response = await fetch(`${baseUrl}/appointment-questions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Client-Secret": "secret",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      return data.field_errors;
+    }
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.data;
+    }
+  }
+);
+
+
+
+
+
 export const paymentSlice = createSlice({
   name: "payments",
   initialState,
@@ -592,8 +632,8 @@ export const paymentSlice = createSlice({
       .addCase(
         CardTokenCreate.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.cardToken = action.payload;
         }
       )
@@ -609,8 +649,8 @@ export const paymentSlice = createSlice({
       .addCase(
         GetCardSurcharge.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.cardSurcharge = action.payload;
         }
       )
@@ -626,8 +666,8 @@ export const paymentSlice = createSlice({
       .addCase(
         GetAfterPaySurcharge.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.afterPaySurcharge = action.payload;
         }
       )
@@ -644,8 +684,8 @@ export const paymentSlice = createSlice({
       .addCase(
         PaymentsCreateByToken.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.PaymentsCreateByTokenResData = action.payload;
         }
       )
@@ -662,8 +702,8 @@ export const paymentSlice = createSlice({
       .addCase(
         CreatePayments.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.createPaymentResData = action.payload;
         }
       )
@@ -680,8 +720,8 @@ export const paymentSlice = createSlice({
       .addCase(
         CreateCardPayments.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.createCardPaymentsResData = action.payload;
         }
       )
@@ -698,8 +738,8 @@ export const paymentSlice = createSlice({
       .addCase(
         CreateAppointments.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.createAppointmentsResData = action.payload;
         }
       )
@@ -717,8 +757,8 @@ export const paymentSlice = createSlice({
       .addCase(
         CreateAppointmentsCharge.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.appointmentChargeResData = action.payload;
           state.appointmentChargeResStatus = "success";
         }
@@ -736,8 +776,8 @@ export const paymentSlice = createSlice({
       .addCase(
         CreateAppointmentNotes.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.createAppointmentNotesResData = action.payload;
         }
       )
@@ -754,8 +794,8 @@ export const paymentSlice = createSlice({
       .addCase(
         CreateAppointmentPayments.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.CreateAppointmentPaymentsResData = action.payload;
         }
       )
@@ -772,8 +812,8 @@ export const paymentSlice = createSlice({
       .addCase(
         CreateAppointmentCreator.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.CreateAppointmentCreatorResData = action.payload;
         }
       )
@@ -790,8 +830,8 @@ export const paymentSlice = createSlice({
       .addCase(
         PaymentCreationNotify.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.PaymentCreationNotifyResData = action.payload;
         }
       )
@@ -808,8 +848,8 @@ export const paymentSlice = createSlice({
       .addCase(
         AppointmentCreationNotify.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.appointmentCreationNotifyResData = action.payload;
         }
       )
@@ -826,8 +866,8 @@ export const paymentSlice = createSlice({
       .addCase(
         AppointmentDiscountStoreListCreate.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.AppointmentDiscountStoreListCreateResData = action.payload;
           state.AppointmentDiscountStoreListCreateResStatus = "success";
         }
@@ -846,26 +886,9 @@ export const paymentSlice = createSlice({
       .addCase(
         AppointmentHistoryCreate.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.appointmentHistoryCreateResData = action.payload;
-
-          state.cardToken = "";
-          state.cardSurcharge = "";
-          state.afterPaySurcharge = "";
-          state.PaymentsCreateByTokenResData = "";
-          state.createPaymentResData = "";
-          state.createCardPaymentsResData = "";
-          state.createAppointmentsResData = "";
-          state.appointmentChargeResData = "";
-          state.appointmentChargeResStatus = "";
-          state.createAppointmentNotesResData = "";
-          state.CreateAppointmentPaymentsResData = "";
-          state.CreateAppointmentCreatorResData = "";
-          state.PaymentCreationNotifyResData = "";
-          state.appointmentCreationNotifyResData = "";
-          state.AppointmentDiscountStoreListCreateResData = "";
-          state.AppointmentDiscountStoreListCreateResStatus = "";
         }
       )
       .addCase(AppointmentHistoryCreate.rejected, (state, action) => {
@@ -881,12 +904,46 @@ export const paymentSlice = createSlice({
       .addCase(
         CouponDiscountCreate.fulfilled,
         (state, action: PayloadAction<any>) => {
-          state.isLoading = false;
-          state.status = "success";
+          // state.isLoading = false;
+          // state.status = "success";
           state.couponDiscountCreateResData = action.payload;
         }
       )
       .addCase(CouponDiscountCreate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(AppointmentQuestionSubmitCreate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.appointmentQuestionSubmitResData = "";
+      })
+      .addCase(
+        AppointmentQuestionSubmitCreate.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.appointmentQuestionSubmitResData = action.payload;
+
+
+          state.cardToken = "";
+          state.PaymentsCreateByTokenResData = "";
+          state.createPaymentResData = "";
+          state.createCardPaymentsResData = "";
+          state.createAppointmentsResData = "";
+          state.appointmentChargeResData = "";
+          state.appointmentChargeResStatus = "";
+          state.createAppointmentNotesResData = "";
+          state.CreateAppointmentPaymentsResData = "";
+          state.CreateAppointmentCreatorResData = "";
+          state.PaymentCreationNotifyResData = "";
+          state.appointmentCreationNotifyResData = "";
+          state.AppointmentDiscountStoreListCreateResData = "";
+          state.AppointmentDiscountStoreListCreateResStatus = "";
+        }
+      )
+      .addCase(AppointmentQuestionSubmitCreate.rejected, (state, action) => {
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
