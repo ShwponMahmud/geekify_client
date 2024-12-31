@@ -1,5 +1,6 @@
 import { useAppSelector } from "@/app/rtk-state/hooks";
 import Payment from "../Payment/Payment";
+import CustomCheckbox from "./CheckBox";
 
 function PaymentDetails() {
   const bookingSummerySubmitResData = useAppSelector(
@@ -90,6 +91,7 @@ function PaymentDetails() {
           </div>
 
           <Payment/>
+
         </div>
       </div>
     </>

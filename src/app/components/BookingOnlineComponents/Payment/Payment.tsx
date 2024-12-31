@@ -6,6 +6,7 @@ import {
   AppointmentCreationNotify,
   AppointmentDiscountStoreListCreate,
   AppointmentHistoryCreate,
+  AppointmentQuestionSubmitCreate,
   CardTokenCreate,
   CouponDiscountCreate,
   CreateAppointmentCreator,
@@ -26,7 +27,10 @@ import {
   formatTime,
   formatTimeInterval,
 } from "../ServiceBookingSummery/ServiceBookingSummery";
-import { bookingSummerySaveAndContinue, paymentOptionSelectedAndProceedToPay } from "@/app/rtk-state/reducers/bookingSlice";
+import {
+  bookingSummerySaveAndContinue,
+  paymentOptionSelectedAndProceedToPay,
+} from "@/app/rtk-state/reducers/bookingSlice";
 
 interface CardDetails {
   cardNumber: string;
@@ -125,7 +129,7 @@ export default function Payment() {
     });
 
   useEffect(() => {
-    if (paymentInfo?.status === "success") {
+    if (paymentInfo?.cardToken?.[0]?.message) {
       notify();
     }
   }, [paymentInfo]);
@@ -162,7 +166,7 @@ export default function Payment() {
   // Create Payments..............
   const CreatePaymentFormData = {
     reference: paymentInfo?.PaymentsCreateByTokenResData?.id,
-    panel: 1,
+    panel: 0,
     type: 1,
   };
 
@@ -415,7 +419,7 @@ export default function Payment() {
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
     appointment_id: appointmentResData?.id,
-    panel: 1,
+    panel: 0,
   };
 
   useEffect(() => {
@@ -445,56 +449,73 @@ export default function Payment() {
   //   }
   // }, [paymentInfo?.createPaymentResData?.id && appointmentResData?.id]);
 
-
-
   // Appointment Discount Store list................
   let discountsArray = [];
 
-      if (bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status) {
-        discountsArray.push({
-          "amount": bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
-          "type": 3,
-        });
-      }
-      if (bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status) {
-        discountsArray.push({
-          "amount": bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
-          "type": 1,
-        });
-      }
-      if (bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount?.applied_status) {
-        discountsArray.push({
-          "amount": bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount?.amount,
-          "type": 0,
-        });
-      }
-      if (bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status) {
-        discountsArray.push({
-          "amount": bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
-          "type": 7,
-        });
-      }
-      if (bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.applied_status) {
-        discountsArray.push({
-          "amount": bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.amount,
-          "type": 6,
-        });
-      }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+  ) {
+    discountsArray.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+      type: 3,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
+  ) {
+    discountsArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+      type: 1,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+      ?.applied_status
+  ) {
+    discountsArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+          ?.amount,
+      type: 0,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+  ) {
+    discountsArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+      type: 7,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status
+  ) {
+    discountsArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+          ?.amount,
+      type: 6,
+    });
+  }
 
   const AppointmentDiscountStoreListFormData = {
     user_id: userInfo?.userInfo?.id
-    ? userInfo?.userInfo?.id
-    : users?.user?.[0]?.id,
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
     reference: paymentInfo?.createAppointmentsResData?.reference,
-    discounts: discountsArray
-  }
+    discounts: discountsArray,
+  };
 
   useEffect(() => {
     if (paymentInfo?.CreateAppointmentCreatorResData?.id) {
-      dispatch(AppointmentDiscountStoreListCreate(AppointmentDiscountStoreListFormData))
+      dispatch(
+        AppointmentDiscountStoreListCreate(AppointmentDiscountStoreListFormData)
+      );
     }
   }, [paymentInfo?.CreateAppointmentCreatorResData?.id]);
-  
 
   // Appointment History..
   const AppointmentHistoryFormData = {
@@ -502,36 +523,161 @@ export default function Payment() {
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
     appointment_id: appointmentResData?.id,
-    panel: 1,
+    panel: 0,
     status: 0,
   };
 
   useEffect(() => {
-    if (paymentInfo?.AppointmentDiscountStoreListCreateResStatus === "success") {
+    if (
+      paymentInfo?.AppointmentDiscountStoreListCreateResStatus === "success"
+    ) {
       dispatch(AppointmentHistoryCreate(AppointmentHistoryFormData));
     }
   }, [paymentInfo?.AppointmentDiscountStoreListCreateResStatus]);
 
+  // Appointment Question Submit Create...........
+  let questions = [];
 
-
-  // Coupon Usage................
-  const CouponFormData = {
-    coupon_id: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.coupon_id,
-    user_id: userInfo?.userInfo?.id
-    ? userInfo?.userInfo?.id
-    : users?.user?.[0]?.id,
-    reference: paymentInfo?.createAppointmentsResData?.reference,
-    discount_amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+  if (bookingInfo?.necessaryCables?.have_necessary_cables) {
+    questions.push({
+      id: "question_1",
+      question: "Do you have all the necessary cables?",
+      answer: bookingInfo?.necessaryCables?.have_necessary_cables,
+    });
   }
+  if (bookingInfo?.whereIsDataBackedUpOn?.where_is_data_backed_up_on) {
+    questions.push({
+      id: "question_2",
+      question:
+        "Where is the data backedup on? (External HD, Another computer, Cloud)?",
+      answer: bookingInfo?.whereIsDataBackedUpOn?.where_is_data_backed_up_on,
+    });
+  }
+  if (bookingInfo?.whereIsData?.where_is_the_data) {
+    questions.push({
+      id: "question_3",
+      question: "Where is the data? (External HD, Computer, Phone)?",
+      answer: bookingInfo?.whereIsData?.where_is_the_data,
+    });
+  }
+  if (bookingInfo?.haveExistingAntivirus?.have_existing_antivirus) {
+    questions.push({
+      id: "question_4",
+      question: "Do you have an existing antivirus? If Yes what is it?",
+      answer: bookingInfo?.haveExistingAntivirus?.have_existing_antivirus,
+    });
+  }
+  if (bookingInfo?.existingAntivirusName?.antivirus_Name) {
+    questions.push({
+      id: "question_5",
+      question: "Existing antivirus name?",
+      answer: bookingInfo?.existingAntivirusName?.antivirus_Name,
+    });
+  }
+  if (bookingInfo?.whatTypeOfPhoneIsIt?.what_type_of_phone_is_it) {
+    questions.push({
+      id: "question_6",
+      question: " What type of phone is it? (Android, IOS, Windows)?",
+      answer: bookingInfo?.whatTypeOfPhoneIsIt?.what_type_of_phone_is_it,
+    });
+  }
+  if (bookingInfo?.haveExistingNetwork?.have_existing_network) {
+    questions.push({
+      id: "question_7",
+      question: " Do you have existing network?",
+      answer: bookingInfo?.haveExistingNetwork?.have_existing_network,
+    });
+  }
+  if (bookingInfo?.currentInternetProvider?.current_internet_provider) {
+    questions.push({
+      id: "question_8",
+      question: "Who is your current internet service provider?",
+      answer: bookingInfo?.currentInternetProvider?.current_internet_provider,
+    });
+  }
+  if (bookingInfo?.otherInternetProvider?.other_internet_provider) {
+    questions.push({
+      id: "question_9",
+      question: "Other Provider Name?",
+      answer: bookingInfo?.otherInternetProvider?.other_internet_provider,
+    });
+  }
+  if (bookingInfo?.needRouters?.need_routers) {
+    questions.push({
+      id: "question_10",
+      question: "Do you need routers?",
+      answer: bookingInfo?.needRouters?.need_routers,
+    });
+  }
+  if (bookingInfo?.whatIsYourEmailAddress?.what_is_your_email_address) {
+    questions.push({
+      id: "question_11",
+      question: "What is your email address?",
+      answer: bookingInfo?.whatIsYourEmailAddress?.what_is_your_email_address,
+    });
+  }
+  if (bookingInfo?.doYouKnowPasswordForIt?.do_you_know_password_for_it) {
+    questions.push({
+      id: "question_12",
+      question: " Do you know the password for it?",
+      answer: bookingInfo?.doYouKnowPasswordForIt?.do_you_know_password_for_it,
+    });
+  }
+
+  const AppointmentQuestionSubmitCreateFormData = {
+    added_by: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    appointment_id: appointmentResData?.id,
+    panel: 0,
+    question: JSON.stringify(questions),
+  };
+
+  useEffect(() => {
+    if (paymentInfo?.appointmentHistoryCreateResData?.id)
+      dispatch(
+        AppointmentQuestionSubmitCreate(AppointmentQuestionSubmitCreateFormData)
+      );
+  }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
+
+  // Coupon Usage...................................
+  const CouponFormData = {
+    coupon_id:
+      bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.coupon_id,
+    user_id: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    reference: paymentInfo?.createAppointmentsResData?.reference,
+    discount_amount:
+      bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+  };
 
   const CouponDiscountCreateHandler = () => {
-    dispatch(CouponDiscountCreate(CouponFormData))
-  }
+    dispatch(CouponDiscountCreate(CouponFormData));
+  };
 
   const prevHandler = () => {
-    dispatch(bookingSummerySaveAndContinue("next"))
-    dispatch(paymentOptionSelectedAndProceedToPay(""))
-  }
+    dispatch(bookingSummerySaveAndContinue("next"));
+    dispatch(paymentOptionSelectedAndProceedToPay(""));
+  };
+
+  const notify1 = () =>
+    toast.success("Payment Successful.", {
+      position: "bottom-right",
+      autoClose: 8000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+
+  useEffect(() => {
+    if (paymentInfo?.appointmentQuestionSubmitResData?.id) {
+      notify1();
+    }
+  }, [paymentInfo]);
 
   return (
     <>
@@ -540,14 +686,37 @@ export default function Payment() {
           <div className="payment w-[50%] mx-auto mt-5">
             {/* Apply Coupon */}
             <div className="apply_coupon_container mt-10">
-              <div className="flex gap-2 text-[14px] font-semibold">
+              <label className="flex gap-2 text-[14px] font-semibold">
                 <input
                   type="checkbox"
-                  className="w-4 h-4 mt-1 checkbox-orange text-white"
+                  className="w-4 h-4 hidden"
                   onChange={handleApplyCouponCheckboxChange}
                 />
+                {/* Custom Checkbox */}
+                <div
+                  className={`w-4 h-4 border-2 mt-[2px] ${
+                    isCouponChecked
+                      ? "bg-orange-500 border-orange-500"
+                      : "bg-white border-gray-300"
+                  } flex items-center justify-center transition-colors`}
+                >
+                  {isCouponChecked && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-white"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
+                </div>
                 <label htmlFor="">Apply Coupon</label>
-              </div>
+              </label>
               {isCouponChecked && (
                 <form action="" className="flex">
                   <input
@@ -556,7 +725,11 @@ export default function Payment() {
                     className="border p-[10px] w-[100%] text-[14px] mt-4 rounded-md"
                     required
                   />
-                  <button type="submit" onClick={CouponDiscountCreateHandler} className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2">
+                  <button
+                    type="submit"
+                    onClick={CouponDiscountCreateHandler}
+                    className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2"
+                  >
                     Apply
                   </button>
                 </form>
@@ -564,51 +737,124 @@ export default function Payment() {
             </div>
 
             {/* Terms and Conditions */}
-            <div className="flex items-center gap-2 mt-2">
-              <input
+            <label className="flex items-center gap-2 mt-2 cursor-pointer">
+              {/* <input
                 type="checkbox"
                 id="terms"
                 className="w-4 h-4 accent-orange-500"
                 onChange={handleTermsConditionCheckboxChange}
+              /> */}
+              <input
+                type="checkbox"
+                checked={isTermsChecked}
+                onChange={handleTermsConditionCheckboxChange}
+                className="hidden w-4 h-4"
               />
+              {/* Custom Checkbox */}
+              <div
+                className={`w-4 h-4 border-2 mt-[-3px] ${
+                  isTermsChecked
+                    ? "bg-orange-500 border-orange-500"
+                    : "bg-white border-gray-300"
+                } flex items-center justify-center transition-colors`}
+              >
+                {isTermsChecked && (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 text-white"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+              </div>
               <label htmlFor="terms" className="text-gray-700">
                 I agree with{" "}
                 <span className="text-orange-500 font-semibold">
                   Terms & Conditions
                 </span>
               </label>
-            </div>
+            </label>
 
             {isTermsChecked && (
               <>
                 {/* Payment Methods */}
                 <div>
-                  <div className="flex items-center gap-2 mt-5">
+                  <label className="flex items-center gap-2 mt-5">
                     <input
                       type="radio"
                       name="paymentMethod"
                       id="cardPayment"
-                      className="w-4 h-4 accent-orange-500"
+                      className="w-4 h-4 hidden"
                       checked={selectedPaymentMethod === "cardPayment"}
                       onChange={() => handlePaymentMethodChange("cardPayment")}
                     />
+                    <div
+                      className={`w-4 h-4 border-2 mt-[-3px] ${
+                        selectedPaymentMethod === "cardPayment"
+                          ? "bg-orange-500 border-orange-500"
+                          : "bg-white border-gray-300"
+                      } flex items-center justify-center transition-colors rounded-full`}
+                    >
+                      {selectedPaymentMethod === "cardPayment" && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 text-white"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                    </div>
                     <label htmlFor="cardPayment" className="text-gray-700">
                       Card (Visa/Master/Amex)
                     </label>
-                  </div>
-                  <div className="flex items-center gap-2 mt-2">
+                  </label>
+                  <label className="flex items-center gap-2 mt-2">
                     <input
                       type="radio"
                       name="paymentMethod"
                       id="afterPay"
-                      className="w-4 h-4 accent-orange-500"
+                      className="w-4 h-4 hidden"
                       checked={selectedPaymentMethod === "afterPay"}
                       onChange={() => handlePaymentMethodChange("afterPay")}
                     />
+                    <div
+                      className={`w-4 h-4 border-2 mt-[-3px] ${
+                        selectedPaymentMethod === "afterPay"
+                          ? "bg-orange-500 border-orange-500"
+                          : "bg-white border-gray-300"
+                      } flex items-center justify-center transition-colors rounded-full`}
+                    >
+                      {selectedPaymentMethod === "afterPay" && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 text-white"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                    </div>
                     <label htmlFor="afterPay" className="text-gray-700">
                       Afterpay
                     </label>
-                  </div>
+                  </label>
                 </div>
 
                 {/* Card Details Section */}
@@ -678,7 +924,10 @@ export default function Payment() {
 
             {/* Buttons */}
             <div className="flex justify-between mt-5">
-              <button onClick={prevHandler} className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-100">
+              <button
+                onClick={prevHandler}
+                className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-100"
+              >
                 Prev
               </button>
               {isTermsChecked ? (

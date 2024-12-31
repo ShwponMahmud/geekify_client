@@ -23,7 +23,7 @@ const Services: React.FC<ServicesProps> = ({ services }) => {
     : services;
 
 
-    console.log(services)
+    // console.log(services)
 
   return (
     <>
