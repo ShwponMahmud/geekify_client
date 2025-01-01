@@ -8,8 +8,8 @@ function BookingFooter() {
   return (
     <div className="bg-sectionBackgroundColor">
       <div className="container mx-auto py-14">
-        <div className="flex justify-between items-center">
-          <div>
+        <div className="block md:flex justify-between items-center">
+          <div className='mb-8 md:mb-0'>
             <h3 className="text-3xl font-bold pb-3">Download our App</h3>
             <p className="font-medium pb-3">
               App is available for free on the app store
@@ -44,7 +44,7 @@ function BookingFooter() {
             </div>
           </div>
           <div>
-            <div className="flex justify-center items-center gap-5">
+            <div className="flex items-center gap-5">
               <h3 className="text-xl font-bold">Follow Us:</h3>
               <div className="flex items-center gap-4">
                 <Link href={"https://www.facebook.com/geekifyau"}>

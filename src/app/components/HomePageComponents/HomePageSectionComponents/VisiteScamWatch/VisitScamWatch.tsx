@@ -1,5 +1,6 @@
 import React from "react";
 import "./VisitScamWatch.css";
+import Link from "next/link";
 
 function VisitScamWatch() {
   return (
@@ -17,9 +18,11 @@ function VisitScamWatch() {
                 corporis nihil ut nostrum.
               </p>
 
-              <button className="bg-white text-primaryColor py-3 px-10 rounded-md mt-7">
-                Visit now
-              </button>
+              <Link href="/scam-alert">
+                <button className="bg-white font-semibold text-primaryColor py-3 px-10 rounded-md mt-7">
+                  Visit Now
+                </button>
+              </Link>
             </div>
           </div>
         </div>

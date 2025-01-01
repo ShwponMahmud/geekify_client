@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,35 @@ import Image from 'next/image'
 import React from 'react'
 
 function WebApplicationDevelopment({service}: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question:
+        "What’s the difference between a website and a web application?",
+      answer:
+        "A website provides information, while a web application is more interactive. It allows users to perform tasks and access custom features.",
+    },
+    {
+      question: "How long does it take to develop a website or app?",
+      answer:
+        "Timelines vary based on project complexity—simple websites may take a few weeks, while custom apps could take several months.",
+    },
+    {
+      question: "Can I update the content on my website or app myself?",
+      answer:
+        "Yes! We use user-friendly systems that allow you to manage your content, and we provide support if needed.",
+    },
+    {
+      question: "Do you offer support after launch?",
+      answer:
+        "Absolutely! We provide ongoing support, maintenance, and updates to ensure your website or app runs smoothly.",
+    },
+    {
+      question: "Can you help optimize my app for app stores?",
+      answer:
+        "Yes, we offer App Store Optimization (ASO) to boost your app’s visibility on app stores like Google Play and the Apple App Store.",
+    },
+  ];
+
   return (
     <div>
       <Showcase
@@ -407,43 +437,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">1. What’s the difference between a website and a web application?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>A website provides information, while a web application is more interactive. That allows users to perform tasks and access custom features.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">2. How long does it take to develop a website or app?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Timelines vary based on project complexity—simple websites may take a few weeks, while custom apps could take several months.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">3. Can I update the content on my website or app myself?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes! We use user-friendly systems that allow you to manage your content, and we provide support if needed.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">4. Do you offer support after launch?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Absolutely! We provide ongoing support, maintenance, and updates to ensure your website or app runs smoothly.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">5. Can you help optimize my app for app stores?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, we offer App Store Optimization (ASO) to boost your app’s visibility on app stores like Google Play and the Apple App Store.</p>
-            </div>
-          </div>
-        </div>
+        <Accordion items={faqItems} />
       </div>
 
 

@@ -30,30 +30,30 @@ const Footer = () => {
             </p>
             <div className="flex space-x-[35px] pt-5 md:pt-10">
               {/* Social Media Icons */}
-              <a
-                href="#"
+              <Link
+                href="https://www.facebook.com/geekifyau"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
                 <FaFacebookF className="text-primaryColor" />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="https://www.linkedin.com/company/geekscrsau/"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
                 <FaLinkedinIn className="text-primaryColor" />
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
                 <FaInstagram className="text-primaryColor" />
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
                 <FaXTwitter className="text-primaryColor" />
-              </a>
+              </Link>
             </div>
           </div>
 

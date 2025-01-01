@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,34 @@ import Image from 'next/image'
 import React from 'react'
 
 function HomeNetworkWifiSetup({service}: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question: "What’s the Best Internet Speed for Home Use?",
+      answer:
+        "It depends on your usage. For a family with multiple devices, a speed of at least 25 Mbps is recommended.",
+    },
+    {
+      question: "How Do I Set Up WiFi in a Multi-Story Home?",
+      answer:
+        "Use a mesh network system or WiFi extenders to ensure coverage across multiple floors.",
+    },
+    {
+      question: "Is a Wired Connection Better than WiFi for Home Use?",
+      answer:
+        "For devices like desktops and gaming consoles, a wired Internet setup connection provides more stability and speed compared to WiFi.",
+    },
+    {
+      question: "How Can I Improve My Home Network’s Security?",
+      answer:
+        "Set a strong password, enable encryption, and regularly update your router’s firmware.",
+    },
+    {
+      question: "What’s the Cost of a Professional Internet Setup?",
+      answer:
+        "Professional setup costs vary based on the complexity of the installation of internet. Contact Geeks CRS for a personalized quote.",
+    },
+  ];
+
   return (
     <div>
       <Showcase
@@ -415,43 +444,7 @@ function HomeNetworkWifiSetup({service}: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">1. What’s the Best Internet Speed for Home Use?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>It depends on your usage. For a family with multiple devices, a speed of at least 25 Mbps is recommended.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">2. How Do I Set Up WiFi in a Multi-Story Home?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Use a mesh network system or WiFi extenders to ensure coverage across multiple floors.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">3. Is a Wired Connection Better than WiFi for Home Use?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>For devices like desktops and gaming consoles, a wired Internet setup connection provides more stability and speed compared to WiFi.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">4. How Can I Improve My Home Network’s Security?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Set a strong password, enable encryption, and regularly update your router’s firmware.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">5. What’s the Cost of a Professional Internet Setup?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Professional setup costs vary based on the complexity of the installation of internet. Contact Geeks CRS for a personalized quote.</p>
-            </div>
-          </div>
-        </div>
+        <Accordion items={faqItems} />
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>

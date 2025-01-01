@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,44 @@ import Image from 'next/image'
 import React from 'react'
 
 function AntiVirusInstallation({ service }: ServiceDetailsProps) {
+  const faqItems = [
+    {
+      question: "What is the best antivirus software in Australia?",
+      answer:
+        "The best antivirus software for you depends on your device type and specific needs. Avast, Bitdefender, and Kaspersky are all popular options for reliable protection.",
+    },
+    {
+      question: "Do I need an antivirus for my Mac?",
+      answer:
+        "Yes, while Macs have built-in security, additional antivirus protection provides better security against new and evolving threats.",
+    },
+    {
+      question: "Can antivirus software protect my Android device?",
+      answer:
+        "Absolutely. Antivirus solutions like Avast Mobile Security offer great protection for Android devices against malware and phishing attacks.",
+    },
+    {
+      question: "How often should I update my antivirus software?",
+      answer:
+        "It's recommended to update your antivirus software as often as possible to protect against the latest security threats.",
+    },
+    {
+      question: "Is free antivirus software enough for virus protection?",
+      answer:
+        "Free antivirus can provide basic protection, but paid versions offer more comprehensive security features, especially for online shopping, banking, and privacy protection.",
+    },
+    {
+      question: "How do I know if my device is protected?",
+      answer:
+        "You’ll typically receive notifications if your antivirus software detects any threats. You can also perform regular scans to check for viruses.",
+    },
+    {
+      question: "Is Avast antivirus safe?",
+      answer:
+        "Yes, Avast antivirus is considered safe. It provides robust protection against malware, viruses, and online threats, and is trusted by millions of users worldwide.",
+    },
+  ];
+
   return (
     <div>
       <Showcase
@@ -425,58 +464,8 @@ function AntiVirusInstallation({ service }: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">1. What is the best antivirus software in Australia?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>The best antivirus software for you depends on your device type and specific needs. Avast, Bitdefender, and Kaspersky are all popular options for reliable protection.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">2. Do I need an antivirus for my Mac?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, while Macs have built-in security, additional antivirus protection provides better security against new and evolving threats.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">3. Can antivirus software protect my Android device?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Absolutely. Antivirus solutions like Avast Mobile Security offer great protection for Android devices against malware and phishing attacks.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">4. How often should I update my antivirus software?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>It's recommended to update your antivirus software as often as possible to protect against the latest security threats.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">5. Is free antivirus software enough for virus protection?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Free antivirus can provide basic protection, but paid versions offer more comprehensive security features, especially for online shopping, banking,
-                and privacy protection.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">6. How do I know if my device is protected?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>You’ll typically receive notifications if your antivirus software detects any threats. You can also perform regular scans to check for viruses.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">7. Is Avast antivirus safe?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, Avast antivirus is considered safe. It provides robust protection against malware, viruses, and online threats, and is trusted by millions of users worldwide.</p>
-            </div>
-          </div>
-        </div>
+
+        <Accordion items={faqItems} />
       </div>
 
 

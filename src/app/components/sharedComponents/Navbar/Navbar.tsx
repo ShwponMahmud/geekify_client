@@ -221,26 +221,25 @@ export default function Navbar(): JSX.Element {
             ))}
           </div>
 
-          {/* Booking Button */}
-          <div className=" text-[14px]">
-            <Link href="/booking-online" className="animated-button">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              Book Online
-              <br />
-              <strong>
-                {" "}
-                And Get{" "}
-                <strong className="animate-pulse text-[15px] text-[#303030] font-extrabold">
-                  15%
-                </strong>{" "}
-                Off
-              </strong>
-            </Link>
+            <div className=" text-[14px]">
+              <a href="/booking-online" className="animated-button">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Book Online
+                <br />
+                <strong>
+                  {" "}
+                  And Get{" "}
+                  <strong className="animate-pulse text-[16px] font-extrabold text-[#303030]">
+                    15%
+                  </strong>{" "}
+                  Off
+                </strong>
+              </a>
+            </div>
           </div>
-        </div>
       </div>
 
       {/* Mobile Menu */}

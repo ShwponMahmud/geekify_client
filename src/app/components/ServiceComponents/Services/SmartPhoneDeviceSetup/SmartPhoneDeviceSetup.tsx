@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,33 @@ import Image from 'next/image'
 import React from 'react'
 
 function SmartPhoneDeviceSetup({service}: ServiceDetailsProps) {
+  const faqItems = [
+  {
+    question: "How do I transfer data from my old device to my new one?",
+    answer: "Use Google Backup or a data transfer app to sync contacts, photos, and apps from your old device."
+  },
+  {
+    question: "Do I need a Google account to set up a new Android phone?",
+    answer: "Yes, a Google account is required to access the Play Store, sync apps, and perform backups."
+  },
+  {
+    question: "What if I forget my Google password during setup?",
+    answer: "Use the 'Forgot Password' link to reset your password and resume setup with the new credentials."
+  },
+  {
+    question: "Can you help set up other devices like tablets and smart TVs?",
+    answer: "Yes, we assist with setting up various devices, including tablets, smart TVs, and laptops."
+  },
+  {
+    question: "How can I protect my new device from viruses?",
+    answer: "Install a trusted antivirus app from the Play Store, and avoid downloading from third-party sources."
+  },
+  {
+    question: "What should I do if my device won’t turn on after unboxing?",
+    answer: "Ensure it’s charged, then try holding down the power button. If it still won’t turn on, contact our support team."
+  }
+];
+
   return (
     <div>
       <Showcase
@@ -375,52 +403,7 @@ function SmartPhoneDeviceSetup({service}: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">1. How do I transfer data from my old device to my new one?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Use Google Backup or a data transfer app to sync contacts, photos, and apps from your old device.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">2. Do I need a Google account to set up a new Android phone?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, a Google account is required to access the Play Store, sync apps, and perform backups.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">3. What if I forget my Google password during setup?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Use the &quot;Forgot Password&quot; link to reset your password and resume setup with the new credentials.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">4. Can you help set up other devices like tablets and smart TVs?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, we assist with setting up various devices, including tablets, smart TVs, and laptops.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">5. How can I protect my new device from viruses?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>
-                Install a trusted antivirus app from the Play Store, and avoid downloading from third-party sources.
-              </p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">6. What should I do if my device won’t turn on after unboxing?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Ensure it’s charged, then try holding down the power button. If it still won’t turn on, contact our support team.</p>
-            </div>
-          </div>
-        </div>
+        <Accordion items={faqItems} />
       </div>
 
 

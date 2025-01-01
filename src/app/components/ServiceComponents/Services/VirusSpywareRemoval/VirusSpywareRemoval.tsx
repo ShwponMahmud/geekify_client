@@ -1,3 +1,4 @@
+import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
 import ServiceDetailsProps from '@/assets/types/servicetypes'
@@ -5,6 +6,33 @@ import Image from 'next/image'
 import React from 'react'
 
 function VirusSpywareRemoval({ service }: ServiceDetailsProps) {
+  const faqItems = [
+  {
+    question: "Can I remove a virus myself?",
+    answer: "Yes, you can try using antivirus software and deleting suspicious apps, but some viruses may require professional help for complete removal."
+  },
+  {
+    question: "How do I know if my device has a virus?",
+    answer: "Signs include slow performance, pop-ups, battery drain, and unknown apps. If you notice these, scan your device for malware."
+  },
+  {
+    question: "Are iPhones safe from viruses?",
+    answer: "Generally, yes, but iPhones can still be affected if apps are downloaded from untrusted sources."
+  },
+  {
+    question: "What’s the difference between viruses, malware, and spyware?",
+    answer: "A virus is a type of malware that damages devices, while spyware specifically collects personal information."
+  },
+  {
+    question: "How can I avoid future infections?",
+    answer: "Keep software updated, download only from trusted sources, and use reputable antivirus software."
+  },
+  {
+    question: "Can viruses slow down my internet?",
+    answer: "Yes, viruses can impact internet speed by using device resources. Removing the virus should restore speed."
+  }
+];
+
   return (
     <div>
       <Showcase
@@ -414,52 +442,7 @@ function VirusSpywareRemoval({ service }: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold text-center pb-8'>Frequently Asked <span className='text-primaryColor'>Questions</span></h3>
-        <div className="join join-vertical w-full">
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" defaultChecked />
-            <div className="collapse-title text-xl font-medium">1. Can I remove a virus myself?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, you can try using antivirus software and deleting suspicious apps, but some viruses may require professional help for complete removal.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">2. How do I know if my device has a virus?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Signs include slow performance, pop-ups, battery drain, and unknown apps. If you notice these, scan your device for malware.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">3. Are iPhones safe from viruses?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Generally, yes, but iPhones can still be affected if apps are downloaded from untrusted sources.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">4. What’s the difference between viruses, malware, and spyware?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>A virus is a type of malware that damages devices, while spyware specifically collects personal information.</p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">5. How can I avoid future infections?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>
-                Keep software updated, download only from trusted sources, and use reputable antivirus software.
-              </p>
-            </div>
-          </div>
-          <div className="collapse collapse-arrow bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5">
-            <input type="radio" name="my-accordion-4" />
-            <div className="collapse-title text-xl font-medium">6. Can viruses slow down my internet?</div>
-            <div className="collapse-content">
-              <p className='text-[#3d3d3d]'>Yes, viruses can impact internet speed by using device resources. Removing the virus should restore speed.</p>
-            </div>
-          </div>
-        </div>
+        <Accordion items={faqItems} />
       </div>
 
 

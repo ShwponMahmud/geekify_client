@@ -3,7 +3,7 @@ import React from "react";
 function BookingTermsAndConditions() {
   return (
     <div className="container mx-auto  py-10">
-      <div className="m-5 bg-[#f1f1f1] p-10 rounded-lg">
+      <div className="md:m-5 bg-[#f1f1f1] p-5 md:p-10 rounded-lg">
         <h2 className="text-2xl font-bold text-black text-left">
           Booking Terms And Conditions
         </h2>
@@ -21,7 +21,7 @@ function BookingTermsAndConditions() {
             6. We are fully mobile and our techs visit you onsite (location
             provided by you during the booking) or provide remote support when
             specially requested as{" "}
-            <span className="text-red-700">“remote support”</span>.
+            <span className="text-[#FF0000]">“remote support”</span>.
           </li>
           <li>7. Same-day booking will be attracting an additional 20%.</li>
           <li>

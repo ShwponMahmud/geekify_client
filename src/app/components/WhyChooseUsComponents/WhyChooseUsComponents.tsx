@@ -8,7 +8,7 @@ const title: string = "If you need remote Service?";
 function WhyChooseUsComponents() {
   return (
     <>
-      <Showcase backgroundImage='/why-choose-us.png' title='Browse our' highlights='resources' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
+      <Showcase backgroundImage='/why-choose-us.png' title='Why' highlights='Choose Us' paragraph='One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
         adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
       '/>
       <div>

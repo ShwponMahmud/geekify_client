@@ -74,7 +74,7 @@ const OurPopularServices = async () => {
                       : service?.name === "Data Recovery"
                       ? "/services/data-recovery"
                       : service?.name === "Virus and Spyware Removal"
-                      ? "/services/virus-spyware-removal"
+                      ? "/services/virus-and-spyware-removal"
                       : "#"
                   }
                 >

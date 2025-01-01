@@ -126,7 +126,7 @@ async function CustomerSpeakForUs() {
           <div className="flex justify-center mb-28">
             <Link href={"/customer-review"}>
               {" "}
-              <button className="bg-primaryColor text-white rounded-md py-[10px] px-[20px]">
+              <button className="bookNowBtn hover:text-primaryColor">
                 See More
               </button>
             </Link>
