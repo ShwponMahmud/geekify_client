@@ -80,15 +80,9 @@ async function CustomerSpeakForUs() {
       <div className="customer_speak_for_us_section">
         <div className="container mx-auto">
           <div className="w-full lg:w-[60%] mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-5">
-              Our customer speaks for us
+            <h1 className="text-4xl font-bold mb-5 capitalize">
+              let Our customers <span className="text-primaryColor">speak for us</span>
             </h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Exercitationem aut rerum tempore temporibus aspernatur nihil ad,
-              delectus enim, error quos consequuntur rem officia assumenda
-              repellat!
-            </p>
           </div>
           <div className="customer_speak_for_us_content_container my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-5 mt-16 md:mt-20 lg:mt-28">
             {customerReviews?.map((customerReview) => (

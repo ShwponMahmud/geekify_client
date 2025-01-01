@@ -47,18 +47,16 @@ const OurPopularServices = async () => {
         <div className="container mx-auto">
           <div className="w-full lg:w-[60%] mx-auto text-center">
             <h1 className="mb-5 text-4xl font-bold">
-              Our Popular <span>Services</span>
+              Our Popular <span className="text-primaryColor">Services</span>
             </h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-              beatae saepe, veritatis eos eum nam rem adipisci voluptatum
-              incidunt impedit ex dolores architecto repellat unde!
+              Find the type of service you need, clearly defined and ready to
+              start. Work begins as soon as you book and provide requirements.
             </p>
           </div>
 
           <div className="our_popular_service_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8 lg:mt-20">
             {services?.map((service) => (
-            
               <div className="our_service_content_card text-center">
                 <Link
                   href={

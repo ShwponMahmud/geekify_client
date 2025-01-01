@@ -1,4 +1,3 @@
-
 "use client";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -45,13 +44,8 @@ const Slider = () => {
                 <p className="mt-8 text-xl">
                   One-stop solution for your IT needs, Order any service,
                   anytime.
-                  One-stop solution for your IT needs, Order any service,
-                  anytime.
                 </p>
                 <div className="btn_container">
-                  <Link href="/booking-online">
-                    <button className="bookNowBtn">Book Now</button>
-                  </Link>
                   <Link href="/booking-online">
                     <button className="bookNowBtn">Book Now</button>
                   </Link>
@@ -83,13 +77,8 @@ const Slider = () => {
                 <p className="mt-8 text-xl">
                   One-stop solution for your IT needs, Order any service,
                   anytime.
-                  One-stop solution for your IT needs, Order any service,
-                  anytime.
                 </p>
                 <div className="btn_container">
-                  <Link href="/booking-online">
-                    <button className="bookNowBtn">Book Now</button>
-                  </Link>
                   <Link href="/booking-online">
                     <button className="bookNowBtn">Book Now</button>
                   </Link>

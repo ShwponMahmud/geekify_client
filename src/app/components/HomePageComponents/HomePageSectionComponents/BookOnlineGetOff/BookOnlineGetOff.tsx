@@ -14,13 +14,9 @@ function BookOnlineGetOff() {
         <div className="container mx-auto">
           <div className="w-full lg:w-[60%] mx-auto text-center">
             <h1 className="text-4xl font-bold mb-6">
-              Book online and get 10% off
+              Book online and get <span className="text-primaryColor">10%</span> off
             </h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-              ratione animi nulla quidem molestias odio, accusantium vero
-              voluptatem nisi, hic ipsum corrupti exercitationem labore laborum?
-            </p>
+            <p className="text-primaryColor">Easiest way to get a service</p>
           </div>
           <div className="book_online_get_off_content_container flex flex-wrap items-center justify-evenly gap-3 mt-16 ">
             <div className="justify-items-center text-grayColor hover:text-primaryColor">

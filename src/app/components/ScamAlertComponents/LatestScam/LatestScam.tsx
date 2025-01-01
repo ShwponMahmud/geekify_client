@@ -48,8 +48,8 @@ async function LatestScam() {
                     src={singleScamNews.image}
                     alt=""
                     className="rounded-xl w-full max-h-[400px]"
-                    width={200}
-                    height={150}
+                    width={600}
+                    height={550}
                   />
                   <p className="mt-5">{singleScamNews.excerpt}</p>
                 </div>

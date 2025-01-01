@@ -2,7 +2,7 @@ import React from 'react'
 
 function PrivacyPolicy() {
   return (
-    <div className="min-h-screen py-8 md:py-14 lg:py-20 xl:py-28 mt-28">
+    <div className="min-h-screen py-8 md:py-14 lg:py-20 xl:py-28 mt-[100px]">
       <div className="container mx-auto text-black font-medium">
         <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
 

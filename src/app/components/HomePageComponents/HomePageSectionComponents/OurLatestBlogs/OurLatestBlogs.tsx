@@ -55,17 +55,20 @@ const OurLatestBlogs = async () => {
       <div className="our_latest_blogs_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
           <div className="our_latest_blogs_heading_container w-full lg:w-120 m-auto text-center mb-12">
-            <h1 className="text-4xl font-bold mb-5">Our latest Blogs</h1>
+            <h1 className="text-4xl font-bold mb-5">
+              Our Latest <span className="text-primaryColor">Blogs</span>
+            </h1>
             <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum
-              autem reiciendis corporis amet, maxime placeat harum doloribus
-              odit, corrupti, explicabo laboriosam iure commodi quidem quod!
+              Discover the latest insights and updates from our expert team. Stay informed with our recent blog posts on various services we offer.
             </p>
           </div>
 
           <div className="our_latest_blog_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogs.map((blog) => (
-              <Link href={`/blogs/${blog.slug}`} className=" our_latest_blog_content_card shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md ">
+              <Link
+                href={`/blogs/${blog.slug}`}
+                className=" our_latest_blog_content_card shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md "
+              >
                 <div className="w-[100%] h-[250px] overflow-hidden relative border-b">
                   <Image
                     width={600}
@@ -76,12 +79,18 @@ const OurLatestBlogs = async () => {
                   />
                 </div>
                 <div className="p-4 ">
-                  <h2 className="text-[18px] font-semibold text-gray-900">{blog?.title}</h2>
+                  <h2 className="text-[18px] font-semibold text-gray-900">
+                    {blog?.title}
+                  </h2>
                   <div className=" mt-5 ">
                     <div className="category cursor-pointer text-[14px] mb-3">
-                      <b className="text-primaryColor">Category:</b> {blog?.blogCategory?.name}
+                      <b className="text-primaryColor">Category:</b>{" "}
+                      {blog?.blogCategory?.name}
                     </div>
-                    <div className="date text-[14px]"><b className="text-primaryColor">Created Date:</b> {blog?.created_at}</div>
+                    <div className="date text-[14px]">
+                      <b className="text-primaryColor">Created Date:</b>{" "}
+                      {blog?.created_at}
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -89,9 +98,9 @@ const OurLatestBlogs = async () => {
           </div>
           <div className="our_blog_see_more_btn_container flex justify-center mt-14">
             <Link href={"/blogs"}>
-            <button className="bg-primaryColor text-white rounded py-3 px-8 hover:bg-white hover:text-primaryColor border border-primaryColor transition-[.5s]">
-              See More
-            </button>
+              <button className="bg-primaryColor text-white rounded py-3 px-8 hover:bg-white hover:text-primaryColor border border-primaryColor transition-[.5s]">
+                See More
+              </button>
             </Link>
           </div>
         </div>

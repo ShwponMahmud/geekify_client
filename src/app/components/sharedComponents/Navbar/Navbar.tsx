@@ -92,7 +92,7 @@ export default function Navbar(): JSX.Element {
   return (
     <Disclosure
       as="nav"
-      className="bg-white py-5 fixed top-0 w-full shadow-lg z-50"
+      className="bg-white py-3 fixed top-0 w-full shadow-lg z-50"
     >
       <div className="px-3 md:container mx-auto">
         <div className="relative flex h-16 items-center justify-between">
@@ -105,14 +105,14 @@ export default function Navbar(): JSX.Element {
           </div>
 
           {/* Logo */}
-          <div className="hidden lg:flex items-center">
+          <div className="hidden lg:flex items-center z-[9999]">
             <Link href="/">
               <Image
                 src="/logo.png"
                 alt="Logo"
-                width={200}
-                height={40}
-                className="h-auto w-auto"
+                width={230}
+                height={48}
+                className="h-12 w-[230px]"
               />
             </Link>
           </div>
@@ -139,14 +139,14 @@ export default function Navbar(): JSX.Element {
                 </Link>
 
                 {item?.dropdown && hovered === item?.name && (
-                  <div className="fixed inset-x-0 bg-white shadow-md pt-9 pb-10">
+                  <div className="fixed inset-x-0 bg-white shadow-md pt-14 pb-10">
                     <div className="container mx-auto">
                       {hovered === "Services" && (
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                           {servicesCategory?.map((serviceCategory) => (
                             <div key={serviceCategory?.slug}>
                               <span
-                                className="text-gray-600 hover:text-[#1d5f89] flex items-center gap-1 hover:tracking-[1px] duration-500"
+                                className="text-[#1d5f89] font-semibold flex items-center gap-1 duration-500"
                               >
                                 <BiSolidRightArrow className="text-sm text-[#1d5f89]" />
                                 {serviceCategory?.name}
@@ -161,7 +161,7 @@ export default function Navbar(): JSX.Element {
                                       >
                                         <li
                                           key={service?.name}
-                                          className="cursor-pointer text-gray-600 hover:text-[#1d5f89] flex items-center gap-1 hover:tracking-[1px] duration-500"
+                                          className="cursor-pointer text-gray-600 hover:text-[#1d5f89] flex items-center py-[6px] hover:tracking-[1px] duration-500"
                                         >
                                           {service?.name}
                                         </li>

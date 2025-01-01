@@ -76,7 +76,7 @@ async function CustomerReview() {
     <>
       <div className="container mx-auto py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="lg:w-[60%] text-center mx-auto">
-          <h1 className="text-3xl font-bold text-deepGrayColor text-center mb-5">
+          <h1 className="text-4xl font-bold text-deepGrayColor text-center mb-5">
             Our Customers Review
           </h1>
         </div>
