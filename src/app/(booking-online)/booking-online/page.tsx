@@ -96,7 +96,7 @@ function page() {
           <PaymentDetails />
         )}
 
-        <AfterPay/>
+        {/* <AfterPay/> */}
       </div>
 
       <BookingTermsAndConditions />

@@ -55,11 +55,11 @@ interface CardDetails {
 //   }
 // }
 
-// declare global {
-//   interface Window {
-//     AfterPay?: any; // Update type as per AfterPay SDK
-//   }
-// }
+declare global {
+  interface Window {
+    AfterPay?: any; // Update type as per AfterPay SDK
+  }
+}
 
 type Discount = {
   displayName: string;
@@ -1369,6 +1369,95 @@ export default function Payment() {
     dispatch(paymentOptionSelectedAndProceedToPay(""));
   };
 
+  useEffect(() => {
+    if (typeof window.AfterPay === 'undefined') return;
+
+    window.AfterPay.init({
+      publicKey: 'YOUR_AFTERPAY_PUBLIC_KEY',
+      returnUrl: '/checkout/success',
+      // locale: 'en-US',
+      countryCode: "AU"
+    });
+
+    setIsAfterPayLoaded(true);
+  }, []);
+
+  const handleAfterPayClick = () => {
+    if (isAfterPayLoaded ) {
+      window.AfterPay.open();
+       window.AfterPay.onComplete = async (event:any) => {
+
+        console.log("hello")
+            // if (event.data.status == "SUCCESS") {
+            //   const isCaptureImmediateFullPaymentOfAfterPaySucceed =
+            //     await captureImmediateFullPaymentOfAfterPay();
+            //   if (isCaptureImmediateFullPaymentOfAfterPaySucceed) {
+            //     showToastMessage({
+            //       message: "Payment successful",
+            //       type: "success",
+            //     });
+
+            //     const isPaymentCreated = await createPayment(
+            //       `Temporal reference for customer id : ${customerInformation.id}`
+            //     );
+            //     if (isPaymentCreated) {
+            //       const isAppointmentAfterPayPaymentDone =
+            //         await createAfterPayPayment();
+            //       if (isAppointmentAfterPayPaymentDone) {
+            //         const isAppointmentCreated = await createAppointment();
+            //         if (isAppointmentCreated) {
+            //           putPaymentReference();
+            //           const isAppointmentChargeCreated =
+            //             await createAppointmentCharges();
+            //           if (isAppointmentChargeCreated) {
+            //             const isAppointmentNotesCreated =
+            //               await createAppointmentNotes();
+            //             if (isAppointmentNotesCreated) {
+            //               putUpdatePaymentByOrderId();
+
+            //               const isAppointmentPaymentDone =
+            //                 await createAppointmentPayments();
+            //               if (isAppointmentPaymentDone) {
+            //                 localStorage.removeItem("bookingData");
+            //                 await appointmentCreatorsCreate();
+            //                 appointmentPaymentEmailNotify();
+            //                 appointmentEmailNotify();
+
+            //                 await createAppointmentDiscountStoreList();
+            //                 await appointmentHistory();
+            //                 if (
+            //                   preAppointmentResponse.coupon_discount
+            //                     .validation_status === true
+            //                 ) {
+            //                   await createCouponUsage();
+            //                 }
+
+            //                 await paymentSucceedRedirectHandler();
+            //               }
+            //             }
+            //           }
+            //         }
+            //       }
+            //     }
+            //   }
+            // } else {
+            //   console.log(event);
+            //   // The consumer cancelled the payment or closed the popup window.
+            //   showToastMessage({
+            //     type: "error",
+            //     message: event.data.status,
+            //   });
+            // }
+          };
+
+          // window.AfterPay.transfer({
+          //   token: checkout.token,
+          // });
+    } else {
+      console.warn('AfterPay SDK is not ready.');
+    }
+  };
+
   return (
     <>
       
@@ -1635,7 +1724,15 @@ export default function Payment() {
                 >
                   Pay Now
                 </button>
-              )}
+
+)}
+<div id="afterpay-button">
+      {isAfterPayLoaded ? (
+        <button onClick={handleAfterPayClick}>Buy with AfterPay</button>
+      ) : (
+        <p>Loading AfterPay...</p>
+      )}
+    </div>
             </div>
             <ToastContainer />
           </div>
