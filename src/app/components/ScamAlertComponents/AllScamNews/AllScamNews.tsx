@@ -41,7 +41,10 @@ async function AllScamNews() {
       <div className="all_scam_news_section pb-28">
         <div className="container mx-auto">
           <div className="all_scam_news_content_container">
-            <h2 className="text-3xl font-semibold">Recent Alert:</h2>
+            <div className="flex items-center">
+              <div className="w-[3px] h-[30px] bg-primaryColor mr-[10px]"></div>
+              <h2 className="text-3xl font-semibold">All News:</h2>
+            </div>
             {allScamNews?.map((scamNews) => (
               <Link href={`/scam-alert/${scamNews.slug}`}>
                 <div className="flex flex-col sm:flex-row gap-2 mt-5 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">

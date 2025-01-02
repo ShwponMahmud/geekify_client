@@ -11,13 +11,14 @@ function GeekifyAppStore() {
         <div className="container mx-auto">
           <div className="geekify_app_store_content_container grid lg:grid-cols-2 gap-10 ">
             <div>
-              <h1 className="text-4xl font-semibold">
-                Book Anytime, Anywhere: Download Geekify on App Store for free. 
+              <h1 className="text-3xl lg:text-5xl font-semibold">
+                Book Anytime, Anywhere:{" "}
+                <span className="text-primaryColor">Download Geekify on App Store for free.</span>
               </h1>
 
-              <p className="mt-10 text-grayColor">
+              <p className="mt-10">
                 Find and book your appointment at any time and in any place with
-                our Geekify customer app. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia id mollitia at ab fuga dolorum omnis deserunt! Reiciendis, earum laborum.
+                our Geekify customer app. 
               </p>
               <div className="flex gap-5 mt-10">
                 <Image height={50} src={googlePlayBtnIng} alt="" />
@@ -25,7 +26,13 @@ function GeekifyAppStore() {
               </div>
             </div>
             <div className="justify-items-center">
-              <Image src={appImg} alt="" />
+              <Image
+                src={"/phone-frame.png"}
+                width={512}
+                height={400}
+                className="w-auto h-auto lg:h-[500px]"
+                alt=""
+              />
             </div>
           </div>
         </div>

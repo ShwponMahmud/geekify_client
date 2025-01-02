@@ -25,7 +25,7 @@ function AboutPositionAndBenefit() {
                 alt=""
               />
               <Image
-                className="ml-[50px] md:ml-[150px] lg:ml-[150px] xl:ml-[60px] mt-[-140px] rounded-xl"
+                className="ml-[50px] md:ml-[150px] lg:ml-[50px] xl:ml-[60px] mt-[-85px] md:mt-[-140px] rounded-xl"
                 width={450}
                 src={benefitBanner2}
                 alt=""

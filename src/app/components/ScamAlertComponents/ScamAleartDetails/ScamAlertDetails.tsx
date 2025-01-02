@@ -2,26 +2,37 @@ import Image from "next/image";
 import latestAlertBanner from "../../../../assets/images/latest-scam-banner.jpg";
 import { FaFacebookF } from "react-icons/fa";
 import { FaLinkedinIn, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import LatestScam from "../LatestScam/LatestScam";
+import AllScamNews from "../AllScamNews/AllScamNews";
+import RecentScams from "../RecentScams/RecentScams";
+interface scamDetailsProps {
+  name: string;
+  slug: string;
+  body: string;
+  description: string;
+  title: string
+  image: any;
+}
+interface scamProps {
+  scamDetails: scamDetailsProps;
+}
 
-function ScamAlertDetails() {
+function ScamAlertDetails({scamDetails}: scamProps) {
   return (
     <>
       <div className="container mx-auto mt-28 py-8 md:py-14 lg:py-20 xl:py-28">
-        <div className="scam_alert_details_content_container grid grid-cols-1 xl:grid-cols-3 justify-between gap-10 text-deepGrayColor">
+        <div className="scam_alert_details_content_container grid grid-cols-1 xl:grid-cols-3 justify-between gap-5 text-deepGrayColor">
           <div className="col-span-2 text-black">
-            <h1 className="text-4xl font-bold mb-5">Cryptocurrency Scam</h1>
-            <Image src={latestAlertBanner} alt="" className="rounded-xl" />
-            <p className="mt-5">
-              Cryptocurrency scams use tricks like Ponzi schemes, fake Initial
-              Coin Offerings (ICOs), phishing attacks, or fake investment sites
-              to fool investors. They promise big returns or special deals to
-              get people to give them money or personal details.
-            </p>
-            <h3 className="text-4xl font-bold my-8">
-              Telltale Signs of Cryptocurrency Scam
-            </h3>
+            <h1 className="text-4xl font-bold mb-5">{scamDetails.title}</h1>
+            <Image src={scamDetails.image} alt="" width={400} height={200} className="rounded-xl w-[100%] h-auto" />
+            <h3
+              className="text-xl my-8"
+              dangerouslySetInnerHTML={{
+                __html: scamDetails?.body ?? "",
+              }}
+            ></h3>
 
-            <div className="pb-8">
+            {/* <div className="pb-8">
               <h4 className="text-2xl font-bold">Pressure to Invest</h4>
               <p className="mt-1">
                 Coercive or aggressive strategies pressure individuals into
@@ -97,65 +108,9 @@ function ScamAlertDetails() {
                 Keep learning about different cryptocurrency scams to better
                 spot and avoid them in the market.
               </p>
-            </div>
+            </div> */}
           </div>
-          <div>
-            <h2 className="text-3xl font-semibold">Recent Alert:</h2>
-            <div className="flex gap-2 mt-5 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">
-              <Image width={200} src={latestAlertBanner} alt="" />
-              <p className="py-2 text-[14px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                magni quam veniam.
-              </p>
-            </div>
-            <div className="flex gap-2 mt-5 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">
-              <Image width={200} src={latestAlertBanner} alt="" />
-              <p className="py-2 text-[14px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                magni quam veniam.
-              </p>
-            </div>
-            <div className="flex gap-2 mt-5 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">
-              <Image width={200} src={latestAlertBanner} alt="" />
-              <p className="py-2 text-[14px]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus
-                magni quam veniam.
-              </p>
-            </div>
-            <div className="p-5 mt-10 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">
-              <h4 className="text-[20px] font-semibold">
-                Share with your community!
-              </h4>
-              <div className="social_link mt-5">
-                <div className="flex space-x-[15px] ">
-                  <a
-                    href="#"
-                    className="w-[30px] h-[30px] rounded-[5px] bg-primaryColor text-[#ffffff] flex justify-center items-center"
-                  >
-                    <FaFacebookF />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-[30px] h-[30px] rounded-[5px] bg-primaryColor text-[#ffffff] flex justify-center items-center"
-                  >
-                    <FaLinkedinIn />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-[30px] h-[30px] rounded-[5px] bg-primaryColor text-[#ffffff] flex justify-center items-center"
-                  >
-                    <FaInstagram />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-[30px] h-[30px] rounded-[5px] bg-primaryColor text-[#ffffff] flex justify-center items-center"
-                  >
-                    <FaXTwitter />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <RecentScams/>
         </div>
       </div>
     </>

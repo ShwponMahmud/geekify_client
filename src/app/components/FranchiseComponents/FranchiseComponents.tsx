@@ -17,7 +17,7 @@ function FranchiseComponents() {
                 <Image src='/franchise-1.png' alt='About us image' width={900} height={900} className='w-full h-full' />
               </div>
               <div>
-                <h3 className='text-3xl md:text-4xl xl:text-5xl font-bold pb-3 lg:pb-7 uppercase'>About <span className='text-primaryColor'>Us</span></h3>
+                <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7 uppercase'>About <span className='text-primaryColor'>Us</span></h3>
                 <p className='lg:text-xl'>
                   Geekify was established in early 2017 by a few select talented individuals who aimed to rise as one of Australia's top computer repair companies. Initially starting out as just a repair company, Geekify has branched out to provide various services in different fields, which has resulted in the company being truly dynamic.
                   With a mentality of taking every obstacle in our client’s tech life as a challenge, we send our geeks with one mission in mind: to provide flexibility and over-the-top services in the shortest amount of time possible for the optimal convenience of our customers.
@@ -27,7 +27,7 @@ function FranchiseComponents() {
             </div>
 
             <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
-              <h3 className='text-3xl md:text-4xl xl:text-5xl font-bold pb-3 lg:pb-7'>Why GeeksCRS? The Power of <span className='text-primaryColor'>a Proven Business Model</span></h3>
+              <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7'>Why Geeks CRS? The Power of <span className='text-primaryColor'>a Proven Business Model</span></h3>
               <p className='lg:text-xl'>
                 GeeksCRS has grown from a single idea into a recognized brand for tech solutions. Our success is built on solving real-world IT challenges, from IT support, and software issues to custom app 
                 development, and now we’re sharing this success with you through franchising.
@@ -43,7 +43,7 @@ function FranchiseComponents() {
             </div>
 
             <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
-              <h3 className='text-3xl md:text-4xl xl:text-5xl font-bold pb-3 lg:pb-7 text-center'><span className='text-primaryColor'>Common Mistakes to Avoid </span>When Starting
+              <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7 text-center'><span className='text-primaryColor'>Common Mistakes to Avoid </span>When Starting
                 a Franchise Business</h3>
               <p className='lg:text-xl font-semibold text-center'>
                 Starting a business is challenging, but with GeeksCRS as your partner, you’ll avoid the common pitfalls many face:
@@ -96,7 +96,7 @@ function FranchiseComponents() {
             <div className='container mx-auto text-white py-8 md:py-14 lg:py-20 xl:py-28'>
               <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 xl :gap-0'>
                 <div>
-                  <h3 className='text-3xl md:text-4xl xl:text-5xl font-bold pb-3 lg:pb-7'>How Our Franchisees Benefit <span className='text-primaryColor'>from Geekify’ Success</span></h3>
+                  <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7'>How Our Franchisees Benefit <span className='text-primaryColor'>from Geekify’ Success</span></h3>
                   <p className='text-xl font-medium italic'>As a Geekify franchisee, you’ll enjoy several benefits that will help you grow your business faster and more efficiently:</p>
 
                   <div className='pt-4 pb-5'>
@@ -123,7 +123,7 @@ function FranchiseComponents() {
           <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
             <div>
               <div>
-                <h3 className='text-3xl md:text-4xl xl:text-5xl font-bold pb-3 lg:pb-7'>Why the GeeksCRS Franchise <span className='text-primaryColor'>Model is Set Up for Success</span></h3>
+                <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7'>Why the Geeks CRS Franchise <span className='text-primaryColor'>Model is Set Up for Success</span></h3>
                 <p className='text-xl font-semibold italic'>Our franchise model is unique because it’s built on the pillars of scalability and simplicity. Here’s why it works:</p>
 
                 <div className='pt-4 pb-5'>

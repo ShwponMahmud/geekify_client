@@ -18,7 +18,7 @@ function WhyChooseUsComponents() {
               <Image src="/why-choose-1.png" width={565} height={506} alt='details iamge' className='w-[100%] h-[100%]' />
             </div>
             <div className=''>
-              <h3 className='text-2xl md:text-3xl lg:4xl font-semibold pb-5'>Our <span className='text-primaryColor'>Promise</span></h3>
+              <h3 className='text-2xl md:text-3xl lg:text-4xl font-bold pb-5'>Our <span className='text-primaryColor'>Promise</span></h3>
               <p className='pb-3 lg:pb-5'>Geekify guarantees satisfactory services and happy customers!
               </p>
               <p className='pb-3 lg:pb-5'>
@@ -34,7 +34,7 @@ function WhyChooseUsComponents() {
           
           <div className='grid grid-cols-1 md:grid-cols-2 items-center gap-20 pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
             <div>
-              <h3 className='text-2xl md:text-3xl lg:4xl font-semibold pb-5'>How can we <span className='text-primaryColor'>help you?</span></h3>
+              <h3 className='text-2xl md:text-3xl lg:text-4xl font-bold pb-5'>How can we <span className='text-primaryColor'>help you?</span></h3>
               <p className='pb-3 lg:pb-5 lg:text-xl'>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took 
                 a galley of type and scrambled it to make a type specimen
@@ -49,7 +49,7 @@ function WhyChooseUsComponents() {
             </div>
           </div>
           <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
-            <h3 className='text-2xl md:text-3xl lg:4xl font-semibold pb-5'>Always on <span className='text-primaryColor'>the job</span></h3>
+            <h3 className='text-2xl md:text-3xl lg:text-4xl font-bold pb-5'>Always on <span className='text-primaryColor'>the job</span></h3>
               <p className='pb-3 lg:pb-5 lg:text-xl'>
                 No matter the type of tech trouble you have, whether it be repair, installation, troubleshooting, security or even consultation and regular maintenance work, our geeks leave no 
                 corner unattended – and no customer unhappy!

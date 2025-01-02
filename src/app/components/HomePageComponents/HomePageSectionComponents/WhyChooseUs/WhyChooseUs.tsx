@@ -15,17 +15,15 @@ function WhyChooseUs() {
               <Image className="rounded-lg" src={banner} alt="" />
             </div>
             <div className="why_choose_us_content">
-              <div className="why_choose_us_heading text-4xl font-bold">
-                <h1>Why Choose Us</h1>
+              <div className="why_choose_us_heading text-3xl lg:text-5xl font-bold">
+                <h1>
+                  Why <span className="text-primaryColor">Choose Us</span>
+                </h1>
               </div>
               <div className="why_choose_us_description mt-6">
                 <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Magnam illo minus vel necessitatibus tenetur, doloremque ex
-                  culpa ut atque mollitia unde illum nobis quae laudantium,
-                  dolorum, numquam eaque molestiae vitae voluptatibus eum?
-                  Sapiente, totam exercitationem? Illum dolorem molestias
-                  nesciunt neque.
+                  Your satisfaction is our goal. If you’re not happy. Please let
+                  us know, we will work with you to make it right.
                 </p>
 
                 <ul className="my-8">

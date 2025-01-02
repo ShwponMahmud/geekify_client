@@ -2,7 +2,7 @@ import React from 'react'
 
 function TermsAndConditions() {
   return (
-    <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28 space-y-6 font-medium'>
+    <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28 mt-[100px] space-y-6 font-medium'>
       <h2 className='text-4xl font-bold'>Terms and Conditions</h2>
       <p className='text-primaryColor underline'>Notice for repairs</p>
       <p>- Items brought for repair may be replaced with identical refurbished items.</p>
