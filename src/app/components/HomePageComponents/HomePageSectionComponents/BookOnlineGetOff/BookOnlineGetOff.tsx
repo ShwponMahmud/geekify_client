@@ -13,8 +13,8 @@ function BookOnlineGetOff() {
       <div className="book_online_get_off_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
           <div className="w-full lg:w-[60%] mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-6">
-              Book online and get <span className="text-primaryColor">10%</span> off
+            <h1 className="text-3xl lg:text-5xl font-bold mb-6 capitalize">
+              Book online and get <span className="text-primaryColor">15%</span> off
             </h1>
             <p className="text-primaryColor">Easiest way to get a service</p>
           </div>
@@ -39,19 +39,13 @@ function BookOnlineGetOff() {
               </div>
               <h4 className="mt-5 font-semibold">Provide details</h4>
             </div>
-            <BsArrowRight className="text-3xl text-grayColor" />
-            <div className="justify-items-center text-grayColor hover:text-primaryColor">
-              <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
-                <MdPayment className="text-4xl" />
-              </div>
-              <h4 className="mt-5 font-semibold">Make payment</h4>
-            </div>
+            
             <BsArrowRight className="text-3xl text-grayColor" />
             <div className="justify-items-center text-grayColor hover:text-primaryColor">
               <div className="w-16 h-16  border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center   hover:bg-primaryColor hover:text-white">
                 <GrUserSettings className=" text-4xl" />
               </div>
-              <h4 className="mt-5 font-semibold">Geeks on your way</h4>
+              <h4 className="mt-5 font-semibold">Geeks on their way</h4>
             </div>
           </div>
         </div>

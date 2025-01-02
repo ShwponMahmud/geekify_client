@@ -79,8 +79,8 @@ async function CustomerSpeakForUs() {
     <>
       <div className="customer_speak_for_us_section">
         <div className="container mx-auto">
-          <div className="w-full lg:w-[60%] mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-5 capitalize">
+          <div className="w-full lg:w-[70%] mx-auto text-center">
+            <h1 className="text-3xl lg:text-5xl font-bold mb-5 capitalize">
               let Our customers <span className="text-primaryColor">speak for us</span>
             </h1>
           </div>
@@ -98,14 +98,14 @@ async function CustomerSpeakForUs() {
                 </div>
 
                 <div className="customer_name_title">
-                  <h4 className="text-xl font-semibold">
+                  <h4 className="text-2xl font-semibold">
                     {customerReview?.user?.full_name}
                   </h4>
                   <p className="text-[14px] text-grayColor">
                     {customerReview?.created_at}
                   </p>
                 </div>
-                <div className="customer_message">
+                <div className="customer_message text-xl">
                   {TruncateText(customerReview?.comment, 20)}
                 </div>
 

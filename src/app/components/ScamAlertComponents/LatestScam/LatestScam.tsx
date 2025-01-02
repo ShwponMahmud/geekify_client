@@ -41,22 +41,35 @@ async function LatestScam() {
       <div className="latest_scam_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
           <div className="latest_scam_content_container grid grid-cols-1 lg:grid-cols-2 justify-between gap-10 text-deepGrayColor">
-            {latestScamNews?.map((singleScamNews) => (
-              <Link href={`/scam-alert/${singleScamNews.slug}`}>
-                <div>
-                  <Image
-                    src={singleScamNews.image}
-                    alt=""
-                    className="rounded-xl w-full max-h-[400px]"
-                    width={600}
-                    height={550}
-                  />
-                  <p className="mt-5">{singleScamNews.excerpt}</p>
-                </div>
-              </Link>
-            ))}
             <div>
-              <h2 className="text-3xl font-semibold">Latest Alert:</h2>
+              <div className="flex items-center pb-5">
+                <div className="w-[3px] h-[30px] bg-primaryColor mr-[10px]"></div>
+                <h2 className="text-3xl font-semibold">
+                  Most Common Scam:
+                </h2>
+              </div>
+              {latestScamNews?.map((singleScamNews) => (
+                <Link href={`/scam-alert/${singleScamNews.slug}`}>
+                  <div>
+                    <Image
+                      src={singleScamNews.image}
+                      alt=""
+                      className="rounded-xl w-full max-h-[400px]"
+                      width={600}
+                      height={550}
+                    />
+                    <p className="mt-5">{singleScamNews.excerpt}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div>
+              <div className="flex items-center">
+                <div className="w-[3px] h-[30px] bg-primaryColor mr-[10px]"></div>
+                <h2 className="text-3xl font-semibold">
+                  Recent Scam:
+                </h2>
+              </div>
               {recentScamNews?.map((scamNews) => (
                 <Link href={`/scam-alert/${scamNews.slug}`}>
                   <div className="flex flex-col sm:flex-row gap-2 mt-5 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">

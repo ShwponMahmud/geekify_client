@@ -1,7 +1,7 @@
 import React from 'react'
-import Showcase from '../../Showcase/Showcase'
-import Accordion from '../../sharedComponents/Accordion/Accordion';
-import QuickContact from '../../sharedComponents/QuickContact/QuickContact';
+import Showcase from '../Showcase/Showcase'
+import Accordion from '../sharedComponents/Accordion/Accordion';
+import QuickContact from '../sharedComponents/QuickContact/QuickContact';
 
 function FAQs() {
   const faqItems = [

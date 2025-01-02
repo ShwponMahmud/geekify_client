@@ -8,10 +8,10 @@ function BottomFooter() {
         <div className="block lg:flex justify-between items-center gap-5">
           <div className="flex justify-center items-center lg:block">
             <Image
-              src={"/bottom-footer/Powered-by-sass.png"}
-              width={200}
-              height={100}
-              className="w-auto h-auto"
+              src={"/logos/geekify-saas.png"}
+              width={800}
+              height={500}
+              className="w-[250px] h-[55px]"
               alt="bottom footer logo"
             />
           </div>
@@ -19,31 +19,31 @@ function BottomFooter() {
             <p className="text-white font-semibold text-center">We Accept</p>
             <div className="flex justify-center items-center gap-2 py-2">
               <Image
-                src={"/bottom-footer/visa.webp"}
-                width={130}
-                height={100}
-                className="w-auto h-auto"
+                src={"/logos/visa.png"}
+                width={830}
+                height={400}
+                className="w-[55px] h-auto"
                 alt="visa card"
               />
               <Image
-                src={"/bottom-footer/master-card.webp"}
-                width={130}
-                height={100}
-                className="w-auto h-auto"
+                src={"/logos/master-card.png"}
+                width={830}
+                height={400}
+                className="w-[55px] h-auto"
                 alt="visa card"
               />
               <Image
-                src={"/bottom-footer/american-express.png"}
-                width={130}
-                height={100}
-                className="w-auto h-auto"
+                src={"/logos/american-express.png"}
+                width={830}
+                height={400}
+                className="w-[55px] h-auto"
                 alt="visa card"
               />
               <Image
-                src={"/bottom-footer/after-pay.webp"}
-                width={130}
-                height={100}
-                className="w-auto h-auto"
+                src={"/logos/after-pay.png"}
+                width={830}
+                height={400}
+                className="w-[55px] h-auto"
                 alt="visa card"
               />
             </div>

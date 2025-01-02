@@ -1,4 +1,4 @@
-import FAQs from '@/app/components/HomePageComponents/FAQs/FAQs'
+import FAQs from '@/app/components/FAQs/FAQs'
 import React from 'react'
 
 function page() {

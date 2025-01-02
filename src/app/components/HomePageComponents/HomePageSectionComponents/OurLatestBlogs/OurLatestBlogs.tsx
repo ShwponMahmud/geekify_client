@@ -55,7 +55,7 @@ const OurLatestBlogs = async () => {
       <div className="our_latest_blogs_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
           <div className="our_latest_blogs_heading_container w-full lg:w-120 m-auto text-center mb-12">
-            <h1 className="text-4xl font-bold mb-5">
+            <h1 className="text-3xl lg:text-5xl font-bold mb-5">
               Our Latest <span className="text-primaryColor">Blogs</span>
             </h1>
             <p>
@@ -79,7 +79,7 @@ const OurLatestBlogs = async () => {
                   />
                 </div>
                 <div className="p-4 ">
-                  <h2 className="text-[18px] font-semibold text-gray-900">
+                  <h2 className="text-[23px] font-semibold text-gray-900">
                     {blog?.title}
                   </h2>
                   <div className=" mt-5 ">

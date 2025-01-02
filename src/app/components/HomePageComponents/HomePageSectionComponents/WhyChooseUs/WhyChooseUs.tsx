@@ -15,7 +15,7 @@ function WhyChooseUs() {
               <Image className="rounded-lg" src={banner} alt="" />
             </div>
             <div className="why_choose_us_content">
-              <div className="why_choose_us_heading text-4xl font-bold">
+              <div className="why_choose_us_heading text-3xl lg:text-5xl font-bold">
                 <h1>
                   Why <span className="text-primaryColor">Choose Us</span>
                 </h1>

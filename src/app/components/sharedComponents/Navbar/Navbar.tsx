@@ -57,10 +57,11 @@ export default function Navbar(): JSX.Element {
   const [servicesCategory, setServicesCategory] = useState<Service[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
   const [hoveredMainArea, setHoveredMainArea] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (hovered === "Services") {
       const fetchServices = async () => {
+        setLoading(true);
         try {
           const response = await fetch(
             `${baseUrl}/service-categories?status=1&with_relation[]=services.media&order_by_website_sort_order=ASC&show_website=1&with_relation[]=media&source=[10]`,
@@ -80,14 +81,13 @@ export default function Navbar(): JSX.Element {
           setServicesCategory(responseData.data || []);
         } catch (error) {
           console.error("Error fetching services:", error);
+        } finally{
+          setLoading(false);
         }
       };
 
       fetchServices();
-    }
-  }, [hovered]);
-
-  console.log(servicesCategory);
+  }, []);
 
   return (
     <Disclosure
@@ -108,11 +108,11 @@ export default function Navbar(): JSX.Element {
           <div className="hidden lg:flex items-center z-[9999]">
             <Link href="/">
               <Image
-                src="/logo.png"
+                src="/logos/main-logo.png"
                 alt="Logo"
-                width={230}
-                height={48}
-                className="h-12 w-[230px]"
+                width={700}
+                height={308}
+                className="h-14 w-[250px]"
               />
             </Link>
           </div>
@@ -134,7 +134,7 @@ export default function Navbar(): JSX.Element {
                 >
                   {item.name}
                   {item.dropdown && (
-                    <MdKeyboardArrowDown className="inline-block text-3xl text-primaryColor" />
+                    <MdKeyboardArrowDown className="inline-block text-3xl text-primaryColor mt-[-5px]" />
                   )}
                 </Link>
 
@@ -142,37 +142,42 @@ export default function Navbar(): JSX.Element {
                   <div className="fixed inset-x-0 bg-white shadow-md pt-14 pb-10">
                     <div className="container mx-auto">
                       {hovered === "Services" && (
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                          {servicesCategory?.map((serviceCategory) => (
-                            <div key={serviceCategory?.slug}>
-                              <span
-                                className="text-[#1d5f89] font-semibold flex items-center gap-1 duration-500"
-                              >
-                                <BiSolidRightArrow className="text-sm text-[#1d5f89]" />
-                                {serviceCategory?.name}
-                              </span>
-                              <ul className="ml-4 mt-3 text-[15px] ">
-                                {serviceCategory?.services.map((service) => (
-                                  <>
-                                    {serviceCategory?.status ===
-                                      service?.show_website && (
-                                      <Link
-                                        href={`/services/${service?.slug}`}
-                                      >
-                                        <li
-                                          key={service?.name}
-                                          className="cursor-pointer text-gray-600 hover:text-[#1d5f89] flex items-center py-[6px] hover:tracking-[1px] duration-500"
-                                        >
-                                          {service?.name}
-                                        </li>
-                                      </Link>
-                                    )}
-                                  </>
-                                ))}
-                              </ul>
+                        <>
+                          {loading && (
+                            <div className="text-center text-xl text-[#1d5f89] font-semibold">
+                              Loading...
                             </div>
-                          ))}
-                        </div>
+                          )}
+                          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {servicesCategory?.map((serviceCategory) => (
+                              <div key={serviceCategory?.slug}>
+                                <span className="text-[#1d5f89] font-semibold flex items-center gap-1 duration-500">
+                                  <BiSolidRightArrow className="text-sm text-[#1d5f89]" />
+                                  {serviceCategory?.name}
+                                </span>
+                                <ul className="ml-4 mt-3 text-[15px] ">
+                                  {serviceCategory?.services.map((service) => (
+                                    <>
+                                      {serviceCategory?.status ===
+                                        service?.show_website && (
+                                        <Link
+                                          href={`/services/${service?.slug}`}
+                                        >
+                                          <li
+                                            key={service?.name}
+                                            className="cursor-pointer text-gray-600 hover:text-[#1d5f89] flex items-center py-[6px] hover:tracking-[1px] duration-500"
+                                          >
+                                            {service?.name}
+                                          </li>
+                                        </Link>
+                                      )}
+                                    </>
+                                  ))}
+                                </ul>
+                              </div>
+                            ))}
+                          </div>
+                        </>
                       )}
 
                       {hovered === "Service Areas" && (
@@ -221,25 +226,25 @@ export default function Navbar(): JSX.Element {
             ))}
           </div>
 
-            <div className=" text-[14px]">
-              <a href="/booking-online" className="animated-button">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Book Online
-                <br />
-                <strong>
-                  {" "}
-                  And Get{" "}
-                  <strong className="animate-pulse text-[16px] font-extrabold text-[#303030]">
-                    15%
-                  </strong>{" "}
-                  Off
-                </strong>
-              </a>
-            </div>
+          <div className=" text-[16px]">
+            <a href="/booking-online" className="animated-button">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Book Online
+              <br />
+              <strong>
+                {" "}
+                And Get{" "}
+                <strong className="animate-pulse text-[16px] font-extrabold text-[#303030]">
+                  15%
+                </strong>{" "}
+                Off
+              </strong>
+            </a>
           </div>
+        </div>
       </div>
 
       {/* Mobile Menu */}

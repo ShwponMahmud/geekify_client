@@ -2,7 +2,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 
 import "swiper/css";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import Link from "next/link";
 const Slider = () => {
   return (
     <div className="">
-      <div className="mt-[100px]">
+      <div className="mt-[88px]">
         <Swiper
           slidesPerView={1}
           autoplay={{
@@ -19,7 +19,8 @@ const Slider = () => {
           }}
           speed={3000}
           loop={true}
-          modules={[Autoplay, Pagination, Navigation]}
+          navigation={true}
+          modules={[Autoplay, Navigation]}
         >
           <SwiperSlide
             style={{
