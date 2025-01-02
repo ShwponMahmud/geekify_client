@@ -4,6 +4,7 @@ import BookingOnlineWelcome from "@/app/components/BookingOnlineComponents/Booki
 import ChooseDateTime from "@/app/components/BookingOnlineComponents/ChooseDateTime/ChooseDateTime";
 import ContactInformation from "@/app/components/BookingOnlineComponents/ContactInformation/ContactInformation";
 import EnterPhoneSendCode from "@/app/components/BookingOnlineComponents/EnterPhoneSendCode/EnterPhoneSendCode";
+import AfterPay from "@/app/components/BookingOnlineComponents/Payment/AfterPay";
 import PaymentDetails from "@/app/components/BookingOnlineComponents/PaymentDetails/PaymentDetails";
 import PaymentOptions from "@/app/components/BookingOnlineComponents/PaymentOptions/PaymentOptions";
 import ServiceBookingSummery from "@/app/components/BookingOnlineComponents/ServiceBookingSummery/ServiceBookingSummery";
@@ -15,6 +16,7 @@ import {
   GetAfterPaySurcharge,
   GetCardSurcharge,
 } from "@/app/rtk-state/reducers/paymentSlice";
+// import { GetSettings} from "@/app/rtk-state/reducers/SettingSlice";
 import { baseUrl } from "@/assets/baseUrl";
 import { useEffect, useState } from "react";
 
@@ -24,11 +26,19 @@ function page() {
   const bookingInfo = useAppSelector((state) => state?.booking);
   const dispatch = useAppDispatch();
   const [services, setServices] = useState<any>([]);
+  // const [settingsGet, setSettingsGet] = useState<boolean>(true);
 
   useEffect(() => {
     dispatch(GetCardSurcharge());
     dispatch(GetAfterPaySurcharge());
   }, []);
+
+  // useEffect(() => {
+  //   if (settingsGet === true) {
+  //     dispatch(GetSettings());
+  //     setSettingsGet(false);
+  //   }
+  // }, [settingsGet]);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -85,7 +95,10 @@ function page() {
         {bookingInfo?.paymentOptionSelectedAndProceedToPay === "next" && (
           <PaymentDetails />
         )}
+
+        <AfterPay/>
       </div>
+
       <BookingTermsAndConditions />
     </>
   );

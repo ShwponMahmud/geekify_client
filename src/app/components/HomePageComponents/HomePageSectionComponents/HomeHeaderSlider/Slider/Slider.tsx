@@ -15,7 +15,7 @@ const Slider = () => {
         <Swiper
           slidesPerView={1}
           autoplay={{
-            delay: 4000,
+            delay: 3000,
             disableOnInteraction: false,
           }}
           speed={3000}
@@ -45,16 +45,13 @@ const Slider = () => {
                 <p className="mt-8 text-xl">
                   One-stop solution for your IT needs, Order any service,
                   anytime.
-                  One-stop solution for your IT needs, Order any service,
-                  anytime.
+                  
                 </p>
                 <div className="btn_container">
                   <Link href="/booking-online">
                     <button className="bookNowBtn">Book Now</button>
                   </Link>
-                  <Link href="/booking-online">
-                    <button className="bookNowBtn">Book Now</button>
-                  </Link>
+                  
                 </div>
               </div>
             </div>
@@ -83,16 +80,13 @@ const Slider = () => {
                 <p className="mt-8 text-xl">
                   One-stop solution for your IT needs, Order any service,
                   anytime.
-                  One-stop solution for your IT needs, Order any service,
-                  anytime.
+                  
                 </p>
                 <div className="btn_container">
                   <Link href="/booking-online">
                     <button className="bookNowBtn">Book Now</button>
                   </Link>
-                  <Link href="/booking-online">
-                    <button className="bookNowBtn">Book Now</button>
-                  </Link>
+                 
                 </div>
               </div>
             </div>

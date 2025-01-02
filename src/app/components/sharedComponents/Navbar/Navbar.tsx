@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { BiSolidRightArrow } from "react-icons/bi";
 import "./Navbar.css";
+import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { GetSettings } from "@/app/rtk-state/reducers/SettingSlice";
 
 interface Service {
   slug: string;
@@ -57,6 +59,8 @@ export default function Navbar(): JSX.Element {
   const [servicesCategory, setServicesCategory] = useState<Service[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
   const [hoveredMainArea, setHoveredMainArea] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const [settingsGet, setSettingsGet] = useState<boolean>(true);
 
   useEffect(() => {
     if (hovered === "Services") {
@@ -87,7 +91,12 @@ export default function Navbar(): JSX.Element {
     }
   }, [hovered]);
 
-  console.log(servicesCategory);
+  useEffect(() => {
+    if (settingsGet === true) {
+      dispatch(GetSettings);
+      setSettingsGet(false);
+    }
+  }, [settingsGet]);
 
   return (
     <Disclosure
@@ -145,9 +154,7 @@ export default function Navbar(): JSX.Element {
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
                           {servicesCategory?.map((serviceCategory) => (
                             <div key={serviceCategory?.slug}>
-                              <span
-                                className="text-gray-600 hover:text-[#1d5f89] flex items-center gap-1 hover:tracking-[1px] duration-500"
-                              >
+                              <span className="text-gray-600 hover:text-[#1d5f89] flex items-center gap-1 hover:tracking-[1px] duration-500">
                                 <BiSolidRightArrow className="text-sm text-[#1d5f89]" />
                                 {serviceCategory?.name}
                               </span>
@@ -156,9 +163,7 @@ export default function Navbar(): JSX.Element {
                                   <>
                                     {serviceCategory?.status ===
                                       service?.show_website && (
-                                      <Link
-                                        href={`/services/${service?.slug}`}
-                                      >
+                                      <Link href={`/services/${service?.slug}`}>
                                         <li
                                           key={service?.name}
                                           className="cursor-pointer text-gray-600 hover:text-[#1d5f89] flex items-center gap-1 hover:tracking-[1px] duration-500"
@@ -201,7 +206,7 @@ export default function Navbar(): JSX.Element {
                                       {area?.districtAreas &&
                                         area?.districtAreas.map((item) => (
                                           <Link
-                                            href={item?.slug}
+                                            href={`/service-areas/${area?.slug}/${item?.slug}`}
                                             className="cursor-pointer ml-4 hover:tracking-[1px] hover:text-[#1d5f89] duration-500"
                                           >
                                             {item?.name}
@@ -221,25 +226,25 @@ export default function Navbar(): JSX.Element {
             ))}
           </div>
 
-            <div className=" text-[14px]">
-              <a href="/booking-online" className="animated-button">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Book Online
-                <br />
-                <strong>
-                  {" "}
-                  And Get{" "}
-                  <strong className="animate-pulse text-[16px] font-extrabold text-[#303030]">
-                    15%
-                  </strong>{" "}
-                  Off
-                </strong>
-              </a>
-            </div>
+          <div className=" text-[14px]">
+            <a href="/booking-online" className="animated-button">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Book Online
+              <br />
+              <strong>
+                {" "}
+                And Get{" "}
+                <strong className="animate-pulse text-[16px] font-extrabold text-[#303030]">
+                  15%
+                </strong>{" "}
+                Off
+              </strong>
+            </a>
           </div>
+        </div>
       </div>
 
       {/* Mobile Menu */}
