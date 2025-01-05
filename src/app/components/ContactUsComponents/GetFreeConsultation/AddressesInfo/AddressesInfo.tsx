@@ -167,7 +167,7 @@ export default function AddressesInfo() {
       state: matchState?.short_name,
     };
 
-    dispatch(SubmitAddressInfo(AddressInfoForSubmit)).unwrap();
+    // dispatch(SubmitAddressInfo(AddressInfoForSubmit)).unwrap();
   };
 
   return (

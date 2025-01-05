@@ -33,6 +33,12 @@ export interface PaymentState {
   UndecidedEmailNotifyCreateResData: any;
   afterPaySetMinimumAmount: any;
   afterPaySetMaximumAmount: any;
+  afterPayCreateCheckoutResData: any;
+  captureImmediateFullPaymentOfAfterPayStatus: any;
+  postPaymentAfterAfterPayResData: any;
+  postAfterAfterPayPaymentsResData: any;
+  postAppointmentAfterAfterPayResData: any;
+  AppointmentDiscountStoreListCreateAFterPayResData: any;
 }
 
 const initialState: PaymentState = {
@@ -65,6 +71,12 @@ const initialState: PaymentState = {
   UndecidedEmailNotifyCreateResData: {},
   afterPaySetMinimumAmount: {},
   afterPaySetMaximumAmount: {},
+  afterPayCreateCheckoutResData: {},
+  captureImmediateFullPaymentOfAfterPayStatus:{},
+  postPaymentAfterAfterPayResData: {},
+  postAppointmentAfterAfterPayResData:{},
+  postAfterAfterPayPaymentsResData:{},
+  AppointmentDiscountStoreListCreateAFterPayResData:{}
 };
 
 // card token create..................
@@ -226,7 +238,7 @@ export interface createCardPaymentsFormData {
   paid_by: number | any;
   card_type: string;
   amount: number;
-  card_surcharge: number | any;
+  card_surcharge:  any;
   payment_gateway: string;
   payment_gateway_id: number | any;
   status: number;
@@ -702,6 +714,42 @@ export const paymentSlice = createSlice({
     ) => {
       state.afterPaySetMaximumAmount = action.payload;
     },
+    afterPayCreateCheckoutResData: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.afterPayCreateCheckoutResData = action.payload;
+    },
+    captureImmediateFullPaymentOfAfterPayStatus: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.captureImmediateFullPaymentOfAfterPayStatus = action.payload;
+    },
+    postPaymentAfterAfterPayResData: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.postPaymentAfterAfterPayResData = action.payload;
+    },
+    postAfterAfterPayPaymentsResData: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.postAfterAfterPayPaymentsResData = action.payload;
+    },
+    postAppointmentAfterAfterPayResData: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.postAppointmentAfterAfterPayResData = action.payload;
+    },
+    AppointmentDiscountStoreListCreateAFterPayResData: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.AppointmentDiscountStoreListCreateAFterPayResData = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -1071,7 +1119,13 @@ export const {
   paymentOptionHalfAmountAfterDiscount,
   paymentOptionQuarterAmountAfterDiscount,
   afterPaySetMinimumAmount,
-  afterPaySetMaximumAmount
+  afterPaySetMaximumAmount,
+  afterPayCreateCheckoutResData,
+  captureImmediateFullPaymentOfAfterPayStatus,
+  postPaymentAfterAfterPayResData,
+  postAfterAfterPayPaymentsResData,
+  postAppointmentAfterAfterPayResData,
+  AppointmentDiscountStoreListCreateAFterPayResData
 } = paymentSlice.actions;
 
 // Selector

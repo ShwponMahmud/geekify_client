@@ -3,12 +3,15 @@ import "./Payment.css";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { ToastContainer, toast } from "react-toastify";
 import {
+  afterPayCreateCheckoutResData,
   afterPaySetMaximumAmount,
   afterPaySetMinimumAmount,
   AppointmentCreationNotify,
   AppointmentDiscountStoreListCreate,
+  AppointmentDiscountStoreListCreateAFterPayResData,
   AppointmentHistoryCreate,
   AppointmentQuestionSubmitCreate,
+  captureImmediateFullPaymentOfAfterPayStatus,
   CardTokenCreate,
   CouponDiscountCreate,
   CreateAppointmentCreator,
@@ -23,6 +26,9 @@ import {
   GetCardSurcharge,
   PaymentCreationNotify,
   PaymentsCreateByToken,
+  postAfterAfterPayPaymentsResData,
+  postAppointmentAfterAfterPayResData,
+  postPaymentAfterAfterPayResData,
 } from "@/app/rtk-state/reducers/paymentSlice";
 import {
   formatDate,
@@ -199,32 +205,66 @@ export default function Payment() {
   };
 
   // Function to calculate surcharge
-  const calculateSurcharge = (
-    amount: number,
-    rate: number
-  ): { newTotal: number } => {
-    const newTotal = amount + amount * rate;
-    return { newTotal };
+  const calculateSurcharge = (totalAmount: any, percentageRate: any) => {
+    const surchargeAmount = Math.round(
+      (parseInt(totalAmount) * parseFloat(percentageRate)) / 100
+    );
+    const newTotal = parseInt(totalAmount) + surchargeAmount;
+
+    return {
+      totalAmount: parseInt(totalAmount),
+      percentageRate: parseFloat(percentageRate),
+      percentageAmount: surchargeAmount,
+      newTotal: newTotal,
+    };
   };
+
+  // type SurchargeResult = {
+  //   totalAmount: number;
+  //   percentageRate: number;
+  //   percentageAmount: number;
+  //   newTotal: number;
+  // };
+
+  // const calculateSurcharge = (
+  //   totalAmount: number | string,
+  //   percentageRate: number | string
+  // ): SurchargeResult => {
+  //   // Convert inputs to numbers
+  //   const total = Number(totalAmount);
+  //   const rate = Number(percentageRate);
+
+  //   // Validate inputs
+  //   if (isNaN(total) || isNaN(rate)) {
+  //     throw new Error("Both totalAmount and percentageRate must be valid numbers.");
+  //   }
+
+  //   // Calculate surcharge and new total
+  //   const percentageAmount = (total * rate) / 100;
+  //   const newTotal = total + percentageAmount;
+
+  //   // Return the result with rounded values for precision
+  //   return {
+  //     totalAmount: total,
+  //     percentageRate: rate,
+  //     percentageAmount: parseFloat(percentageAmount.toFixed(2)),
+  //     newTotal: parseFloat(newTotal.toFixed(2)),
+  //   };
+  // };
 
   // Function to create a checkout request
   const createCheckout = async (data: any): Promise<any> => {
     const path = `${baseUrl}/afterpay-payment-gateways/checkouts`;
 
     return axios
-      .post(
-        path,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "Client-Secret": "secret",
-          },
-        }
-        
-      )
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
       .then((response) => {
-        // dispatch('commitSetCheckout', response.data);
+        dispatch(afterPayCreateCheckoutResData(response?.data));
 
         console.log(response.data);
 
@@ -243,7 +283,53 @@ export default function Payment() {
 
   // Function to capture immediate full payment
   const captureImmediateFullPayment = async (data: any): Promise<any> => {
-    // Replace with logic to capture immediate full payment
+    const path = `${baseUrl}/afterpay-payment-gateways/payments/immediate/capture`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        dispatch(captureImmediateFullPaymentOfAfterPayStatus(response.data));
+
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+          data: response.data.data,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  // create new payment by api call.
+  const postPayment = (data: any) => {
+    const path = `${baseUrl}/payments`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        dispatch(postPaymentAfterAfterPayResData(response.data));
+
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
   };
 
   // Function to handle payment failure redirection
@@ -282,25 +368,16 @@ export default function Payment() {
     return false;
   };
 
-  const paidAmount =
-    bookingInfo?.bookingSummerySubmitResData?.grand_total / 100;
+  const paidAmount = bookingInfo?.bookingSummerySubmitResData?.grand_total;
 
   const afterPayPaymentConfiguration = async (): Promise<boolean> => {
     loader(true);
 
-    // const isAmountValid =
-    //   paymentInfo?.afterPaySetMinimumAmount?.amount &&
-    //   paymentInfo?.afterPaySetMaximumAmount?.amount &&
-    //   paidAmount / 100 >= paymentInfo?.afterPaySetMinimumAmount?.amount &&
-    //   paidAmount / 100 <= paymentInfo?.afterPaySetMaximumAmount?.amount;
-
-    // if (isAmountValid) {
-    //   loader(false);
+    // if (paymentInfo?.afterPaySetMinimumAmount?.amount && paymentInfo?.afterPaySetMaximumAmount?.amount && (paidAmount / 100) >= paymentInfo?.afterPaySetMinimumAmount?.amount && (paidAmount / 100) <= paymentInfo?.afterPaySetMaximumAmount?.amount) {
     //   return true;
     // }
 
     const response = await getConfiguration();
-    console.log(response);
 
     loader(false);
 
@@ -336,11 +413,11 @@ export default function Payment() {
   );
 
   const amountWithSurcharge = calculateSurcharge(
-    paidAmount,
+    bookingInfo?.bookingSummerySubmitResData?.grand_total,
     paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
   ).newTotal;
 
-  const data = {
+  const afterCheckoutData = {
     amount: {
       amount: (amountWithSurcharge / 100).toFixed(2).toString(),
       currency: "AUD",
@@ -362,8 +439,8 @@ export default function Payment() {
     billing: {
       name: `${
         userInfo?.userInfo?.first_name
-        ? userInfo?.userInfo?.first_name
-        : users?.user?.[0]?.first_name
+          ? userInfo?.userInfo?.first_name
+          : users?.user?.[0]?.first_name
       } ${
         userInfo?.userInfo?.last_name
           ? userInfo?.userInfo?.last_name
@@ -441,58 +518,82 @@ export default function Payment() {
       currency: "AUD",
     },
 
-    discounts: [] as Discount[]
-
+    discounts: [] as Discount[],
   };
 
-
-  if (bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status || bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.applied_status || bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status) {
-    data.discounts = [];
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status ||
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status ||
+    bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+  ) {
+    afterCheckoutData.discounts = [];
   }
 
   if (
     bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status ||
-    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.applied_status ||
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status ||
     bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
   ) {
-    data.discounts = [] ;
+    afterCheckoutData.discounts = [];
   }
 
-  if (bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status) {
-    data.discounts.push({
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+  ) {
+    afterCheckoutData.discounts.push({
       displayName: `Coupon (${bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.coupon_code})`,
       amount: {
-        amount: (bookingInfo?.bookingSummerySubmitResData?.coupon_discount.amount / 100).toString(),
+        amount: (
+          bookingInfo?.bookingSummerySubmitResData?.coupon_discount.amount / 100
+        ).toString(),
         currency: "AUD",
       },
     });
   }
 
-  if (bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.applied_status) {
-    data.discounts.push({
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status
+  ) {
+    afterCheckoutData.discounts.push({
       displayName: `Online Appointment Discount`,
       amount: {
-        amount: (bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.amount / 100).toString(),
+        amount: (
+          bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+            ?.amount / 100
+        ).toString(),
         currency: "AUD",
       },
     });
   }
 
-  if (bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status) {
-    data.discounts.push({
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status
+  ) {
+    afterCheckoutData.discounts.push({
       displayName: `Appointment Parking Discount`,
       amount: {
-        amount: (bookingInfo?.bookingSummerySubmitResData?.parking_discount.amount / 100).toString(),
+        amount: (
+          bookingInfo?.bookingSummerySubmitResData?.parking_discount.amount /
+          100
+        ).toString(),
         currency: "AUD",
       },
     });
   }
 
-  if (bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status) {
-    data.discounts.push({
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+  ) {
+    afterCheckoutData.discounts.push({
       displayName: `Appointment Loyalty Discount`,
       amount: {
-        amount: (bookingInfo?.bookingSummerySubmitResData?.loyalty_discount.amount / 100).toString(),
+        amount: (
+          bookingInfo?.bookingSummerySubmitResData?.loyalty_discount.amount /
+          100
+        ).toString(),
         currency: "AUD",
       },
     });
@@ -501,7 +602,7 @@ export default function Payment() {
   const afterPayPaymentCheckout = async (): Promise<boolean> => {
     loader(true);
 
-    const response = await createCheckout(data);
+    const response = await createCheckout(afterCheckoutData);
     loader(false);
 
     if (response.status === 201 || response.status === 200) return true;
@@ -522,8 +623,6 @@ export default function Payment() {
   //   paidAmount,
   //   paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
   // ).newTotal;
-
-  
 
   // const afterPayPaymentCheckout = async (): Promise<boolean> => {
   //   loader(true);
@@ -639,10 +738,9 @@ export default function Payment() {
   //   });
   // }
 
-
   //   const response = await createCheckout(data);
   //   loader(false);
-    
+
   //   if (response.status === 201) return true;
 
   //   if (response.message) showToastMessage(response.message);
@@ -653,24 +751,775 @@ export default function Payment() {
   //   ) {
   //     await paymentFailedRedirectHandler();
   //   }
-  
+
   //   return false;
   // };
 
+  const token = {
+    token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+  };
 
-  const [isAfterPayLoaded, setIsAfterPayLoaded] = useState<boolean>(false);
+  const captureImmediateFullPaymentOfAfterPay = async () => {
+    loader(true);
+    const response = await captureImmediateFullPayment(token);
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined' && typeof window.AfterPay !== 'undefined') {
-  //     window.AfterPay.initialize({
-  //       publicKey: 'https://portal.sandbox.afterpay.com/afterpay.js',
-  //       returnUrl: '/checkout/success',
-  //       locale: 'AU',
-  //     });
-  //     setIsAfterPayLoaded(true);
-  //   }
-  // }, []);
+    loader(false);
+    if (response.message) {
+      showToastMessage(response);
+    }
 
+    if (
+      paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.status !==
+      "APPROVED"
+    ) {
+      console.log("ok");
+      showToastMessage({
+        type: "error",
+        message:
+          paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data
+            ?.status + " : Payment is declined by the Afterpay",
+      });
+    }
+    if (
+      paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.status ===
+      "APPROVED"
+    ) {
+      showToastMessage({
+        type: "success",
+        message:
+          paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data
+            ?.status + " : Payment is approved by the Afterpay",
+      });
+    }
+    if (
+      response.status !== 201 &&
+      paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.status !==
+        "APPROVED" &&
+      SettingsInfo?.[8]?.appointment_online_appointment_without_payment_status
+        ?.value === "1"
+    ) {
+      await paymentFailedRedirectHandler();
+    }
+
+    return (
+      response.status === 201 &&
+      paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.status ===
+        "APPROVED"
+    );
+  };
+
+  const createPayment = async (ref: any) => {
+    const data = {
+      reference: ref,
+      panel: 0,
+    };
+    loader(true);
+    const response = await postPayment(data);
+    loader(false);
+    if (response?.message) {
+      showToastMessage(response);
+    }
+    return response?.status === 201;
+  };
+
+  // create new afterpay payments by api call.
+  const postAfterPayPayment = async (data: any) => {
+    const path = `${baseUrl}/afterpay-payments`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        dispatch(postAfterAfterPayPaymentsResData(response.data));
+
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const createAfterPayPayment = async () => {
+    const data = {
+      payment_id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
+      paid_by: userInfo?.userInfo?.id
+        ? userInfo?.userInfo?.id
+        : users?.user?.[0]?.id,
+      amount: paidAmount,
+      token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+      payment_gateway_id:
+        paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.id,
+      status: 1,
+      card_surcharge:
+        calculateSurcharge(
+          paidAmount,
+          paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
+        ).percentageAmount ?? 0,
+    };
+    loader(true);
+    const response = await postAfterPayPayment(data);
+    if (response?.message) {
+      showToastMessage(response);
+    }
+    loader(false);
+    if (
+      response?.status !== 201 &&
+      SettingsInfo?.[8]?.appointment_online_appointment_without_payment_status
+        ?.value === "1"
+    ) {
+      await paymentFailedRedirectHandler();
+    }
+    return response?.status === 201;
+  };
+
+  // create new appointment by api call.
+  const postAppointment = (data: any) => {
+    const path = `${baseUrl}/appointments`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        dispatch(postAppointmentAfterAfterPayResData(response.data));
+
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const convertTo24HourFormat = (time: string): string => {
+    const timeRegex = /^\d{1,2}:\d{2} (AM|PM)$/i;
+
+    if (!timeRegex.test(time)) {
+      throw new Error("Invalid time format. Expected format: h:mm AM/PM.");
+    }
+
+    const [hour, minutePart] = time.split(":");
+    const [minute, period] = minutePart.split(" ");
+
+    let hours24 = parseInt(hour, 10);
+    if (period.toUpperCase() === "PM" && hours24 !== 12) {
+      hours24 += 12;
+    } else if (period.toUpperCase() === "AM" && hours24 === 12) {
+      hours24 = 0;
+    }
+
+    return `${hours24.toString().padStart(2, "0")}:${minute}`;
+  };
+
+  const PostAppointmentData = {
+    customer_id: customer?.id,
+    service_id: serviceIdFilter?.id,
+    address_id: address?.[0]?.id,
+    billing_address_id: address?.[0]?.id,
+    platform:
+      bookingInfo?.operatingSystem?.platform === "Internet"
+        ? 0
+        : bookingInfo?.operatingSystem?.platform === "MAC"
+        ? 1
+        : bookingInfo?.operatingSystem?.platform === "Smart Phone"
+        ? 2
+        : bookingInfo?.operatingSystem?.platform === "Printer"
+        ? 3
+        : bookingInfo?.operatingSystem?.platform === "Windows"
+        ? 4
+        : 5,
+    type: bookingInfo?.serviceLocationType == "Home" ? 0 : 1,
+    date: formatDate(bookingInfo?.choosePreferredDateAndTime?.booking_schedule),
+    time: formatTime(bookingInfo?.choosePreferredDateAndTime?.selectedTime),
+    length: formatTimeInterval(
+      bookingInfo?.choosePreferredDateAndTime?.booking_duration
+    ),
+    status: 0,
+    parking:
+      bookingInfo?.parkingOption === "No Parking"
+        ? 0
+        : bookingInfo?.parkingOption === "Driveway"
+        ? 1
+        : bookingInfo?.parkingOption === "Street Paid"
+        ? 2
+        : 3,
+    preference: bookingInfo?.serviceType === "Onsite" ? 0 : 1,
+    requested_time_interval: convertTo24HourFormat(
+      bookingInfo?.choosePreferredDateAndTime?.selectedTime
+    ),
+    quantity: bookingInfo?.bookingSummerySubmitResData?.service_quantity,
+    unit_price: bookingInfo?.bookingSummerySubmitResData?.service_unit_price,
+  };
+
+  const createAppointment = async () => {
+    loader(true);
+    const response = await postAppointment(PostAppointmentData);
+    loader(false);
+
+    if (response?.message) {
+      showToastMessage(response);
+    }
+
+    return response?.status === 201;
+  };
+
+  // Put Payment Reference;
+  // update single existing payment by api call.
+  const putPayment = (dataObj: any) => {
+    const path = `${baseUrl}/payments/${dataObj.id}`;
+    const data = dataObj.data;
+
+    return axios
+      .put(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        dispatch(response.data);
+
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const putPaymentReference = () => {
+    const data = {
+      id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
+      data: {
+        reference:
+          paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
+      },
+    };
+    putPayment(data);
+  };
+
+  const postAppointmentCharge = (data: any) => {
+    const path = `${baseUrl}/appointment-charges/store-list`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+          data: response.data.data,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const createAppointmentCharges = async () => {
+    // Create Appointments Charge after AfterPay .......
+    const AppointmentsChargeAfterAfterPay = [];
+    if (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount: bookingInfo?.bookingSummerySubmitResData?.gst_charge?.amount,
+        type: 3,
+        name: "GST",
+      });
+    }
+
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+        type: 2,
+        name: "Coupon Discount",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+        type: 2,
+        name: "Applied Discount",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+        ?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+            ?.amount,
+        type: 2,
+        name: "Credited Payment Discount",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.parking_discount?.amount,
+        type: 2,
+        name: "Parking Discount",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+        type: 2,
+        name: "Loyalty Discount",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+        ?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+            ?.amount,
+        type: 2,
+        name: "Online Appointment Discount",
+      });
+    }
+
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.distance_surcharge
+        ?.applied_status &&
+      bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount > 0
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount,
+        type: 1,
+        name: "Distance Surcharge",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge
+        ?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.amount,
+        type: 1,
+        name: "Holiday Surcharge",
+      });
+    }
+    if (bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.applied_status) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount: bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.amount,
+        type: 1,
+        name: "Fuel Levy Surcharge",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge
+        ?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge?.amount,
+        type: 1,
+        name: "City Area Surcharge",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge
+        ?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.amount,
+        type: 1,
+        name: "Same Day Surcharge",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge
+        ?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.amount,
+        type: 1,
+        name: "Timebase Surcharge",
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge
+        ?.applied_status
+    ) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.amount,
+        type: 1,
+        name: "Weekend Surcharge",
+      });
+    }
+
+    if (bookingInfo?.bookingSummerySubmitResData?.service_price) {
+      AppointmentsChargeAfterAfterPay.push({
+        amount: bookingInfo?.bookingSummerySubmitResData?.service_price,
+        type: 0,
+        name: "Service Charge",
+      });
+    }
+
+    const CreateAppointmentsChargeAfterPayFormData = {
+      appointment_id:
+        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
+      charges: AppointmentsChargeAfterAfterPay,
+    };
+
+    loader(true);
+    const response = await postAppointmentCharge(
+      CreateAppointmentsChargeAfterPayFormData
+    );
+    loader(false);
+    if (response?.message) {
+      showToastMessage(response);
+    }
+    return response?.status === 200 || response?.status === 201;
+  };
+
+  // Create Appointment Notes..........................
+  const postAppointmentNotes = (data: any) => {
+    const path = `${baseUrl}/appointment-notes`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+          data: response.data.data,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const createAppointmentNotes = async () => {
+    const createAppointmentNotesAfterPayFormData = {
+      user_id: userInfo?.userInfo?.id
+        ? userInfo?.userInfo?.id
+        : users?.user?.[0]?.id,
+      appointment_id:
+        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
+      user_type: 0,
+      type: 0,
+      description: bookingInfo?.descriptionNote?.note,
+    };
+    loader(true);
+    const response = await postAppointmentNotes(
+      createAppointmentNotesAfterPayFormData
+    );
+
+    if (response?.message) {
+      showToastMessage(response);
+    }
+    return response?.status === 201;
+  };
+
+  // Put Update Payment By Order id
+  const updatePaymentByOrderId = async (dataObj: any) => {
+    const path = `${baseUrl}/afterpay-payment-gateways/payments/order/${dataObj?.id}`;
+    const data = dataObj?.data;
+
+    return axios
+      .put(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        dispatch(response.data);
+
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+          data: response.data.data,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const putUpdatePaymentByOrderId = () => {
+    const data = {
+      id: paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.id,
+      data: {
+        merchantReference:
+          paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
+      },
+    };
+    const response = updatePaymentByOrderId(data);
+
+    // if (response?.message) {
+    //   showToastMessage(response);
+    // }
+    // return response?.status === 200
+  };
+
+  // Create Appointment Payments After AfterPay......
+  const postAppointmentPayments = async (data: any) => {
+    const path = `${baseUrl}/appointment-payments`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+          data: response.data.data,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const createAppointmentPayments = async () => {
+    const data = {
+      payment_id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
+      appointment_id:
+        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
+      transaction_date_time:
+        paymentInfo?.postPaymentAfterAfterPayResData?.data?.created_at,
+    };
+    loader(true);
+    const response = await postAppointmentPayments(data);
+    loader(false);
+    if (response?.message) {
+      showToastMessage(response);
+    }
+    if (
+      response?.status !== 201 &&
+      SettingsInfo?.[8]?.appointment_online_appointment_without_payment_status
+        ?.value === "1"
+    ) {
+      await paymentFailedRedirectHandler();
+    }
+    return response?.status === 201;
+  };
+
+  // Appointment Creators create......................
+  const appointmentCreators = async (data: any) => {
+    const path = `${baseUrl}/appointment-creators`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+          data: response.data.data,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const appointmentCreatorsCreate = async () => {
+    const data = {
+      user_id: userInfo?.userInfo?.[0]?.id
+        ? userInfo?.userInfo?.[0]?.id
+        : users?.user?.[0]?.id,
+      appointment_id:
+        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
+      panel: 0,
+    };
+    loader(true);
+    const response = await appointmentCreators(data);
+    loader(false);
+
+    if (response?.message) {
+      showToastMessage(response);
+    }
+    return response?.status === 201;
+  };
+
+  // Payment Send Creation Notify..................
+  const PaymentCreationNotifyAfterPayFormData = {
+    id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
+    notify_customer: 1,
+    notify_internal_user: 1,
+  };
+
+  // Appointment Creation Notify................
+  const AppointmentCreationNotifyAfterPayFormData = {
+    appointment: paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
+    notify_customer: 1,
+    notify_internal_user: 1,
+  };
+
+  // create new discount store list by api call.
+  const postDiscountStoreList = async (data: any) => {
+    const path = `${baseUrl}/discounts/store-list`;
+
+    return axios
+      .post(path, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "Client-Secret": "secret",
+        },
+      })
+      .then((response) => {
+        dispatch(
+          AppointmentDiscountStoreListCreateAFterPayResData(response.data)
+        );
+
+        return {
+          message: "",
+          type: "success",
+          status: response.status,
+        };
+      })
+      .catch((error) => {
+        // return responseErrorHandler(error);
+      });
+  };
+
+  const createAppointmentDiscountStoreList = async () => {
+    let discountArray = [];
+
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+    ) {
+      discountArray.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+        type: 3,
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
+    ) {
+      discountArray.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+        type: 1,
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+        ?.applied_status
+    ) {
+      discountArray.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+            ?.amount,
+        type: 0,
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+    ) {
+      discountArray.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+        type: 7,
+      });
+    }
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+        ?.applied_status
+    ) {
+      discountArray.push({
+        amount:
+          bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+            ?.amount,
+        type: 6,
+      });
+    }
+
+    const AppointmentDiscountStoreListAfterPayFormData = {
+      user_id: userInfo?.userInfo?.id
+        ? userInfo?.userInfo?.id
+        : users?.user?.[0]?.id,
+      reference:
+        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
+      discounts: discountArray,
+    };
+
+    loader(true);
+    const response = await postDiscountStoreList(
+      AppointmentDiscountStoreListAfterPayFormData
+    );
+    loader(false);
+    if (response?.message) {
+      showToastMessage(response);
+    }
+
+    return response?.status === 201;
+  };
+
+  // Appointment History..
+  const AppointmentHistoryAfterPayFormData = {
+    user_id: userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    appointment_id: paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
+    panel: 0,
+    status: 0,
+  };
+
+  // Create Appointment After AfterPay payment.......................
   const createAppointmentAfterAfterPayPayment = async () => {
     let isAfterPayServerActive = await afterPayServerStatusChecker();
 
@@ -682,90 +1531,123 @@ export default function Payment() {
         const isCheckoutSuccess = await afterPayPaymentCheckout();
 
         if (isCheckoutSuccess) {
-          // if (isAfterPayLoaded) {
-          //   window.AfterPay.open();
-          // } else {
-          //   console.warn('AfterPay SDK is not loaded yet.');
-          // }
+          if (typeof window.AfterPay === "undefined") return;
 
-          // window?.AfterPay?.initialize({
-          //   countryCode: "AU",
-          // });
+          window.AfterPay.initialize({
+            // publicKey: "YOUR_AFTERPAY_PUBLIC_KEY",
+            // returnUrl: "/checkout/success",
+            countryCode: "AU",
+          });
 
-          // window?.AfterPay?.open();
+          window.AfterPay.open({
+            token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+          });
 
-          // window.AfterPay.onComplete = async (event) => {
-          //   if (event.data.status == "SUCCESS") {
-          //     const isCaptureImmediateFullPaymentOfAfterPaySucceed =
-          //       await captureImmediateFullPaymentOfAfterPay();
-          //     if (isCaptureImmediateFullPaymentOfAfterPaySucceed) {
-          //       showToastMessage({
-          //         message: "Payment successful",
-          //         type: "success",
-          //       });
+          window.AfterPay.onComplete = async (event: any) => {
+            try {
+              if (event.data.status == "SUCCESS") {
+                const isCaptureImmediateFullPaymentOfAfterPaySucceed =
+                  await captureImmediateFullPaymentOfAfterPay();
 
-          //       const isPaymentCreated = await createPayment(
-          //         `Temporal reference for customer id : ${customerInformation.id}`
-          //       );
-          //       if (isPaymentCreated) {
-          //         const isAppointmentAfterPayPaymentDone =
-          //           await createAfterPayPayment();
-          //         if (isAppointmentAfterPayPaymentDone) {
-          //           const isAppointmentCreated = await createAppointment();
-          //           if (isAppointmentCreated) {
-          //             putPaymentReference();
-          //             const isAppointmentChargeCreated =
-          //               await createAppointmentCharges();
-          //             if (isAppointmentChargeCreated) {
-          //               const isAppointmentNotesCreated =
-          //                 await createAppointmentNotes();
-          //               if (isAppointmentNotesCreated) {
-          //                 putUpdatePaymentByOrderId();
+                if (isCaptureImmediateFullPaymentOfAfterPaySucceed) {
+                  showToastMessage({
+                    message: "Payment successful",
+                    type: "success",
+                  });
 
-          //                 const isAppointmentPaymentDone =
-          //                   await createAppointmentPayments();
-          //                 if (isAppointmentPaymentDone) {
-          //                   localStorage.removeItem("bookingData");
-          //                   await appointmentCreatorsCreate();
-          //                   appointmentPaymentEmailNotify();
-          //                   appointmentEmailNotify();
+                  const isPaymentCreated = await createPayment(
+                    `Temporal reference for customer id : ${
+                      users?.user?.[0]?.customer?.id
+                        ? users?.user?.[0]?.customer?.id
+                        : customer?.customer?.id
+                    }`
+                  );
+                  if (isPaymentCreated) {
+                    const isAppointmentAfterPayPaymentDone =
+                      await createAfterPayPayment();
 
-          //                   await createAppointmentDiscountStoreList();
-          //                   await appointmentHistory();
-          //                   if (
-          //                     preAppointmentResponse.coupon_discount
-          //                       .validation_status === true
-          //                   ) {
-          //                     await createCouponUsage();
-          //                   }
+                    if (isAppointmentAfterPayPaymentDone) {
+                      const isAppointmentCreated = await createAppointment();
 
-          //                   await paymentSucceedRedirectHandler();
-          //                 }
-          //               }
-          //             }
-          //           }
-          //         }
-          //       }
-          //     }
-          //   } else {
-          //     console.log(event);
-          //     // The consumer cancelled the payment or closed the popup window.
-          //     showToastMessage({
-          //       type: "error",
-          //       message: event.data.status,
-          //     });
-          //   }
-          // };
+                      if (isAppointmentCreated) {
+                        putPaymentReference();
 
-          // window.AfterPay.transfer({
-          //   token: checkout.token,
-          // });
+                        const isAppointmentChargeCreated =
+                          await createAppointmentCharges();
+
+                        if (isAppointmentChargeCreated) {
+                          const isAppointmentNotesCreated =
+                            await createAppointmentNotes();
+                          // const isAppointmentNotesCreated = await dispatch(
+                          //   CreateAppointmentNotes(
+                          //     createAppointmentNotesAfterPayFormData
+                          //   )
+                          // );
+
+                          if (isAppointmentNotesCreated) {
+                            putUpdatePaymentByOrderId();
+
+                            const isAppointmentPaymentDone =
+                              await createAppointmentPayments();
+
+                            if (isAppointmentPaymentDone) {
+                              await appointmentCreatorsCreate();
+                              // appointmentPaymentEmailNotify();
+                              // appointmentEmailNotify();
+
+                              dispatch(
+                                PaymentCreationNotify(
+                                  PaymentCreationNotifyAfterPayFormData
+                                )
+                              );
+                              dispatch(
+                                AppointmentCreationNotify(
+                                  AppointmentCreationNotifyAfterPayFormData
+                                )
+                              );
+
+                              await createAppointmentDiscountStoreList();
+                              // await appointmentHistory();
+                              await dispatch(
+                                AppointmentHistoryCreate(
+                                  AppointmentHistoryAfterPayFormData
+                                )
+                              );
+                              // if (
+                              //   preAppointmentResponse.coupon_discount
+                              //     .validation_status === true
+                              // ) {
+                              //   await createCouponUsage();
+                              // }
+
+                              // await paymentSucceedRedirectHandler();
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              } else {
+                console.log(event);
+                showToastMessage({
+                  type: "error",
+                  message: event.data.status,
+                });
+              }
+            } catch (error) {}
+          };
+
+          window.AfterPay.transfer({
+            token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+          });
         }
       }
     }
   };
 
-  // Card Info................
+  // Card Payment methods................
+  // Card Info.
   const cardFormData = {
     card_name: cardTokenCreateFormData.cardHolderName,
     card_number: cardTokenCreateFormData.cardNumber,
@@ -885,7 +1767,6 @@ export default function Payment() {
     }
   }, [paymentInfo?.createPaymentResData?.id]);
 
-  
   // Create Appointments.....................
   const CreateAppointmentsFormData = {
     customer_id: customer?.id,
@@ -1336,7 +2217,9 @@ export default function Payment() {
     added_by: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
-    appointment_id: appointmentResData?.id,
+    appointment_id: appointmentResData?.id
+      ? appointmentResData?.id
+      : paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
     panel: 0,
     question: JSON.stringify(questions),
   };
@@ -1369,98 +2252,34 @@ export default function Payment() {
     dispatch(paymentOptionSelectedAndProceedToPay(""));
   };
 
-  useEffect(() => {
-    if (typeof window.AfterPay === 'undefined') return;
+  // const [isAfterPayLoaded, setIsAfterPayLoaded] = useState<boolean>(false);
+  // useEffect(() => {
+  //   setIsAfterPayLoaded(true);
+  // }, []);
 
-    window.AfterPay.init({
-      publicKey: 'YOUR_AFTERPAY_PUBLIC_KEY',
-      returnUrl: '/checkout/success',
-      // locale: 'en-US',
-      countryCode: "AU"
-    });
+  // const handleAfterPayClick = () => {
+  //   if (typeof window.AfterPay === "undefined") return;
 
-    setIsAfterPayLoaded(true);
-  }, []);
+  //   setIsAfterPayLoaded(true);
 
-  const handleAfterPayClick = () => {
-    if (isAfterPayLoaded ) {
-      window.AfterPay.open();
-       window.AfterPay.onComplete = async (event:any) => {
+  //   window.AfterPay.init({
+  //     publicKey: "YOUR_AFTERPAY_PUBLIC_KEY",
+  //     returnUrl: "/checkout/success",
+  //     countryCode: "AU",
+  //   });
 
-        console.log("hello")
-            // if (event.data.status == "SUCCESS") {
-            //   const isCaptureImmediateFullPaymentOfAfterPaySucceed =
-            //     await captureImmediateFullPaymentOfAfterPay();
-            //   if (isCaptureImmediateFullPaymentOfAfterPaySucceed) {
-            //     showToastMessage({
-            //       message: "Payment successful",
-            //       type: "success",
-            //     });
-
-            //     const isPaymentCreated = await createPayment(
-            //       `Temporal reference for customer id : ${customerInformation.id}`
-            //     );
-            //     if (isPaymentCreated) {
-            //       const isAppointmentAfterPayPaymentDone =
-            //         await createAfterPayPayment();
-            //       if (isAppointmentAfterPayPaymentDone) {
-            //         const isAppointmentCreated = await createAppointment();
-            //         if (isAppointmentCreated) {
-            //           putPaymentReference();
-            //           const isAppointmentChargeCreated =
-            //             await createAppointmentCharges();
-            //           if (isAppointmentChargeCreated) {
-            //             const isAppointmentNotesCreated =
-            //               await createAppointmentNotes();
-            //             if (isAppointmentNotesCreated) {
-            //               putUpdatePaymentByOrderId();
-
-            //               const isAppointmentPaymentDone =
-            //                 await createAppointmentPayments();
-            //               if (isAppointmentPaymentDone) {
-            //                 localStorage.removeItem("bookingData");
-            //                 await appointmentCreatorsCreate();
-            //                 appointmentPaymentEmailNotify();
-            //                 appointmentEmailNotify();
-
-            //                 await createAppointmentDiscountStoreList();
-            //                 await appointmentHistory();
-            //                 if (
-            //                   preAppointmentResponse.coupon_discount
-            //                     .validation_status === true
-            //                 ) {
-            //                   await createCouponUsage();
-            //                 }
-
-            //                 await paymentSucceedRedirectHandler();
-            //               }
-            //             }
-            //           }
-            //         }
-            //       }
-            //     }
-            //   }
-            // } else {
-            //   console.log(event);
-            //   // The consumer cancelled the payment or closed the popup window.
-            //   showToastMessage({
-            //     type: "error",
-            //     message: event.data.status,
-            //   });
-            // }
-          };
-
-          // window.AfterPay.transfer({
-          //   token: checkout.token,
-          // });
-    } else {
-      console.warn('AfterPay SDK is not ready.');
-    }
-  };
+  //   if (isAfterPayLoaded) {
+  //     window.AfterPay.open();
+  //     window.AfterPay.onComplete = async (event: any) => {
+  //       console.log("hello");
+  //     };
+  //   } else {
+  //     console.warn("AfterPay SDK is not ready.");
+  //   }
+  // };
 
   return (
     <>
-      
       <div className="payment_section">
         <div className="text-[14px] mx-auto">
           <div className="payment w-[50%] mx-auto mt-5">
@@ -1724,15 +2543,16 @@ export default function Payment() {
                 >
                   Pay Now
                 </button>
-
-)}
-<div id="afterpay-button">
-      {isAfterPayLoaded ? (
-        <button onClick={handleAfterPayClick}>Buy with AfterPay</button>
-      ) : (
-        <p>Loading AfterPay...</p>
-      )}
-    </div>
+              )}
+              {/* <div id="afterpay-button">
+                {isAfterPayLoaded ? (
+                  <button onClick={handleAfterPayClick}>
+                    Buy with AfterPay
+                  </button>
+                ) : (
+                  <p>Loading AfterPay...</p>
+                )}
+              </div> */}
             </div>
             <ToastContainer />
           </div>
