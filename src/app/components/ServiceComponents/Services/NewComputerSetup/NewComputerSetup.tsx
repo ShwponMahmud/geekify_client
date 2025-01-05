@@ -31,12 +31,12 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
     {
       question: "How do I set up my desktop computer at home?",
       answer:
-        "Setting up a desktop computer at home is simple. Plug in the monitor, keyboard, and mouse to the tower (or to the all-in-one system), connect to power, and follow the on-screen instructions. If you need help, Geeks CRS offers support for home computer setups.",
+        "Setting up a desktop computer at home is simple. Plug in the monitor, keyboard, and mouse to the tower (or to the all-in-one system), connect to power, and follow the on-screen instructions. If you need help, Geekify® offers support for home computer setups.",
     },
     {
       question: "Where can I find the best deals on desktop computer packages?",
       answer:
-        "At Geeks CRS, we offer competitive pricing and frequent PC sales to ensure you get the best deals on desktop computer packages. Check out our current promotions or get in touch with us for more information.",
+        "At Geekify®, we offer competitive pricing and frequent PC sales to ensure you get the best deals on desktop computer packages. Check out our current promotions or get in touch with us for more information.",
     },
   ];
 
@@ -107,7 +107,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
 
           <div>
             <p className='text-center'>
-              Are you looking to upgrade your work-from-home setup or find the perfect desktop for your gaming needs? At <a href="https://geekify.com.au/services/cctv-installation" className='text-primaryColor underline'>Geeks CRS</a>, we offer various desktop computer packages that cater to every requirement and
+              Are you looking to upgrade your work-from-home setup or find the perfect desktop for your gaming needs? At <a href="https://geekify.com.au/services/cctv-installation" className='text-primaryColor underline'>Geekify®</a>, we offer various desktop computer packages that cater to every requirement and
               budget. Whether you’re seeking an all-in-one desktop, a powerful branded computer, or a custom-built system, we have something for everyone.
             </p>
           </div>
@@ -119,7 +119,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
               or accessories. That computer also has the Microsoft Windows operating system. This is especially helpful for setting up a home computer, whether for work, study, or entertainment.
             </p>
 
-            <h5 className='text-2xl md:text-3xl lg:text-4xl font-semibold pb-4 pt-3 text-center'>Types of Desktop Computer <span className='text-primaryColor'>Packages Available at Geeks CRS</span></h5>
+            <h5 className='text-2xl md:text-3xl lg:text-4xl font-semibold pb-4 pt-3 text-center'>Types of Desktop Computer <span className='text-primaryColor'>Packages Available at Geekify®</span></h5>
 
             <div className="space-y-6">
               <div className="flex flex-col md:flex-row bg-white shadow-md rounded-2xl overflow-hidden">
@@ -136,7 +136,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
                     </div>
                     <p className="text-gray-600 mt-2">
                       When you opt for a branded computer, you know you're getting a high-quality, reliable product. Major brands like Dell, HP, and Lenovo are known for their durability and excellent customer
-                      support. Geeks CRS provides access to these top brands at competitive prices. That ensures that your <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>purchase</a> is both dependable and affordable.
+                      support. Geekify® provides access to these top brands at competitive prices. That ensures that your <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>purchase</a> is both dependable and affordable.
                     </p>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
                     </div>
                     <p className="text-gray-600 mt-2">
                       For those who need something more specific, custom-built desktop PC packages are ideal. These let you choose the ideal setup for your specific needs, whether it's for gaming pc, video editing,
-                      or professional tasks. At Geeks CRS, our experts can guide you in choosing the right parts to create a high-performance PC tailored just for you.
+                      or professional tasks. At Geekify®, our experts can guide you in choosing the right parts to create a high-performance PC tailored just for you.
                     </p>
                   </div>
                 </div>
@@ -174,7 +174,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
                     </div>
                     <p className="text-gray-600 mt-2">
                       If you're short on space or prefer a sleek, modern look, all in one desktop computers are a great option. It is also a mini PC. These systems combine the monitor and tower into one unit.
-                      This reduces clutter and makes them perfect for home offices. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we offer a wide range of all-in-one Windows pc that are both powerful and stylish.
+                      This reduces clutter and makes them perfect for home offices. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we offer a wide range of all-in-one Windows pc that are both powerful and stylish.
                     </p>
                   </div>
                 </div>
@@ -263,7 +263,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
             <div>
               <h6 className='text-lg font-bold italic'>4. Set a Budget:</h6>
               <p>
-                Determine how much you’re willing to spend and compare PC prices. That ensures you’re getting value for your money. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> , we offer desktop computer packages at different price points.
+                Determine how much you’re willing to spend and compare PC prices. That ensures you’re getting value for your money. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> , we offer desktop computer packages at different price points.
                 So you’ll find one that suits your budget without compromising on quality.
               </p>
             </div>
@@ -314,7 +314,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
       <div className='container mx-auto'>
         <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 text-center'>Top Branded <span className='text-primaryColor'>Computers to Consider</span></h3>
         <p className='pb-5 text-center'>
-          At Geeks CRS, we offer a wide range of branded desktop computers from leading manufacturers such as Dell XPS desktop, HP, and Lenovo. These brands are trusted globally for their exceptional quality,
+          At Geekify®, we offer a wide range of branded desktop computers from leading manufacturers such as Dell XPS desktop, HP, and Lenovo. These brands are trusted globally for their exceptional quality,
           reliable performance, and internal storage. Here’s why you should consider purchasing a branded desktop:
         </p>
 
@@ -358,9 +358,9 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
 
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
-        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 '>Why Buy Desktop Computers <span className='text-primaryColor'>from Geeks CRS?</span></h3>
+        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 '>Why Buy Desktop Computers <span className='text-primaryColor'>from Geekify®?</span></h3>
         <p className='pb-5'>
-          At Geeks CRS, we are committed to being your go-to destination for purchasing desktop computers. Here’s what makes us stand out:
+          At Geekify®, we are committed to being your go-to destination for purchasing desktop computers. Here’s what makes us stand out:
         </p>
         <div className='py-5'>
           <h5 className='text-xl font-bold italic pb-1'>Exclusive Deals:</h5>
@@ -379,12 +379,12 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
         <div className='pb-5'>
           <h5 className='text-xl font-bold italic pb-1'>Competitive Pricing:</h5>
           <p>
-            At Geeks CRS, we understand that affordability matters. We offer highly competitive PC prices. That makes it easy to find a gaming desktop that fits your budget. Whether you want a branded computer
+            At Geekify®, we understand that affordability matters. We offer highly competitive PC prices. That makes it easy to find a gaming desktop that fits your budget. Whether you want a branded computer
             or a customized package, we ensure you’re getting the best deal without compromising on quality.
           </p>
         </div>
         <p className='text-xl lg:text-2xl font-bold italic text-gray-500'>
-          With our unbeatable combination of great deals, expert support, and affordable pricing, Geeks CRS is the ideal place to buy your next desktop computer.
+          With our unbeatable combination of great deals, expert support, and affordable pricing, Geekify® is the ideal place to buy your next desktop computer.
         </p>
       </div>
 
@@ -395,7 +395,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
       <div className='container mx-auto pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
         <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 text-center'>PC Prices: <span className='text-primaryColor'>Getting the Best Deal</span></h3>
         <p className='pb-5 text-center'>
-          When searching for the best PC prices, timing can make all the difference. At Geeks CRS, we frequently offer PC sales and special promotions to help you find premium desktop computer app at the most
+          When searching for the best PC prices, timing can make all the difference. At Geekify®, we frequently offer PC sales and special promotions to help you find premium desktop computer app at the most
           affordable rates.
         </p>
 
@@ -415,14 +415,14 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
             <div>
               <h6 className='text-xl font-bold italic pt-5 pb-1'>Compare Prices:</h6>
               <p>
-                It’s always a good idea to compare <a href="https://au.pcpartpicker.com/" className='text-primaryColor underline'>PC prices</a> across different models to make sure you’re getting the best deal for your budget. At Geeks CRS, we stock a wide variety of desktop computers, from
+                It’s always a good idea to compare <a href="https://au.pcpartpicker.com/" className='text-primaryColor underline'>PC prices</a> across different models to make sure you’re getting the best deal for your budget. At Geekify®, we stock a wide variety of desktop computers, from
                 basic setups for casual users to high-performance systems for gaming and professional use. By comparing the specs and prices, you can find the perfect desktop that fits your needs and your budget.
               </p>
             </div>
           </div>
         </div>
         <p className='text-xl lg:text-2xl font-bold italic text-gray-500 text-center pt-5'>
-          With regular sales and bundles, our Geeks CRS helps you secure the best deal when you’re ready to buy a PC for work, gaming, or home use.
+          With regular sales and bundles, our Geekify® helps you secure the best deal when you’re ready to buy a PC for work, gaming, or home use.
         </p>
       </div>
 
@@ -434,7 +434,7 @@ function NewComputerSetup({ service }: ServiceDetailsProps) {
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl lg:text-4xl font-bold pb-5'>Final Thoughts</h3>
         <p>
-          Finding the perfect desktop computer packages is easy with <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>. We offer a wide selection of desktop pc packages, from all-in-one desktop computers to branded PCs. It ensures that you find the
+          Finding the perfect desktop computer packages is easy with <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>. We offer a wide selection of desktop pc packages, from all-in-one desktop computers to branded PCs. It ensures that you find the
           ideal system for your needs. Whether you're looking to set up a computer at home or need a powerful machine for professional use, we've got you covered.
         </p>
         <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>

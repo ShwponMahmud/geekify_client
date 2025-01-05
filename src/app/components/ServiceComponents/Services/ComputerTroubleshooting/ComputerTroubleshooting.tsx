@@ -119,10 +119,10 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
         <div>
           <div>
             <p className='text-center'>
-              At Geeks CRS, we understand that computers play a vital role in everyday life, from work and study to staying connected with others. When issues arise, they can disrupt your day, and that’s where we
+              At Geekify®, we understand that computers play a vital role in everyday life, from work and study to staying connected with others. When issues arise, they can disrupt your day, and that’s where we
               come in to help. Our team of skilled computer technicians is committed to delivering reliable, professional support to get your computer back up and running smoothly. We offer a wide range of
               services, including on site computer repair, screen repair, and ongoing support tailored to your needs. Whether it’s a simple <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>troubleshooting fix</a> or a complex repair, we bring expertise and
-              efficiency to each job. That ensures your tech remains in optimal condition. Let Geeks CRS be your trusted partner for all your computer needs. So you can stay productive without the worry of
+              efficiency to each job. That ensures your tech remains in optimal condition. Let Geekify® be your trusted partner for all your computer needs. So you can stay productive without the worry of
               technology setbacks and managed it service.
             </p>
           </div>
@@ -282,8 +282,8 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
       <QuickContact title='Contact Us for Computer Services and Support' />
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
-        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 '>Why Choose Geeks CRS for <span className='text-primaryColor'>Computer Services and Support?</span></h3>
-        <p className='pb-5'>Choosing <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> means choosing a partner who values quality, reliability, and convenience in every interaction. Here’s why our clients prefer us for their computer
+        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 '>Why Choose Geekify® for <span className='text-primaryColor'>Computer Services and Support?</span></h3>
+        <p className='pb-5'>Choosing <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> means choosing a partner who values quality, reliability, and convenience in every interaction. Here’s why our clients prefer us for their computer
           services and support needs:</p>
 
         <Image src={'/computer-troubleshooting-5.png'} alt='Computer Services and Support' width={1200} height={900} className='w-full h-auto' />
@@ -347,7 +347,7 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
           <h5 className='text-xl font-bold italic pb-1'>9. Commitment to Customer Satisfaction:</h5>
           <p>
             Our clients’ satisfaction is our top priority. We work diligently to ensure that every client receives quality service on cybersecurity and leaves feeling confident in their decision to choose
-            Geeks CRS. From the first consultation to post-cloud computing service and support, we focus on making your experience positive.
+            Geekify®. From the first consultation to post-cloud computing service and support, we focus on making your experience positive.
           </p>
         </div>
         <div className='pb-5'>
@@ -358,7 +358,7 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
           </p>
         </div>
         <p className='text-xl lg:text-2xl font-bold italic text-gray-500'>
-          With Geeks CRS, you can trust that your computer and IT needs are in capable hands. Reach out today to experience the Geeks CRS difference – where your satisfaction is always our priority.
+          With Geekify®, you can trust that your computer and IT needs are in capable hands. Reach out today to experience the Geekify® difference – where your satisfaction is always our priority.
         </p>
       </div>
 
@@ -373,7 +373,7 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl lg:text-4xl font-bold pb-5'>Contact Us Today for Reliable <span className='text-primaryColor'>Computer Services and Support</span></h3>
         <p>
-          Geeks CRS is your trusted partner for all computer services and support assistance. Whether you need a quick computer fix, complex IT repairs, or professional home IT support, our team is ready to make
+          Geekify® is your trusted partner for all computer services and support assistance. Whether you need a quick computer fix, complex IT repairs, or professional home IT support, our team is ready to make
           your technology problems a thing of the past with Microsoft Office. Contact us today to schedule an appointment or simply ask any questions about tech issue, if you may have.
         </p>
       </div>
@@ -381,13 +381,13 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl lg:text-4xl font-bold pb-5'>Final Thought</h3>
         <p>
-          <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> is dedicated to providing comprehensive and reliable computer services and support that bring peace of mind to our client's infrastructure. With skilled technicians, personalized solutions,
+          <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> is dedicated to providing comprehensive and reliable computer services and support that bring peace of mind to our client's infrastructure. With skilled technicians, personalized solutions,
           and a commitment to customer satisfaction, we aim to make technology more accessible and manageable for everyone. Our range of services—from <a href="https://www.gamingcutter.com/20-common-computer-problems-and-solutions/" className='text-primaryColor underline'>quick fixes</a> to complete IT support in business
           operations—ensures that you can always count on us for help, whether at home or in the office. We’re not just here to fix computers but to build lasting relationships with our clients in remote
-          access. That makes Geeks CRS the trusted name you can rely on for all your computer service in hard drive needs.
+          access. That makes Geekify® the trusted name you can rely on for all your computer service in hard drive needs.
         </p>
         <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>
-          Let Geeks CRS be your go-to solution for dependable, affordable computer support. We look forward to helping with all your IT needs!
+          Let Geekify® be your go-to solution for dependable, affordable computer support. We look forward to helping with all your IT needs!
         </p>
       </div>
 

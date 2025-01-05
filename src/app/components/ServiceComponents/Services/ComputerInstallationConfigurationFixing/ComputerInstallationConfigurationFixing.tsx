@@ -110,17 +110,17 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
 
           <div>
             <p className='text-center'>
-              Now is the time to talk about Laptop Computer Repair Services in Sydney. Our Geeks CRS offers quick, dependable laptop computer repair services for both individuals and businesses in Sydney. Our
+              Now is the time to talk about Laptop Computer Repair Services in Sydney. Our Geekify® offers quick, dependable laptop computer repair services for both individuals and businesses in Sydney. Our
               skilled computer technicians are experienced in diagnosing and fixing various issues to bring your laptop or PC back to full functionality. From cracked screens to software glitches and general
               maintenance, we tackle repairs with precision. That ensures your device runs smoothly again. Our goal is to provide effective solutions that restore optimal performance and prevent future issues.
-              So, whether you’re dealing with a broken display, slow software, or other technical problems, you can count on Geeks CRS to deliver <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>reliable repairs</a> tailored to your needs.
+              So, whether you’re dealing with a broken display, slow software, or other technical problems, you can count on Geekify® to deliver <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>reliable repairs</a> tailored to your needs.
             </p>
           </div>
 
           <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
-            <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>Why Choose Geeks CRS for <span className='text-primaryColor'>Your Laptop Computer Repair?</span></h3>
+            <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>Why Choose Geekify® for <span className='text-primaryColor'>Your Laptop Computer Repair?</span></h3>
             <p className='text-center pb-5'>
-              When your laptop or desktop encounters issues, it can disrupt your work, studies, or daily routines. At Geeks CRS, we prioritize fast, reliable repairs to get you back on track with Micro Center.
+              When your laptop or desktop encounters issues, it can disrupt your work, studies, or daily routines. At Geekify®, we prioritize fast, reliable repairs to get you back on track with Micro Center.
               Our service is trusted by many. Thanks to our commitment to quality and customer satisfaction for computer repair service.
             </p>
 
@@ -176,7 +176,7 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
                       <div className='w-[80px] border-b-[1px] border-primaryColor mb-[8px] ml-3'></div>
                     </div>
                     <p className="text-gray-600 mt-2">
-                      Our <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, offers a wide range of computer fix services to meet all your needs for Sydney or New York computer help. From cracked screens to software issues and hardware repair, we cover
+                      Our <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, offers a wide range of computer fix services to meet all your needs for Sydney or New York computer help. From cracked screens to software issues and hardware repair, we cover
                       every aspect of laptop and desktop repairs. That ensures you don’t need to look elsewhere for data backup.
                     </p>
                   </div>
@@ -202,7 +202,7 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
                 </div>
               </div>
 
-              <p className='text-2xl font-bold text-gray-500 italic text-center'>Choose our Geeks CRS for reliable laptop computer repair requests in Sydney, where your iPhone repair or other device’s
+              <p className='text-2xl font-bold text-gray-500 italic text-center'>Choose our Geekify® for reliable laptop computer repair requests in Sydney, where your iPhone repair or other device’s
                 performance and your satisfaction are our top priorities.</p>
             </div>
           </div>
@@ -211,7 +211,7 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 text-center'>Our Computer <span className='text-primaryColor'>Repair Services</span></h3>
-        <p className='text-center pb-5'>At Geeks CRS, we offer a complete set of computer repairs and services with expert technicians for both laptops and desktops:</p>
+        <p className='text-center pb-5'>At Geekify®, we offer a complete set of computer repairs and services with expert technicians for both laptops and desktops:</p>
 
         <Image src={'/computer-installation-configuration-5.png'} alt='' width={1200} height={900} className='w-full h-auto' />
         <div className='py-5'>
@@ -245,7 +245,7 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
         <div className='pb-5'>
           <h5 className='text-xl font-bold italic pb-1'>Hard Drive and Data Recovery</h5>
           <p>
-            If your laptop is experiencing hard drive issues or you’re facing data loss, Geeks CRS offers data recovery services to restore important files and documents. We provide solutions for hard drive
+            If your laptop is experiencing hard drive issues or you’re facing data loss, Geekify® offers data recovery services to restore important files and documents. We provide solutions for hard drive
             replacement and data recovery. So you don’t lose access to valuable information.
           </p>
         </div>
@@ -273,22 +273,22 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28 text-center'>
         <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4'>Laptop Repairs <span className='text-primaryColor'>Sydney Residents Trust</span></h3>
         <p className='mb-4'>
-          When it comes to dependable laptop repairs in Sydney, Geeks CRS is a trusted choice. We understand that each customer’s device is unique and that fast, effective repairs are essential to avoid
+          When it comes to dependable laptop repairs in Sydney, Geekify® is a trusted choice. We understand that each customer’s device is unique and that fast, effective repairs are essential to avoid
           disruptions. Our expert technicians are familiar with a wide range of laptop makes and models. That includes popular brands like Apple, Dell, HP, Lenovo, and more. This knowledge allows us to deliver
           tailored repairs that address specific issues and restore your device’s functionality efficiently.
         </p>
         <p>
-          With a focus on quality and customer satisfaction, our Geeks CRS provides laptop computer repair for everything from cracked screens and battery issues to software glitches and performance optimization.
+          With a focus on quality and customer satisfaction, our Geekify® provides laptop computer repair for everything from cracked screens and battery issues to software glitches and performance optimization.
           We combine expertise with a commitment to fast turnaround times. That helps you get back to work, study, or play without delay. For professional, reliable laptop repairs in Sydney, you can count on
-          Geeks CRS to meet your needs.
+          Geekify® to meet your needs.
         </p>
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7'>Computer <span className='text-primaryColor'>Repairs Sydney</span></h3>
         <p>
-          Finding reliable computer repairs in Sydney is essential for both individuals and businesses to keep their devices running efficiently. At Geeks CRS, we offer a comprehensive range of laptop computer
-          repair services designed to address common computer issues and complex technical problems. Here’s why Geeks CRS stands out as the trusted choice for computer repairs in Sydney:
+          Finding reliable computer repairs in Sydney is essential for both individuals and businesses to keep their devices running efficiently. At Geekify®, we offer a comprehensive range of laptop computer
+          repair services designed to address common computer issues and complex technical problems. Here’s why Geekify® stands out as the trusted choice for computer repairs in Sydney:
         </p>
 
 
@@ -309,7 +309,7 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
         <div className='mb-5 p-5 shadow-hoverBoxShadow rounded-xl'>
           <h5 className='text-xl font-bold italic pb-2'>Comprehensive Repairs:</h5>
           <p>
-            Geeks CRS offers a full range of services, including laptop screen repair, cracked screens, battery replacements, flash drives, software updates, and data recovery. This all-inclusive approach means
+            Geekify® offers a full range of services, including laptop screen repair, cracked screens, battery replacements, flash drives, software updates, and data recovery. This all-inclusive approach means
             you won’t need to look elsewhere. That saves you both time and hassle when hardware issues arise.
           </p>
         </div>
@@ -323,7 +323,7 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
         <div className='mb-5 p-5 shadow-hoverBoxShadow rounded-xl'>
           <h5 className='text-xl font-bold italic pb-2'>Transparent Pricing:</h5>
           <p>
-            At Geeks CRS, we believe in honest, upfront pricing. After diagnosis, we provide a clear quote with no hidden fees. So you know the exact cost of repairs before we begin. This transparency builds
+            At Geekify®, we believe in honest, upfront pricing. After diagnosis, we provide a clear quote with no hidden fees. So you know the exact cost of repairs before we begin. This transparency builds
             trust and lets you make an informed decision.
           </p>
         </div>
@@ -344,20 +344,20 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
         <div className='mb-5 p-5 shadow-hoverBoxShadow rounded-xl'>
           <h5 className='text-xl font-bold italic pb-2'>Locally Trusted in Sydney:</h5>
           <p>
-            As a trusted laptop computer repair service in Sydney, we understand the specific needs of our local customers. Our commitment to quality and community-focused service makes Geeks CRS a go-to choice
+            As a trusted laptop computer repair service in Sydney, we understand the specific needs of our local customers. Our commitment to quality and community-focused service makes Geekify® a go-to choice
             for residents and businesses across the city.
           </p>
         </div>
 
         <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>
-          Geeks CRS is dedicated to providing expert, efficient, and reliable laptop computer repair in Sydney, ensuring that your devices stay in peak condition for years to come.
+          Geekify® is dedicated to providing expert, efficient, and reliable laptop computer repair in Sydney, ensuring that your devices stay in peak condition for years to come.
         </p>
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4'>How Our <span className='text-primaryColor'>Repair Process Works</span></h3>
         <p className='pb-5'>
-          At Geeks CRS, we make the laptop computer repair process smooth, transparent, and convenient. So you know exactly what to expect from start to finish. Here’s how our process works:
+          At Geekify®, we make the laptop computer repair process smooth, transparent, and convenient. So you know exactly what to expect from start to finish. Here’s how our process works:
         </p>
         <div className='pb-5'>
           <ul className='list-disc ml-5 space-y-2'>
@@ -376,10 +376,10 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
             </li>
             <li><span className='font-bold'>Return: </span>
               Finally, we will return your repaired device, which is now fully functioning and ready for use. Our team will also walk you through any relevant maintenance tips or updates to ensure optimal
-              performance. With Geeks CRS, you’ll receive a device that’s not only fixed but also ready to handle your daily needs with confidence.
+              performance. With Geekify®, you’ll receive a device that’s not only fixed but also ready to handle your daily needs with confidence.
             </li>
           </ul>
-          <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>This simple, clear process is why Sydney residents trust Geeks CRS for reliable, effective laptop computer repair services.</p>
+          <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>This simple, clear process is why Sydney residents trust Geekify® for reliable, effective laptop computer repair services.</p>
         </div>
       </div>
 
@@ -392,32 +392,32 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
-        <h3 className='text-2xl lg:text-4xl font-bold pb-5'>Why Trust <span className='text-primaryColor'>Geeks CRS?</span></h3>
+        <h3 className='text-2xl lg:text-4xl font-bold pb-5'>Why Trust <span className='text-primaryColor'>Geekify®?</span></h3>
         <p>
-          At Geeks CRS, we are dedicated to providing outstanding laptop computer repair services. With years of industry experience and a team of expert computer technicians, we’ve earned a reputation as a
+          At Geekify®, we are dedicated to providing outstanding laptop computer repair services. With years of industry experience and a team of expert computer technicians, we’ve earned a reputation as a
           trusted choice for laptop repairs across Sydney. Our commitment to quality ensures that every repair is handled with precision and care. No matter the complexity of the issue.
         </p>
         <p className='pt-5'>
           We understand that dealing with a malfunctioning laptop can be frustrating, so we’ve designed our repair process to be as simple, stress-free, and affordable as possible. From diagnostics to transparent
-          quoting and quality repairs, we prioritize customer satisfaction at every step. When you choose Geeks CRS, you’re choosing a reliable partner who values your time, budget, and device performance.
+          quoting and quality repairs, we prioritize customer satisfaction at every step. When you choose Geekify®, you’re choosing a reliable partner who values your time, budget, and device performance.
           Let us take care of your laptop or computer repair needs with confidence and expertise.
         </p>
 
         <h3 className='text-2xl lg:text-4xl font-bold pb-5 pt-8 md:pt-14 lg:pt-20 xl:pt-28'>Contact Us</h3>
         <p>
-          At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we’re here to help with all your laptop and computer repair needs. Whether you have a question, need a quote, or want to schedule a repair, our friendly team is ready to assist.
+          At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we’re here to help with all your laptop and computer repair needs. Whether you have a question, need a quote, or want to schedule a repair, our friendly team is ready to assist.
         </p>
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl lg:text-4xl font-bold pb-5'>Final Thought</h3>
         <p>
-          When it comes to laptop computer repair services, Geeks CRS is here to make the process easy, affordable, and reliable. Our experienced team is dedicated to helping you get back to work, study, or
-          play with a device that performs like new. From diagnosing issues to providing transparent quotes and expert repairs, we prioritize your convenience and satisfaction at every step. Trust Geeks CRS
-          to keep your devices running smoothly. So you can focus on what matters most. For laptop repairs in Sydney that you can rely on, Geeks CRS is just a call or click away.
+          When it comes to laptop computer repair services, Geekify® is here to make the process easy, affordable, and reliable. Our experienced team is dedicated to helping you get back to work, study, or
+          play with a device that performs like new. From diagnosing issues to providing transparent quotes and expert repairs, we prioritize your convenience and satisfaction at every step. Trust Geekify®
+          to keep your devices running smoothly. So you can focus on what matters most. For laptop repairs in Sydney that you can rely on, Geekify® is just a call or click away.
         </p>
         <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>
-          For reliable laptop computer repair services in Sydney, Geeks CRS is just a call or email away. Let us help you get your devices back to peak performance!
+          For reliable laptop computer repair services in Sydney, Geekify® is just a call or email away. Let us help you get your devices back to peak performance!
         </p>
       </div>
 

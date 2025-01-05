@@ -214,7 +214,7 @@ function EmailAccountSetup({ service }: ServiceDetailsProps) {
           <h5 className='text-xl font-bold italic pb-2'>1. Choose Your Domain Name</h5>
           <p>
             Your domain name is the part of your email marketing that comes after the '@' symbol (e.g., @yourbusiness.com). It's important to choose a domain that reflects your business name or services. For
-            example, if your business is called “Geek Solutions,” your domain could be something like <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>. Keep your domain name short, easy to spell, and closely related to your business.
+            example, if your business is called “Geek Solutions,” your domain could be something like <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>. Keep your domain name short, easy to spell, and closely related to your business.
           </p>
         </div>
         <div className='pb-5'>
@@ -422,7 +422,7 @@ function EmailAccountSetup({ service }: ServiceDetailsProps) {
           and proper security measures in place, your business can thrive in the digital world. Whether you’re just starting or scaling up, having a <a href="https://auspost.com.au/content/dam/auspost_corp/media/documents/mails-role-in-the-digital-age-research-report.pdf" className='text-primaryColor underline'>professional email address</a> is
           essential to your success.
         </p>
-        <p>At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we specialize in helping businesses set up professional emails that are secure, reliable, and easy to manage. If you’re ready to create your business email and take your company to the next level, reach out to us today!</p>
+        <p>At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we specialize in helping businesses set up professional emails that are secure, reliable, and easy to manage. If you’re ready to create your business email and take your company to the next level, reach out to us today!</p>
       </div>
 
     </div>

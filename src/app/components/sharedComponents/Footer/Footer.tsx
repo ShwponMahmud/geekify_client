@@ -20,9 +20,10 @@ const Footer = () => {
                 height={340}
               />
             </div>
-            <p className="text-lg text-gray-400">
-              Your satisfaction is our goal. If you’re not happy. Please let us
-              know, we will work with you to make it right.
+            <p className="text-lg">
+              Geekify® delivers cutting-edge tech solutions, crafted by geeks,
+              for geeks. Driven by passion and innovation, we’re here to lead
+              the way in tech excellence.
             </p>
             <div className="flex space-x-[35px] pt-5 md:pt-10">
               <Link

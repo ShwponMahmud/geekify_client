@@ -101,7 +101,7 @@ function SmartPhoneDeviceSetup({service}: ServiceDetailsProps) {
           <div>
             <p className='text-center'>
               Let’s talk about the Guide to Set Up My Device. Setting up a new device is an exciting experience. But it can also be overwhelming if you don't know where to begin.
-              At Geeks CRS, we make the process easy and efficient. Whether you have a new phone, tablet, or any smart gadget, our team specializes in helping you get set up
+              At Geekify®, we make the process easy and efficient. Whether you have a new phone, tablet, or any smart gadget, our team specializes in helping you get set up
               quickly. We provide a simple, step-by-step approach that guides you through the entire process. From configuring basic Google Assistant settings to connecting to
               the internet and transferring important data, we ensure your device is ready for use without any hassle. Trust us to handle the setup, so you can enjoy your new
               device to its fullest immediately!
@@ -115,7 +115,7 @@ function SmartPhoneDeviceSetup({service}: ServiceDetailsProps) {
           <div className=''>
             <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 text-center'>Why Choose Us to <span className='text-primaryColor'>Set Up Your Device?</span></h3>
             <p className='text-center pb-8'>
-              Getting a new device is exciting, but the setup process can be complex. At Geeks CRS, we ensure a smooth Android phone setup. That lets you make the most of your Android phone or new device
+              Getting a new device is exciting, but the setup process can be complex. At Geekify®, we ensure a smooth Android phone setup. That lets you make the most of your Android phone or new device
               from day one. Here’s how we help:
             </p>
           </div>
@@ -218,7 +218,7 @@ function SmartPhoneDeviceSetup({service}: ServiceDetailsProps) {
             </div>
           </div>
           <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>
-            With Geeks CRS, setting up your device is easy, efficient, and hassle-free. Let us handle the setup so you can focus on exploring and enjoying all the great features your new device has to offer!
+            With Geekify®, setting up your device is easy, efficient, and hassle-free. Let us handle the setup so you can focus on exploring and enjoying all the great features your new device has to offer!
           </p>
         </div>
       </div>
@@ -410,7 +410,7 @@ function SmartPhoneDeviceSetup({service}: ServiceDetailsProps) {
       <div className='container mx-auto'>
         <h3 className='text-2xl lg:text-4xl font-bold mb-5'>Contact Us</h3>
         <p className='mb-4'>
-          Are you in need of assistance with set up my device? At Geeks CRS, our dedicated team is here to make the setup process quick, easy, and stress-free. Whether you’re configuring a new phone, tablet,
+          Are you in need of assistance with set up my device? At Geekify®, our dedicated team is here to make the setup process quick, easy, and stress-free. Whether you’re configuring a new phone, tablet,
           or any other smart device, we have the <a href="https://www.cashify.in/how-to-use-ok-google-to-set-up-my-device" className='text-primaryColor underline'>expertise to guide</a> you through every step.
         </p>
         <p className='mb-4'>Our professionals are ready to help you with everything from connecting to Wi-Fi and syncing accounts to transferring data and installing essential apps. We understand that technology can sometimes
@@ -422,14 +422,14 @@ function SmartPhoneDeviceSetup({service}: ServiceDetailsProps) {
         </p>
 
         <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>
-          Let Geeks CRS handle the technical setup so you can start enjoying your new device without any hassle!
+          Let Geekify® handle the technical setup so you can start enjoying your new device without any hassle!
         </p>
       </div>
 
       <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
         <h3 className='text-2xl lg:text-4xl font-bold mb-5'>Get Expert Help Set Up My Device</h3>
         <p className='mb-4'>
-          At Geeks CRS, we are committed to making your device setup hassle-free. Our experienced team is here to assist you every step of the way. Whether you’re facing challenges or prefer to have an expert
+          At Geekify®, we are committed to making your device setup hassle-free. Our experienced team is here to assist you every step of the way. Whether you’re facing challenges or prefer to have an expert
           handle the entire process, we’ve got you covered.
         </p>
         <p className='mb-4'>

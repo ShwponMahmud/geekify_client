@@ -4,7 +4,7 @@ import React from 'react'
 function BottomFooter() {
   return (
     <div className="bg-[#525252]">
-      <div className="container mx-auto py-2">
+      <div className="container mx-auto lg:h-[100px] py-3">
         <div className="block lg:flex justify-between items-center gap-5">
           <div className="flex justify-center items-center lg:block">
             <Image
@@ -50,7 +50,7 @@ function BottomFooter() {
           </div>
           <div>
             <p className="text-white font-semibold text-center lg:text-right">
-              Copyright © 2022-2023 Geeks CRS. All rights reserved.
+              Copyright © 2022-2023 Geekify®. All rights reserved.
             </p>
           </div>
         </div>

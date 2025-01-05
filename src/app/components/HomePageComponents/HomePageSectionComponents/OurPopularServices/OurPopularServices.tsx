@@ -50,8 +50,10 @@ const OurPopularServices = async () => {
               Our Popular <span className="text-primaryColor">Services</span>
             </h1>
             <p>
-              Find the type of service you need, clearly defined and ready to
-              start. Work begins as soon as you book and provide requirements.
+              We provide tailored solutions to meet your tech needs, ensuring
+              efficiency and reliability. From data recovery to app development,
+              our services are designed to help you stay ahead in a fast-paced
+              digital world.
             </p>
           </div>
 

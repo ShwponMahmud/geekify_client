@@ -102,7 +102,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
 
           <div>
             <p className='text-center'>In today’s fast-paced digital landscape, a strong online presence is essential for any business. A powerful website and app development goes beyond mere functionality.
-              Because It is a critical tool for engaging with customers and building brand identity. At Geeks CRS, we specialize in creating <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>websites and mobile apps</a> that not only perform well but also resonate
+              Because It is a critical tool for engaging with customers and building brand identity. At Geekify®, we specialize in creating <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>websites and mobile apps</a> that not only perform well but also resonate
               with audiences on a personal level. Each project we take on is crafted with attention to detail. That reflects your unique goals and vision. Our dedicated team in Sydney combines technical expertise
               with creativity, turning ideas into interactive, user-friendly experiences. We’re driven by a passion to help our clients shine online. That makes the internet a more vibrant, connected space—one
               innovative project at a time.</p>
@@ -163,7 +163,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
             <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7'>Web Application Development: <span className='text-primaryColor'>Taking Your Business to New Heights</span></h3>
             <p>
               If your business requires unique features, our web application development, our team is here to help. Website and app development are different from traditional websites—they’re more interactive and
-              often handle specific tasks. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we’re experts in designing and building custom web applications that streamline your business and make life easier for you and your customers.
+              often handle specific tasks. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we’re experts in designing and building custom web applications that streamline your business and make life easier for you and your customers.
             </p>
 
 
@@ -217,7 +217,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
         <div className='p-5 shadow-hoverBoxShadow rounded-xl mb-6'>
           <h5 className='text-xl font-bold italic pb-2'>1. Complete Guidance from Concept to Creation</h5>
           <p>
-            At Geeks CRS, we believe the journey to a successful app and web browser starts with collaboration. We begin by understanding your ideas and vision and brainstorming together to define what makes your
+            At Geekify®, we believe the journey to a successful app and web browser starts with collaboration. We begin by understanding your ideas and vision and brainstorming together to define what makes your
             app unique. From there, our web developers handle every detail—designing, developing, and finally launching your app on major platforms like the App Store or Google Play. Our goal is to make the entire
             process clear and enjoyable. Our web developer gives you confidence as we turn your concept into a reality.
           </p>
@@ -247,7 +247,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
         <div className='p-5 shadow-hoverBoxShadow rounded-xl mb-6'>
           <h5 className='text-xl font-bold italic pb-2'>5. Long-Term Partnerships Built on Trust</h5>
           <p>
-            At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we don’t just see ourselves as your developers—we aim to be your long-term partners. Our website development is here to offer advice, adapt your app as your business grows, and support
+            At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we don’t just see ourselves as your developers—we aim to be your long-term partners. Our website development is here to offer advice, adapt your app as your business grows, and support
             you in reaching your digital goals with user interface. Our web app development services commitment to quality service and ongoing collaboration builds trust. That makes us a partner you can rely on
             for future growth.
           </p>
@@ -261,7 +261,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
           <div className='text-center'>
             <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 text-center'>Custom App Development Service: <span className='text-primaryColor'>Tailored to Your Needs</span></h3>
             <p className='pb-7'>
-              At Geeks CRS, we understand that no two businesses are the same, so why should their apps be? Our custom website and app development service is all about creating a digital solution that’s
+              At Geekify®, we understand that no two businesses are the same, so why should their apps be? Our custom website and app development service is all about creating a digital solution that’s
               unique to you by Google Play Store.
             </p>
           </div>
@@ -359,7 +359,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
                     <div className='w-[80px] border-b-[1px] border-primaryColor mb-[8px] ml-3'></div>
                   </div>
                   <p className="text-gray-600 mt-2">
-                    At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we’re not just app builders; we’re your partners in success. We value the relationships we build with our clients and are committed to understanding your evolving needs. Our focus
+                    At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we’re not just app builders; we’re your partners in success. We value the relationships we build with our clients and are committed to understanding your evolving needs. Our focus
                     on collaboration and support ensures that as your business grows, your website and app development can grow with it. That provides a foundation for ongoing success in the digital landscape.
                   </p>
                 </div>
@@ -371,15 +371,15 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
 
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
-        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4'>Why Choose <span className='text-primaryColor'>Geeks CRS?</span></h3>
+        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4'>Why Choose <span className='text-primaryColor'>Geekify®?</span></h3>
         <p className='pb-7'>
-          Choosing the right team for website and app development can be challenging, but with Geeks CRS, you’ll always have support from people who genuinely care about your project. Here’s what makes us different:
+          Choosing the right team for website and app development can be challenging, but with Geekify®, you’ll always have support from people who genuinely care about your project. Here’s what makes us different:
         </p>
-        <Image src={'/web-development-6.png'} alt='Geeks CRS: Website and app experts' width={1200} height={900} className='w-full h-auto pb-8' />
+        <Image src={'/web-development-6.png'} alt='Geekify®: Website and app experts' width={1200} height={900} className='w-full h-auto pb-8' />
         <div className='mb-6'>
           <h5 className='text-xl font-bold italic pb-2'>1. Experienced Team of Experts</h5>
           <p>
-            Our team at Geeks CRS is composed of skilled designers, developers, and strategists who excel in their fields. Each member brings a wealth of experience and creativity to the table, ensuring that your
+            Our team at Geekify® is composed of skilled designers, developers, and strategists who excel in their fields. Each member brings a wealth of experience and creativity to the table, ensuring that your
             ideas are not only heard but expertly transformed into functional, visually appealing apps and websites.
           </p>
         </div>
@@ -444,7 +444,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
       <div className='container mx-auto'>
         <h3 className='text-2xl lg:text-4xl font-bold mb-5'>Contact Us</h3>
         <p className='mb-4 pb-4'>
-          Ready to bring your website or app idea to life? We’re here to make the process easy, exciting, and stress-free. Contact <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> today and let’s discuss how we can help your business grow with custom
+          Ready to bring your website or app idea to life? We’re here to make the process easy, exciting, and stress-free. Contact <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> today and let’s discuss how we can help your business grow with custom
           website and app development.
         </p>
       </div>
@@ -453,7 +453,7 @@ function WebApplicationDevelopment({service}: ServiceDetailsProps) {
         <h3 className='text-2xl lg:text-4xl font-bold pb-5'>Let’s Get <span className='text-primaryColor'>Started!</span>
         </h3>
         <p className='pb-5'>
-          Whether you’re looking for a web application development service or need a custom app development service, our team is ready to make your digital dreams come true. Get in touch with Geeks CRS today
+          Whether you’re looking for a web application development service or need a custom app development service, our team is ready to make your digital dreams come true. Get in touch with Geekify® today
           and let’s start building something amazing together.
         </p>
         <p className='text-xl font-bold italic'>

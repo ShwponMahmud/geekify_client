@@ -27,7 +27,7 @@ function FranchiseComponents() {
             </div>
 
             <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
-              <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7'>Why Geeks CRS? The Power of <span className='text-primaryColor'>a Proven Business Model</span></h3>
+              <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7'>Why Geekify®? The Power of <span className='text-primaryColor'>a Proven Business Model</span></h3>
               <p className='lg:text-xl'>
                 GeeksCRS has grown from a single idea into a recognized brand for tech solutions. Our success is built on solving real-world IT challenges, from IT support, and software issues to custom app 
                 development, and now we’re sharing this success with you through franchising.
@@ -123,7 +123,7 @@ function FranchiseComponents() {
           <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>
             <div>
               <div>
-                <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7'>Why the Geeks CRS Franchise <span className='text-primaryColor'>Model is Set Up for Success</span></h3>
+                <h3 className='text-3xl md:text-4xl font-bold pb-3 lg:pb-7'>Why the Geekify® Franchise <span className='text-primaryColor'>Model is Set Up for Success</span></h3>
                 <p className='text-xl font-semibold italic'>Our franchise model is unique because it’s built on the pillars of scalability and simplicity. Here’s why it works:</p>
 
                 <div className='pt-4 pb-5'>
