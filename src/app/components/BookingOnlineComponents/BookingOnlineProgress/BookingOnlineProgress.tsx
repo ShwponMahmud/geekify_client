@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
-import { bookingSummerySaveAndContinue } from "@/app/rtk-state/reducers/bookingSlice";
 
 const BookingOnlineProgress: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -29,9 +28,9 @@ const BookingOnlineProgress: React.FC = () => {
     updateProgress();
   }, [bookingInfo]);
 
-//   const next = () => {
+  const next = () => {
 // dispatch(bookingSummerySaveAndContinue("next"));
-//   }
+  }
   
   return (
     <div className="">

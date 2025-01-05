@@ -25,7 +25,14 @@ export interface PaymentState {
   AppointmentDiscountStoreListCreateResStatus: string;
   appointmentHistoryCreateResData: any;
   couponDiscountCreateResData: any;
-  appointmentQuestionSubmitResData : any;
+  appointmentQuestionSubmitResData: any;
+  undecidedAppointmentStatus: any;
+  paymentOptionFullAmountAfterDiscount: any;
+  paymentOptionHalfAmountAfterDiscount: any;
+  paymentOptionQuarterAmountAfterDiscount: any;
+  UndecidedEmailNotifyCreateResData: any;
+  afterPaySetMinimumAmount: any;
+  afterPaySetMaximumAmount: any;
 }
 
 const initialState: PaymentState = {
@@ -50,7 +57,14 @@ const initialState: PaymentState = {
   AppointmentDiscountStoreListCreateResStatus: "",
   appointmentHistoryCreateResData: {},
   couponDiscountCreateResData: {},
-  appointmentQuestionSubmitResData: {}
+  appointmentQuestionSubmitResData: {},
+  undecidedAppointmentStatus: "",
+  paymentOptionFullAmountAfterDiscount: {},
+  paymentOptionHalfAmountAfterDiscount: {},
+  paymentOptionQuarterAmountAfterDiscount: {},
+  UndecidedEmailNotifyCreateResData: {},
+  afterPaySetMinimumAmount: {},
+  afterPaySetMaximumAmount: {},
 };
 
 // card token create..................
@@ -580,7 +594,6 @@ export const CouponDiscountCreate = createAsyncThunk(
   }
 );
 
-
 //Appointment question submit create..................
 export interface AppointmentQuestionSubmitFormData {
   added_by: number;
@@ -614,14 +627,82 @@ export const AppointmentQuestionSubmitCreate = createAsyncThunk(
   }
 );
 
+// Interface for Undecided Email Notify form data
+export interface UndecidedEmailNotifyFormData {
+  appointment: number;
+  params: {
+    notify_customer: number;
+    notify_internal_user: number;
+  };
+}
 
+// Async thunk for Undecided email notify creation
+export const UndecidedEmailNotifyCreate = createAsyncThunk(
+  "UndecidedEmailNotifyCreate",
+  async (formData: UndecidedEmailNotifyFormData, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `${baseUrl}/appointments/send-creation-undecided-notify/${formData.appointment}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Client-Secret": "secret",
+          },
+          body: JSON.stringify(formData.params),
+        }
+      );
 
+      const data = await response.json();
 
+      if (!response.ok) {
+        return rejectWithValue(data.field_errors || "An error occurred");
+      }
+
+      return data.data;
+    } catch (error) {
+      return rejectWithValue(
+        error instanceof Error ? error.message : "Network error"
+      );
+    }
+  }
+);
 
 export const paymentSlice = createSlice({
   name: "payments",
   initialState,
-  reducers: {},
+  reducers: {
+    undecidedAppointmentStatus: (state, action: PayloadAction<string>) => {
+      state.undecidedAppointmentStatus = action.payload;
+    },
+    paymentOptionFullAmountAfterDiscount: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.paymentOptionFullAmountAfterDiscount = action.payload;
+    },
+    paymentOptionHalfAmountAfterDiscount: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.paymentOptionHalfAmountAfterDiscount = action.payload;
+    },
+    paymentOptionQuarterAmountAfterDiscount: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.paymentOptionQuarterAmountAfterDiscount = action.payload;
+    },
+    afterPaySetMinimumAmount: (state, action: PayloadAction<any>) => {
+      state.afterPaySetMinimumAmount = action.payload;
+    },
+    afterPaySetMaximumAmount: (
+      state,
+      action: PayloadAction<any>
+    ) => {
+      state.afterPaySetMaximumAmount = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(CardTokenCreate.pending, (state) => {
@@ -926,7 +1007,6 @@ export const paymentSlice = createSlice({
           state.status = "success";
           state.appointmentQuestionSubmitResData = action.payload;
 
-
           state.cardToken = "";
           state.PaymentsCreateByTokenResData = "";
           state.createPaymentResData = "";
@@ -947,9 +1027,52 @@ export const paymentSlice = createSlice({
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
+      })
+      .addCase(UndecidedEmailNotifyCreate.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.UndecidedEmailNotifyCreateResData = "";
+      })
+      .addCase(
+        UndecidedEmailNotifyCreate.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.isLoading = false;
+          state.status = "success";
+          state.UndecidedEmailNotifyCreateResData = action.payload;
+
+          state.createAppointmentsResData = "";
+          state.appointmentChargeResData = "";
+          state.appointmentChargeResStatus = "";
+          state.createAppointmentNotesResData = "";
+          state.CreateAppointmentCreatorResData = "";
+          // state.AppointmentDiscountStoreListCreateResData = "";
+          // state.AppointmentDiscountStoreListCreateResStatus = "";
+        }
+      )
+      .addCase(UndecidedEmailNotifyCreate.rejected, (state, action) => {
+        state.isLoading = false;
+        state.status = "failed";
+        state.error = action.error.message || "Unknown error occurred";
+
+        state.createAppointmentsResData = "";
+        state.appointmentChargeResData = "";
+        state.appointmentChargeResStatus = "";
+        state.createAppointmentNotesResData = "";
+        state.CreateAppointmentCreatorResData = "";
+        // state.AppointmentDiscountStoreListCreateResData = "";
+        // state.AppointmentDiscountStoreListCreateResStatus = "";
       });
   },
 });
+
+export const {
+  undecidedAppointmentStatus,
+  paymentOptionFullAmountAfterDiscount,
+  paymentOptionHalfAmountAfterDiscount,
+  paymentOptionQuarterAmountAfterDiscount,
+  afterPaySetMinimumAmount,
+  afterPaySetMaximumAmount
+} = paymentSlice.actions;
 
 // Selector
 // export const selectCardTokenCreate = (state: RootState) => state.contacts;

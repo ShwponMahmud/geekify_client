@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { BiSolidRightArrow } from "react-icons/bi";
 import "./Navbar.css";
+import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { GetSettings } from "@/app/rtk-state/reducers/SettingSlice";
 
 interface Service {
   slug: string;
@@ -53,10 +55,12 @@ function classNames(...classes: (string | undefined | null | false)[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar(): JSX.Element {
+export default function Navbar() {
   const [servicesCategory, setServicesCategory] = useState<Service[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
   const [hoveredMainArea, setHoveredMainArea] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const [settingsGet, setSettingsGet] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -206,7 +210,7 @@ export default function Navbar(): JSX.Element {
                                       {area?.districtAreas &&
                                         area?.districtAreas.map((item) => (
                                           <Link
-                                            href={item?.slug}
+                                            href={`/service-areas/${area?.slug}/${item?.slug}`}
                                             className="cursor-pointer ml-4 hover:tracking-[1px] hover:text-[#1d5f89] duration-500"
                                           >
                                             {item?.name}
