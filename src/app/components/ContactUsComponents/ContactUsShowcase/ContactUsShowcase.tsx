@@ -5,27 +5,14 @@ import contactusbanner from '../../../../assets/images/contactusbanner.jpg'
 function ContactUsShowcase() {
   return (
     <>
-      <Showcase backgroundImage={'/contactusbanner.jpg'} title='Contact' highlights='Us' paragraph='One-stop solution for your IT needs, Order any service, anytime.'/>
-     {/* <div className="common_showcase_section mt-[100px]">
-        <div className="container mx-auto ">
-          <div className="common_showcase_section_content ">
-            <div className="text-center text-white mt-56 ">
-              <h1 className="title text-7xl font-bold ">
-                Browse our <span className="highlight_title">resources</span>
-              </h1>
-              <p className="mt-8 ">
-                One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur adipisicing elit. <br /> Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
-              </p>
-
-              <div className="btn_container mt-5">
-                <button className="bookNowBtn">Book Now</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
+      <Showcase
+        backgroundImage={"/contactusbanner.jpg"}
+        title="Contact"
+        highlights="Us"
+        paragraph="We’re here to assist with all your tech needs! Reach out to our team of experts for personalized support and guidance. Let’s solve your challenges together—efficiently and effectively."
+      />
     </>
-  )
+  );
 }
 
 export default ContactUsShowcase

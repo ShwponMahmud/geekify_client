@@ -1,3 +1,4 @@
+import Paypal from '@/app/components/Paypal/Paypal'
 import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
@@ -100,12 +101,12 @@ function DataRecoveryDetails({ service }: ServiceDetailsProps) {
         <div>
           <div>
             <p className='text-center'>
-              Have you accidentally lost your important data? Don’t worry! Our professional data recovery services at <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> in
+              Have you accidentally lost your important data? Don’t worry! Our professional data recovery services at <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> in
               Australia are here to help you recover your important files quickly and safely. Whether your data loss is caused by a hardware malfunction, accidental deletion, or a virus attack, our skilled team
               has the tools and expertise to recover it quickly and efficiently. Our team specializes in data recovery for various devices, including hard drives, SSDs, USBs, etc.
             </p>
             <p className='text-center py-7'>
-              We proudly serve clients across Brisbane, Sydney, and other parts of Australia. <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> offers reliable and fast solutions tailored to your needs. Our experts use advanced laptop data recovery
+              We proudly serve clients across Brisbane, Sydney, and other parts of Australia. <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> offers reliable and fast solutions tailored to your needs. Our experts use advanced laptop data recovery
               techniques and strict security protocols to restore your data securely. Whether it's personal files or crucial business data, you can trust us to recover your lost information when you need it
               the most.
             </p>
@@ -132,7 +133,7 @@ function DataRecoveryDetails({ service }: ServiceDetailsProps) {
                   <p className="text-gray-600 mt-2">
                     Our team consists of highly skilled professionals with years of experience handling all types of data loss scenarios. We've seen it all, whether it's due to a hard drive failure, file
                     corruption, or accidental deletion. Our technicians recover data from a variety of storage devices. They understand the urgency of getting your files back. No matter how complex the issue is,
-                    we have the expertise to deliver the best results. Our <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> has an emergency service too.
+                    we have the expertise to deliver the best results. Our <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> has an emergency service too.
                   </p>
                 </div>
               </div>
@@ -245,6 +246,8 @@ function DataRecoveryDetails({ service }: ServiceDetailsProps) {
 
       <QuickContact title='Contact Us Today for Expert CCTV Installation Services' />
 
+      <Paypal />
+
       <div className='container mx-auto'>
         <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
           <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7'>Data Recovery <span className='text-primaryColor'>in Sydney</span></h3>
@@ -317,7 +320,7 @@ function DataRecoveryDetails({ service }: ServiceDetailsProps) {
         <h3 className='text-2xl lg:text-4xl font-bold pb-8'>Contact Us for <span className='text-primaryColor'>Data Recovery Services</span>
         </h3>
         <p className='pb-5'>
-          If you’re facing lost data, don’t wait! Contact our <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> expert team today to schedule a free consultation. Whether you're in Sydney, or anywhere else, our team is ready to help you recover
+          If you’re facing lost data, don’t wait! Contact our <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> expert team today to schedule a free consultation. Whether you're in Sydney, or anywhere else, our team is ready to help you recover
           your important data.
         </p>
       </div>

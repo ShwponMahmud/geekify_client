@@ -112,35 +112,35 @@ function AntiVirusInstallation({ service }: ServiceDetailsProps) {
           <div>
             <p className='text-center'>
               In today’s fast-paced digital world, internet security is crucial for everyone. From working remotely to shopping online and browsing social media, protecting yourself from viruses, malware, and
-              cyber threats is more important than ever. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we’re dedicated to helping you find the best internet security Australia. We guide you to reliable, top-rated protection options that shield
+              cyber threats is more important than ever. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we’re dedicated to helping you find the best internet security Australia. We guide you to reliable, top-rated protection options that shield
               your devices and safeguard your personal information. With our expert recommendations, you can confidently navigate the digital world, knowing your data and devices are secure.
             </p>
           </div>
 
           <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
-            <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>Geeks CRS for Cloud-Based <span className='text-primaryColor'>Antivirus Protection</span></h3>
+            <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>Geekify® for Cloud-Based <span className='text-primaryColor'>Antivirus Protection</span></h3>
             <div className='text-center'>
               <p>
-                Choosing Geeks CRS means benefiting from a <a href="https://geekify.com.au/contact-us" className='text-primaryColor underline'>cloud-based antivirus solution</a>, which offers unique advantages for internet security. Unlike traditional antivirus software, cloud-based antivirus operates
+                Choosing Geekify® means benefiting from a <a href="https://geekify.com.au/contact-us" className='text-primaryColor underline'>cloud-based antivirus solution</a>, which offers unique advantages for internet security. Unlike traditional antivirus software, cloud-based antivirus operates
                 from a remote server. That minimizes the impact on your device’s performance. Since most of the scanning and threat detection happens in the cloud, your device remains fast and efficient, with no
                 heavy software slowing it down.
               </p>
               <p className='py-5'>
-                A cloud-based antivirus is the best internet security Australia. It is constantly updated. That means Geeks CRS clients receive the latest protection against new threats in real time. This proactive
+                A cloud-based antivirus is the best internet security Australia. It is constantly updated. That means Geekify® clients receive the latest protection against new threats in real time. This proactive
                 approach ensures that your device is shielded from emerging risks without requiring manual updates. Additionally, cloud-based antivirus solutions are versatile and can protect multiple devices
                 simultaneously. That makes them ideal for both personal and business use.
               </p>
               <p className='text-center'>
-                At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we leverage these benefits to offer you effective, seamless protection. Our team helps you find, install, and manage cloud-based antivirus. So you can enjoy robust security without
+                At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we leverage these benefits to offer you effective, seamless protection. Our team helps you find, install, and manage cloud-based antivirus. So you can enjoy robust security without
                 any hassle.
               </p>
             </div>
 
 
             <div className='py-8 md:py-14 lg:py-20 xl:py-28'>
-              <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7'>Why Geeks CRS for Your <span className='text-primaryColor'>Internet Security in Australia?</span></h3>
+              <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7'>Why Geekify® for Your <span className='text-primaryColor'>Internet Security in Australia?</span></h3>
               <p>
-                At Geeks CRS, we recognize the distinct best internet security Australia needs and strive to provide tailored solutions. Here’s why you should choose us for your internet security needs:
+                At Geekify®, we recognize the distinct best internet security Australia needs and strive to provide tailored solutions. Here’s why you should choose us for your internet security needs:
               </p>
               <ul className='list-disc ml-7 pt-5 space-y-3'>
                 <li><span className='font-bold'>Trusted Experts:</span> Our team consists of knowledgeable professionals who stay current with the latest developments in the best
@@ -149,7 +149,7 @@ function AntiVirusInstallation({ service }: ServiceDetailsProps) {
                 <li><span className='font-bold'>Customer-Centric Support:</span> We prioritize your needs by assisting you in selecting the right antivirus and security software.
                   Our support extends to installation and usage guidance. That ensures you feel confident in managing your security solutions.
                 </li>
-                <li><span className='font-bold'>Reliable Recommendations:</span> At Geeks CRS, we only recommend top-rated and well-reviewed antivirus software. Our goal is to
+                <li><span className='font-bold'>Reliable Recommendations:</span> At Geekify®, we only recommend top-rated and well-reviewed antivirus software. Our goal is to
                   ensure your devices are protected by trusted solutions that have proven effectiveness in safeguarding against various online threats.
                 </li>
               </ul>
@@ -472,7 +472,7 @@ function AntiVirusInstallation({ service }: ServiceDetailsProps) {
       <div className='container mx-auto'>
         <h3 className='text-2xl lg:text-4xl font-bold mb-5'>Contact Us</h3>
         <p className='mb-4 pb-4'>
-          If you have questions or need assistance with internet security, our Geeks CRS team is here for you! We’re dedicated to helping you find the <a href="https://geekify.com.au/services/anti-virus-installation" className='text-primaryColor underline'>cloud-based antivirus solution</a> best antivirus solution
+          If you have questions or need assistance with internet security, our Geekify® team is here for you! We’re dedicated to helping you find the <a href="https://geekify.com.au/services/anti-virus-installation" className='text-primaryColor underline'>cloud-based antivirus solution</a> best antivirus solution
           tailored to your needs. Reach out to us, and let our experts guide you in enhancing your online safety and protection.
         </p>
       </div>
@@ -481,7 +481,7 @@ function AntiVirusInstallation({ service }: ServiceDetailsProps) {
         <h3 className='text-2xl lg:text-4xl font-bold pb-8'>Get Started with the <span className='text-primaryColor'>Best Internet Security in Australia</span>
         </h3>
         <p className='pb-5'>
-          Ready to protect your devices? Visit Geeks CRS <a href="https://geekify.com.au/" className='text-primaryColor underline'>cloud-based antivirus solution</a> and explore the top internet security and antivirus options available. Whether you need a virus scanner, antivirus
+          Ready to protect your devices? Visit Geekify® <a href="https://geekify.com.au/" className='text-primaryColor underline'>cloud-based antivirus solution</a> and explore the top internet security and antivirus options available. Whether you need a virus scanner, antivirus
           for Mac, or antivirus protection for Android, we have you covered.
         </p>
       </div>

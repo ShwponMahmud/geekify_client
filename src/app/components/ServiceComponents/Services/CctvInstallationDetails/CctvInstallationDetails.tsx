@@ -27,7 +27,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
     {
       question: "Q. What’s the average cost of CCTV camera installation?",
       answer:
-        "A. The cost varies depending on the number of cameras and system complexity. However, Geeks CRS offers cheap CCTV camera installation options starting at competitive rates. Contact us for a custom quote.",
+        "A. The cost varies depending on the number of cameras and system complexity. However, Geekify® offers cheap CCTV camera installation options starting at competitive rates. Contact us for a custom quote.",
     },
     {
       question: "Q. Do you offer maintenance services after installation?",
@@ -142,7 +142,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
             <p className="text-center">
               Today’s world is driven by technology, and CCTV cameras
               installation is important for keeping your home or business
-              secure. At Geeks CRS, we provide affordable, high-quality CCTV
+              secure. At Geekify®, we provide affordable, high-quality CCTV
               installer IP camera solutions to give you peace of mind. Whether
               you need to monitor your home or secure a commercial space, our
               expert technicians deliver reliable{" "}
@@ -290,7 +290,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
             </h3>
             <p className="mb-4 text-center">
               CCTV security cameras installation prices are often a primary
-              concern for customers, but at Geeks CRS, we strive to offer
+              concern for customers, but at Geekify®, we strive to offer
               competitive pricing for every budget. We aim to provide cheap CCTV
               cameras and security camera installation options without
               compromising on the quality or effectiveness of your security
@@ -368,7 +368,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
             </div>
 
             <p className="text-xl lg:text-2xl font-bold text-gray-500 italic pt-8 text-center">
-              At Geeks CRS, we believe that securing your property shouldn't
+              At Geekify®, we believe that securing your property shouldn't
               break the bank. Our diverse pricing options make it easy to find a
               CCTV camera installation package. That fits your needs without
               sacrificing quality.
@@ -390,7 +390,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
             href="https://geekify.com.au/"
             className="text-primaryColor underline"
           >
-            Geeks CRS
+            Geekify®
           </a>
           , we make the CCTV wireless camera installation process simple and
           hassle-free. We take care of everything from start to finish. Video
@@ -466,7 +466,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
             href="https://geekify.com.au/"
             className="text-primaryColor underline"
           >
-            Geeks CRS
+            Geekify®
           </a>
           , we offer the latest advancements in CCTV security camera
           installation. That ensures we protect your home or business
@@ -509,7 +509,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
           </p>
         </div>
         <p className="text-xl lg:text-2xl font-bold italic text-gray-500">
-          At Geeks CRS, we deliver top-tier CCTV installation companies to keep
+          At Geekify®, we deliver top-tier CCTV installation companies to keep
           you and your property safe with bullet cameras.
         </p>
       </div>
@@ -588,7 +588,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
             <span className="text-primaryColor">All Property Types</span>
           </h3>
           <p className="mb-4 text-center">
-            At Geeks CRS, we understand that every property has unique security
+            At Geekify®, we understand that every property has unique security
             needs. That's why we offer tailored CCTV setup services for various
             property types. That ensures you are well protected.
           </p>
@@ -673,7 +673,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
           </div>
 
           <p className="text-2xl font-bold text-gray-500 italic pt-8 text-center">
-            No matter the property type, Geeks CRS delivers customized security
+            No matter the property type, Geekify® delivers customized security
             camera installation that enhance security and provide peace of mind.
           </p>
         </div>
@@ -707,7 +707,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
               question:
                 "Q. What’s the average cost of CCTV camera installation?",
               answer:
-                "A. The cost varies depending on the number of cameras and system complexity. However, Geeks CRS offers cheap CCTV camera installation options starting at competitive rates. Contact us for a custom quote.",
+                "A. The cost varies depending on the number of cameras and system complexity. However, Geekify® offers cheap CCTV camera installation options starting at competitive rates. Contact us for a custom quote.",
             },
             {
               question:
@@ -764,11 +764,11 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
 
       <div className="container mx-auto">
         <h3 className="text-2xl lg:text-4xl font-bold mb-5">
-          Why Work With <span className="text-primaryColor">Geeks CRS?</span>
+          Why Work With <span className="text-primaryColor">Geekify®?</span>
         </h3>
         <p className="mb-4 pb-4">
           Choosing the right partner for your installation of CCTV can make all
-          the difference. Here’s why Geeks CRS stands out from the competition:
+          the difference. Here’s why Geekify® stands out from the competition:
         </p>
         <div className="py-5">
           <h5 className="text-xl font-bold italic pb-2">
@@ -797,7 +797,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
             Customer Satisfaction:
           </h5>
           <p>
-            At Geeks CRS, we place a strong emphasis on customer satisfaction.
+            At Geekify®, we place a strong emphasis on customer satisfaction.
             We work closely with you to understand your specific security needs.
             That is going the extra mile to ensure your security system meets
             your expectations and requirements.
@@ -816,7 +816,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
           </p>
         </div>
         <p className="text-xl lg:text-2xl font-bold italic text-gray-500">
-          With Geeks CRS, you gain a trusted partner dedicated to your security
+          With Geekify®, you gain a trusted partner dedicated to your security
           needs.
         </p>
       </div>
@@ -827,7 +827,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
           <span className="text-primaryColor">Installed Today</span>
         </h3>
         <p className="pb-5">
-          At Geeks CRS, we make securing your home or business easy with our
+          At Geekify®, we make securing your home or business easy with our
           professional and affordable CCTV cameras installation services.
           Contact us today for a free consultation and let us help you choose
           the right our{" "}

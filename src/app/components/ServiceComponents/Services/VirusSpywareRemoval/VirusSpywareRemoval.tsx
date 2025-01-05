@@ -449,7 +449,7 @@ function VirusSpywareRemoval({ service }: ServiceDetailsProps) {
       <div className='container mx-auto'>
         <h3 className='text-2xl lg:text-4xl font-bold mb-5'>Contact Us</h3>
         <p className='mb-4'>
-          Need help with remove virus or have questions about <a href="https://geekify.com.au/services" className='text-primaryColor underline'>our services</a>? Our expert team at Geeks CRS is here to assist you. Whether it’s an iPhone, Android, laptop, or desktop, we have the tools
+          Need help with remove virus or have questions about <a href="https://geekify.com.au/services" className='text-primaryColor underline'>our services</a>? Our expert team at Geekify® is here to assist you. Whether it’s an iPhone, Android, laptop, or desktop, we have the tools
           and expertise to get your device back to peak performance.
         </p>
         <p>We look forward to helping you keep your devices secure and virus-free. Reach out to us today for reliable and fast virus removal services!</p>
@@ -457,9 +457,9 @@ function VirusSpywareRemoval({ service }: ServiceDetailsProps) {
 
       <div className='container mx-auto py-8 mg:py-14 lg:py-20 xl:py-28'>
         <div>
-          <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>Why Choose Geeks CRS for <span className='text-primaryColor'>Virus Removal Services?</span></h3>
+          <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>Why Choose Geekify® for <span className='text-primaryColor'>Virus Removal Services?</span></h3>
           <p className='text-center'>
-            Remove virus can be complex, especially when dealing with stubborn infections. At Geeks CRS, we deliver top-notch virus removal services that prioritize your device's safety and performance.
+            Remove virus can be complex, especially when dealing with stubborn infections. At Geekify®, we deliver top-notch virus removal services that prioritize your device's safety and performance.
             Here’s how we make virus removal easy and effective:
           </p>
 
@@ -496,7 +496,7 @@ function VirusSpywareRemoval({ service }: ServiceDetailsProps) {
             </div>
           </div>
           <p className='text-xl lg:text-2xl font-bold italic text-gray-500 text-center pt-9'>
-            Don’t let a virus slow you down—contact Geeks CRS today to get rid of unwanted threats and restore your device’s performance.
+            Don’t let a virus slow you down—contact Geekify® today to get rid of unwanted threats and restore your device’s performance.
           </p>
         </div>
       </div>

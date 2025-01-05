@@ -19,7 +19,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
     },
     {
       question:
-        "Can Geeks CRS help my business transition to cloud-based solutions?",
+        "Can Geekify® help my business transition to cloud-based solutions?",
       answer:
         "Yes, we specialize in cloud solutions that reduce costs, improve collaboration, and enhance scalability.",
     },
@@ -30,12 +30,12 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
     },
     {
       question:
-        "Are Geeks CRS experienced with cybersecurity for Australian businesses?",
+        "Are Geekify® experienced with cybersecurity for Australian businesses?",
       answer:
         "Yes, we are cybersecurity experts, helping protect Australian businesses from cyber threats and ensuring compliance.",
     },
     {
-      question: "Does Geeks CRS only serve businesses in Sydney?",
+      question: "Does Geekify® only serve businesses in Sydney?",
       answer:
         "No, while based in Sydney, we offer IT consulting services to businesses nationwide across Australia.",
     },
@@ -107,22 +107,22 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
         <div>
 
           <div>
-            <p className='text-center'>Welcome to Geeks CRS – where your business’s success is our priority. In Sydney’s dynamic business landscape, having a reliable <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>IT partner</a> is essential, and that’s where
-              Geeks CRS shines. We’re not just another IT company; we’re committed to understanding your unique needs and providing tailored solutions. That drives growth and streamlines operations. Our experienced
+            <p className='text-center'>Welcome to Geekify® – where your business’s success is our priority. In Sydney’s dynamic business landscape, having a reliable <a href="https://geekify.com.au/book-online" className='text-primaryColor underline'>IT partner</a> is essential, and that’s where
+              Geekify® shines. We’re not just another IT company; we’re committed to understanding your unique needs and providing tailored solutions. That drives growth and streamlines operations. Our experienced
               team specializes in creating reliable, secure, and efficient IT consultant systems. That allows you to focus on what you do best. From small businesses to large enterprises, we’re here to help your
               business thrive with innovative technology, expert consulting, and responsive support that you can count on every step of the way. Let us simplify your technology, so you can grow with confidence.</p>
           </div>
 
           <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
-            <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>Why Choose Geeks CRS for <span className='text-primaryColor'>IT Consulting?</span></h3>
+            <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>Why Choose Geekify® for <span className='text-primaryColor'>IT Consulting?</span></h3>
             <p>
-              At Geeks CRS, we know that every Australian business has <a href="https://geekify.com.au/contact-us" className='text-primaryColor underline'>unique technology needs</a>, and we’re here to make IT work for you. Our experienced IT consultant specialize in delivering solutions tailored
+              At Geekify®, we know that every Australian business has <a href="https://geekify.com.au/contact-us" className='text-primaryColor underline'>unique technology needs</a>, and we’re here to make IT work for you. Our experienced IT consultant specialize in delivering solutions tailored
               specifically for Australian companies, whether you're a startup, growing business, or established enterprise. We managed IT services and understand the fast-paced, evolving challenges that today’s
               businesses face. That’s from data security and compliance to scalable technology. It grows with you. Our mission is simple: to provide secure, efficient, and scalable IT consultant systems that
-              empower your business. Whether you’re based in Sydney or elsewhere in Australia, Geeks CRS is dedicated to ensuring that your technology supports your success. With us, you get a partner who’s as
+              empower your business. Whether you’re based in Sydney or elsewhere in Australia, Geekify® is dedicated to ensuring that your technology supports your success. With us, you get a partner who’s as
               invested in your growth as you are. That provides your job description with innovative solutions and expert guidance every step of the way
             </p>
-            <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-5 pt-20 text-center'>Our Core Values at<span className='text-primaryColor'> Geeks CRS</span></h3>
+            <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-5 pt-20 text-center'>Our Core Values at<span className='text-primaryColor'> Geekify®</span></h3>
             <p className='text-center'>
               Our commitment to excellence as an IT consultant and <a href="https://en.wikipedia.org/wiki/Information_technology" className='text-primaryColor underline'>information technology</a> is anchored in some core values that shape every solution we provide:
             </p>
@@ -133,7 +133,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
                 <Image src='/managing-business-icon-1.png' width={200} height={200} alt='' className='w-[80px] h-[80px]' />
                 <h6 className='text-lg font-bold pt-4'>Reliability:</h6>
                 <p>
-                  We understand that your business depends on consistent, trustworthy IT consultant support. That’s why we managed services in everything we do. When you work with Geeks CRS, you have a partner
+                  We understand that your business depends on consistent, trustworthy IT consultant support. That’s why we managed services in everything we do. When you work with Geekify®, you have a partner
                   you can count on to respond quickly and resolve issues effectively. That ensures your technology is always there when you need it.
                 </p>
               </div>
@@ -157,7 +157,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
                 <Image src='/managing-business-icon-4.png' width={200} height={200} alt='' className='w-[80px] h-[80px]' />
                 <h6 className='text-lg font-bold pt-4'>Proactive Problem Prevention:</h6>
                 <p>
-                  At Geeks CRS, we don’t just fix problems as they arise; we anticipate and prevent them. Through routine monitoring, software development, maintenance, and strategic IT planning, we reduce
+                  At Geekify®, we don’t just fix problems as they arise; we anticipate and prevent them. Through routine monitoring, software development, maintenance, and strategic IT planning, we reduce
                   disruptions and keep your operations running smoothly. That helps business owners avoid costly downtime.
                 </p>
               </div>
@@ -183,7 +183,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
         <div className='py-8'>
           <h5 className='text-2xl font-bold pb-2'>1. Comprehensive IT Consulting Services</h5>
           <p>
-            When you work with Geeks CRS, you’re getting more than just advice. Our IT consulting and technology investment services encompass everything from strategy and system design to ongoing support and
+            When you work with Geekify®, you’re getting more than just advice. Our IT consulting and technology investment services encompass everything from strategy and system design to ongoing support and
             maintenance. Whether you need help setting up your network, securing data, or managing software, we’re here for you.
           </p>
           <ul className='list-disc ml-7 pt-5 space-y-3'>
@@ -258,7 +258,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
                     <div className='w-[80px] border-b-[1px] border-primaryColor mb-[8px] ml-3'></div>
                   </div>
                   <p className="text-gray-600 mt-2">
-                    At Geeks CRS, we pride ourselves on our comprehensive understanding of the Sydney business environment strategic advice. The local market is fast-paced, diverse, and ever-evolving. Our strategic
+                    At Geekify®, we pride ourselves on our comprehensive understanding of the Sydney business environment strategic advice. The local market is fast-paced, diverse, and ever-evolving. Our strategic
                     technical expertise is well-versed in the intricacies of Sydney’s business ecosystem, which allows us to provide solutions that are not only cutting-edge but also aligned with the specific
                     needs and challenges faced by companies here. By staying on top of trends and market demands, we ensure your IT systems remain relevant and ahead of the competition.
                   </p>
@@ -278,7 +278,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
                     <div className='w-[80px] border-b-[1px] border-primaryColor mb-[8px] ml-3'></div>
                   </div>
                   <p className="text-gray-600 mt-2">
-                    Whether you are a small startup taking your first steps into the tech world or a large corporation with complex IT needs, Geeks CRS has the expertise to support your growth. We understand that
+                    Whether you are a small startup taking your first steps into the tech world or a large corporation with complex IT needs, Geekify® has the expertise to support your growth. We understand that
                     each business is unique, and we specialize in creating customized IT solutions. Our approach ensures that your systems and infrastructure are designed to scale and evolve with your company’s
                     development. That helps you remain agile and efficient in a rapidly changing technological landscape.
                   </p>
@@ -298,7 +298,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
                     <div className='w-[80px] border-b-[1px] border-primaryColor mb-[8px] ml-3'></div>
                   </div>
                   <p className="text-gray-600 mt-2">
-                    For many businesses, having a dedicated in-house qualified IT consultants department is simply not feasible. Geeks CRS bridges this gap by offering affordable, high-quality IT consulting services.
+                    For many businesses, having a dedicated in-house qualified IT consultants department is simply not feasible. Geekify® bridges this gap by offering affordable, high-quality IT consulting services.
                     That provides you with the operational efficiency expertise of an entire IT team without the high costs. We design our services to offer maximum value. That ensures you receive professional and
                     efficient IT data management solutions while staying within your budget.
                   </p>
@@ -318,7 +318,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
                     <div className='w-[80px] border-b-[1px] border-primaryColor mb-[8px] ml-3'></div>
                   </div>
                   <p className="text-gray-600 mt-2">
-                    From initial consultation and strategy development to the implementation and ongoing support of IT systems, Geeks CRS offers end-to-end services. Our team works alongside you every step of the
+                    From initial consultation and strategy development to the implementation and ongoing support of IT systems, Geekify® offers end-to-end services. Our team works alongside you every step of the
                     business process way. This ensures that your technology remains optimized, secure, and aligned with your business goals.
                   </p>
                 </div>
@@ -337,7 +337,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
                     <div className='w-[80px] border-b-[1px] border-primaryColor mb-[8px] ml-3'></div>
                   </div>
                   <p className="text-gray-600 mt-2">
-                    At Geeks CRS, we see ourselves as partners in your growth journey. We don’t just fix issues as they arise – we provide proactive, long-term solutions. That helps your business grow. Whether we’re
+                    At Geekify®, we see ourselves as partners in your growth journey. We don’t just fix issues as they arise – we provide proactive, long-term solutions. That helps your business grow. Whether we’re
                     enhancing efficiency, improving security, or preparing for future technological needs, our consultancy focuses on ensuring your business thrives both in the short and long term.
                   </p>
                 </div>
@@ -351,9 +351,9 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
 
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
-        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-5'>The Geeks CRS Promise – <span className='text-primaryColor'>Your Success, Our Goal</span></h3>
+        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-5'>The Geekify® Promise – <span className='text-primaryColor'>Your Success, Our Goal</span></h3>
         <p>
-          At Geeks CRS, we are committed to being more than just an IT consulting service provider. We are your dedicated partner in success. Our clients trust us because we prioritize their needs and always
+          At Geekify®, we are committed to being more than just an IT consulting service provider. We are your dedicated partner in success. Our clients trust us because we prioritize their needs and always
           deliver results. From the moment you choose us, you gain a reliable, experienced team that works tirelessly. That ensures your technology runs smoothly, securely, and efficiently.
         </p>
         <p className='py-5'>
@@ -361,13 +361,13 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
           we are with you every step of the way.
         </p>
         <p>
-          When you're ready to elevate your business through technology, you don’t have to do it alone. With Geeks CRS, you’ll have a trustworthy partner by your side. We help you navigate the challenges and
+          When you're ready to elevate your business through technology, you don’t have to do it alone. With Geekify®, you’ll have a trustworthy partner by your side. We help you navigate the challenges and
           opportunities that come with growth and change. Your success is our goal, and we’re here to help you achieve it.
         </p>
       </div>
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
-        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-5 text-center'>What Sets Geeks CRS Apart from <span className='text-primaryColor'>Other Australian IT Consulting Firms?</span></h3>
+        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-5 text-center'>What Sets Geekify® Apart from <span className='text-primaryColor'>Other Australian IT Consulting Firms?</span></h3>
 
         <div>
           <h6 className='text-xl font-bold italic'>1. Experience Across Industries</h6>
@@ -385,7 +385,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
         <div>
           <h6 className='text-xl font-bold italic'>3. Local Knowledge, Global Standards</h6>
           <p>
-            Based in Sydney, we understand the Australian business climate and compliance standards. At Geeks CRS, we combine local expertise with global standards to bring you the best of both worlds.
+            Based in Sydney, we understand the Australian business climate and compliance standards. At Geekify®, we combine local expertise with global standards to bring you the best of both worlds.
           </p>
         </div>
 
@@ -397,8 +397,8 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
 
       <div className='container mx-auto pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
         <div>
-          <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>How do IT consultants get started with <span className='text-primaryColor'>Geeks CRS IT Consulting?</span></h3>
-          <p className='mb-4 text-center'>Starting with Geeks CRS is straightforward and hassle-free. We guide you through each step of the process. That ensures you receive the support and solutions your business
+          <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>How do IT consultants get started with <span className='text-primaryColor'>Geekify® IT Consulting?</span></h3>
+          <p className='mb-4 text-center'>Starting with Geekify® is straightforward and hassle-free. We guide you through each step of the process. That ensures you receive the support and solutions your business
             needs. Here’s how our process works:</p>
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-10 mt-12'>
@@ -462,7 +462,7 @@ function ManagingBusinessItSystems({service}: ServiceDetailsProps) {
         <h3 className='text-2xl lg:text-4xl font-bold pb-8'>Ready to Transform Your Business with <span className='text-primaryColor'>Reliable IT Consulting?</span>
         </h3>
         <p className='pb-5'>
-          When it comes to IT consultant services in Sydney, <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> is the name you can trust. We go beyond the basics, helping businesses like yours harness the power of technology for growth and security.
+          When it comes to IT consultant services in Sydney, <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> is the name you can trust. We go beyond the basics, helping businesses like yours harness the power of technology for growth and security.
           Whether you're a small business or a large enterprise, let us be your guide in the world of IT.
         </p>
       </div>

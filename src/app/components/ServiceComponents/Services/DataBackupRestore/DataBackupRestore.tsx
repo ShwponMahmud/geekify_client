@@ -96,7 +96,7 @@ function DataBackupRestore({ service }: ServiceDetailsProps) {
 
           <div>
             <p className='text-center'>Losing important data from your hard disk can be very stressful. It can happen for many reasons, like accidentally deleting files, having hardware problems, or experiencing
-              file corruption. But there’s no need to panic—most lost data can be restored. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we offer professional and secure data rescue from hard disk services. We are designed to help you
+              file corruption. But there’s no need to panic—most lost data can be restored. At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we offer professional and secure data rescue from hard disk services. We are designed to help you
               efficiently retrieve lost files from your hard drive. Our expert team uses advanced techniques to recover data quickly from external hard drives. Our data recovery service ensures that your
               important documents, photos, and files are safely restored. Whether it’s a personal mishap or a technical issue, we’re here to provide fast, reliable data recovery service to get your data
               back without hassle. You can trust us to carefully and accurately handle your data recovery from the hard disk.</p>
@@ -232,7 +232,7 @@ function DataBackupRestore({ service }: ServiceDetailsProps) {
                   <h5 className='text-3xl font-normal uppercase py-4 text-left pl-8 text-white'>step 3</h5>
                 </div>
                 <h6 className='font-bold text-xl italic py-4'>Professional Data Recovery Services</h6>
-                <p>In cases where software can’t recover your data such as physical damage or severe corruption, you may need professional help. Our Geeks CRS offers expert hard drive recovery services to help <a href="https://geekify.com.au/services/data-backup-restore" className='text-primaryColor underline'>restore data from hard</a> disk.
+                <p>In cases where software can’t recover your data such as physical damage or severe corruption, you may need professional help. Our Geekify® offers expert hard drive recovery services to help <a href="https://geekify.com.au/services/data-backup-restore" className='text-primaryColor underline'>restore data from hard</a> disk.
                   Our team usesadvanced techniques to recover data from damaged or corrupted drives that software alone can’t fix.</p>
               </div>
             </div>
@@ -364,7 +364,7 @@ function DataBackupRestore({ service }: ServiceDetailsProps) {
 
         <div className='pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
           <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7'>Why Choose <span className='text-primaryColor'>geekscrs.com.au</span> for Data Recovery?</h3>
-          <p>At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a>, we recognize the importance of your data and the stress that comes with losing it. Our restore data from hard disk experts specialize in retrieving lost files from
+          <p>At <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a>, we recognize the importance of your data and the stress that comes with losing it. Our restore data from hard disk experts specialize in retrieving lost files from
             various storage devices, including hard drives, USBs, and more. Whether you accidentally delete important documents or face a significant hard drive failure, our team is dedicated to swiftly and
             securely helping you recover files, hard drives, and your data.</p>
 

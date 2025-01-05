@@ -30,7 +30,7 @@ function HomeNetworkWifiSetup({service}: ServiceDetailsProps) {
     {
       question: "What’s the Cost of a Professional Internet Setup?",
       answer:
-        "Professional setup costs vary based on the complexity of the installation of internet. Contact Geeks CRS for a personalized quote.",
+        "Professional setup costs vary based on the complexity of the installation of internet. Contact Geekify® for a personalized quote.",
     },
   ];
 
@@ -205,7 +205,7 @@ function HomeNetworkWifiSetup({service}: ServiceDetailsProps) {
 
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center'>How Much Does <span className='text-primaryColor'>CCTV Installation Cost?</span></h3>
-        <p className='mb-4 text-center'>CCTV security cameras installation prices are often a primary concern for customers, but at Geeks CRS, we strive to offer competitive pricing for every budget. We aim to provide
+        <p className='mb-4 text-center'>CCTV security cameras installation prices are often a primary concern for customers, but at Geekify®, we strive to offer competitive pricing for every budget. We aim to provide
           cheap CCTV cameras and security camera installation options without compromising on the quality or effectiveness of your security system.</p>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-12'>
@@ -423,14 +423,14 @@ function HomeNetworkWifiSetup({service}: ServiceDetailsProps) {
       <QuickContact title='Contact Us Today for Expert CCTV Installation Services' />
 
       <div className='container mx-auto pt-8 md:pt-14 lg:pt-20 xl:pt-28'>
-        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4'>Why Choose Geeks CRS for <span className='text-primaryColor'>Your Internet Setup?</span></h3>
+        <h3 className='text-2xl md:text-2xl lg:text-4xl font-semibold pb-4'>Why Choose Geekify® for <span className='text-primaryColor'>Your Internet Setup?</span></h3>
         <p>
           Network security is essential to protect your data from unauthorized access.
         </p>
         <div className='py-5'>
           <h5 className='text-xl font-bold italic pb-2'>Our Installation Process</h5>
           <p>
-            <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> takes a comprehensive approach. We assess your space, install the necessary equipment, and configure your network for optimal performance and security.
+            <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> takes a comprehensive approach. We assess your space, install the necessary equipment, and configure your network for optimal performance and security.
           </p>
         </div>
         <div>
@@ -450,11 +450,11 @@ function HomeNetworkWifiSetup({service}: ServiceDetailsProps) {
       <div className='container mx-auto pb-8 md:pb-14 lg:pb-20 xl:pb-28'>
         <h3 className='text-2xl lg:text-4xl font-bold pb-5 italic'>Final Thought</h3>
         <p>
-          Setting up a strong internet connection at home doesn’t have to be complicated. With the right equipment, proper configurations, and professional help from experts like Geeks CRS, you can enjoy fast,
-          reliable, and secure internet tailored to your needs. Whether you’re building a simple home network a cable modem or a sophisticated setup with smart devices, <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geeks CRS</a> has the solutions and support
+          Setting up a strong internet connection at home doesn’t have to be complicated. With the right equipment, proper configurations, and professional help from experts like Geekify®, you can enjoy fast,
+          reliable, and secure internet tailored to your needs. Whether you’re building a simple home network a cable modem or a sophisticated setup with smart devices, <a href="https://geekify.com.au/" className='text-primaryColor underline'>Geekify®</a> has the solutions and support
           to keep you connected.
         </p>
-        <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>Ready to get started with your home internet setup? Contact Geeks CRS today, and let us bring you closer to a hassle-free, optimized internet experience!</p>
+        <p className='text-xl lg:text-2xl font-bold italic text-gray-500 pt-5'>Ready to get started with your home internet setup? Contact Geekify® today, and let us bring you closer to a hassle-free, optimized internet experience!</p>
       </div>
 
     </div>

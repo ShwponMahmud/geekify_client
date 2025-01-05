@@ -9,14 +9,13 @@ function VisitScamWatch() {
         <div className="container mx-auto">
           <div className="scam_watch_content_container text-center w-full lg:w-120 mx-auto text-white">
             <div className="">
-              <h1 className="text-3xl lg:text-5xl font-bold  mb-7">Visit Scam Watch</h1>
+              <h1 className="text-3xl lg:text-5xl font-bold  mb-7">
+                Visit Scam Watch
+              </h1>
               <p>
-                We provide services on various scams related to digital devices.
-                Our team of experts is dedicated to keeping you informed about
-                the latest scam tactics and how to avoid them. Stay vigilant and
-                protect your digital assets with our comprehensive scam alerts.
-                Trust us to help you navigate the digital landscape safely and
-                securely.
+                Stay informed and protect yourself from scams. Explore
+                resources, tips, and the latest updates to safeguard your
+                personal and financial information.
               </p>
 
               <Link href="/scam-alert">

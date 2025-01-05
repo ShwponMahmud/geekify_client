@@ -59,7 +59,9 @@ const OurLatestBlogs = async () => {
               Our Latest <span className="text-primaryColor">Blogs</span>
             </h1>
             <p>
-              Discover the latest insights and updates from our expert team. Stay informed with our recent blog posts on various services we offer.
+              Stay updated with the latest insights, tips, and trends in
+              technology. Explore our blogs for expert advice and solutions that
+              help you stay ahead in the digital world.
             </p>
           </div>
 
