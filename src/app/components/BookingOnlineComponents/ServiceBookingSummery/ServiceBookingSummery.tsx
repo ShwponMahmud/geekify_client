@@ -53,11 +53,13 @@ export const formatTimeInterval = (interval: string): string => {
 
 
 
-
 function ServiceBookingSummery() {
   const bookingInfo = useAppSelector((state) => state?.booking);
   const user = useAppSelector((state) => state?.users.user);
   const userInfo = useAppSelector((state) => state?.userInfoAfterSubmit);
+
+  console.log(userInfo.userInfo.id);
+
   const addressInfo = useAppSelector((state) => state?.addresses);
   const dispatch = useAppDispatch();
 
@@ -115,6 +117,7 @@ function ServiceBookingSummery() {
     service?.name === bookingInfo?.serviceName?.service_name
   );
   
+  // console.log("serviceIdFilter",serviceIdFilter)
 
   const bookingSummerySubmitData = {
     preference: bookingInfo?.serviceType === "Onsite" ? 0 : 1,
@@ -122,7 +125,7 @@ function ServiceBookingSummery() {
     street: bookingInfo?.serviceAddress?.street,
     suburb: bookingInfo?.serviceAddress?.suburb,
     post_code: bookingInfo?.serviceAddress?.post_code,
-    country: bookingInfo?.serviceAddress?.country,
+    country: bookingInfo?.serviceAddress?.country ? bookingInfo?.serviceAddress?.country : "Australia",
     state: bookingInfo?.serviceAddress?.state,
     user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
       ? bookingInfo?.otpVerifyData?.[0]?.data?.id
@@ -135,6 +138,8 @@ function ServiceBookingSummery() {
     ),
     client_panel: 0,
   };
+
+  console.log(bookingSummerySubmitData)
 
   const BookingQuestionsAnsData = {
     added_by: "",
@@ -152,81 +157,16 @@ function ServiceBookingSummery() {
     ],
   };
 
-  // const bookingSummerySaveAndSubmitHandler = () => {
-  //   if (bookingInfo?.otpVerifyData[0]?.data === null) {
-  //     const name = bookingInfo.contactInformationForBooking.fullName.split(" ");
 
-  //     // user create......
-  //     const userContactInfo = {
-  //       first_name: name[0],
-  //       last_name: name[1],
-  //       phone_number: bookingInfo.contactInformationForBooking.phoneNumber,
-  //       email: bookingInfo.contactInformationForBooking.email,
-  //     };
-
-  //     dispatch(SubmitUserInfo(userContactInfo));
-  //   } else {
-  //     dispatch(submitBookingSummery(bookingSummerySubmitData));
-  //   }
-  // };
-
-  // // Address info submit........
-  // if (userInfo.status === "success") {
-  //   useEffect(() => {
-  //     const AddressInfoForSubmit = {
-  //       ...bookingInfo.serviceAddress,
-  //       country: "Australia",
-  //       user_id: userInfo?.userInfo?.id,
-  //     };
-  //     dispatch(SubmitAddressInfo(AddressInfoForSubmit));
-  //   }, [userInfo]);
-  // }
-
-  // // get user .......
-  // if (addressInfo.status === "success") {
-  //   useEffect(() => {
-  //     const CustomFormData = {
-  //       email: bookingInfo?.contactInformationForBooking?.email,
-  //     };
-
-  //     dispatch(getUser(CustomFormData));
-  //   }, [addressInfo]);
-  // }
-
-  // // customer create.....
-  // if (addressInfo.status === "success") {
-  //   useEffect(() => {
-  //     const CustomerFormData = {
-  //       address_id: addressInfo?.address?.[0]?.id,
-  //       user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
-  //         ? bookingInfo?.otpVerifyData?.[0]?.data?.id
-  //         : userInfo?.userInfo?.id,
-  //       type: 1,
-  //       status: 1,
-  //       newsletter_subscription: 1,
-  //     };
-
-  //     dispatch(createCustomer(CustomerFormData));
-  //     console.log(CustomerFormData);
-  //   }, [addressInfo]);
-  // }
-
-  // if (addressInfo.status === "success") {
-  //   useEffect(() => {
-  //     dispatch(submitBookingSummery(bookingSummerySubmitData));
-  //     // dispatch(contactInformationForBookingNestStep(""));
-  //   }, [addressInfo]);
-  // }
-
-
-  
   // Local state to track status
   const [isAddressSubmitted, setIsAddressSubmitted] = useState(false);
   const [isCustomerCreated, setIsCustomerCreated] = useState(false);
   const [isBookingSubmitted, setIsBookingSubmitted] = useState(false);
   const [isUserGet, setIsUserGet] = useState(false);
 
+
   const bookingSummerySaveAndSubmitHandler = () => {
+
     if (bookingInfo?.otpVerifyData?.[0]?.data === null) {
       const name = bookingInfo.contactInformationForBooking.fullName.split(" ");
 
@@ -243,6 +183,9 @@ function ServiceBookingSummery() {
       
     } else {
       dispatch(submitBookingSummery(bookingSummerySubmitData));
+      setIsBookingSubmitted(true);
+      dispatch(contactInformationForBookingNestStep(""));
+      dispatch(bookingSummerySaveAndContinue("next"));
     }
   };
 
@@ -282,15 +225,17 @@ function ServiceBookingSummery() {
         address_id: addressInfo?.address?.[0]?.id,
         user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
           ? bookingInfo?.otpVerifyData?.[0]?.data?.id
-          : userInfo?.userInfo?.id,
+          : userInfo?.userInfo?.id ? userInfo?.userInfo?.id : user?.[0]?.id,
         type: bookingInfo?.serviceLocationType === "Home" ? 0 : 1,
         status: 1,
         newsletter_subscription: 1,
       };
 
+      // console.log(CustomerFormData);
+
       dispatch(createCustomer(CustomerFormData));
       setIsCustomerCreated(true);
-      dispatch(SubmitAddressInfoStatus(""))
+      // dispatch(SubmitAddressInfoStatus(""))
     }
   }, [
     addressInfo,
@@ -304,7 +249,7 @@ function ServiceBookingSummery() {
 
   //  submit booking summery.......
   useEffect(() => {
-    if (addressInfo.SubmitAddressInfoStatus === "true" && !isBookingSubmitted) {
+    if (addressInfo?.SubmitAddressInfoStatus === "true" && !isBookingSubmitted) {
       dispatch(submitBookingSummery(bookingSummerySubmitData));
       setIsBookingSubmitted(true);
       dispatch(contactInformationForBookingNestStep(""));

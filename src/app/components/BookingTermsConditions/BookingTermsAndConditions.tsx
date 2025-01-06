@@ -3,12 +3,12 @@ import React from "react";
 function BookingTermsAndConditions() {
   return (
     <div className="container mx-auto  py-10">
-      <div className="md:m-5 bg-[#f1f1f1] p-5 md:p-10 rounded-lg">
+      <div className=" bg-[#f4f7ff] p-5 md:p-10 rounded-lg">
         <h2 className="text-2xl font-bold text-black text-left">
           Booking Terms And Conditions
         </h2>
 
-        <ul className="text-black font-medium ">
+        <ul className="text-black font-medium text-[14px] ">
           <li>1. Only Service Charge with GST</li>
           <li>2. Excludes all components & parts (if used)</li>
           <li>3. Excludes any Transportation cost (if used)</li>

@@ -25,6 +25,9 @@ import {
   GetAfterPaySurcharge,
   GetCardSurcharge,
   PaymentCreationNotify,
+  paymentOptionFullAmountAfterDiscount,
+  paymentOptionHalfAmountAfterDiscount,
+  paymentOptionQuarterAmountAfterDiscount,
   PaymentsCreateByToken,
   postAfterAfterPayPaymentsResData,
   postAppointmentAfterAfterPayResData,
@@ -1578,12 +1581,6 @@ export default function Payment() {
                         if (isAppointmentChargeCreated) {
                           const isAppointmentNotesCreated =
                             await createAppointmentNotes();
-                          // const isAppointmentNotesCreated = await dispatch(
-                          //   CreateAppointmentNotes(
-                          //     createAppointmentNotesAfterPayFormData
-                          //   )
-                          // );
-
                           if (isAppointmentNotesCreated) {
                             putUpdatePaymentByOrderId();
 
@@ -1714,9 +1711,7 @@ export default function Payment() {
         surchargeRate) /
         100
     );
-  const totalAmount =
-    surchargeAmount + bookingInfo?.bookingSummerySubmitResData?.grand_total ||
-    0;
+  const totalAmount = surchargeAmount + bookingInfo?.bookingSummerySubmitResData?.grand_total || 0;
 
   //
 
@@ -2250,33 +2245,12 @@ export default function Payment() {
   const prevHandler = () => {
     dispatch(bookingSummerySaveAndContinue("next"));
     dispatch(paymentOptionSelectedAndProceedToPay(""));
+    // dispatch(paymentOptionFullAmountAfterDiscount(""))
+    // dispatch( paymentOptionHalfAmountAfterDiscount(""))
+    // dispatch(paymentOptionQuarterAmountAfterDiscount(""))
   };
 
-  // const [isAfterPayLoaded, setIsAfterPayLoaded] = useState<boolean>(false);
-  // useEffect(() => {
-  //   setIsAfterPayLoaded(true);
-  // }, []);
-
-  // const handleAfterPayClick = () => {
-  //   if (typeof window.AfterPay === "undefined") return;
-
-  //   setIsAfterPayLoaded(true);
-
-  //   window.AfterPay.init({
-  //     publicKey: "YOUR_AFTERPAY_PUBLIC_KEY",
-  //     returnUrl: "/checkout/success",
-  //     countryCode: "AU",
-  //   });
-
-  //   if (isAfterPayLoaded) {
-  //     window.AfterPay.open();
-  //     window.AfterPay.onComplete = async (event: any) => {
-  //       console.log("hello");
-  //     };
-  //   } else {
-  //     console.warn("AfterPay SDK is not ready.");
-  //   }
-  // };
+ 
 
   return (
     <>

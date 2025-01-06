@@ -171,7 +171,6 @@ export default function AddressEditAddModal() {
     state: matchState?.short_name,
   };
 
-
   const SaveAddress = () => {
     // if (bookingInfo.serviceAddress?.setServiceAddress === "true" || bookingInfo?.serviceAddress?.street || bookingInfo?.serviceAddress?.street === "") {
     if (bookingInfo?.setServiceAddressModal === "true") {
@@ -183,19 +182,16 @@ export default function AddressEditAddModal() {
     //   dispatch(serviceAddressSelect(AddressInfoForSubmit));
     //   dispatch(newCustomerAddressStatus("true"));
     // }
-    
+
     // if (bookingInfo.billingAddress?.setBillingAddress === "true" || bookingInfo?.billingAddress?.street || bookingInfo?.billingAddress?.street === "") {
     if (bookingInfo?.setBillingAddressModal === "true") {
       dispatch(billingAddressSelect(AddressInfoForSubmit));
-      dispatch(
-            setBillingAddressModal("")
-          );
+      dispatch(setBillingAddressModal(""));
     }
     // else{
     //   dispatch(billingAddressSelect(AddressInfoForSubmit));
     //   dispatch(newCustomerAddressStatus("true"));
     // }
-  
 
     const successElement =
       document.querySelector<HTMLElement>(".show_success_text");
@@ -384,12 +380,20 @@ export default function AddressEditAddModal() {
         )}
         <p className="show_success_text text-center  text-green-600 text-3xl font-semibold mt-5"></p>
         <div className="mt-4">
+          {/* {bookingInfo?.serviceAddress?.length || bookingInfo?.serviceAddress ?  */}
           <Button
             className="inline-flex items-center gap-2 rounded-md bg-primaryColor py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
             onClick={SaveAddress}
           >
             Save
-          </Button>
+          </Button> 
+          {/* :
+          <Button
+            className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+            onClick={close}
+          >
+            close
+          </Button>} */}
         </div>
       </div>
     </>

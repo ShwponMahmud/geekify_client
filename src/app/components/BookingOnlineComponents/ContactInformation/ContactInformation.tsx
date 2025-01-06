@@ -88,7 +88,7 @@ const ContactInformation: React.FC = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div>
+              {bookingInfo?.serviceLocationType !== "Home" && <div>
                 <label
                   htmlFor="fullName"
                   className="block mb-2 text-sm font-medium"
@@ -104,7 +104,7 @@ const ContactInformation: React.FC = () => {
                   value={formValues.businessName}
                   onChange={handleInputChange}
                 />
-              </div>
+              </div>}
 
               {/* Email Input */}
               <div>

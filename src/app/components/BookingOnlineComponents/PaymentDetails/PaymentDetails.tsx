@@ -3,10 +3,11 @@ import Payment from "../Payment/Payment";
 import CustomCheckbox from "./CheckBox";
 
 function PaymentDetails() {
+  const bookingInfo = useAppSelector((state) => state?.booking);
   const bookingSummerySubmitResData = useAppSelector(
     (state) => state?.booking.bookingSummerySubmitResData
   );
-
+  const paymentInfo = useAppSelector((state) => state?.payment);
 
   return (
     <>
@@ -69,7 +70,7 @@ function PaymentDetails() {
               </span>
             </div>
             <hr />
-            <div className="flex justify-between px-8 py-3 font-semibold bg-[#f2f2f2] text-gray-600">
+            <div className="flex justify-between px-8 py-3 font-semibold bg-[#fcdddde0] text-gray-600">
               <b>Total Payable</b>
               <span>
                 $
@@ -79,19 +80,55 @@ function PaymentDetails() {
               </span>
             </div>
             <hr />
-            <div className="flex justify-between font-semibold bg-[#b8f7de] px-8 py-3 text-gray-600">
+            <div className="flex justify-between font-semibold bg-[#b8f7de80] px-8 py-3 text-gray-600">
               <b>Paid</b>
               <span>
                 $
-                {(bookingSummerySubmitResData?.grand_total / 100)
+                {(bookingInfo?.paymentOptionSelected == "half"
+                  ? paymentInfo?.paymentOptionHalfAmountAfterDiscount
+                  : bookingInfo?.paymentOptionSelected == "quarter"
+                  ? paymentInfo?.paymentOptionQuarterAmountAfterDiscount
+                  : bookingSummerySubmitResData?.grand_total / 100
+                )
                   .toString()
                   .padStart(2, "0")}
               </span>
             </div>
+            <hr />
+            {bookingInfo?.paymentOptionSelected == "half" ? (
+              <div className="flex justify-between font-semibold bg-[#8fb6ff5b] px-8 py-3 text-gray-600">
+                <b>Remaining</b>
+                <span>
+                  $
+                  {(
+                    bookingInfo?.paymentOptionSelected == "half" &&
+                    paymentInfo?.paymentOptionHalfAmountAfterDiscount -
+                      bookingSummerySubmitResData?.grand_total / 100
+                  )
+                    .toString()
+                    .padStart(2, "0")}
+                </span>
+              </div>
+            ) : (
+              bookingInfo?.paymentOptionSelected == "quarter" && (
+                <div className="flex justify-between font-semibold bg-[#8fb6ff5b] px-8 py-3 text-gray-600">
+                  <b>Remaining</b>
+                  <span>
+                    $
+                    {(
+                      bookingInfo?.paymentOptionSelected == "quarter" &&
+                      paymentInfo?.paymentOptionQuarterAmountAfterDiscount -
+                        bookingSummerySubmitResData?.grand_total / 100
+                    )
+                      .toString()
+                      .padStart(2, "0")}
+                  </span>
+                </div>
+              )
+            )}
           </div>
 
-          <Payment/>
-
+          <Payment />
         </div>
       </div>
     </>
