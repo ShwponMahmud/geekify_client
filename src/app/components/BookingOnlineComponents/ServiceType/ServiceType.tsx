@@ -267,7 +267,7 @@ const SwitchSelect: React.FC = () => {
   return (
     <div className="service_type_section">
       <div className="container mx-auto justify-items-center py-10">
-        <div className="w-[60%] ">
+        <div className="lg:w-[60%]">
           <h1 className="text-3xl font-bold mb-5">Address </h1>
 
           <div className="border p-5 rounded-lg">
@@ -324,7 +324,7 @@ const SwitchSelect: React.FC = () => {
                 </div>
               </div>
               {serviceLocationTypeSelectedOption == "Home" && (
-                <span className="text-[60px] text-gray-400">
+                <span className="hidden md:block text-[60px] text-gray-400">
                   <FaHome />
                 </span>
               )}
@@ -386,7 +386,7 @@ const SwitchSelect: React.FC = () => {
                 </div>
               </div>
               {serviceTypeSelectedOption == "Onsite" && (
-                <span className="text-[60px] text-gray-400">
+                <span className="hidden md:block text-[60px] text-gray-400">
                   <FaMapLocationDot />
                 </span>
               )}
@@ -400,7 +400,7 @@ const SwitchSelect: React.FC = () => {
 
           <div className="enter_full_address_section mt-10">
             <p>Enter your full address (Add unit or building number).</p>
-            <div className=" flex justify-between border rounded-lg p-[20px] mt-5">
+            <div className=" flex flex-col md:flex-row justify-between border rounded-lg p-[20px] mt-5">
               <div>
                 <ul className="list-disc px-5 text-deepGrayColor">
                   <li>
@@ -459,10 +459,10 @@ const SwitchSelect: React.FC = () => {
               <div>
                 <button
                   onClick={open}
-                  className="bg-primaryColor border border-primaryColor text-white rounded-md py-[7px] px-[10px] flex content-center text-[15px] hover:bg-white hover:text-primaryColor hover:border-primaryColor transition-[.5s]
+                  className="bg-primaryColor border border-primaryColor mt-3 md:mt-0 text-white rounded-md py-[7px] px-[10px] flex content-center text-[15px] hover:bg-white hover:text-primaryColor hover:border-primaryColor transition-[.5s]
               "
                 >
-                  <span onClick={setServiceAddressHandler}>Edit Address.</span>
+                  <span onClick={setServiceAddressHandler}>Edit Address</span>
                 </button>
               </div>
             </div>
@@ -482,7 +482,7 @@ const SwitchSelect: React.FC = () => {
             {isBillingSame ? (
               ""
             ) : (
-              <div className="address-input mb-6 justify-between">
+              <div className="address-input mb-6 flex flex-col md:flex-row justify-between">
                 <div className="mb-5">
                   <ul className="list-disc px-5 text-deepGrayColor">
                     <li>

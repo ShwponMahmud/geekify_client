@@ -67,9 +67,9 @@ const ContactInformation: React.FC = () => {
           Contact Information
         </h1>
 
-        <form onSubmit={handleSubmit} className="w-[700px] mx-auto mt-10">
+        <form onSubmit={handleSubmit} className="md:w-[700px] mx-auto mt-10">
           <div>
-            <div className="grid grid-cols-2 gap-5 mb-5">
+            <div className="grid md:grid-cols-2 gap-5 mb-5">
               {/* Full Name Input */}
               <div>
                 <label

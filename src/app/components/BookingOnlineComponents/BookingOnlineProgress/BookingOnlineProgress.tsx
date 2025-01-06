@@ -33,7 +33,7 @@ const BookingOnlineProgress: React.FC = () => {
   }
   
   return (
-    <div className="">
+    <div className="flex justify-center items-center">
       <ProgressBar steps={6} currentStep={currentStep} />
       {/* <div style={{ marginTop: "20px" }}>
         <button onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}>

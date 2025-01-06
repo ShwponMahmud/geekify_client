@@ -265,7 +265,7 @@ function ServiceBookingSummery() {
           <h1 className="text-3xl font-semibold text-center">
             Service Booking Summery{" "}
           </h1>
-          <div className="w-[60%] mx-auto border p-10 rounded-lg mt-5">
+          <div className="md:w-[60%] mx-auto border p-4 md:p-10 rounded-lg mt-5">
             <li className="flex list-disc mb-3">
               <b className="w-[40%]">Service Name:</b>
               <div className="w-[100%] flex justify-between gap-2">
@@ -410,7 +410,7 @@ function ServiceBookingSummery() {
             </li>
           </div>
 
-          <div className="w-[60%] mx-auto">
+          <div className="md:w-[60%] mx-auto">
             {/* Navigation Buttons */}
             <div className="flex justify-between mt-10">
               <button
