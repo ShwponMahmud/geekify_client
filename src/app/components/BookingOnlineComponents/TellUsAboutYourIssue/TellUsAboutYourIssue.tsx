@@ -225,7 +225,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
   };
 
   return (
-    <div className="service-form ">
+    <div className="service-form px-5 md:px-0">
       <h2 className="text-3xl font-semibold mt-10 text-deepGrayColor">
         Tell Us About Your Issue
       </h2>

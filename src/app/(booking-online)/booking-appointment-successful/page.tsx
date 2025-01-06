@@ -1,10 +1,9 @@
-
-import AppointmentSuccessful from '@/app/components/BookingOnlineComponents/PaymentSuccess/PaymentSuccess'
+import PaymentSuccessfulMessage from '@/app/components/PaymentSuccessfulComponents/PaymentSuccessfulMessage/PaymentSuccessfulMessage'
 
 export default function page() {
   return (
     <div>
-      {/* <AppointmentSuccessful/> */}
+      <PaymentSuccessfulMessage />
     </div>
   )
 }

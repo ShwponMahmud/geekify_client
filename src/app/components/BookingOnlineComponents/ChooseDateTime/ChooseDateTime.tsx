@@ -177,12 +177,12 @@ const ChooseDateTime: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto md:p-6">
       <h2 className="text-2xl font-semibold mb-4">
         Please choose your preferred date and time.
       </h2>
 
-      <div className="w-[50%] mx-auto mt-10">
+      <div className="lg:w-[50%] mx-auto mt-10">
         {/* Duration Selection */}
         <div className="mb-4 ">
           <div>

@@ -7,13 +7,14 @@ function BookingOnlineNav() {
   return (
     <>
       <div className="booking_online_nav bg-primaryColor text-white h-[100px] grid content-center">
-        <div className="container mx-auto flex justify-between content-center">
+        <div className="container mx-auto flex justify-between items-center">
           <Link href={"/"}>
             <Image
               width={188}
               height={40}
               src="/logo_white.png"
               alt="Geekify logo"
+              className="w-[140px] h-[35px]"
             />
           </Link>
 
