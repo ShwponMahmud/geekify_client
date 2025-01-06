@@ -31,18 +31,20 @@ export default function RootLayout({
       </Head>
       <body className={montserrat.className}>
         <Providers>{children}</Providers>
+        {/* <script src="https://cdn.afterpay.com/afterpay-1.0.min.js"></script> */}
 
         <script
           id="afterPayGeneralLibrary"
           src="https://js.afterpay.com/afterpay-1.x.js"
           defer
         ></script>
+
         <script
           id="afterPayProductionLibrary"
-          src={process.env.PUBLIC_AFTER_PAY_JS_PRODUCTION_LIBRARY}
+          src="https://portal.sandbox.afterpay.com/afterpay.js"
           defer
         ></script>
-        <script src="https://cdn.afterpay.com/afterpay-1.0.min.js"></script>
+        
 
       </body>
     </html>

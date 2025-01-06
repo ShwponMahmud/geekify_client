@@ -4,10 +4,12 @@ import { RootState } from "../store";
 
 interface serviceState {
   value: string;
+  serviceList: any;
 }
 
 const initialState: serviceState = {
   value: "",
+  serviceList: {}
 };
 
 export const servicesSlice = createSlice({
@@ -17,10 +19,13 @@ export const servicesSlice = createSlice({
     searchServiceByName: (state, action: PayloadAction<string>) => {
       state.value = action.payload;
     },
+    serviceLists: (state, action: PayloadAction<any>) => {
+      state.serviceList = action.payload;
+    },
   },
 });
 
-export const { searchServiceByName} = servicesSlice.actions;
+export const { searchServiceByName, serviceLists} = servicesSlice.actions;
 
 export const selectService = (state: RootState) => state.services.value;
 

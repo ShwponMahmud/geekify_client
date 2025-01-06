@@ -32,6 +32,7 @@ export interface ServiceFormProps {
 const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
   // console.log(services);
   const bookingInfo = useAppSelector((state) => state?.booking);
+  const serviceLists = useAppSelector((state) => state?.services?.serviceList);
   const [selectedService, setSelectedService] = useState(
     bookingInfo?.serviceName?.service_name
       ? bookingInfo?.serviceName?.service_name
@@ -146,11 +147,11 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
 
   
   const newServiceNames = newService.map((item) => item.name.toLowerCase());
-  const filterService = services.filter((service: string | any) =>
+  const filterService = serviceLists?.filter((service: string | any) =>
     newServiceNames.includes(service.name.toLowerCase())
   );
 
-  
+  // console.log("filterService",filterService)
 
   const ServiceName: any = {
     service_name: selectedService,
@@ -258,7 +259,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           <option value="" disabled>
             Select Service
           </option>
-          {filterService?.map((service) => (
+          {filterService?.map((service:any) => (
             <option
               className="block px-4 py-2 hover:bg-primaryColor hover:text-white transition-all duration-300 group"
               value={service?.name}
@@ -401,6 +402,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
               </label>
               <input
                 onChange={(e) => setAntivirusName(e.target.value)}
+                value={antivirusName}
                 type="text"
                 placeholder="Existing antivirus name"
               />

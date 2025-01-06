@@ -13,7 +13,7 @@ function BookingOnlineWelcome() {
     <>
       <div className="booking_online_welcome">
         <div className="container mx-auto justify-items-center">
-          <div className="h-[70vh] grid content-center text-center">
+          <div className="h-[50vh] grid content-center text-center">
             <div className="justify-items-center">
               <Image
                 width={288}

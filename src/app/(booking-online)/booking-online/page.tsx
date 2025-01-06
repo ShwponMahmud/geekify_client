@@ -4,6 +4,8 @@ import BookingOnlineWelcome from "@/app/components/BookingOnlineComponents/Booki
 import ChooseDateTime from "@/app/components/BookingOnlineComponents/ChooseDateTime/ChooseDateTime";
 import ContactInformation from "@/app/components/BookingOnlineComponents/ContactInformation/ContactInformation";
 import EnterPhoneSendCode from "@/app/components/BookingOnlineComponents/EnterPhoneSendCode/EnterPhoneSendCode";
+import ThreeDSTestPage from "@/app/components/BookingOnlineComponents/Payment/3DSPay";
+import PaymentForm from "@/app/components/BookingOnlineComponents/Payment/3DSPay";
 import AfterPay from "@/app/components/BookingOnlineComponents/Payment/AfterPay";
 import PaymentDetails from "@/app/components/BookingOnlineComponents/PaymentDetails/PaymentDetails";
 import PaymentOptions from "@/app/components/BookingOnlineComponents/PaymentOptions/PaymentOptions";
@@ -16,16 +18,16 @@ import {
   GetAfterPaySurcharge,
   GetCardSurcharge,
 } from "@/app/rtk-state/reducers/paymentSlice";
+import { serviceLists } from "@/app/rtk-state/reducers/serviceSlice";
 // import { GetSettings} from "@/app/rtk-state/reducers/SettingSlice";
 import { baseUrl } from "@/assets/baseUrl";
 import { useEffect, useState } from "react";
-
-
 
 function page() {
   const bookingInfo = useAppSelector((state) => state?.booking);
   const dispatch = useAppDispatch();
   const [services, setServices] = useState<any>([]);
+  const [servicesLoad, setServicesLoad] = useState<boolean>(false);
   // const [settingsGet, setSettingsGet] = useState<boolean>(true);
 
   useEffect(() => {
@@ -59,16 +61,19 @@ function page() {
 
         const responseData = await response.json();
         setServices(responseData.data || []);
+        dispatch(serviceLists(responseData.data || []));
       } catch (error) {
         console.error("Error fetching services:", error);
       }
     };
 
-    fetchServices();
+    if (servicesLoad === false) {
+      fetchServices();
+      setServicesLoad(true);
+    }
   }, []);
 
-
-  // console.log(services)
+  
 
   return (
     <>
@@ -78,7 +83,7 @@ function page() {
         {bookingInfo?.bookingStart === "start" && <EnterPhoneSendCode />}
         {bookingInfo?.otpVerifySuccess === "success" && <ServiceType />}
         {bookingInfo?.serviceAddressParkingSubmitAfterNextStep === "next" && (
-          <ServiceForm services={services}/>
+          <ServiceForm services={services} />
         )}
         {bookingInfo.serviceQuestionInfoNextStep === "next" && (
           <ChooseDateTime />
@@ -96,7 +101,7 @@ function page() {
           <PaymentDetails />
         )}
 
-        {/* <AfterPay/> */}
+        {/* <ThreeDSTestPage/> */}
       </div>
 
       <BookingTermsAndConditions />

@@ -29,6 +29,17 @@ import {
   undecidedAppointmentStatus,
   UndecidedEmailNotifyCreate,
 } from "@/app/rtk-state/reducers/paymentSlice";
+import { Audio, RotatingLines } from "react-loader-spinner";
+
+interface RotatingLinesProps {
+  visible: boolean;
+  height: string;
+  width: string;
+  color: string;
+  strokeWidth: string;
+  animationDuration: string;
+  ariaLabel: string;
+}
 
 const PaymentOptions: React.FC = () => {
   const bookingInfo = useAppSelector((state) => state?.booking);
@@ -36,6 +47,7 @@ const PaymentOptions: React.FC = () => {
   const customer = useAppSelector((state) => state?.customer.customer);
   const dispatch = useAppDispatch();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [isSelectedOptionTrigger, setIsSelectedOptionTrigger] = useState<boolean>(false);
   const address = useAppSelector((state) => state?.addresses?.address);
   const users = useAppSelector((state) => state?.users);
   const userInfo = useAppSelector((state) => state?.userInfoAfterSubmit);
@@ -50,12 +62,12 @@ const PaymentOptions: React.FC = () => {
     setSelectedOption((prevOption) => {
       if (prevOption !== option) {
         dispatch(paymentOptionSelected(option));
+        setIsSelectedOptionTrigger(true)
       }
       return option;
     });
   };
 
-  console.log(selectedOption);
 
   const onlineDiscount =
     bookingInfo.paymentOptionSelected === "full"
@@ -105,7 +117,7 @@ const PaymentOptions: React.FC = () => {
   };
 
   useEffect(() => {
-    if (bookingInfo?.paymentOptionSelected === selectedOption) {
+    if (bookingInfo?.paymentOptionSelected === selectedOption && isSelectedOptionTrigger === true) {
       dispatch(submitBookingSummery(bookingSummerySubmitData));
       // dispatch(bookingSummerySaveAndContinue("next"));
     }
@@ -115,27 +127,21 @@ const PaymentOptions: React.FC = () => {
     if (!bookingInfo.isLoading && selectedOption === "full") {
       dispatch(
         paymentOptionFullAmountAfterDiscount(
-          (bookingInfo?.bookingSummerySubmitResData?.grand_total / 100)
-            .toString()
-            .padStart(2, "0")
+          (bookingInfo?.bookingSummerySubmitResData?.grand_total / 100).toFixed(2)
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "half") {
       dispatch(
         paymentOptionHalfAmountAfterDiscount(
-          (bookingInfo?.bookingSummerySubmitResData?.grand_total / 100)
-            .toString()
-            .padStart(2, "0")
+          ((bookingInfo?.bookingSummerySubmitResData?.grand_total / 100) / 2).toFixed(2)
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "quarter") {
       dispatch(
         paymentOptionQuarterAmountAfterDiscount(
-          (bookingInfo?.bookingSummerySubmitResData?.grand_total / 100)
-            .toString()
-            .padStart(2, "0")
+          ((bookingInfo?.bookingSummerySubmitResData?.grand_total / 100)/4).toFixed(2)
         )
       );
     }
@@ -148,6 +154,7 @@ const PaymentOptions: React.FC = () => {
   const proceedToPayNextHandler = () => {
     dispatch(paymentOptionSelectedAndProceedToPay("next"));
     dispatch(bookingSummerySaveAndContinue(""));
+    
   };
 
   // Create Appointments.....................
@@ -499,11 +506,31 @@ const PaymentOptions: React.FC = () => {
           <Image src={afterPayIcon} alt="PayPal" className="h-6 rounded-sm" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Full Payment Card */}
-          {bookingInfo.isLoading ? (
-            <div className="animate-pulse h-[342px] bg-gray-200 rounded-lg dark:bg-gray-700 mb-4"></div>
-          ) : (
+        {bookingInfo?.isLoading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "65vh",
+            }}
+          >
+              <RotatingLines
+                visible={true}
+                height="96"
+                width="96"
+                color="grey"
+                strokeWidth="5"
+                animationDuration="0.75"
+                ariaLabel="rotating-lines-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            {/* Full payment option */}
             <div
               className={`border rounded-lg p-6 ${
                 isSelected("full") ||
@@ -526,16 +553,10 @@ const PaymentOptions: React.FC = () => {
                 Save 15.0%
               </p>
               {!bookingInfo.isLoading &&
-                paymentInfo?.paymentOptionFullAmountAfterDiscount && (
+                paymentInfo?.paymentOptionFullAmountAfterDiscount.length && (
                   <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
                     $
-                    {(paymentInfo?.paymentOptionFullAmountAfterDiscount
-                      ? paymentInfo?.paymentOptionFullAmountAfterDiscount
-                      : bookingInfo?.bookingSummerySubmitResData?.grand_total /
-                        100
-                    )
-                      .toString()
-                      .padStart(2, "0")}
+                    {(paymentInfo?.paymentOptionFullAmountAfterDiscount && paymentInfo?.paymentOptionFullAmountAfterDiscount).toString().padStart(2, "0")}
                   </p>
                 )}
               <ul className="text-sm text-gray-700 space-y-2 mb-6">
@@ -558,12 +579,9 @@ const PaymentOptions: React.FC = () => {
               </button>
               {/* </span> */}
             </div>
-          )}
+      
 
-          {/* Half Payment Card */}
-          {bookingInfo.isLoading ? (
-            <div className="animate-pulse h-[342px] bg-gray-200 rounded-lg dark:bg-gray-700 mb-4"></div>
-          ) : (
+            {/* Half payment option */}
             <div
               className={`border rounded-lg p-6 relative ${
                 isSelected("half") ||
@@ -585,16 +603,10 @@ const PaymentOptions: React.FC = () => {
               >
                 Save 10.0%
               </p>
-              {paymentInfo?.paymentOptionHalfAmountAfterDiscount && (
+              {paymentInfo?.paymentOptionHalfAmountAfterDiscount.length && (
                 <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
                   $
-                  {((paymentInfo?.paymentOptionHalfAmountAfterDiscount
-                    ? paymentInfo?.paymentOptionHalfAmountAfterDiscount
-                    : bookingInfo?.bookingSummerySubmitResData?.grand_total /
-                      100
-                  ) / 2).toFixed(2)
-                    .toString()
-                    .padStart(2, "0")}
+                  {(paymentInfo?.paymentOptionHalfAmountAfterDiscount && paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString().padStart(2, "0")}
                 </p>
               )}
               <p className="text-sm text-gray-700 mb-6">
@@ -619,12 +631,9 @@ const PaymentOptions: React.FC = () => {
                 {/* </span> */}
               </div>
             </div>
-          )}
+          
 
-          {/* Quarter Payment Card */}
-          {bookingInfo.isLoading ? (
-            <div className="animate-pulse h-[342px] bg-gray-200 rounded-lg dark:bg-gray-700 mb-4"></div>
-          ) : (
+          
             <div
               className={`border rounded-lg p-6 relative ${
                 isSelected("quarter") ||
@@ -646,16 +655,10 @@ const PaymentOptions: React.FC = () => {
               >
                 Save 5.0%
               </p>
-              {paymentInfo?.paymentOptionQuarterAmountAfterDiscount && (
+              {paymentInfo?.paymentOptionQuarterAmountAfterDiscount.length && (
                 <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
                   $
-                  {((paymentInfo?.paymentOptionQuarterAmountAfterDiscount
-                    ? paymentInfo?.paymentOptionQuarterAmountAfterDiscount
-                    : bookingInfo?.bookingSummerySubmitResData?.grand_total /
-                      100
-                  ) / 4).toFixed(2)
-                    .toString()
-                    .padStart(2, "0")}
+                  {(paymentInfo?.paymentOptionQuarterAmountAfterDiscount && paymentInfo?.paymentOptionQuarterAmountAfterDiscount ).toString().padStart(2, "0")}
                 </p>
               )}
               <p className="text-sm text-gray-700 mb-6">
@@ -676,12 +679,9 @@ const PaymentOptions: React.FC = () => {
                 </button>
               </div>
             </div>
-          )}
+           
 
-          {/* Undecided Card */}
-          {bookingInfo.isLoading ? (
-            <div className="animate-pulse h-[342px] bg-gray-200 rounded-lg dark:bg-gray-700 mb-4"></div>
-          ) : (
+           
             <div
               className={`border rounded-lg p-6 relative text-center ${
                 isSelected("undecided")
@@ -709,8 +709,9 @@ const PaymentOptions: React.FC = () => {
                 </button>
               </div>
             </div>
-          )}
-        </div>
+           
+          </div>
+        )}
 
         <div className="mt-6 flex justify-between items-center">
           <button

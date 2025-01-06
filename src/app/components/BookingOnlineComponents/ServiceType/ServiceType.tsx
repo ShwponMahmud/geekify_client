@@ -18,6 +18,7 @@ import {
 import { FaChalkboardTeacher, FaHome } from "react-icons/fa";
 import { IoBusinessSharp } from "react-icons/io5";
 import { FaMapLocationDot } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 
 type Address = {
   street: string;
@@ -62,22 +63,26 @@ const SwitchSelect: React.FC = () => {
       : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.subpremise,
   });
 
+  console.log("selectedServiceAddress",selectedServiceAddress);
+
+
   const [selectedBillingAddress, setSelectedBillingAddress] = useState<any>({
-    street:
-      bookingInfo?.billingAddress?.street &&
-      bookingInfo?.billingAddress?.street,
+    street: bookingInfo?.billingAddress?.street ? bookingInfo?.billingAddress?.street : "",
     suburb:
-      bookingInfo?.billingAddress?.suburb &&
-      bookingInfo?.billingAddress?.suburb,
+      bookingInfo?.billingAddress?.suburb ?
+      bookingInfo?.billingAddress?.suburb : "",
     state:
-      bookingInfo?.billingAddress?.state && bookingInfo?.billingAddress?.state,
+      bookingInfo?.billingAddress?.state ? bookingInfo?.billingAddress?.state : "",
     post_code:
-      bookingInfo?.billingAddress?.post_code &&
-      bookingInfo?.billingAddress?.post_code,
+      bookingInfo?.billingAddress?.post_code ?
+      bookingInfo?.billingAddress?.post_code : "",
     subpremise:
-      bookingInfo?.billingAddress?.subpremise &&
-      bookingInfo?.billingAddress?.subpremise,
+      bookingInfo?.billingAddress?.subpremise ?
+      bookingInfo?.billingAddress?.subpremise : "",
   });
+
+  console.log("selectedBillingAddress",selectedBillingAddress);
+
   const dispatch = useAppDispatch();
 
   const parkingOptions = [
@@ -113,17 +118,15 @@ const SwitchSelect: React.FC = () => {
     setAddNewAddressView(false);
   };
 
-  const handleSelectedServiceAddressChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleSelectedServiceAddressChange = ( event: React.ChangeEvent<HTMLSelectElement>) => {
+    
     const selectedValue = event.target.value;
 
+    console.log(selectedValue);
     // Parse the selected value back into an Address object
-    const [street, suburb, state, post_code, subpremise] = selectedValue
-      .split(",")
-      .map((val) => val.trim());
+    const [street, suburb, state, post_code, subpremise] = selectedValue.split(",").map((val) => val.trim());
 
-    if (bookingInfo?.serviceAddress?.setServiceAddress === "true") {
+    if (bookingInfo?.setServiceAddressModal === "true") {
       setSelectedServiceAddress({
         street,
         suburb,
@@ -133,7 +136,7 @@ const SwitchSelect: React.FC = () => {
       });
     }
 
-    if (bookingInfo.billingAddress?.setBillingAddress === "true") {
+    if (bookingInfo?.setBillingAddressModal === "true") {
       setSelectedBillingAddress({
         street,
         suburb,
@@ -146,9 +149,11 @@ const SwitchSelect: React.FC = () => {
 
   const setServiceAddressHandler = () => {
     dispatch(setServiceAddressModal("true"));
+    dispatch(setBillingAddressModal(""));
   };
   const handleBillingAddress = () => {
     dispatch(setBillingAddressModal("true"));
+    dispatch(setServiceAddressModal(""));
   };
 
   const SaveAddress = () => {
@@ -574,10 +579,10 @@ const SwitchSelect: React.FC = () => {
               >
                 <div className="w-full mt-4 flex justify-end">
                   <Button
-                    className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                    className="inline-flex items-center gap-2 rounded-md border-2 p-1 text-lg font-semibold shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-400 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
                     onClick={close}
                   >
-                    close
+                    <IoMdClose />
                   </Button>
                 </div>
                 {addNewAddressView == false &&
@@ -604,8 +609,7 @@ const SwitchSelect: React.FC = () => {
                     </button>
                   </DialogTitle>
                 )}
-                {!addNewAddressView == true &&
-                  bookingInfo?.otpVerifyData[0]?.data?.addresses.length && (
+                {!addNewAddressView == true && bookingInfo?.otpVerifyData[0]?.data?.addresses?.length && (
                     <div className="mt-5 mb-10">
                       <div className="py-1 text-sm font-medium text-gray-700">
                         <span>Select from Prev Addresses</span>
@@ -618,13 +622,7 @@ const SwitchSelect: React.FC = () => {
                           (address: any, index: number) => (
                             <option
                               key={index}
-                              value={`${address?.street}, ${address?.suburb}, ${
-                                address?.state
-                              }, ${address?.post_code}, ${
-                                address?.subpremise == null
-                                  ? ""
-                                  : address?.subpremise
-                              } `}
+                              value={`${address?.street}, ${address?.suburb}, ${ address?.state}, ${address?.post_code}, ${address?.subpremise == null? "" : address?.subpremise} `}
                             >
                               {`${address?.street}, ${address?.suburb}, ${
                                 address?.state
@@ -650,12 +648,7 @@ const SwitchSelect: React.FC = () => {
                       </div>
                     </div>
                   )}
-                {bookingInfo?.otpVerifyData[0]?.data === null ||
-                addNewAddressView == true ? (
-                  <AddressEditAddModal />
-                ) : (
-                  ""
-                )}
+                {bookingInfo?.otpVerifyData[0]?.data === null ||addNewAddressView == true ? (<AddressEditAddModal />) : ( "" )}
               </DialogPanel>
             </div>
           </div>
