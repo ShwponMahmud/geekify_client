@@ -371,7 +371,12 @@ export default function Payment() {
     return false;
   };
 
-  const paidAmount = bookingInfo?.bookingSummerySubmitResData?.grand_total;
+  const paidAmount =
+    bookingInfo?.paymentOptionSelected == "half"
+      ? paymentInfo?.paymentOptionHalfAmountAfterDiscount
+      : bookingInfo?.paymentOptionSelected == "quarter"
+      ? paymentInfo?.paymentOptionQuarterAmountAfterDiscount
+      : bookingInfo?.bookingSummerySubmitResData?.grand_total / 100;
 
   const afterPayPaymentConfiguration = async (): Promise<boolean> => {
     loader(true);
@@ -422,67 +427,103 @@ export default function Payment() {
 
   const afterCheckoutData = {
     amount: {
-      amount: (amountWithSurcharge / 100).toFixed(2).toString(),
+      amount: parseInt(paidAmount).toFixed(2).toString(),
       currency: "AUD",
     },
     consumer: {
       givenNames: userInfo?.userInfo?.first_name
         ? userInfo?.userInfo?.first_name
-        : users?.user?.[0]?.first_name,
+        : users?.user?.[0]?.first_name
+        ? users?.user?.[0]?.first_name
+        : bookingInfo?.otpVerifyData?.[0]?.data?.first_name,
       surname: userInfo?.userInfo?.last_name
         ? userInfo?.userInfo?.last_name
-        : users?.user?.[0]?.last_name,
+        : users?.user?.[0]?.last_name
+        ? users?.user?.[0]?.last_name
+        : bookingInfo?.otpVerifyData?.[0]?.data?.last_name,
       email: userInfo?.userInfo?.email
         ? userInfo?.userInfo?.email
-        : users?.user?.[0]?.email,
+        : users?.user?.[0]?.email
+        ? users?.user?.[0]?.email
+        : bookingInfo?.otpVerifyData?.[0]?.data?.email,
       phoneNumber: userInfo?.userInfo?.phone_number
         ? userInfo?.userInfo?.phone_number
-        : users?.user?.[0]?.phone_number,
+        : users?.user?.[0]?.phone_number
+        ? users?.user?.[0]?.phone_number
+        : bookingInfo?.otpVerifyData?.[0]?.data?.phone_number,
     },
     billing: {
       name: `${
-        userInfo?.userInfo?.first_name
+        bookingInfo?.otpVerifyData?.[0]?.data?.first_name
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.first_name
+          : userInfo?.userInfo?.first_name
           ? userInfo?.userInfo?.first_name
           : users?.user?.[0]?.first_name
       } ${
-        userInfo?.userInfo?.last_name
+        bookingInfo?.otpVerifyData?.[0]?.data?.last_name
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.last_name
+          : userInfo?.userInfo?.last_name
           ? userInfo?.userInfo?.last_name
           : users?.user?.[0]?.last_name
       }`,
-      line1: userInfo?.userInfo?.addresses?.[0]?.street
+      line1: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
+        : userInfo?.userInfo?.addresses?.[0]?.street
         ? userInfo?.userInfo?.addresses?.[0]?.street
         : users?.user?.[0]?.addresses?.[0]?.street,
-      area1: userInfo?.userInfo?.addresses?.[0]?.suburb
+
+      area1: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
+        : userInfo?.userInfo?.addresses?.[0]?.suburb
         ? userInfo?.userInfo?.addresses?.[0]?.suburb
         : users?.user?.[0]?.addresses?.[0]?.suburb,
-      region: userInfo?.userInfo?.addresses?.[0]?.state
+      region: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
+        : userInfo?.userInfo?.addresses?.[0]?.state
         ? userInfo?.userInfo?.addresses?.[0]?.state
         : users?.user?.[0]?.addresses?.[0]?.state,
-      postcode: userInfo?.userInfo?.addresses?.[0]?.post_code
+      postcode: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
+        ?.post_code
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
+        : userInfo?.userInfo?.addresses?.[0]?.post_code
         ? userInfo?.userInfo?.addresses?.[0]?.post_code
         : users?.user?.[0]?.addresses?.[0]?.post_code,
       countryCode: "AU",
     },
     shipping: {
       name: `${
-        userInfo?.userInfo?.first_name
+        bookingInfo?.otpVerifyData?.[0]?.data?.first_name
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.first_name
+          : userInfo?.userInfo?.first_name
           ? userInfo?.userInfo?.first_name
           : users?.user?.[0]?.first_name
       } ${
-        userInfo?.userInfo?.last_name
+        bookingInfo?.otpVerifyData?.[0]?.data?.last_name
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.last_name
+          : userInfo?.userInfo?.last_name
           ? userInfo?.userInfo?.last_name
           : users?.user?.[0]?.last_name
       }`,
-      line1: userInfo?.userInfo?.addresses?.[0]?.street
+      line1: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
+        : userInfo?.userInfo?.addresses?.[0]?.street
         ? userInfo?.userInfo?.addresses?.[0]?.street
         : users?.user?.[0]?.addresses?.[0]?.street,
-      area1: userInfo?.userInfo?.addresses?.[0]?.suburb
+
+      area1: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
+        : userInfo?.userInfo?.addresses?.[0]?.suburb
         ? userInfo?.userInfo?.addresses?.[0]?.suburb
         : users?.user?.[0]?.addresses?.[0]?.suburb,
-      region: userInfo?.userInfo?.addresses?.[0]?.state
+      region: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
+        : userInfo?.userInfo?.addresses?.[0]?.state
         ? userInfo?.userInfo?.addresses?.[0]?.state
         : users?.user?.[0]?.addresses?.[0]?.state,
-      postcode: userInfo?.userInfo?.addresses?.[0]?.post_code
+      postcode: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
+        ?.post_code
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
+        : userInfo?.userInfo?.addresses?.[0]?.post_code
         ? userInfo?.userInfo?.addresses?.[0]?.post_code
         : users?.user?.[0]?.addresses?.[0]?.post_code,
       countryCode: "AU",
@@ -850,25 +891,27 @@ export default function Payment() {
       });
   };
 
+  const postAfterPayPaymentData = {
+    payment_id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
+    paid_by: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    amount: parseInt(paidAmount),
+    token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+    payment_gateway_id:
+      paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.id,
+    status: 1,
+    card_surcharge:
+      calculateSurcharge(
+        paidAmount,
+        paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
+      ).percentageAmount ?? 0,
+  };
   const createAfterPayPayment = async () => {
-    const data = {
-      payment_id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
-      paid_by: userInfo?.userInfo?.id
-        ? userInfo?.userInfo?.id
-        : users?.user?.[0]?.id,
-      amount: paidAmount,
-      token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
-      payment_gateway_id:
-        paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.id,
-      status: 1,
-      card_surcharge:
-        calculateSurcharge(
-          paidAmount,
-          paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
-        ).percentageAmount ?? 0,
-    };
     loader(true);
-    const response = await postAfterPayPayment(data);
+    const response = await postAfterPayPayment(postAfterPayPaymentData);
     if (response?.message) {
       showToastMessage(response);
     }
@@ -929,10 +972,17 @@ export default function Payment() {
   };
 
   const PostAppointmentData = {
-    customer_id: customer?.id,
+    customer_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : customer?.id,
     service_id: serviceIdFilter?.id,
-    address_id: address?.[0]?.id,
-    billing_address_id: address?.[0]?.id,
+    address_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      : address?.[0]?.id,
+    billing_address_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
+      ?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      : address?.[0]?.id,
     platform:
       bookingInfo?.operatingSystem?.platform === "Internet"
         ? 0
@@ -1007,15 +1057,15 @@ export default function Payment() {
       });
   };
 
+  const putPaymentData = {
+    id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
+    data: {
+      reference:
+        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
+    },
+  };
   const putPaymentReference = () => {
-    const data = {
-      id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
-      data: {
-        reference:
-          paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
-      },
-    };
-    putPayment(data);
+    putPayment(putPaymentData);
   };
 
   const postAppointmentCharge = (data: any) => {
@@ -1041,171 +1091,165 @@ export default function Payment() {
       });
   };
 
+  // Create Appointments Charge after AfterPay .......
+  const AppointmentsChargeAfterAfterPay = [];
+  if (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.gst_charge?.amount,
+      type: 3,
+      name: "GST",
+    });
+  }
+
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+      type: 2,
+      name: "Coupon Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+      type: 2,
+      name: "Applied Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+      ?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+          ?.amount,
+      type: 2,
+      name: "Credited Payment Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.parking_discount?.amount,
+      type: 2,
+      name: "Parking Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+      type: 2,
+      name: "Loyalty Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+          ?.amount,
+      type: 2,
+      name: "Online Appointment Discount",
+    });
+  }
+
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.distance_surcharge
+      ?.applied_status &&
+    bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount > 0
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount,
+      type: 1,
+      name: "Distance Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.amount,
+      type: 1,
+      name: "Holiday Surcharge",
+    });
+  }
+  if (bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.applied_status) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.amount,
+      type: 1,
+      name: "Fuel Levy Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge
+      ?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge?.amount,
+      type: 1,
+      name: "City Area Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.amount,
+      type: 1,
+      name: "Same Day Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.amount,
+      type: 1,
+      name: "Timebase Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.amount,
+      type: 1,
+      name: "Weekend Surcharge",
+    });
+  }
+
+  if (bookingInfo?.bookingSummerySubmitResData?.service_price) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.service_price,
+      type: 0,
+      name: "Service Charge",
+    });
+  }
+
+  const CreateAppointmentsChargeAfterPayFormData = {
+    appointment_id: paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
+    charges: AppointmentsChargeAfterAfterPay,
+  };
+
   const createAppointmentCharges = async () => {
-    // Create Appointments Charge after AfterPay .......
-    const AppointmentsChargeAfterAfterPay = [];
-    if (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount: bookingInfo?.bookingSummerySubmitResData?.gst_charge?.amount,
-        type: 3,
-        name: "GST",
-      });
-    }
-
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
-        type: 2,
-        name: "Coupon Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
-        type: 2,
-        name: "Applied Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
-            ?.amount,
-        type: 2,
-        name: "Credited Payment Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.parking_discount?.amount,
-        type: 2,
-        name: "Parking Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
-        type: 2,
-        name: "Loyalty Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
-            ?.amount,
-        type: 2,
-        name: "Online Appointment Discount",
-      });
-    }
-
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.distance_surcharge
-        ?.applied_status &&
-      bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount > 0
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount,
-        type: 1,
-        name: "Distance Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.amount,
-        type: 1,
-        name: "Holiday Surcharge",
-      });
-    }
-    if (bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.applied_status) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount: bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.amount,
-        type: 1,
-        name: "Fuel Levy Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge?.amount,
-        type: 1,
-        name: "City Area Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.amount,
-        type: 1,
-        name: "Same Day Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.amount,
-        type: 1,
-        name: "Timebase Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.amount,
-        type: 1,
-        name: "Weekend Surcharge",
-      });
-    }
-
-    if (bookingInfo?.bookingSummerySubmitResData?.service_price) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount: bookingInfo?.bookingSummerySubmitResData?.service_price,
-        type: 0,
-        name: "Service Charge",
-      });
-    }
-
-    const CreateAppointmentsChargeAfterPayFormData = {
-      appointment_id:
-        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
-      charges: AppointmentsChargeAfterAfterPay,
-    };
-
     loader(true);
     const response = await postAppointmentCharge(
       CreateAppointmentsChargeAfterPayFormData
@@ -1243,7 +1287,9 @@ export default function Payment() {
 
   const createAppointmentNotes = async () => {
     const createAppointmentNotesAfterPayFormData = {
-      user_id: userInfo?.userInfo?.id
+      user_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+        : userInfo?.userInfo?.id
         ? userInfo?.userInfo?.id
         : users?.user?.[0]?.id,
       appointment_id:
@@ -1380,7 +1426,9 @@ export default function Payment() {
 
   const appointmentCreatorsCreate = async () => {
     const data = {
-      user_id: userInfo?.userInfo?.[0]?.id
+      user_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+        : userInfo?.userInfo?.[0]?.id
         ? userInfo?.userInfo?.[0]?.id
         : users?.user?.[0]?.id,
       appointment_id:
@@ -1438,68 +1486,69 @@ export default function Payment() {
       });
   };
 
+  // discount store list for after pay...................
+  let discountArray = [];
+
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+  ) {
+    discountArray.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+      type: 3,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
+  ) {
+    discountArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+      type: 1,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+      ?.applied_status
+  ) {
+    discountArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+          ?.amount,
+      type: 0,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+  ) {
+    discountArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+      type: 7,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status
+  ) {
+    discountArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+          ?.amount,
+      type: 6,
+    });
+  }
+
+  const AppointmentDiscountStoreListAfterPayFormData = {
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    reference:
+      paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
+    discounts: discountArray,
+  };
   const createAppointmentDiscountStoreList = async () => {
-    let discountArray = [];
-
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
-        type: 3,
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
-        type: 1,
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
-        ?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
-            ?.amount,
-        type: 0,
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
-        type: 7,
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
-        ?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
-            ?.amount,
-        type: 6,
-      });
-    }
-
-    const AppointmentDiscountStoreListAfterPayFormData = {
-      user_id: userInfo?.userInfo?.id
-        ? userInfo?.userInfo?.id
-        : users?.user?.[0]?.id,
-      reference:
-        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
-      discounts: discountArray,
-    };
-
     loader(true);
     const response = await postDiscountStoreList(
       AppointmentDiscountStoreListAfterPayFormData
@@ -1514,7 +1563,9 @@ export default function Payment() {
 
   // Appointment History..
   const AppointmentHistoryAfterPayFormData = {
-    user_id: userInfo?.userInfo?.id
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
     appointment_id: paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
@@ -1522,6 +1573,7 @@ export default function Payment() {
     status: 0,
   };
 
+  const AfterPayToken = paymentInfo?.afterPayCreateCheckoutResData?.data?.token;
   // Create Appointment After AfterPay payment.......................
   const createAppointmentAfterAfterPayPayment = async () => {
     let isAfterPayServerActive = await afterPayServerStatusChecker();
@@ -1543,7 +1595,7 @@ export default function Payment() {
           });
 
           window.AfterPay.open({
-            token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+            token: AfterPayToken,
           });
 
           window.AfterPay.onComplete = async (event: any) => {
@@ -1560,7 +1612,9 @@ export default function Payment() {
 
                   const isPaymentCreated = await createPayment(
                     `Temporal reference for customer id : ${
-                      users?.user?.[0]?.customer?.id
+                      bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+                        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+                        : users?.user?.[0]?.customer?.id
                         ? users?.user?.[0]?.customer?.id
                         : customer?.customer?.id
                     }`
@@ -1664,9 +1718,14 @@ export default function Payment() {
       if (
         !(userInfo?.userInfo?.email
           ? userInfo?.userInfo?.email
-          : users?.user?.[0]?.email && userInfo?.userInfo?.phone
+          : users?.user?.[0]?.email
+          ? users?.user?.[0]?.email
+          : bookingInfo?.otpVerifyData?.[0]?.data?.email &&
+            userInfo?.userInfo?.phone
           ? userInfo?.userInfo?.phone
-          : users?.user?.[0]?.phone)
+          : users?.user?.[0]?.phone
+          ? users?.user?.[0]?.phone
+          : bookingInfo?.otpVerifyData?.[0]?.data?.phone_number)
       ) {
         showToastMessage({
           type: "error",
@@ -1711,7 +1770,12 @@ export default function Payment() {
         surchargeRate) /
         100
     );
-  const totalAmount = surchargeAmount + bookingInfo?.bookingSummerySubmitResData?.grand_total || 0;
+  const totalAmount =
+    surchargeAmount + bookingInfo?.paymentOptionSelected == "half"
+      ? paymentInfo?.paymentOptionHalfAmountAfterDiscount
+      : bookingInfo?.paymentOptionSelected == "quarter"
+      ? paymentInfo?.paymentOptionQuarterAmountAfterDiscount
+      : bookingInfo?.bookingSummerySubmitResData?.grand_total || 0;
 
   //
 
@@ -1747,7 +1811,9 @@ export default function Payment() {
     payment_id: paymentInfo?.createPaymentResData?.id,
     paid_by: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     card_type: paymentInfo?.cardToken?.card?.type,
     amount: bookingInfo?.bookingSummerySubmitResData?.grand_total,
     card_surcharge: surchargeAmount,
@@ -1764,10 +1830,16 @@ export default function Payment() {
 
   // Create Appointments.....................
   const CreateAppointmentsFormData = {
-    customer_id: customer?.id,
+    customer_id: customer?.id
+      ? customer?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id,
     service_id: serviceIdFilter?.id,
-    address_id: address?.[0]?.id,
-    billing_address_id: address?.[0]?.id,
+    address_id: address?.[0]?.id
+      ? address?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address_id,
+    billing_address_id: address?.[0]?.id
+      ? address?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address_id,
     platform:
       bookingInfo?.operatingSystem?.platform === "Internet"
         ? 0
@@ -1972,7 +2044,9 @@ export default function Payment() {
   const createAppointmentNotesFormData = {
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     appointment_id: appointmentResData?.id,
     user_type: 0,
     type: 0,
@@ -2001,7 +2075,9 @@ export default function Payment() {
   const createAppointmentCreatorFormData = {
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     appointment_id: appointmentResData?.id,
     panel: 0,
   };
@@ -2088,7 +2164,9 @@ export default function Payment() {
   const AppointmentDiscountStoreListFormData = {
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     reference: paymentInfo?.createAppointmentsResData?.reference,
     discounts: discountsArray,
   };
@@ -2105,7 +2183,9 @@ export default function Payment() {
   const AppointmentHistoryFormData = {
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     appointment_id: appointmentResData?.id,
     panel: 0,
     status: 0,
@@ -2211,7 +2291,9 @@ export default function Payment() {
   const AppointmentQuestionSubmitCreateFormData = {
     added_by: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     appointment_id: appointmentResData?.id
       ? appointmentResData?.id
       : paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
@@ -2232,7 +2314,9 @@ export default function Payment() {
       bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.coupon_id,
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     reference: paymentInfo?.createAppointmentsResData?.reference,
     discount_amount:
       bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
@@ -2249,8 +2333,6 @@ export default function Payment() {
     // dispatch( paymentOptionHalfAmountAfterDiscount(""))
     // dispatch(paymentOptionQuarterAmountAfterDiscount(""))
   };
-
- 
 
   return (
     <>
@@ -2506,6 +2588,7 @@ export default function Payment() {
               {isTermsChecked ? (
                 <button
                   onClick={PayNowHandler}
+                  // onClick={tryPing}
                   className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600"
                 >
                   Pay Now
