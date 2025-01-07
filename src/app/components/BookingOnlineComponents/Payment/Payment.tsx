@@ -13,7 +13,7 @@ import {
   AppointmentQuestionSubmitCreate,
   captureImmediateFullPaymentOfAfterPayStatus,
   CardTokenCreate,
-  CouponDiscountCreate,
+  CouponDiscountUsage,
   CreateAppointmentCreator,
   CreateAppointmentNotes,
   CreateAppointmentPayments,
@@ -41,6 +41,7 @@ import {
 import {
   bookingSummerySaveAndContinue,
   paymentOptionSelectedAndProceedToPay,
+  submitBookingSummery,
 } from "@/app/rtk-state/reducers/bookingSlice";
 import { baseUrl } from "@/assets/baseUrl";
 import axios from "axios";
@@ -190,7 +191,6 @@ export default function Payment() {
         },
       })
       .then((response) => {
-        console.log(response);
         dispatch(afterPaySetMinimumAmount(response?.data?.data?.minimumAmount));
         dispatch(afterPaySetMaximumAmount(response?.data?.data?.maximumAmount));
 
@@ -268,8 +268,6 @@ export default function Payment() {
       })
       .then((response) => {
         dispatch(afterPayCreateCheckoutResData(response?.data));
-
-        console.log(response.data);
 
         return {
           message: "",
@@ -425,6 +423,28 @@ export default function Payment() {
     paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
   ).newTotal;
 
+  const line1 = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
+    ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
+    : userInfo?.userInfo?.addresses?.[0]?.street
+    ? userInfo?.userInfo?.addresses?.[0]?.street
+    : users?.user?.[0]?.addresses?.[0]?.street? users?.user?.[0]?.addresses?.[0]?.street : address?.[0]?.street;
+
+  const area1 = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
+    ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
+    : userInfo?.userInfo?.addresses?.[0]?.suburb
+    ? userInfo?.userInfo?.addresses?.[0]?.suburb
+    : users?.user?.[0]?.addresses?.[0]?.suburb ? users?.user?.[0]?.addresses?.[0]?.suburb : address?.[0]?.suburb;
+  const region = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
+    ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
+    : userInfo?.userInfo?.addresses?.[0]?.state
+    ? userInfo?.userInfo?.addresses?.[0]?.state
+    : users?.user?.[0]?.addresses?.[0]?.state ? users?.user?.[0]?.addresses?.[0]?.state : address?.[0]?.state;
+  const postcode = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
+    ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
+    : userInfo?.userInfo?.addresses?.[0]?.post_code
+    ? userInfo?.userInfo?.addresses?.[0]?.post_code
+    : users?.user?.[0]?.addresses?.[0]?.post_code ? users?.user?.[0]?.addresses?.[0]?.post_code : address?.[0]?.post_code;
+
   const afterCheckoutData = {
     amount: {
       amount: parseInt(paidAmount).toFixed(2).toString(),
@@ -466,28 +486,10 @@ export default function Payment() {
           ? userInfo?.userInfo?.last_name
           : users?.user?.[0]?.last_name
       }`,
-      line1: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
-        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
-        : userInfo?.userInfo?.addresses?.[0]?.street
-        ? userInfo?.userInfo?.addresses?.[0]?.street
-        : users?.user?.[0]?.addresses?.[0]?.street,
-
-      area1: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
-        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
-        : userInfo?.userInfo?.addresses?.[0]?.suburb
-        ? userInfo?.userInfo?.addresses?.[0]?.suburb
-        : users?.user?.[0]?.addresses?.[0]?.suburb,
-      region: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
-        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
-        : userInfo?.userInfo?.addresses?.[0]?.state
-        ? userInfo?.userInfo?.addresses?.[0]?.state
-        : users?.user?.[0]?.addresses?.[0]?.state,
-      postcode: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
-        ?.post_code
-        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
-        : userInfo?.userInfo?.addresses?.[0]?.post_code
-        ? userInfo?.userInfo?.addresses?.[0]?.post_code
-        : users?.user?.[0]?.addresses?.[0]?.post_code,
+      line1: line1,
+      area1: area1,
+      region: region,
+      postcode: postcode,
       countryCode: "AU",
     },
     shipping: {
@@ -504,28 +506,11 @@ export default function Payment() {
           ? userInfo?.userInfo?.last_name
           : users?.user?.[0]?.last_name
       }`,
-      line1: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
-        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
-        : userInfo?.userInfo?.addresses?.[0]?.street
-        ? userInfo?.userInfo?.addresses?.[0]?.street
-        : users?.user?.[0]?.addresses?.[0]?.street,
+      line1: line1,
 
-      area1: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
-        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
-        : userInfo?.userInfo?.addresses?.[0]?.suburb
-        ? userInfo?.userInfo?.addresses?.[0]?.suburb
-        : users?.user?.[0]?.addresses?.[0]?.suburb,
-      region: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
-        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
-        : userInfo?.userInfo?.addresses?.[0]?.state
-        ? userInfo?.userInfo?.addresses?.[0]?.state
-        : users?.user?.[0]?.addresses?.[0]?.state,
-      postcode: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
-        ?.post_code
-        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
-        : userInfo?.userInfo?.addresses?.[0]?.post_code
-        ? userInfo?.userInfo?.addresses?.[0]?.post_code
-        : users?.user?.[0]?.addresses?.[0]?.post_code,
+      area1: area1,
+      region: region,
+      postcode: postcode,
       countryCode: "AU",
     },
     items: [
@@ -891,6 +876,7 @@ export default function Payment() {
       });
   };
 
+ 
   const postAfterPayPaymentData = {
     payment_id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
     paid_by: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
@@ -909,6 +895,7 @@ export default function Payment() {
         paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
       ).percentageAmount ?? 0,
   };
+
   const createAfterPayPayment = async () => {
     loader(true);
     const response = await postAfterPayPayment(postAfterPayPaymentData);
@@ -1057,11 +1044,15 @@ export default function Payment() {
       });
   };
 
+  const after_pay_update_payment_id =
+    paymentInfo?.postPaymentAfterAfterPayResData?.data?.id;
+  const after_pay_update_payment_reference =
+    paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference;
+
   const putPaymentData = {
-    id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
+    id: after_pay_update_payment_id,
     data: {
-      reference:
-        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
+      reference: after_pay_update_payment_reference,
     },
   };
   const putPaymentReference = () => {
@@ -1244,8 +1235,10 @@ export default function Payment() {
     });
   }
 
+  const after_pay_appointment_id =
+    paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id;
   const CreateAppointmentsChargeAfterPayFormData = {
-    appointment_id: paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
+    appointment_id: after_pay_appointment_id,
     charges: AppointmentsChargeAfterAfterPay,
   };
 
@@ -1573,6 +1566,7 @@ export default function Payment() {
     status: 0,
   };
 
+
   const AfterPayToken = paymentInfo?.afterPayCreateCheckoutResData?.data?.token;
   // Create Appointment After AfterPay payment.......................
   const createAppointmentAfterAfterPayPayment = async () => {
@@ -1604,6 +1598,8 @@ export default function Payment() {
                 const isCaptureImmediateFullPaymentOfAfterPaySucceed =
                   await captureImmediateFullPaymentOfAfterPay();
 
+                  console.log("isCaptureImmediateFullPaymentOfAfterPaySucceed", isCaptureImmediateFullPaymentOfAfterPaySucceed);
+
                 if (isCaptureImmediateFullPaymentOfAfterPaySucceed) {
                   showToastMessage({
                     message: "Payment successful",
@@ -1614,9 +1610,9 @@ export default function Payment() {
                     `Temporal reference for customer id : ${
                       bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
                         ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
-                        : users?.user?.[0]?.customer?.id
-                        ? users?.user?.[0]?.customer?.id
-                        : customer?.customer?.id
+                        : users?.user?.[0]?.id
+                        ? users?.user?.[0]?.id
+                        : customer?.id
                     }`
                   );
                   if (isPaymentCreated) {
@@ -1769,13 +1765,13 @@ export default function Payment() {
       ((bookingInfo?.bookingSummerySubmitResData?.grand_total || 0) *
         surchargeRate) /
         100
-    );
+    ).toString();
   const totalAmount =
-    surchargeAmount + bookingInfo?.paymentOptionSelected == "half"
+    (surchargeAmount + bookingInfo?.paymentOptionSelected == "half"
       ? paymentInfo?.paymentOptionHalfAmountAfterDiscount
       : bookingInfo?.paymentOptionSelected == "quarter"
       ? paymentInfo?.paymentOptionQuarterAmountAfterDiscount
-      : bookingInfo?.bookingSummerySubmitResData?.grand_total || 0;
+      : bookingInfo?.bookingSummerySubmitResData?.grand_total || 0) * 100;
 
   //
 
@@ -1815,7 +1811,7 @@ export default function Payment() {
       ? users?.user?.[0]?.id
       : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     card_type: paymentInfo?.cardToken?.card?.type,
-    amount: bookingInfo?.bookingSummerySubmitResData?.grand_total,
+    amount: totalAmount,
     card_surcharge: surchargeAmount,
     payment_gateway: paymentInfo?.PaymentsCreateByTokenResData?.payment_gateway,
     payment_gateway_id: paymentInfo?.PaymentsCreateByTokenResData?.id,
@@ -2102,12 +2098,12 @@ export default function Payment() {
     notify_internal_user: 1,
   };
 
-  // useEffect(() => {
-  //   if (paymentInfo?.createPaymentResData?.id && appointmentResData?.id) {
-  //     dispatch(PaymentCreationNotify(PaymentCreationNotifyFormData));
-  //     dispatch(AppointmentCreationNotify(AppointmentCreationNotifyFormData));
-  //   }
-  // }, [paymentInfo?.createPaymentResData?.id && appointmentResData?.id]);
+  useEffect(() => {
+    if (paymentInfo?.createPaymentResData?.id && appointmentResData?.id) {
+      dispatch(PaymentCreationNotify(PaymentCreationNotifyFormData));
+      dispatch(AppointmentCreationNotify(AppointmentCreationNotifyFormData));
+    }
+  }, [paymentInfo?.createPaymentResData?.id && appointmentResData?.id]);
 
   // Appointment Discount Store list................
   let discountsArray = [];
@@ -2308,6 +2304,35 @@ export default function Payment() {
       );
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
+  const [couponCode, setCouponCode] = useState("");
+  const couponFormData = {
+    preference: bookingInfo?.serviceType === "Onsite" ? 0 : 1,
+    type: bookingInfo?.serviceLocationType === "Home" ? 0 : 1,
+    street: bookingInfo?.serviceAddress?.street,
+    suburb: bookingInfo?.serviceAddress?.suburb,
+    post_code: bookingInfo?.serviceAddress?.post_code,
+    country: bookingInfo?.serviceAddress?.country
+      ? bookingInfo?.serviceAddress?.country
+      : "Australia",
+    state: bookingInfo?.serviceAddress?.state,
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+      : userInfo?.userInfo?.id,
+    service_id: serviceIdFilter?.id,
+    date: formatDate(bookingInfo?.choosePreferredDateAndTime?.booking_schedule),
+    time: formatTime(bookingInfo?.choosePreferredDateAndTime?.selectedTime),
+    requested_time_interval: formatTimeInterval(
+      bookingInfo?.choosePreferredDateAndTime?.booking_duration
+    ),
+    client_panel: 0,
+    coupon_code: couponCode,
+  };
+
+  const CouponDiscountCreateHandler = (e: any) => {
+    e.preventDefault();
+    dispatch(submitBookingSummery(couponFormData));
+  };
+
   // Coupon Usage...................................
   const CouponFormData = {
     coupon_id:
@@ -2322,9 +2347,13 @@ export default function Payment() {
       bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
   };
 
-  const CouponDiscountCreateHandler = () => {
-    dispatch(CouponDiscountCreate(CouponFormData));
-  };
+  useEffect(() => {
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.coupon_discount
+        ?.validation_status === true
+    )
+      dispatch(CouponDiscountUsage(CouponFormData));
+  }, []);
 
   const prevHandler = () => {
     dispatch(bookingSummerySaveAndContinue("next"));
@@ -2379,6 +2408,7 @@ export default function Payment() {
                     placeholder="Enter a Coupon Code"
                     className="border p-[10px] w-[100%] text-[14px] mt-4 rounded-md"
                     required
+                    onChange={(e) => setCouponCode(e.target.value)}
                   />
                   <button
                     type="submit"

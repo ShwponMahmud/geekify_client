@@ -14,14 +14,19 @@ import ServiceType from "@/app/components/BookingOnlineComponents/ServiceType/Se
 import ServiceForm from "@/app/components/BookingOnlineComponents/TellUsAboutYourIssue/TellUsAboutYourIssue";
 import BookingTermsAndConditions from "@/app/components/BookingTermsConditions/BookingTermsAndConditions";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
+import { resetBookingState } from "@/app/rtk-state/reducers/bookingSlice";
 import {
   GetAfterPaySurcharge,
   GetCardSurcharge,
+  resetPaymentState,
 } from "@/app/rtk-state/reducers/paymentSlice";
 import { serviceLists } from "@/app/rtk-state/reducers/serviceSlice";
 // import { GetSettings} from "@/app/rtk-state/reducers/SettingSlice";
 import { baseUrl } from "@/assets/baseUrl";
 import { useEffect, useState } from "react";
+import loaderGif from "@/assets/icons/loading-gif.gif";
+import Image from "next/image";
+import Script from "next/script";
 
 function page() {
   const bookingInfo = useAppSelector((state) => state?.booking);
@@ -73,10 +78,43 @@ function page() {
     }
   }, []);
 
-  
+  window.addEventListener('beforeunload', () => {
+  // dispatch(resetBookingState())
+  // dispatch(resetPaymentState())
+  });
 
   return (
     <>
+      {bookingInfo?.isLoading && (
+        <div className="flex justify-center items-center h-[100%] w-[100%] absolute bg-[#242424c2] z-10">
+          <div className="flex justify-center align-middle ">
+            <Image src={loaderGif} width={100} alt="loader" />
+          </div>
+        </div>
+      )}
+       {/* Load Afterpay Script */}
+       <Script
+       id="afterPayGeneralLibrary"
+       src="https://js.afterpay.com/afterpay-1.x.js"
+       defer
+       
+        strategy="afterInteractive"
+        onLoad={() => {
+          console.log('Afterpay script loaded');
+        }}
+      />
+       <Script
+       id="afterPayProductionLibrary"
+       src="https://portal.sandbox.afterpay.com/afterpay.js"
+       defer
+       
+        strategy="afterInteractive"
+        onLoad={() => {
+          console.log('Afterpay script loaded');
+        }}
+      />
+      {/* Payment Controls */}
+
       <div className="booking_online">
         <BookingOnlineProgress />
         {bookingInfo?.bookingStart === "" && <BookingOnlineWelcome />}

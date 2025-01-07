@@ -24,7 +24,7 @@ export interface PaymentState {
   AppointmentDiscountStoreListCreateResData: any;
   AppointmentDiscountStoreListCreateResStatus: string;
   appointmentHistoryCreateResData: any;
-  couponDiscountCreateResData: any;
+  couponDiscountUseResData: any;
   appointmentQuestionSubmitResData: any;
   undecidedAppointmentStatus: any;
   paymentOptionFullAmountAfterDiscount: any;
@@ -62,7 +62,7 @@ const initialState: PaymentState = {
   AppointmentDiscountStoreListCreateResData: {},
   AppointmentDiscountStoreListCreateResStatus: "",
   appointmentHistoryCreateResData: {},
-  couponDiscountCreateResData: {},
+  couponDiscountUseResData: {},
   appointmentQuestionSubmitResData: {},
   undecidedAppointmentStatus: "",
   paymentOptionFullAmountAfterDiscount: {},
@@ -573,7 +573,7 @@ export const AppointmentHistoryCreate = createAsyncThunk(
   }
 );
 
-//Coupon discount create..................
+//Coupon discount usage..................
 export interface CouponFormData {
   coupon_id: number;
   user_id: number;
@@ -582,8 +582,8 @@ export interface CouponFormData {
 }
 
 // Async thunk for Coupon discount create.
-export const CouponDiscountCreate = createAsyncThunk(
-  "couponDiscountCreate",
+export const CouponDiscountUsage = createAsyncThunk(
+  "couponDiscountUsage",
   async (formData: CouponFormData) => {
     const response = await fetch(`${baseUrl}/coupon-usages`, {
       method: "POST",
@@ -749,6 +749,9 @@ export const paymentSlice = createSlice({
       action: PayloadAction<any>
     ) => {
       state.AppointmentDiscountStoreListCreateAFterPayResData = action.payload;
+    },
+    resetPaymentState : () => {
+          return initialState;
     },
   },
   extraReducers: (builder) => {
@@ -1025,20 +1028,20 @@ export const paymentSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
       })
-      .addCase(CouponDiscountCreate.pending, (state) => {
+      .addCase(CouponDiscountUsage.pending, (state) => {
         state.isLoading = true;
         state.error = null;
-        state.couponDiscountCreateResData = "";
+        state.couponDiscountUseResData = "";
       })
       .addCase(
-        CouponDiscountCreate.fulfilled,
+        CouponDiscountUsage.fulfilled,
         (state, action: PayloadAction<any>) => {
           // state.isLoading = false;
           // state.status = "success";
-          state.couponDiscountCreateResData = action.payload;
+          state.couponDiscountUseResData = action.payload;
         }
       )
-      .addCase(CouponDiscountCreate.rejected, (state, action) => {
+      .addCase(CouponDiscountUsage.rejected, (state, action) => {
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
@@ -1125,7 +1128,8 @@ export const {
   postPaymentAfterAfterPayResData,
   postAfterAfterPayPaymentsResData,
   postAppointmentAfterAfterPayResData,
-  AppointmentDiscountStoreListCreateAFterPayResData
+  AppointmentDiscountStoreListCreateAFterPayResData,
+  resetPaymentState
 } = paymentSlice.actions;
 
 // Selector

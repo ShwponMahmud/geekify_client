@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import AddressEditAddModal from "./Address/AddressEditAddModal";
 import {
+  addAddress,
   billingAddressSelect,
   otpVerifySuccessReStore,
   parkingOptionSelect,
@@ -41,7 +42,7 @@ const SwitchSelect: React.FC = () => {
       bookingInfo?.serviceType ? bookingInfo?.serviceType : "Onsite"
     );
   const [addNewAddressView, setAddNewAddressView] = useState<boolean>(false);
-  const [isBillingSame, setIsBillingSame] = useState(false);
+  const [isBillingSame, setIsBillingSame] = useState(true);
   const [selectedParking, setSelectedParking] = useState<string | null>(
     bookingInfo?.parkingOption ? bookingInfo?.parkingOption : null
   );
@@ -63,25 +64,25 @@ const SwitchSelect: React.FC = () => {
       : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.subpremise,
   });
 
-  console.log("selectedServiceAddress",selectedServiceAddress);
-
+  // console.log("selectedServiceAddress",selectedServiceAddress);
 
   const [selectedBillingAddress, setSelectedBillingAddress] = useState<any>({
-    street: bookingInfo?.billingAddress?.street ? bookingInfo?.billingAddress?.street : "",
-    suburb:
-      bookingInfo?.billingAddress?.suburb ?
-      bookingInfo?.billingAddress?.suburb : "",
-    state:
-      bookingInfo?.billingAddress?.state ? bookingInfo?.billingAddress?.state : "",
-    post_code:
-      bookingInfo?.billingAddress?.post_code ?
-      bookingInfo?.billingAddress?.post_code : "",
-    subpremise:
-      bookingInfo?.billingAddress?.subpremise ?
-      bookingInfo?.billingAddress?.subpremise : "",
+    street: bookingInfo?.billingAddress?.street
+      ? bookingInfo?.billingAddress?.street
+      : "",
+    suburb: bookingInfo?.billingAddress?.suburb
+      ? bookingInfo?.billingAddress?.suburb
+      : "",
+    state: bookingInfo?.billingAddress?.state
+      ? bookingInfo?.billingAddress?.state
+      : "",
+    post_code: bookingInfo?.billingAddress?.post_code
+      ? bookingInfo?.billingAddress?.post_code
+      : "",
+    subpremise: bookingInfo?.billingAddress?.subpremise
+      ? bookingInfo?.billingAddress?.subpremise
+      : "",
   });
-
-  console.log("selectedBillingAddress",selectedBillingAddress);
 
   const dispatch = useAppDispatch();
 
@@ -118,13 +119,15 @@ const SwitchSelect: React.FC = () => {
     setAddNewAddressView(false);
   };
 
-  const handleSelectedServiceAddressChange = ( event: React.ChangeEvent<HTMLSelectElement>) => {
-    
+  const handleSelectedServiceAddressChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const selectedValue = event.target.value;
 
-    console.log(selectedValue);
     // Parse the selected value back into an Address object
-    const [street, suburb, state, post_code, subpremise] = selectedValue.split(",").map((val) => val.trim());
+    const [street, suburb, state, post_code, subpremise] = selectedValue
+      .split(",")
+      .map((val) => val.trim());
 
     if (bookingInfo?.setServiceAddressModal === "true") {
       setSelectedServiceAddress({
@@ -211,7 +214,22 @@ const SwitchSelect: React.FC = () => {
     }
   }
 
+  useEffect(() => {
+    if (bookingInfo?.addAddress === "true") {
+      close();
+      dispatch(addAddress(""));
+    }
+  }, [bookingInfo?.addAddress]);
+
   const submitAddressInfoAndNextStepHandler = () => {
+    if (selectedServiceAddress.street === "") {
+      const selectedServiceAddressSetAlertElement =
+        document.querySelector<HTMLElement>(".service_address_alert");
+      if (selectedServiceAddressSetAlertElement) {
+        selectedServiceAddressSetAlertElement.innerHTML =
+          "Please Provide the Service Address!";
+      }
+    }
     if (selectedBillingAddress.street === "") {
       const billingAddressSetAlertElement = document.querySelector<HTMLElement>(
         ".billing_address_alert"
@@ -221,46 +239,68 @@ const SwitchSelect: React.FC = () => {
           "Please Provide the Billing Address!";
       }
     }
-
-    if (isBillingSame === true) {
-      dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
-      dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      dispatch(
-        serviceAddressSelect(
-          bookingInfo?.serviceAddress
-            ? bookingInfo?.serviceAddress
-            : selectedServiceAddress
-        )
-      );
-      dispatch(
-        billingAddressSelect(
-          bookingInfo?.serviceAddress
-            ? bookingInfo?.serviceAddress
-            : selectedServiceAddress
-        )
-      );
-      dispatch(parkingOptionSelect(selectedParking));
-      dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
+    if (selectedParking === null) {
+      const selectedParkingSetAlertElement =
+        document.querySelector<HTMLElement>(".parking_alert");
+      if (selectedParkingSetAlertElement) {
+        selectedParkingSetAlertElement.innerHTML =
+          "Please choose the parking option available at your location.";
+      }
     }
-    if (selectedBillingAddress.street) {
+
+    if ((selectedServiceAddress?.street?.length && (selectedBillingAddress?.street.length || isBillingSame === true) && selectedParking?.length)
+    ) {
+      if (isBillingSame === true) {
+        dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
+        dispatch(serviceTypeSelect(serviceTypeSelectedOption));
+        dispatch(
+          serviceAddressSelect(
+            bookingInfo?.serviceAddress
+              ? bookingInfo?.serviceAddress
+              : selectedServiceAddress
+          )
+        );
+        dispatch(
+          billingAddressSelect(
+            bookingInfo?.serviceAddress
+              ? bookingInfo?.serviceAddress
+              : selectedServiceAddress
+          )
+        );
+
+        dispatch(parkingOptionSelect(selectedParking));
+
+        dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
+      }
+      // if (
+      //   bookingInfo?.serviceAddress?.street.length &&
+      //   bookingInfo?.billingAddress?.street.length &&
+      //   selectedParking?.length
+      // ) {
       dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
       dispatch(
         serviceAddressSelect(
-          bookingInfo?.serviceAddress
-            ? bookingInfo?.serviceAddress
-            : selectedServiceAddress
+          selectedServiceAddress
+            ? selectedServiceAddress
+            : bookingInfo?.serviceAddress
         )
       );
       dispatch(
         billingAddressSelect(
-          bookingInfo?.billingAddress
-            ? bookingInfo?.billingAddress
+          isBillingSame === true
+            ? selectedServiceAddress
             : selectedBillingAddress
+            ? selectedBillingAddress
+            : bookingInfo?.billingAddress
         )
       );
+
       dispatch(parkingOptionSelect(selectedParking));
+
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
+
+      // }
     }
   };
 
@@ -462,7 +502,12 @@ const SwitchSelect: React.FC = () => {
                   className="bg-primaryColor border border-primaryColor mt-3 md:mt-0 text-white rounded-md py-[7px] px-[10px] flex content-center text-[15px] hover:bg-white hover:text-primaryColor hover:border-primaryColor transition-[.5s]
               "
                 >
-                  <span onClick={setServiceAddressHandler}>Edit Address</span>
+                  {bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
+                    ?.street ? (
+                    <span onClick={setServiceAddressHandler}>Edit</span>
+                  ) : (
+                    <span onClick={setServiceAddressHandler}>Add</span>
+                  )}
                 </button>
               </div>
             </div>
@@ -523,13 +568,17 @@ const SwitchSelect: React.FC = () => {
                 </div>
               </div>
             )}
-            <p className="billing_address_alert text-red-500 text-md font-semibold mt-5"></p>
-            <p className="billing_address_Provided_alert text-green-500 text-md font-semibold mt-5"></p>
+            <p className="billing_address_alert text-red-600 text-sm mt-5"></p>
+            {/* <p className="billing_address_Provided_alert text-green-500 text-md font-semibold mt-5"></p> */}
             {serviceTypeSelectedOption !== "Remote" && (
               <div className="parking_select_section mt-5">
-                <span>
-                  Please choose the parking option available at your location.
-                </span>
+                {!selectedParking ? (
+                  <span className="parking_alert text-red-600">
+                    Please choose the parking option available at your location.
+                  </span>
+                ) : (
+                  <span className="">Parking option selected.</span>
+                )}
                 <div className="parking-options mt-3">
                   {parkingOptions.map((option) => (
                     <button
@@ -565,7 +614,8 @@ const SwitchSelect: React.FC = () => {
           open={isOpen}
           as="div"
           className=" relative z-10 focus:outline-none "
-          onClose={close}
+          // onClose={close}
+          onClose={() => {}}
         >
           <div
             className="fixed inset-0 bg-gray-900 bg-opacity-50"
@@ -600,16 +650,11 @@ const SwitchSelect: React.FC = () => {
                   </DialogTitle>
                 ) : (
                   <DialogTitle as="h3" className="text-base/7 font-bold ">
-                    <span>Add New Address Or </span>
-                    <button
-                      onClick={selectPrevAddressViewHandler}
-                      className="text-primaryColor font-semibold"
-                    >
-                      Select Prev Address
-                    </button>
+                    <span>Add New Address </span>
                   </DialogTitle>
                 )}
-                {!addNewAddressView == true && bookingInfo?.otpVerifyData[0]?.data?.addresses?.length && (
+                {!addNewAddressView == true &&
+                  bookingInfo?.otpVerifyData[0]?.data?.addresses?.length && (
                     <div className="mt-5 mb-10">
                       <div className="py-1 text-sm font-medium text-gray-700">
                         <span>Select from Prev Addresses</span>
@@ -618,11 +663,18 @@ const SwitchSelect: React.FC = () => {
                         onChange={handleSelectedServiceAddressChange}
                         className="prev_address_select_option text-[14px] border p-2 w-full outline-none rounded-md"
                       >
+                        <option value="">{`${bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street} , ${bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb}, ${bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state}, ${bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code}, ${bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.subpremise} `}</option>
                         {bookingInfo?.otpVerifyData[0]?.data?.addresses?.map(
                           (address: any, index: number) => (
                             <option
                               key={index}
-                              value={`${address?.street}, ${address?.suburb}, ${ address?.state}, ${address?.post_code}, ${address?.subpremise == null? "" : address?.subpremise} `}
+                              value={`${address?.street}, ${address?.suburb}, ${
+                                address?.state
+                              }, ${address?.post_code}, ${
+                                address?.subpremise == null
+                                  ? ""
+                                  : address?.subpremise
+                              } `}
                             >
                               {`${address?.street}, ${address?.suburb}, ${
                                 address?.state
@@ -648,7 +700,12 @@ const SwitchSelect: React.FC = () => {
                       </div>
                     </div>
                   )}
-                {bookingInfo?.otpVerifyData[0]?.data === null ||addNewAddressView == true ? (<AddressEditAddModal />) : ( "" )}
+                {bookingInfo?.otpVerifyData[0]?.data === null ||
+                addNewAddressView == true ? (
+                  <AddressEditAddModal />
+                ) : (
+                  ""
+                )}
               </DialogPanel>
             </div>
           </div>
