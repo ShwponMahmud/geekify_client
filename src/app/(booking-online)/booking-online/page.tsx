@@ -83,11 +83,10 @@ function page() {
     }
   }, []);
 
-  window.addEventListener("beforeunload", () => {
-    dispatch(resetBookingState());
-    dispatch(resetPaymentState());
-    
-  });
+  // window.addEventListener("beforeunload", () => {
+  //   dispatch(resetBookingState());
+  //   dispatch(resetPaymentState());
+  // });
 
   return (
     <>

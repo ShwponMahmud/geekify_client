@@ -504,7 +504,7 @@ const PaymentOptions: React.FC = () => {
     if (paymentInfo?.appointmentHistoryCreateResData?.id)
       dispatch(UndecidedEmailNotifyCreate(undecidedEmailNotifyData));
       dispatch(undecidedAppointmentStatus(""));
-      redirect("/undecided-appointment-successful")
+      // redirect("/undecided-appointment-successful")
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
   // console.log(typeof (paymentInfo?.paymentOptionFullAmountAfterDiscount).toString());

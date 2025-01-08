@@ -161,41 +161,34 @@ const SwitchSelect: React.FC = () => {
 
   const SaveAddress = () => {
     dispatch(serviceAddressSelect(selectedServiceAddress));
-    dispatch(billingAddressSelect(selectedBillingAddress));
-
-    const successElement =
-      document.querySelector<HTMLElement>(".show_success_text");
-    const prevAddressSelectOption = document.querySelector<HTMLElement>(
-      ".prev_address_select_option"
-    );
-
-    if (successElement) {
-      successElement.innerHTML = "Address Saved Successfully!";
+    if (isBillingSame === true) {
+      dispatch(billingAddressSelect(selectedServiceAddress));
+    } else {
+      dispatch(billingAddressSelect(selectedBillingAddress));
     }
-    if (prevAddressSelectOption) {
-      prevAddressSelectOption.style.display = "none";
-    }
+
+    close();
   };
 
-  if (
-    isBillingSame ||
-    selectedBillingAddress.street ||
-    bookingInfo?.billingAddress?.street
-  ) {
-    const billingAddressProvidedAlertElement =
-      document.querySelector<HTMLElement>(".billing_address_Provided_alert");
-    const billingAddressSetAlertElement = document.querySelector<HTMLElement>(
-      ".billing_address_alert"
-    );
+  // if (
+  //   isBillingSame ||
+  //   selectedBillingAddress.street ||
+  //   bookingInfo?.billingAddress?.street
+  // ) {
+  //   const billingAddressProvidedAlertElement =
+  //     document.querySelector<HTMLElement>(".billing_address_Provided_alert");
+  //   const billingAddressSetAlertElement = document.querySelector<HTMLElement>(
+  //     ".billing_address_alert"
+  //   );
 
-    if (billingAddressProvidedAlertElement) {
-      billingAddressProvidedAlertElement.innerHTML =
-        "Thanks For Provide the Billing Address!";
-    }
-    if (billingAddressSetAlertElement) {
-      billingAddressSetAlertElement.style.display = "none";
-    }
-  }
+  //   if (billingAddressProvidedAlertElement) {
+  //     billingAddressProvidedAlertElement.innerHTML =
+  //       "Thanks For Provide the Billing Address!";
+  //   }
+  //   if (billingAddressSetAlertElement) {
+  //     billingAddressSetAlertElement.style.display = "none";
+  //   }
+  // }
 
   if (!isBillingSame) {
     const billingAddressSetAlertElement = document.querySelector<HTMLElement>(
@@ -248,24 +241,29 @@ const SwitchSelect: React.FC = () => {
       }
     }
 
-    if ((selectedServiceAddress?.street && (isBillingSame === true || selectedBillingAddress?.street))
-    ) {
-      // if (isBillingSame === true) {
-      //   dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
-      //   dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      //   dispatch(serviceAddressSelect( bookingInfo?.serviceAddress ? bookingInfo?.serviceAddress : selectedServiceAddress));
-      //   dispatch(billingAddressSelect(bookingInfo?.serviceAddress ? bookingInfo?.serviceAddress : selectedServiceAddress));
-      //   dispatch(parkingOptionSelect(selectedParking));
-      //   dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
-      // }
-     
+    
+
       dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      dispatch(serviceAddressSelect(selectedServiceAddress ? selectedServiceAddress : bookingInfo?.serviceAddress));
-      dispatch(billingAddressSelect(isBillingSame === true ? selectedServiceAddress : selectedBillingAddress ? selectedBillingAddress : bookingInfo?.billingAddress));
+      // dispatch(
+      //   serviceAddressSelect(
+      //     selectedServiceAddress
+      //       ? selectedServiceAddress
+      //       : bookingInfo?.serviceAddress
+      //   )
+      // );
+      // dispatch(
+      //   billingAddressSelect(
+      //     isBillingSame === true
+      //       ? selectedServiceAddress
+      //       : selectedBillingAddress
+      //       ? selectedBillingAddress
+      //       : bookingInfo?.billingAddress
+      //   )
+      // );
       dispatch(parkingOptionSelect(selectedParking));
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
-    }
+    
   };
 
   return (
@@ -451,7 +449,8 @@ const SwitchSelect: React.FC = () => {
                       </li>
                     ))}
                 </ul>
-                {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length >=1 && (
+                {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length >=
+                  1 && (
                   <p className="mt-4">
                     <b>Note:</b> You already have{" "}
                     {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length}{" "}
@@ -615,16 +614,19 @@ const SwitchSelect: React.FC = () => {
                 ) : (
                   <DialogTitle as="h3" className="text-base/7 font-bold ">
                     <span>Add New Address </span>
-                    {bookingInfo?.otpVerifyData[0]?.data?.addresses.length && <button
-                      onClick={selectPrevAddressViewHandler}
-                      className="text-primaryColor font-semibold"
-                    >
-                     Or Select Prev Address
-                    </button>}
+                    {bookingInfo?.otpVerifyData[0]?.data?.addresses.length && (
+                      <button
+                        onClick={selectPrevAddressViewHandler}
+                        className="text-primaryColor font-semibold"
+                      >
+                        Or Select Prev Address
+                      </button>
+                    )}
                   </DialogTitle>
                 )}
                 {!addNewAddressView == true &&
-                  bookingInfo?.otpVerifyData[0]?.data?.addresses?.length >= 1 && (
+                  bookingInfo?.otpVerifyData[0]?.data?.addresses?.length >=
+                    1 && (
                     <div className="mt-5 mb-10">
                       <div className="py-1 text-sm font-medium text-gray-700">
                         <span>Select from Prev Addresses</span>
@@ -658,7 +660,7 @@ const SwitchSelect: React.FC = () => {
                         )}
                       </select>
 
-                      <p className="show_success_text text-center  text-green-600 text-3xl font-semibold mt-5"></p>
+                      {/* <p className="show_success_text text-center  text-green-600 text-3xl font-semibold mt-5"></p> */}
 
                       <div className="mt-4">
                         <Button

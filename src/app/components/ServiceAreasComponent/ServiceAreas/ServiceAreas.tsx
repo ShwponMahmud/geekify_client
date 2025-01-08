@@ -44,7 +44,7 @@ export default function ServiceAreas() {
                     ))}
 
                     <>
-                      {area?.slug == "New-South-Wales" ? (
+                      {area?.slug == "new-south-wales" ? (
                         <Link href={`/service-areas/${area?.slug}`}>
                           <button className="mt-5 py-2 px-5 font-semibold text-xl border-[1px] rounded-lg border-primaryColor text-primaryColor hover:bg-primaryColor hover:text-white transition-[.5z]">
                             See More
