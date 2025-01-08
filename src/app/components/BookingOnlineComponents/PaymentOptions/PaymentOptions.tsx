@@ -29,17 +29,7 @@ import {
   undecidedAppointmentStatus,
   UndecidedEmailNotifyCreate,
 } from "@/app/rtk-state/reducers/paymentSlice";
-import { Audio, RotatingLines } from "react-loader-spinner";
-
-interface RotatingLinesProps {
-  visible: boolean;
-  height: string;
-  width: string;
-  color: string;
-  strokeWidth: string;
-  animationDuration: string;
-  ariaLabel: string;
-}
+import loaderGif from "@/assets/icons/loading-gif.gif";
 
 const PaymentOptions: React.FC = () => {
   const bookingInfo = useAppSelector((state) => state?.booking);
@@ -47,7 +37,8 @@ const PaymentOptions: React.FC = () => {
   const customer = useAppSelector((state) => state?.customer.customer);
   const dispatch = useAppDispatch();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [isSelectedOptionTrigger, setIsSelectedOptionTrigger] = useState<boolean>(false);
+  const [isSelectedOptionTrigger, setIsSelectedOptionTrigger] =
+    useState<boolean>(false);
   const address = useAppSelector((state) => state?.addresses?.address);
   const users = useAppSelector((state) => state?.users);
   const userInfo = useAppSelector((state) => state?.userInfoAfterSubmit);
@@ -62,12 +53,11 @@ const PaymentOptions: React.FC = () => {
     setSelectedOption((prevOption) => {
       if (prevOption !== option) {
         dispatch(paymentOptionSelected(option));
-        setIsSelectedOptionTrigger(true)
+        setIsSelectedOptionTrigger(true);
       }
       return option;
     });
   };
-
 
   const onlineDiscount =
     bookingInfo.paymentOptionSelected === "full"
@@ -117,7 +107,10 @@ const PaymentOptions: React.FC = () => {
   };
 
   useEffect(() => {
-    if (bookingInfo?.paymentOptionSelected === selectedOption && isSelectedOptionTrigger === true) {
+    if (
+      bookingInfo?.paymentOptionSelected === selectedOption &&
+      isSelectedOptionTrigger === true
+    ) {
       dispatch(submitBookingSummery(bookingSummerySubmitData));
       // dispatch(bookingSummerySaveAndContinue("next"));
     }
@@ -127,21 +120,37 @@ const PaymentOptions: React.FC = () => {
     if (!bookingInfo.isLoading && selectedOption === "full") {
       dispatch(
         paymentOptionFullAmountAfterDiscount(
-          (bookingInfo?.bookingSummerySubmitResData?.grand_total / 100).toFixed(2)
+          parseFloat(
+            (
+              bookingInfo?.bookingSummerySubmitResData?.grand_total / 100
+            ).toFixed(2)
+          )
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "half") {
       dispatch(
         paymentOptionHalfAmountAfterDiscount(
-          ((bookingInfo?.bookingSummerySubmitResData?.grand_total / 100) / 2).toFixed(2)
+          parseFloat(
+            (
+              bookingInfo?.bookingSummerySubmitResData?.grand_total /
+              100 /
+              2
+            ).toFixed(2)
+          )
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "quarter") {
       dispatch(
         paymentOptionQuarterAmountAfterDiscount(
-          ((bookingInfo?.bookingSummerySubmitResData?.grand_total / 100)/4).toFixed(2)
+          parseFloat(
+            (
+              bookingInfo?.bookingSummerySubmitResData?.grand_total /
+              100 /
+              4
+            ).toFixed(2)
+          )
         )
       );
     }
@@ -154,7 +163,6 @@ const PaymentOptions: React.FC = () => {
   const proceedToPayNextHandler = () => {
     dispatch(paymentOptionSelectedAndProceedToPay("next"));
     dispatch(bookingSummerySaveAndContinue(""));
-    
   };
 
   // Create Appointments.....................
@@ -496,8 +504,17 @@ const PaymentOptions: React.FC = () => {
       dispatch(UndecidedEmailNotifyCreate(undecidedEmailNotifyData));
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
+  // console.log(typeof (paymentInfo?.paymentOptionFullAmountAfterDiscount).toString());
+
   return (
     <div className="py-5 flex flex-col items-center justify-center ">
+      {/* {bookingInfo?.isLoading &&
+          <div className="flex justify-center items-center h-[100%] w-[100%] absolute bg-[#80808046] z-10">
+            <div className="flex justify-center align-middle ">
+              <Image src={loaderGif} width={100} alt="loader" />
+            </div>
+          </div>
+        } */}
       <div className="bg-white shadow-shadow rounded-lg p-8 max-w-4xl w-full">
         <h1 className="text-xl font-semibold text-center mb-6">Make Payment</h1>
         <div className="w-36 mx-auto flex justify-center gap-4 mb-6">
@@ -506,212 +523,182 @@ const PaymentOptions: React.FC = () => {
           <Image src={afterPayIcon} alt="PayPal" className="h-6 rounded-sm" />
         </div>
 
-        {bookingInfo?.isLoading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Full payment option */}
           <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "65vh",
-            }}
+            className={`border rounded-lg p-6 ${
+              isSelected("full") ||
+              bookingInfo?.paymentOptionSelected === "full"
+                ? "bg-orange-100 border-orange-500"
+                : "bg-white"
+            }`}
           >
-              <RotatingLines
-                visible={true}
-                height="96"
-                width="96"
-                color="grey"
-                strokeWidth="5"
-                animationDuration="0.75"
-                ariaLabel="rotating-lines-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-              />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            {/* Full payment option */}
-            <div
-              className={`border rounded-lg p-6 ${
+            <h2 className="text-lg font-bold mb-2 ${isSelected('full') ? 'text-orange-500' : 'text-gray-800'}">
+              Full Payment
+            </h2>
+            <p
+              className={` text-md font-semibold mb-4 text-center ${
                 isSelected("full") ||
                 bookingInfo?.paymentOptionSelected === "full"
-                  ? "bg-orange-100 border-orange-500"
-                  : "bg-white"
+                  ? "text-orange-500"
+                  : "text-gray-600"
               }`}
             >
-              <h2 className="text-lg font-bold mb-2 ${isSelected('full') ? 'text-orange-500' : 'text-gray-800'}">
-                Full Payment
-              </h2>
-              <p
-                className={` text-md font-semibold mb-4 text-center ${
-                  isSelected("full") ||
-                  bookingInfo?.paymentOptionSelected === "full"
-                    ? "text-orange-500"
-                    : "text-gray-600"
-                }`}
-              >
-                Save 15.0%
-              </p>
-              {!bookingInfo.isLoading &&
-                paymentInfo?.paymentOptionFullAmountAfterDiscount.length && (
-                  <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                    $
-                    {(paymentInfo?.paymentOptionFullAmountAfterDiscount && paymentInfo?.paymentOptionFullAmountAfterDiscount).toString().padStart(2, "0")}
-                  </p>
-                )}
-              <ul className="text-sm text-gray-700 space-y-2 mb-6">
-                <li>✔ Priority email support</li>
-                <li>✔ Faster appointment dates</li>
-                <li>✔ Early access to new features</li>
-                <li>✔ Available phone support</li>
-              </ul>
+              Save 15.0%
+            </p>
+            {((paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()).length && (
+            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+              ${" "}
+              {(
+                paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()
+              }
+            </p>
+            )}
+            <ul className="text-sm text-gray-700 space-y-2 mb-6">
+              <li>✔ Priority email support</li>
+              <li>✔ Faster appointment dates</li>
+              <li>✔ Early access to new features</li>
+              <li>✔ Available phone support</li>
+            </ul>
+            {/* <span onClick={discountPaymentAmountGetHandler}> */}
+            <button
+              className={`px-4 py-2 rounded-lg w-full ${
+                isSelected("full") ||
+                bookingInfo?.paymentOptionSelected === "full"
+                  ? "bg-orange-500 text-white"
+                  : "bg-gray-500 text-white"
+              }`}
+              onClick={() => handleSelect("full")}
+            >
+              {isSelected("full") ? "Selected" : "Select"}
+            </button>
+            {/* </span> */}
+          </div>
+
+          {/* Half payment option */}
+          <div
+            className={`border rounded-lg p-6 relative ${
+              isSelected("half") ||
+              bookingInfo?.paymentOptionSelected === "half"
+                ? "bg-orange-100 border-orange-500"
+                : "bg-white"
+            }`}
+          >
+            <h2 className="text-lg font-bold mb-2 ${isSelected('half') ? 'text-orange-500' : 'text-gray-800'}">
+              Half Payment
+            </h2>
+            <p
+              className={`text-center text-md font-semibold mb-4 ${
+                isSelected("half") ||
+                bookingInfo?.paymentOptionSelected === "half"
+                  ? "text-orange-500"
+                  : "text-gray-600"
+              }`}
+            >
+              Save 10.0%
+            </p>
+            {((paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()).length && (
+            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+              ${" "}
+              {(paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()}
+            </p>
+            )}
+            <p className="text-sm text-gray-700 mb-6">
+              ✔ Pay 50% upfront
+              <br />
+              ✔ Remaining 50% later
+              <br />✔ Email support
+            </p>
+            <div className="absolute bottom-[25px] left-0 right-0 px-6">
               {/* <span onClick={discountPaymentAmountGetHandler}> */}
               <button
                 className={`px-4 py-2 rounded-lg w-full ${
-                  isSelected("full") ||
-                  bookingInfo?.paymentOptionSelected === "full"
+                  isSelected("half") ||
+                  bookingInfo?.paymentOptionSelected === "half"
                     ? "bg-orange-500 text-white"
                     : "bg-gray-500 text-white"
                 }`}
-                onClick={() => handleSelect("full")}
+                onClick={() => handleSelect("half")}
               >
-                {isSelected("full") ? "Selected" : "Select"}
+                {isSelected("half") ? "Selected" : "Select"}
               </button>
               {/* </span> */}
             </div>
-      
+          </div>
 
-            {/* Half payment option */}
-            <div
-              className={`border rounded-lg p-6 relative ${
-                isSelected("half") ||
-                bookingInfo?.paymentOptionSelected === "half"
-                  ? "bg-orange-100 border-orange-500"
-                  : "bg-white"
-              }`}
-            >
-              <h2 className="text-lg font-bold mb-2 ${isSelected('half') ? 'text-orange-500' : 'text-gray-800'}">
-                Half Payment
-              </h2>
-              <p
-                className={`text-center text-md font-semibold mb-4 ${
-                  isSelected("half") ||
-                  bookingInfo?.paymentOptionSelected === "half"
-                    ? "text-orange-500"
-                    : "text-gray-600"
-                }`}
-              >
-                Save 10.0%
-              </p>
-              {paymentInfo?.paymentOptionHalfAmountAfterDiscount.length && (
-                <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                  $
-                  {(paymentInfo?.paymentOptionHalfAmountAfterDiscount && paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString().padStart(2, "0")}
-                </p>
-              )}
-              <p className="text-sm text-gray-700 mb-6">
-                ✔ Pay 50% upfront
-                <br />
-                ✔ Remaining 50% later
-                <br />✔ Email support
-              </p>
-              <div className="absolute bottom-[25px] left-0 right-0 px-6">
-                {/* <span onClick={discountPaymentAmountGetHandler}> */}
-                <button
-                  className={`px-4 py-2 rounded-lg w-full ${
-                    isSelected("half") ||
-                    bookingInfo?.paymentOptionSelected === "half"
-                      ? "bg-orange-500 text-white"
-                      : "bg-gray-500 text-white"
-                  }`}
-                  onClick={() => handleSelect("half")}
-                >
-                  {isSelected("half") ? "Selected" : "Select"}
-                </button>
-                {/* </span> */}
-              </div>
-            </div>
-          
-
-          
-            <div
-              className={`border rounded-lg p-6 relative ${
+          <div
+            className={`border rounded-lg p-6 relative ${
+              isSelected("quarter") ||
+              bookingInfo?.paymentOptionSelected === "quarter"
+                ? "bg-orange-100 border-orange-500"
+                : "bg-white"
+            }`}
+          >
+            <h2 className="text-lg font-bold mb-2 ${isSelected('quarter') ? 'text-orange-500' : 'text-gray-800'}">
+              Quarter Payment
+            </h2>
+            <p
+              className={`text-center text-md font-semibold mb-4 ${
                 isSelected("quarter") ||
                 bookingInfo?.paymentOptionSelected === "quarter"
-                  ? "bg-orange-100 border-orange-500"
-                  : "bg-white"
+                  ? "text-orange-500"
+                  : "text-gray-600"
               }`}
             >
-              <h2 className="text-lg font-bold mb-2 ${isSelected('quarter') ? 'text-orange-500' : 'text-gray-800'}">
-                Quarter Payment
-              </h2>
-              <p
-                className={`text-center text-md font-semibold mb-4 ${
+              Save 5.0%
+            </p>
+            {((paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()).length && (
+            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+              $
+              {(
+                paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()}
+            </p>
+            )}
+            <p className="text-sm text-gray-700 mb-6">
+              ✔ Pay 25% upfront
+              <br />✔ Remaining 75% later
+            </p>
+            <div className="absolute bottom-[25px] left-0 right-0 px-6">
+              <button
+                className={`px-4 py-2 rounded-lg w-full ${
                   isSelected("quarter") ||
                   bookingInfo?.paymentOptionSelected === "quarter"
-                    ? "text-orange-500"
-                    : "text-gray-600"
+                    ? "bg-orange-500 text-white"
+                    : "bg-gray-500 text-white"
                 }`}
+                onClick={() => handleSelect("quarter")}
               >
-                Save 5.0%
-              </p>
-              {paymentInfo?.paymentOptionQuarterAmountAfterDiscount.length && (
-                <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                  $
-                  {(paymentInfo?.paymentOptionQuarterAmountAfterDiscount && paymentInfo?.paymentOptionQuarterAmountAfterDiscount ).toString().padStart(2, "0")}
-                </p>
-              )}
-              <p className="text-sm text-gray-700 mb-6">
-                ✔ Pay 25% upfront
-                <br />✔ Remaining 75% later
-              </p>
-              <div className="absolute bottom-[25px] left-0 right-0 px-6">
-                <button
-                  className={`px-4 py-2 rounded-lg w-full ${
-                    isSelected("quarter") ||
-                    bookingInfo?.paymentOptionSelected === "quarter"
-                      ? "bg-orange-500 text-white"
-                      : "bg-gray-500 text-white"
-                  }`}
-                  onClick={() => handleSelect("quarter")}
-                >
-                  {isSelected("quarter") ? "Selected" : "Select"}
-                </button>
-              </div>
+                {isSelected("quarter") ? "Selected" : "Select"}
+              </button>
             </div>
-           
-
-           
-            <div
-              className={`border rounded-lg p-6 relative text-center ${
-                isSelected("undecided")
-                  ? "bg-orange-100 border-orange-500"
-                  : "bg-white"
-              }`}
-            >
-              <h2 className="text-lg font-bold text-gray-800 mb-4">
-                Undecided
-              </h2>
-              <p className="text-md text-gray-700 mb-2 ">Let Us Call You</p>
-              <p className="text-2xl font-bold text-gray-800 mb-20">
-                02 9158 9800
-              </p>
-              <div className="absolute bottom-[25px] left-0 right-0 px-6">
-                <button
-                  className={`px-4 py-2 rounded-lg w-full ${
-                    isSelected("undecided")
-                      ? "bg-orange-500 text-white"
-                      : "bg-gray-500 text-white"
-                  }`}
-                  onClick={() => handleSelect("undecided")}
-                >
-                  {isSelected("undecided") ? "Selected" : "Select"}
-                </button>
-              </div>
-            </div>
-           
           </div>
-        )}
+
+          <div
+            className={`border rounded-lg p-6 relative text-center ${
+              isSelected("undecided")
+                ? "bg-orange-100 border-orange-500"
+                : "bg-white"
+            }`}
+          >
+            <h2 className="text-lg font-bold text-gray-800 mb-4">Undecided</h2>
+            <p className="text-md text-gray-700 mb-2 ">Let Us Call You</p>
+            <p className="text-2xl font-bold text-gray-800 mb-20">
+              02 9158 9800
+            </p>
+            <div className="absolute bottom-[25px] left-0 right-0 px-6">
+              <button
+                className={`px-4 py-2 rounded-lg w-full ${
+                  isSelected("undecided")
+                    ? "bg-orange-500 text-white"
+                    : "bg-gray-500 text-white"
+                }`}
+                onClick={() => handleSelect("undecided")}
+              >
+                {isSelected("undecided") ? "Selected" : "Select"}
+              </button>
+            </div>
+          </div>
+        </div>
 
         <div className="mt-6 flex justify-between items-center">
           <button

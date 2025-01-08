@@ -52,31 +52,30 @@ const EnterPhoneSendCode: React.FC = () => {
     dispatch(submitOTP(otpVerifyData));
   };
 
-  const otpSuccessStatus = bookingInfo.otpReqSuccess;
+
   // otp timer function....................
   useEffect(() => {
     if (bookingInfo.otpReqSuccess === "success") {
-      setMinutes(0);
-      const interval = setTimeout(() => {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
-        }
+      setSeconds(60); 
 
-        if (seconds === 0) {
-          if (minutes === 0) {
-            clearInterval(interval);
+      const countdown = setInterval(() => {
+        setSeconds((prevSeconds) => {
+          if (prevSeconds > 1) {
+            return prevSeconds - 1; 
           } else {
-            setSeconds(59);
-            setMinutes(minutes - 1);
+            clearInterval(countdown); 
+            return 0;
           }
-        }
+        });
       }, 1000);
 
       return () => {
-        clearInterval(interval);
+        clearInterval(countdown);
       };
     }
-  }, [otpSuccessStatus, seconds, minutes]);
+  }, [bookingInfo.otpReqSuccess]);
+
+
 
   const resendOtpHandler = () => {
     dispatch(getOTP(otpReqFormData));
@@ -156,10 +155,9 @@ const EnterPhoneSendCode: React.FC = () => {
             ) : (
               <div className="enter_code ">
                 <div className="">
-                  <label htmlFor="" className="text-[12px]">
+                  <label htmlFor="" className="text-[14px] font-medium">
                     {" "}
-                    Enter the number code from the text message that we just
-                    sent.
+                    Enter the OTP code from the message that we just sent.
                   </label>
                   <input
                     className="w-[100%] border p-[7px] rounded-md outline-none flex items-center"
@@ -182,7 +180,7 @@ const EnterPhoneSendCode: React.FC = () => {
                       {seconds > 0 || minutes > 0 ? null : (
                         <span
                           onClick={resendOtpHandler}
-                          className="resendOtpBtn bg-primaryColor cursor-pointer text-white text-[14px] rounded-md py-[3px] px-[5px] text-primaryColor"
+                          className="resendOtpBtn bg-primaryColor cursor-pointer text-white text-[14px] rounded-md py-[3px] px-[5px] text-primaryColor hover:bg-gray-400 transition-[.5s]"
                         >
                           Resend OTP
                         </span>

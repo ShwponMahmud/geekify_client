@@ -8,6 +8,7 @@ import {
   useLoadScript,
 } from "@react-google-maps/api";
 import {
+  addAddress,
   billingAddressSelect,
   newCustomerAddressStatus,
   serviceAddressSelect,
@@ -171,11 +172,13 @@ export default function AddressEditAddModal() {
     state: matchState?.short_name,
   };
 
-  const SaveAddress = () => {
+  const SaveAddress = (event: any) => {
+    event.preventDefault();
     // if (bookingInfo.serviceAddress?.setServiceAddress === "true" || bookingInfo?.serviceAddress?.street || bookingInfo?.serviceAddress?.street === "") {
     if (bookingInfo?.setServiceAddressModal === "true") {
       dispatch(serviceAddressSelect(AddressInfoForSubmit));
       dispatch(setServiceAddressModal(""));
+      dispatch(addAddress("true"));
     }
 
     // else{
@@ -187,29 +190,13 @@ export default function AddressEditAddModal() {
     if (bookingInfo?.setBillingAddressModal === "true") {
       dispatch(billingAddressSelect(AddressInfoForSubmit));
       dispatch(setBillingAddressModal(""));
+      dispatch(addAddress("true"));
     }
     // else{
     //   dispatch(billingAddressSelect(AddressInfoForSubmit));
     //   dispatch(newCustomerAddressStatus("true"));
     // }
 
-    const successElement =
-      document.querySelector<HTMLElement>(".show_success_text");
-    const addressModifyContainer = document.querySelector<HTMLElement>(
-      ".address_modify_container"
-    );
-    const addressInputContainer = document.querySelector<HTMLElement>(
-      ".address_input_container"
-    );
-    if (successElement) {
-      successElement.innerHTML = "Address Saved Successfully!";
-    }
-    if (addressModifyContainer) {
-      addressModifyContainer.style.display = "none";
-    }
-    if (addressInputContainer) {
-      addressInputContainer.style.display = "none";
-    }
   };
 
   return (
@@ -238,6 +225,7 @@ export default function AddressEditAddModal() {
                 <input
                   type="text"
                   id="address"
+                  // value={`${bookingInfo?.serviceAddress?.street} , ${bookingInfo?.serviceAddress?.suburb}, ${bookingInfo?.serviceAddress?.state}, ${bookingInfo?.serviceAddress?.post_code}, ${bookingInfo?.serviceAddress?.subpremise} `}
                   placeholder="Please type your address"
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
                 />
@@ -254,7 +242,7 @@ export default function AddressEditAddModal() {
               Please modify the following address fields, if there is anything
               wrong.
             </h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={SaveAddress}>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label
@@ -268,6 +256,7 @@ export default function AddressEditAddModal() {
                     name="street"
                     placeholder="Street"
                     value={addressComponents.street}
+                    required
                     onChange={(e) =>
                       setAddressComponents({
                         ...addressComponents,
@@ -289,6 +278,7 @@ export default function AddressEditAddModal() {
                     name="street"
                     placeholder="Street"
                     value={addressComponents.suburb}
+                    required
                     onChange={(e) =>
                       setAddressComponents({
                         ...addressComponents,
@@ -312,6 +302,7 @@ export default function AddressEditAddModal() {
                     id="state-select"
                     value={selectedState}
                     onChange={handleSelectedStateChange}
+                    required
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-transparent"
                   >
                     <option value={addressComponents.state} selected>
@@ -344,6 +335,7 @@ export default function AddressEditAddModal() {
                     id="zipcode"
                     placeholder="Zip code"
                     value={addressComponents.post_code}
+                    required
                     onChange={(e) =>
                       setAddressComponents({
                         ...addressComponents,
@@ -375,26 +367,28 @@ export default function AddressEditAddModal() {
                   />
                 </div>
               </div>
+              <Button
+                className="inline-flex items-center gap-2 rounded-md bg-primaryColor py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
+                // onClick={SaveAddress}
+                type="submit"
+              >
+                Save
+              </Button>
             </form>
           </div>
         )}
-        <p className="show_success_text text-center  text-green-600 text-3xl font-semibold mt-5"></p>
+        {/* <p className="show_success_text text-center  text-green-600 text-3xl font-semibold mt-5"></p>
         <div className="mt-4">
-          {/* {bookingInfo?.serviceAddress?.length || bookingInfo?.serviceAddress ?  */}
+          
           <Button
             className="inline-flex items-center gap-2 rounded-md bg-primaryColor py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
             onClick={SaveAddress}
+            type="submit"
           >
             Save
           </Button> 
-          {/* :
-          <Button
-            className="inline-flex items-center gap-2 rounded-md bg-gray-700 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-600 data-[focus]:outline-1 data-[focus]:outline-white data-[open]:bg-gray-700"
-            onClick={close}
-          >
-            close
-          </Button>} */}
-        </div>
+          
+        </div> */}
       </div>
     </>
   );

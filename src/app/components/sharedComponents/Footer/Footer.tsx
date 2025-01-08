@@ -80,20 +80,20 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/information/terms-and-conditions"
                   className="hover:text-gray-300"
                 >
                   Terms & Conditions
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/information/privacy-policy"
                   className="hover:text-gray-300"
                 >
                   Privacy Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -115,9 +115,9 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href={"/contact-us"} className="hover:text-gray-300">
+                <Link href={"/contact-us"} className="hover:text-gray-300">
                   Tech Support
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -129,19 +129,19 @@ const Footer = () => {
             </div>
             <ul className="space-y-4">
               <li>
-                <a href={"/customer-review"} className="hover:text-gray-300">
+                <Link href={"/customer-review"} className="hover:text-gray-300">
                   Customers Review
-                </a>
+                </Link>
               </li>
               <li>
-                <a href={"/why-choose-us"} className="hover:text-gray-300">
+                <Link href={"/why-choose-us"} className="hover:text-gray-300">
                   Why Choose Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/faqs" className="hover:text-gray-300">
+                <Link href="/faqs" className="hover:text-gray-300">
                   FAQ's
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -212,9 +212,9 @@ const Footer = () => {
                     d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
                   />
                 </svg>
-                <a href="#" className="hover:text-gray-300">
+                <span className="hover:text-gray-300">
                   Camden, New <br /> South Wales 2570
-                </a>
+                </span>
               </li>
             </ul>
           </div>

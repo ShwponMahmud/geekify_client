@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Payment.css";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { ToastContainer, toast } from "react-toastify";
+import loaderGif from "@/assets/icons/loading-gif.gif";
+import Image from "next/image";
 import {
   afterPayCreateCheckoutResData,
+  afterPayDoneStatus,
   afterPaySetMaximumAmount,
   afterPaySetMinimumAmount,
   AppointmentCreationNotify,
@@ -13,7 +16,8 @@ import {
   AppointmentQuestionSubmitCreate,
   captureImmediateFullPaymentOfAfterPayStatus,
   CardTokenCreate,
-  CouponDiscountCreate,
+  cardTokenProcess,
+  CouponDiscountUsage,
   CreateAppointmentCreator,
   CreateAppointmentNotes,
   CreateAppointmentPayments,
@@ -41,6 +45,7 @@ import {
 import {
   bookingSummerySaveAndContinue,
   paymentOptionSelectedAndProceedToPay,
+  submitBookingSummery,
 } from "@/app/rtk-state/reducers/bookingSlice";
 import { baseUrl } from "@/assets/baseUrl";
 import axios from "axios";
@@ -190,7 +195,6 @@ export default function Payment() {
         },
       })
       .then((response) => {
-        console.log(response);
         dispatch(afterPaySetMinimumAmount(response?.data?.data?.minimumAmount));
         dispatch(afterPaySetMaximumAmount(response?.data?.data?.maximumAmount));
 
@@ -268,8 +272,6 @@ export default function Payment() {
       })
       .then((response) => {
         dispatch(afterPayCreateCheckoutResData(response?.data));
-
-        console.log(response.data);
 
         return {
           message: "",
@@ -371,7 +373,12 @@ export default function Payment() {
     return false;
   };
 
-  const paidAmount = bookingInfo?.bookingSummerySubmitResData?.grand_total;
+  const paidAmount =
+    bookingInfo?.paymentOptionSelected == "half"
+      ? paymentInfo?.paymentOptionHalfAmountAfterDiscount
+      : bookingInfo?.paymentOptionSelected == "quarter"
+      ? paymentInfo?.paymentOptionQuarterAmountAfterDiscount
+      : bookingInfo?.bookingSummerySubmitResData?.grand_total / 100;
 
   const afterPayPaymentConfiguration = async (): Promise<boolean> => {
     loader(true);
@@ -420,71 +427,103 @@ export default function Payment() {
     paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
   ).newTotal;
 
+  const line1 = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
+    ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
+    : userInfo?.userInfo?.addresses?.[0]?.street
+    ? userInfo?.userInfo?.addresses?.[0]?.street
+    : users?.user?.[0]?.addresses?.[0]?.street
+    ? users?.user?.[0]?.addresses?.[0]?.street
+    : address?.[0]?.street;
+
+  const area1 = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
+    ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
+    : userInfo?.userInfo?.addresses?.[0]?.suburb
+    ? userInfo?.userInfo?.addresses?.[0]?.suburb
+    : users?.user?.[0]?.addresses?.[0]?.suburb
+    ? users?.user?.[0]?.addresses?.[0]?.suburb
+    : address?.[0]?.suburb;
+  const region = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
+    ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
+    : userInfo?.userInfo?.addresses?.[0]?.state
+    ? userInfo?.userInfo?.addresses?.[0]?.state
+    : users?.user?.[0]?.addresses?.[0]?.state
+    ? users?.user?.[0]?.addresses?.[0]?.state
+    : address?.[0]?.state;
+  const postcode = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
+    ?.post_code
+    ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
+    : userInfo?.userInfo?.addresses?.[0]?.post_code
+    ? userInfo?.userInfo?.addresses?.[0]?.post_code
+    : users?.user?.[0]?.addresses?.[0]?.post_code
+    ? users?.user?.[0]?.addresses?.[0]?.post_code
+    : address?.[0]?.post_code;
+
   const afterCheckoutData = {
     amount: {
-      amount: (amountWithSurcharge / 100).toFixed(2).toString(),
+      amount: parseInt(paidAmount).toFixed(2).toString(),
       currency: "AUD",
     },
     consumer: {
       givenNames: userInfo?.userInfo?.first_name
         ? userInfo?.userInfo?.first_name
-        : users?.user?.[0]?.first_name,
+        : users?.user?.[0]?.first_name
+        ? users?.user?.[0]?.first_name
+        : bookingInfo?.otpVerifyData?.[0]?.data?.first_name,
       surname: userInfo?.userInfo?.last_name
         ? userInfo?.userInfo?.last_name
-        : users?.user?.[0]?.last_name,
+        : users?.user?.[0]?.last_name
+        ? users?.user?.[0]?.last_name
+        : bookingInfo?.otpVerifyData?.[0]?.data?.last_name,
       email: userInfo?.userInfo?.email
         ? userInfo?.userInfo?.email
-        : users?.user?.[0]?.email,
+        : users?.user?.[0]?.email
+        ? users?.user?.[0]?.email
+        : bookingInfo?.otpVerifyData?.[0]?.data?.email,
       phoneNumber: userInfo?.userInfo?.phone_number
         ? userInfo?.userInfo?.phone_number
-        : users?.user?.[0]?.phone_number,
+        : users?.user?.[0]?.phone_number
+        ? users?.user?.[0]?.phone_number
+        : bookingInfo?.otpVerifyData?.[0]?.data?.phone_number,
     },
     billing: {
       name: `${
-        userInfo?.userInfo?.first_name
+        bookingInfo?.otpVerifyData?.[0]?.data?.first_name
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.first_name
+          : userInfo?.userInfo?.first_name
           ? userInfo?.userInfo?.first_name
           : users?.user?.[0]?.first_name
       } ${
-        userInfo?.userInfo?.last_name
+        bookingInfo?.otpVerifyData?.[0]?.data?.last_name
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.last_name
+          : userInfo?.userInfo?.last_name
           ? userInfo?.userInfo?.last_name
           : users?.user?.[0]?.last_name
       }`,
-      line1: userInfo?.userInfo?.addresses?.[0]?.street
-        ? userInfo?.userInfo?.addresses?.[0]?.street
-        : users?.user?.[0]?.addresses?.[0]?.street,
-      area1: userInfo?.userInfo?.addresses?.[0]?.suburb
-        ? userInfo?.userInfo?.addresses?.[0]?.suburb
-        : users?.user?.[0]?.addresses?.[0]?.suburb,
-      region: userInfo?.userInfo?.addresses?.[0]?.state
-        ? userInfo?.userInfo?.addresses?.[0]?.state
-        : users?.user?.[0]?.addresses?.[0]?.state,
-      postcode: userInfo?.userInfo?.addresses?.[0]?.post_code
-        ? userInfo?.userInfo?.addresses?.[0]?.post_code
-        : users?.user?.[0]?.addresses?.[0]?.post_code,
+      line1: line1,
+      area1: area1,
+      region: region,
+      postcode: postcode,
       countryCode: "AU",
     },
     shipping: {
       name: `${
-        userInfo?.userInfo?.first_name
+        bookingInfo?.otpVerifyData?.[0]?.data?.first_name
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.first_name
+          : userInfo?.userInfo?.first_name
           ? userInfo?.userInfo?.first_name
           : users?.user?.[0]?.first_name
       } ${
-        userInfo?.userInfo?.last_name
+        bookingInfo?.otpVerifyData?.[0]?.data?.last_name
+          ? bookingInfo?.otpVerifyData?.[0]?.data?.last_name
+          : userInfo?.userInfo?.last_name
           ? userInfo?.userInfo?.last_name
           : users?.user?.[0]?.last_name
       }`,
-      line1: userInfo?.userInfo?.addresses?.[0]?.street
-        ? userInfo?.userInfo?.addresses?.[0]?.street
-        : users?.user?.[0]?.addresses?.[0]?.street,
-      area1: userInfo?.userInfo?.addresses?.[0]?.suburb
-        ? userInfo?.userInfo?.addresses?.[0]?.suburb
-        : users?.user?.[0]?.addresses?.[0]?.suburb,
-      region: userInfo?.userInfo?.addresses?.[0]?.state
-        ? userInfo?.userInfo?.addresses?.[0]?.state
-        : users?.user?.[0]?.addresses?.[0]?.state,
-      postcode: userInfo?.userInfo?.addresses?.[0]?.post_code
-        ? userInfo?.userInfo?.addresses?.[0]?.post_code
-        : users?.user?.[0]?.addresses?.[0]?.post_code,
+      line1: line1,
+
+      area1: area1,
+      region: region,
+      postcode: postcode,
       countryCode: "AU",
     },
     items: [
@@ -758,11 +797,11 @@ export default function Payment() {
   //   return false;
   // };
 
-  const token = {
-    token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
-  };
-
   const captureImmediateFullPaymentOfAfterPay = async () => {
+    const token = {
+      token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+    };
+
     loader(true);
     const response = await captureImmediateFullPayment(token);
 
@@ -850,25 +889,28 @@ export default function Payment() {
       });
   };
 
+  const postAfterPayPaymentData = {
+    payment_id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
+    paid_by: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    amount: parseInt(paidAmount),
+    token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+    payment_gateway_id:
+      paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.id,
+    status: 1,
+    card_surcharge:
+      calculateSurcharge(
+        paidAmount,
+        paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
+      ).percentageAmount ?? 0,
+  };
+
   const createAfterPayPayment = async () => {
-    const data = {
-      payment_id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
-      paid_by: userInfo?.userInfo?.id
-        ? userInfo?.userInfo?.id
-        : users?.user?.[0]?.id,
-      amount: paidAmount,
-      token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
-      payment_gateway_id:
-        paymentInfo?.captureImmediateFullPaymentOfAfterPayStatus?.data?.id,
-      status: 1,
-      card_surcharge:
-        calculateSurcharge(
-          paidAmount,
-          paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
-        ).percentageAmount ?? 0,
-    };
     loader(true);
-    const response = await postAfterPayPayment(data);
+    const response = await postAfterPayPayment(postAfterPayPaymentData);
     if (response?.message) {
       showToastMessage(response);
     }
@@ -929,10 +971,17 @@ export default function Payment() {
   };
 
   const PostAppointmentData = {
-    customer_id: customer?.id,
+    customer_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : customer?.id,
     service_id: serviceIdFilter?.id,
-    address_id: address?.[0]?.id,
-    billing_address_id: address?.[0]?.id,
+    address_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      : address?.[0]?.id,
+    billing_address_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
+      ?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      : address?.[0]?.id,
     platform:
       bookingInfo?.operatingSystem?.platform === "Internet"
         ? 0
@@ -1007,15 +1056,19 @@ export default function Payment() {
       });
   };
 
+  const after_pay_update_payment_id =
+    paymentInfo?.postPaymentAfterAfterPayResData?.data?.id;
+  const after_pay_update_payment_reference =
+    paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference;
+
+  const putPaymentData = {
+    id: after_pay_update_payment_id,
+    data: {
+      reference: after_pay_update_payment_reference,
+    },
+  };
   const putPaymentReference = () => {
-    const data = {
-      id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
-      data: {
-        reference:
-          paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
-      },
-    };
-    putPayment(data);
+    putPayment(putPaymentData);
   };
 
   const postAppointmentCharge = (data: any) => {
@@ -1041,171 +1094,167 @@ export default function Payment() {
       });
   };
 
+  // Create Appointments Charge after AfterPay .......
+  const AppointmentsChargeAfterAfterPay = [];
+  if (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.gst_charge?.amount,
+      type: 3,
+      name: "GST",
+    });
+  }
+
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+      type: 2,
+      name: "Coupon Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+      type: 2,
+      name: "Applied Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+      ?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+          ?.amount,
+      type: 2,
+      name: "Credited Payment Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.parking_discount?.amount,
+      type: 2,
+      name: "Parking Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+      type: 2,
+      name: "Loyalty Discount",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+          ?.amount,
+      type: 2,
+      name: "Online Appointment Discount",
+    });
+  }
+
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.distance_surcharge
+      ?.applied_status &&
+    bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount > 0
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount,
+      type: 1,
+      name: "Distance Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.amount,
+      type: 1,
+      name: "Holiday Surcharge",
+    });
+  }
+  if (bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.applied_status) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.amount,
+      type: 1,
+      name: "Fuel Levy Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge
+      ?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge?.amount,
+      type: 1,
+      name: "City Area Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.amount,
+      type: 1,
+      name: "Same Day Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.amount,
+      type: 1,
+      name: "Timebase Surcharge",
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.applied_status
+  ) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.amount,
+      type: 1,
+      name: "Weekend Surcharge",
+    });
+  }
+
+  if (bookingInfo?.bookingSummerySubmitResData?.service_price) {
+    AppointmentsChargeAfterAfterPay.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.service_price,
+      type: 0,
+      name: "Service Charge",
+    });
+  }
+
+  const after_pay_appointment_id =
+    paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id;
+  const CreateAppointmentsChargeAfterPayFormData = {
+    appointment_id: after_pay_appointment_id,
+    charges: AppointmentsChargeAfterAfterPay,
+  };
+
   const createAppointmentCharges = async () => {
-    // Create Appointments Charge after AfterPay .......
-    const AppointmentsChargeAfterAfterPay = [];
-    if (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount: bookingInfo?.bookingSummerySubmitResData?.gst_charge?.amount,
-        type: 3,
-        name: "GST",
-      });
-    }
-
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
-        type: 2,
-        name: "Coupon Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
-        type: 2,
-        name: "Applied Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
-            ?.amount,
-        type: 2,
-        name: "Credited Payment Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.parking_discount?.amount,
-        type: 2,
-        name: "Parking Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
-        type: 2,
-        name: "Loyalty Discount",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
-            ?.amount,
-        type: 2,
-        name: "Online Appointment Discount",
-      });
-    }
-
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.distance_surcharge
-        ?.applied_status &&
-      bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount > 0
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.distance_surcharge?.amount,
-        type: 1,
-        name: "Distance Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.holiday_surcharge?.amount,
-        type: 1,
-        name: "Holiday Surcharge",
-      });
-    }
-    if (bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.applied_status) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount: bookingInfo?.bookingSummerySubmitResData?.fuel_levy?.amount,
-        type: 1,
-        name: "Fuel Levy Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.city_area_surcharge?.amount,
-        type: 1,
-        name: "City Area Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.same_day_surcharge?.amount,
-        type: 1,
-        name: "Same Day Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.timebase_surcharge?.amount,
-        type: 1,
-        name: "Timebase Surcharge",
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge
-        ?.applied_status
-    ) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.weekend_surcharge?.amount,
-        type: 1,
-        name: "Weekend Surcharge",
-      });
-    }
-
-    if (bookingInfo?.bookingSummerySubmitResData?.service_price) {
-      AppointmentsChargeAfterAfterPay.push({
-        amount: bookingInfo?.bookingSummerySubmitResData?.service_price,
-        type: 0,
-        name: "Service Charge",
-      });
-    }
-
-    const CreateAppointmentsChargeAfterPayFormData = {
-      appointment_id:
-        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
-      charges: AppointmentsChargeAfterAfterPay,
-    };
-
     loader(true);
     const response = await postAppointmentCharge(
       CreateAppointmentsChargeAfterPayFormData
@@ -1243,7 +1292,9 @@ export default function Payment() {
 
   const createAppointmentNotes = async () => {
     const createAppointmentNotesAfterPayFormData = {
-      user_id: userInfo?.userInfo?.id
+      user_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+        : userInfo?.userInfo?.id
         ? userInfo?.userInfo?.id
         : users?.user?.[0]?.id,
       appointment_id:
@@ -1380,7 +1431,9 @@ export default function Payment() {
 
   const appointmentCreatorsCreate = async () => {
     const data = {
-      user_id: userInfo?.userInfo?.[0]?.id
+      user_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+        : userInfo?.userInfo?.[0]?.id
         ? userInfo?.userInfo?.[0]?.id
         : users?.user?.[0]?.id,
       appointment_id:
@@ -1438,68 +1491,69 @@ export default function Payment() {
       });
   };
 
+  // discount store list for after pay...................
+  let discountArray = [];
+
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
+  ) {
+    discountArray.push({
+      amount: bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
+      type: 3,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
+  ) {
+    discountArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
+      type: 1,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+      ?.applied_status
+  ) {
+    discountArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
+          ?.amount,
+      type: 0,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
+  ) {
+    discountArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
+      type: 7,
+    });
+  }
+  if (
+    bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+      ?.applied_status
+  ) {
+    discountArray.push({
+      amount:
+        bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
+          ?.amount,
+      type: 6,
+    });
+  }
+
+  const AppointmentDiscountStoreListAfterPayFormData = {
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : userInfo?.userInfo?.id
+      ? userInfo?.userInfo?.id
+      : users?.user?.[0]?.id,
+    reference:
+      paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
+    discounts: discountArray,
+  };
   const createAppointmentDiscountStoreList = async () => {
-    let discountArray = [];
-
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
-        type: 3,
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.applied_discount?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.applied_discount?.amount,
-        type: 1,
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
-        ?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.credited_payment_discount
-            ?.amount,
-        type: 0,
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.amount,
-        type: 7,
-      });
-    }
-    if (
-      bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
-        ?.applied_status
-    ) {
-      discountArray.push({
-        amount:
-          bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount
-            ?.amount,
-        type: 6,
-      });
-    }
-
-    const AppointmentDiscountStoreListAfterPayFormData = {
-      user_id: userInfo?.userInfo?.id
-        ? userInfo?.userInfo?.id
-        : users?.user?.[0]?.id,
-      reference:
-        paymentInfo?.postAppointmentAfterAfterPayResData?.data?.reference,
-      discounts: discountArray,
-    };
-
     loader(true);
     const response = await postDiscountStoreList(
       AppointmentDiscountStoreListAfterPayFormData
@@ -1514,7 +1568,9 @@ export default function Payment() {
 
   // Appointment History..
   const AppointmentHistoryAfterPayFormData = {
-    user_id: userInfo?.userInfo?.id
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
     appointment_id: paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
@@ -1523,14 +1579,21 @@ export default function Payment() {
   };
 
   // Create Appointment After AfterPay payment.......................
+
+  const AfterPayToken = paymentInfo?.afterPayCreateCheckoutResData?.data?.token;
   const createAppointmentAfterAfterPayPayment = async () => {
+    const MinimumAmount = paymentInfo?.afterPaySetMinimumAmount?.amount;
+    const MaximumAmount = paymentInfo?.afterPaySetMaximumAmount?.amount;
+    const after_pay_appointment_id =
+      paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id;
+
     let isAfterPayServerActive = await afterPayServerStatusChecker();
 
     if (isAfterPayServerActive) {
       const isPaymentConfigurationSuccessful =
         await afterPayPaymentConfiguration();
 
-      if (isPaymentConfigurationSuccessful) {
+      if (isPaymentConfigurationSuccessful && MinimumAmount && MaximumAmount) {
         const isCheckoutSuccess = await afterPayPaymentCheckout();
 
         if (isCheckoutSuccess) {
@@ -1543,7 +1606,7 @@ export default function Payment() {
           });
 
           window.AfterPay.open({
-            token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+            token: AfterPayToken,
           });
 
           window.AfterPay.onComplete = async (event: any) => {
@@ -1558,11 +1621,15 @@ export default function Payment() {
                     type: "success",
                   });
 
+                  dispatch(afterPayDoneStatus("true"));
+
                   const isPaymentCreated = await createPayment(
                     `Temporal reference for customer id : ${
-                      users?.user?.[0]?.customer?.id
-                        ? users?.user?.[0]?.customer?.id
-                        : customer?.customer?.id
+                      bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+                        ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+                        : users?.user?.[0]?.id
+                        ? users?.user?.[0]?.id
+                        : customer?.id
                     }`
                   );
                   if (isPaymentCreated) {
@@ -1610,12 +1677,14 @@ export default function Payment() {
                                   AppointmentHistoryAfterPayFormData
                                 )
                               );
-                              // if (
-                              //   preAppointmentResponse.coupon_discount
-                              //     .validation_status === true
-                              // ) {
-                              //   await createCouponUsage();
-                              // }
+                              if (
+                                bookingInfo?.bookingSummerySubmitResData
+                                  ?.coupon_discount.validation_status === true
+                              ) {
+                                await dispatch(
+                                  CouponDiscountUsage(CouponFormData)
+                                );
+                              }
 
                               // await paymentSucceedRedirectHandler();
                             }
@@ -1659,14 +1728,20 @@ export default function Payment() {
 
     if (selectedPaymentMethod === "cardPayment") {
       dispatch(CardTokenCreate(cardFormData));
+      dispatch(cardTokenProcess("start"));
     }
     if (selectedPaymentMethod === "afterPay") {
       if (
         !(userInfo?.userInfo?.email
           ? userInfo?.userInfo?.email
-          : users?.user?.[0]?.email && userInfo?.userInfo?.phone
+          : users?.user?.[0]?.email
+          ? users?.user?.[0]?.email
+          : bookingInfo?.otpVerifyData?.[0]?.data?.email &&
+            userInfo?.userInfo?.phone
           ? userInfo?.userInfo?.phone
-          : users?.user?.[0]?.phone)
+          : users?.user?.[0]?.phone
+          ? users?.user?.[0]?.phone
+          : bookingInfo?.otpVerifyData?.[0]?.data?.phone_number)
       ) {
         showToastMessage({
           type: "error",
@@ -1710,8 +1785,13 @@ export default function Payment() {
       ((bookingInfo?.bookingSummerySubmitResData?.grand_total || 0) *
         surchargeRate) /
         100
-    );
-  const totalAmount = surchargeAmount + bookingInfo?.bookingSummerySubmitResData?.grand_total || 0;
+    ).toString();
+  const totalAmount =
+    (surchargeAmount + bookingInfo?.paymentOptionSelected == "half"
+      ? paymentInfo?.paymentOptionHalfAmountAfterDiscount
+      : bookingInfo?.paymentOptionSelected == "quarter"
+      ? paymentInfo?.paymentOptionQuarterAmountAfterDiscount
+      : bookingInfo?.bookingSummerySubmitResData?.grand_total || 0) * 100;
 
   //
 
@@ -1747,9 +1827,11 @@ export default function Payment() {
     payment_id: paymentInfo?.createPaymentResData?.id,
     paid_by: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     card_type: paymentInfo?.cardToken?.card?.type,
-    amount: bookingInfo?.bookingSummerySubmitResData?.grand_total,
+    amount: totalAmount,
     card_surcharge: surchargeAmount,
     payment_gateway: paymentInfo?.PaymentsCreateByTokenResData?.payment_gateway,
     payment_gateway_id: paymentInfo?.PaymentsCreateByTokenResData?.id,
@@ -1764,10 +1846,16 @@ export default function Payment() {
 
   // Create Appointments.....................
   const CreateAppointmentsFormData = {
-    customer_id: customer?.id,
+    customer_id: customer?.id
+      ? customer?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id,
     service_id: serviceIdFilter?.id,
-    address_id: address?.[0]?.id,
-    billing_address_id: address?.[0]?.id,
+    address_id: address?.[0]?.id
+      ? address?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address_id,
+    billing_address_id: address?.[0]?.id
+      ? address?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address_id,
     platform:
       bookingInfo?.operatingSystem?.platform === "Internet"
         ? 0
@@ -1972,7 +2060,9 @@ export default function Payment() {
   const createAppointmentNotesFormData = {
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     appointment_id: appointmentResData?.id,
     user_type: 0,
     type: 0,
@@ -2001,7 +2091,9 @@ export default function Payment() {
   const createAppointmentCreatorFormData = {
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     appointment_id: appointmentResData?.id,
     panel: 0,
   };
@@ -2026,12 +2118,12 @@ export default function Payment() {
     notify_internal_user: 1,
   };
 
-  // useEffect(() => {
-  //   if (paymentInfo?.createPaymentResData?.id && appointmentResData?.id) {
-  //     dispatch(PaymentCreationNotify(PaymentCreationNotifyFormData));
-  //     dispatch(AppointmentCreationNotify(AppointmentCreationNotifyFormData));
-  //   }
-  // }, [paymentInfo?.createPaymentResData?.id && appointmentResData?.id]);
+  useEffect(() => {
+    if (paymentInfo?.createPaymentResData?.id && appointmentResData?.id) {
+      dispatch(PaymentCreationNotify(PaymentCreationNotifyFormData));
+      dispatch(AppointmentCreationNotify(AppointmentCreationNotifyFormData));
+    }
+  }, [paymentInfo?.createPaymentResData?.id && appointmentResData?.id]);
 
   // Appointment Discount Store list................
   let discountsArray = [];
@@ -2088,7 +2180,9 @@ export default function Payment() {
   const AppointmentDiscountStoreListFormData = {
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     reference: paymentInfo?.createAppointmentsResData?.reference,
     discounts: discountsArray,
   };
@@ -2105,7 +2199,9 @@ export default function Payment() {
   const AppointmentHistoryFormData = {
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     appointment_id: appointmentResData?.id,
     panel: 0,
     status: 0,
@@ -2211,7 +2307,9 @@ export default function Payment() {
   const AppointmentQuestionSubmitCreateFormData = {
     added_by: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     appointment_id: appointmentResData?.id
       ? appointmentResData?.id
       : paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id,
@@ -2226,21 +2324,56 @@ export default function Payment() {
       );
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
+  const [couponCode, setCouponCode] = useState("");
+  const couponFormData = {
+    preference: bookingInfo?.serviceType === "Onsite" ? 0 : 1,
+    type: bookingInfo?.serviceLocationType === "Home" ? 0 : 1,
+    street: bookingInfo?.serviceAddress?.street,
+    suburb: bookingInfo?.serviceAddress?.suburb,
+    post_code: bookingInfo?.serviceAddress?.post_code,
+    country: bookingInfo?.serviceAddress?.country
+      ? bookingInfo?.serviceAddress?.country
+      : "Australia",
+    state: bookingInfo?.serviceAddress?.state,
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+      : userInfo?.userInfo?.id,
+    service_id: serviceIdFilter?.id,
+    date: formatDate(bookingInfo?.choosePreferredDateAndTime?.booking_schedule),
+    time: formatTime(bookingInfo?.choosePreferredDateAndTime?.selectedTime),
+    requested_time_interval: formatTimeInterval(
+      bookingInfo?.choosePreferredDateAndTime?.booking_duration
+    ),
+    client_panel: 0,
+    coupon_code: couponCode,
+  };
+
+  const CouponDiscountCreateHandler = (e: any) => {
+    e.preventDefault();
+    dispatch(submitBookingSummery(couponFormData));
+  };
+
   // Coupon Usage...................................
   const CouponFormData = {
     coupon_id:
       bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.coupon_id,
     user_id: userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
-      : users?.user?.[0]?.id,
+      : users?.user?.[0]?.id
+      ? users?.user?.[0]?.id
+      : bookingInfo?.otpVerifyData?.[0]?.data?.id,
     reference: paymentInfo?.createAppointmentsResData?.reference,
     discount_amount:
       bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.amount,
   };
 
-  const CouponDiscountCreateHandler = () => {
-    dispatch(CouponDiscountCreate(CouponFormData));
-  };
+  useEffect(() => {
+    if (
+      bookingInfo?.bookingSummerySubmitResData?.coupon_discount
+        ?.validation_status === true
+    )
+      dispatch(CouponDiscountUsage(CouponFormData));
+  }, []);
 
   const prevHandler = () => {
     dispatch(bookingSummerySaveAndContinue("next"));
@@ -2250,30 +2383,92 @@ export default function Payment() {
     // dispatch(paymentOptionQuarterAmountAfterDiscount(""))
   };
 
- 
+  useEffect(() => {
+    
+  }, [])
 
+  
   return (
     <>
-      <div className="payment_section">
-        <div className="text-[14px] mx-auto">
-          <div className="payment w-[50%] mx-auto mt-5">
-            {/* Apply Coupon */}
-            <div className="apply_coupon_container mt-10">
-              <label className="flex gap-2 text-[14px] font-semibold">
+        <div className="payment_section">
+          <div className="text-[14px] mx-auto">
+            <div className="payment w-[50%] mx-auto mt-5">
+              {/* Apply Coupon */}
+              <div className="apply_coupon_container mt-10">
+                <label className="flex gap-2 text-[14px] font-semibold">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 hidden"
+                    onChange={handleApplyCouponCheckboxChange}
+                  />
+                  {/* Custom Checkbox */}
+                  <div
+                    className={`w-4 h-4 border-2 mt-[2px] ${
+                      isCouponChecked
+                        ? "bg-orange-500 border-orange-500"
+                        : "bg-white border-gray-300"
+                    } flex items-center justify-center transition-colors`}
+                  >
+                    {isCouponChecked && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-white"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                  <label htmlFor="">Apply Coupon</label>
+                </label>
+                {isCouponChecked && (
+                  <form action="" className="flex">
+                    <input
+                      type="text"
+                      placeholder="Enter a Coupon Code"
+                      className="border p-[10px] w-[100%] text-[14px] mt-4 rounded-md"
+                      required
+                      onChange={(e) => setCouponCode(e.target.value)}
+                    />
+                    <button
+                      type="submit"
+                      onClick={CouponDiscountCreateHandler}
+                      className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2"
+                    >
+                      Apply
+                    </button>
+                  </form>
+                )}
+              </div>
+
+              {/* Terms and Conditions */}
+              <label className="flex items-center gap-2 mt-2 cursor-pointer">
+                {/* <input
+              type="checkbox"
+              id="terms"
+              className="w-4 h-4 accent-orange-500"
+              onChange={handleTermsConditionCheckboxChange}
+            /> */}
                 <input
                   type="checkbox"
-                  className="w-4 h-4 hidden"
-                  onChange={handleApplyCouponCheckboxChange}
+                  checked={isTermsChecked}
+                  onChange={handleTermsConditionCheckboxChange}
+                  className="hidden w-4 h-4"
                 />
                 {/* Custom Checkbox */}
                 <div
-                  className={`w-4 h-4 border-2 mt-[2px] ${
-                    isCouponChecked
+                  className={`w-4 h-4 border-2 mt-[-3px] ${
+                    isTermsChecked
                       ? "bg-orange-500 border-orange-500"
                       : "bg-white border-gray-300"
                   } flex items-center justify-center transition-colors`}
                 >
-                  {isCouponChecked && (
+                  {isTermsChecked && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4 text-white"
@@ -2288,250 +2483,196 @@ export default function Payment() {
                     </svg>
                   )}
                 </div>
-                <label htmlFor="">Apply Coupon</label>
+                <label htmlFor="terms" className="text-gray-700">
+                  I agree with{" "}
+                  <span className="text-orange-500 font-semibold">
+                    Terms & Conditions
+                  </span>
+                </label>
               </label>
-              {isCouponChecked && (
-                <form action="" className="flex">
-                  <input
-                    type="text"
-                    placeholder="Enter a Coupon Code"
-                    className="border p-[10px] w-[100%] text-[14px] mt-4 rounded-md"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    onClick={CouponDiscountCreateHandler}
-                    className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2"
-                  >
-                    Apply
-                  </button>
-                </form>
-              )}
-            </div>
 
-            {/* Terms and Conditions */}
-            <label className="flex items-center gap-2 mt-2 cursor-pointer">
-              {/* <input
-                type="checkbox"
-                id="terms"
-                className="w-4 h-4 accent-orange-500"
-                onChange={handleTermsConditionCheckboxChange}
-              /> */}
-              <input
-                type="checkbox"
-                checked={isTermsChecked}
-                onChange={handleTermsConditionCheckboxChange}
-                className="hidden w-4 h-4"
-              />
-              {/* Custom Checkbox */}
-              <div
-                className={`w-4 h-4 border-2 mt-[-3px] ${
-                  isTermsChecked
-                    ? "bg-orange-500 border-orange-500"
-                    : "bg-white border-gray-300"
-                } flex items-center justify-center transition-colors`}
-              >
-                {isTermsChecked && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-white"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
-              </div>
-              <label htmlFor="terms" className="text-gray-700">
-                I agree with{" "}
-                <span className="text-orange-500 font-semibold">
-                  Terms & Conditions
-                </span>
-              </label>
-            </label>
-
-            {isTermsChecked && (
-              <>
-                {/* Payment Methods */}
-                <div>
-                  <label className="flex items-center gap-2 mt-5">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      id="cardPayment"
-                      className="w-4 h-4 hidden"
-                      checked={selectedPaymentMethod === "cardPayment"}
-                      onChange={() => handlePaymentMethodChange("cardPayment")}
-                    />
-                    <div
-                      className={`w-4 h-4 border-2 mt-[-3px] ${
-                        selectedPaymentMethod === "cardPayment"
-                          ? "bg-orange-500 border-orange-500"
-                          : "bg-white border-gray-300"
-                      } flex items-center justify-center transition-colors rounded-full`}
-                    >
-                      {selectedPaymentMethod === "cardPayment" && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 text-white"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    <label htmlFor="cardPayment" className="text-gray-700">
-                      Card (Visa/Master/Amex)
-                    </label>
-                  </label>
-                  <label className="flex items-center gap-2 mt-2">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      id="afterPay"
-                      className="w-4 h-4 hidden"
-                      checked={selectedPaymentMethod === "afterPay"}
-                      onChange={() => handlePaymentMethodChange("afterPay")}
-                    />
-                    <div
-                      className={`w-4 h-4 border-2 mt-[-3px] ${
-                        selectedPaymentMethod === "afterPay"
-                          ? "bg-orange-500 border-orange-500"
-                          : "bg-white border-gray-300"
-                      } flex items-center justify-center transition-colors rounded-full`}
-                    >
-                      {selectedPaymentMethod === "afterPay" && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 text-white"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    <label htmlFor="afterPay" className="text-gray-700">
-                      Afterpay
-                    </label>
-                  </label>
-                </div>
-
-                {/* Card Details Section */}
-                {selectedPaymentMethod === "cardPayment" && (
-                  <div className="bg-[#f1f1f1] p-4 rounded-md space-y-4 mt-5 text-[14px]">
-                    <div>
-                      <label htmlFor="cardNumber" className="text-gray-700">
-                        Card number
-                      </label>
+              {isTermsChecked && (
+                <>
+                  {/* Payment Methods */}
+                  <div>
+                    <label className="flex items-center gap-2 mt-5">
                       <input
-                        type="text"
-                        id="cardNumber"
-                        placeholder="Enter your card number"
-                        className="w-full p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
-                        value={cardTokenCreateFormData.cardNumber}
-                        onChange={handleInputChange}
+                        type="radio"
+                        name="paymentMethod"
+                        id="cardPayment"
+                        className="w-4 h-4 hidden"
+                        checked={selectedPaymentMethod === "cardPayment"}
+                        onChange={() =>
+                          handlePaymentMethodChange("cardPayment")
+                        }
                       />
-                    </div>
-                    <div className="flex gap-3">
-                      <div className="w-[50%]">
-                        <label
-                          htmlFor="cardHolderName"
-                          className="text-gray-700"
-                        >
-                          Card holder name
-                        </label>
-                        <input
-                          type="text"
-                          id="cardHolderName"
-                          placeholder="Full name as displayed on card"
-                          className="w-[100%] text-[14px] p-2 border border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
-                          value={cardTokenCreateFormData.cardHolderName}
-                          onChange={handleInputChange}
-                        />
+                      <div
+                        className={`w-4 h-4 border-2 mt-[-3px] ${
+                          selectedPaymentMethod === "cardPayment"
+                            ? "bg-orange-500 border-orange-500"
+                            : "bg-white border-gray-300"
+                        } flex items-center justify-center transition-colors rounded-full`}
+                      >
+                        {selectedPaymentMethod === "cardPayment" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 text-white"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
                       </div>
-                      <div className="w-[25%]">
-                        <label htmlFor="expiryDate" className="text-gray-700">
-                          Expiry Date
-                        </label>
-                        <input
-                          type="text"
-                          id="expiryDate"
-                          placeholder="MM/YY"
-                          className="p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500 "
-                          value={cardTokenCreateFormData.expiryDate}
-                          onChange={handleInputChange}
-                        />
+                      <label htmlFor="cardPayment" className="text-gray-700">
+                        Card (Visa/Master/Amex)
+                      </label>
+                    </label>
+                    <label className="flex items-center gap-2 mt-2">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        id="afterPay"
+                        className="w-4 h-4 hidden"
+                        checked={selectedPaymentMethod === "afterPay"}
+                        onChange={() => handlePaymentMethodChange("afterPay")}
+                      />
+                      <div
+                        className={`w-4 h-4 border-2 mt-[-3px] ${
+                          selectedPaymentMethod === "afterPay"
+                            ? "bg-orange-500 border-orange-500"
+                            : "bg-white border-gray-300"
+                        } flex items-center justify-center transition-colors rounded-full`}
+                      >
+                        {selectedPaymentMethod === "afterPay" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 text-white"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
                       </div>
-                      <div className="w-[25%]">
-                        <label htmlFor="cvv" className="text-gray-700">
-                          CVV
-                        </label>
-                        <input
-                          type="text"
-                          id="cvv"
-                          placeholder="CVV"
-                          className="p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
-                          value={cardTokenCreateFormData.cvv}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </div>
+                      <label htmlFor="afterPay" className="text-gray-700">
+                        Afterpay
+                      </label>
+                    </label>
                   </div>
-                )}
-              </>
-            )}
 
-            {/* Buttons */}
-            <div className="flex justify-between mt-5">
-              <button
-                onClick={prevHandler}
-                className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-100"
-              >
-                Prev
-              </button>
-              {isTermsChecked ? (
-                <button
-                  onClick={PayNowHandler}
-                  className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600"
-                >
-                  Pay Now
-                </button>
-              ) : (
-                <button
-                  className="bg-slate-500 text-white px-6 py-2 rounded-md hover:bg-slate-600"
-                  disabled
-                >
-                  Pay Now
-                </button>
+                  {/* Card Details Section */}
+                  {selectedPaymentMethod === "cardPayment" && (
+                    <div className="bg-[#f1f1f1] p-4 rounded-md space-y-4 mt-5 text-[14px]">
+                      <div>
+                        <label htmlFor="cardNumber" className="text-gray-700">
+                          Card number
+                        </label>
+                        <input
+                          type="text"
+                          id="cardNumber"
+                          placeholder="Enter your card number"
+                          className="w-full p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
+                          value={cardTokenCreateFormData.cardNumber}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="w-[50%]">
+                          <label
+                            htmlFor="cardHolderName"
+                            className="text-gray-700"
+                          >
+                            Card holder name
+                          </label>
+                          <input
+                            type="text"
+                            id="cardHolderName"
+                            placeholder="Full name as displayed on card"
+                            className="w-[100%] text-[14px] p-2 border border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
+                            value={cardTokenCreateFormData.cardHolderName}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="w-[25%]">
+                          <label htmlFor="expiryDate" className="text-gray-700">
+                            Expiry Date
+                          </label>
+                          <input
+                            type="text"
+                            id="expiryDate"
+                            placeholder="MM/YY"
+                            className="p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500 "
+                            value={cardTokenCreateFormData.expiryDate}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="w-[25%]">
+                          <label htmlFor="cvv" className="text-gray-700">
+                            CVV
+                          </label>
+                          <input
+                            type="text"
+                            id="cvv"
+                            placeholder="CVV"
+                            className="p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
+                            value={cardTokenCreateFormData.cvv}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
-              {/* <div id="afterpay-button">
-                {isAfterPayLoaded ? (
-                  <button onClick={handleAfterPayClick}>
-                    Buy with AfterPay
+
+              {/* Buttons */}
+              <div className="flex justify-between mt-5">
+                <button
+                  onClick={prevHandler}
+                  className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-100"
+                >
+                  Prev
+                </button>
+                {isTermsChecked ? (
+                  <button
+                    onClick={PayNowHandler}
+                    // onClick={tryPing}
+                    className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600"
+                  >
+                    Pay Now
                   </button>
                 ) : (
-                  <p>Loading AfterPay...</p>
+                  <button
+                    className="bg-slate-500 text-white px-6 py-2 rounded-md hover:bg-slate-600"
+                    disabled
+                  >
+                    Pay Now
+                  </button>
                 )}
-              </div> */}
+                {/* <div id="afterpay-button">
+              {isAfterPayLoaded ? (
+                <button onClick={handleAfterPayClick}>
+                  Buy with AfterPay
+                </button>
+              ) : (
+                <p>Loading AfterPay...</p>
+              )}
+            </div> */}
+              </div>
+              <ToastContainer />
             </div>
-            <ToastContainer />
           </div>
         </div>
-      </div>
+
     </>
   );
 }

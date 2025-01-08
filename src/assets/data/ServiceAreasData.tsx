@@ -3,7 +3,7 @@ import { ServiceArea } from "./serviceType";
 export const ServiceAreasData: ServiceArea[] = [
   {
     mainAreaName: "New South Wales",
-    slug: "New-South-Wales",
+    slug: "new-south-wales",
     districtAreas: [
       {
         id: 1,
@@ -255,7 +255,7 @@ export const ServiceAreasData: ServiceArea[] = [
   },
   {
     mainAreaName: "Western Australia",
-    slug: "Western-Australia",
+    slug: "western-australia",
     districtAreas: [
       {
         id: 1,
@@ -268,7 +268,7 @@ export const ServiceAreasData: ServiceArea[] = [
   },
   {
     mainAreaName: "Victoria",
-    slug: "Victoria",
+    slug: "victoria",
     districtAreas: [
       {
         id: 1,
@@ -281,7 +281,7 @@ export const ServiceAreasData: ServiceArea[] = [
   },
   {
     mainAreaName: "Australian Capital Territory",
-    slug: "Australian-Capital-Territory",
+    slug: "australian-capital-territory",
     districtAreas: [
       {
         id: 1,
@@ -294,7 +294,7 @@ export const ServiceAreasData: ServiceArea[] = [
   },
   {
     mainAreaName: "South Australia",
-    slug: "South-Australia",
+    slug: "south-australia",
     districtAreas: [
       {
         id: 1,
@@ -307,7 +307,7 @@ export const ServiceAreasData: ServiceArea[] = [
   },
   {
     mainAreaName: "Queensland",
-    slug: "Queensland",
+    slug: "queensland",
     districtAreas: [
       {
         id: 1,

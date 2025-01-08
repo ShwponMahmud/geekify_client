@@ -75,6 +75,7 @@ export interface BookingState {
   paymentOptionSelected: any,
   paymentOptionSelectedAndProceedToPay: string
   filterServiceList : any;
+  addAddress: any;
 
 }
 
@@ -119,7 +120,8 @@ const initialState: BookingState = {
   bookingSummerySaveAndContinue: "",
   paymentOptionSelected: "",
   paymentOptionSelectedAndProceedToPay: "",
-  filterServiceList: {}
+  filterServiceList: {},
+  addAddress: ""
 };
 
 export const getOTP = createAsyncThunk(
@@ -283,6 +285,13 @@ export const bookingSlice = createSlice({
     filterServiceListStore: (state, action: PayloadAction<any>) => {
       state.filterServiceList = action.payload;
     },
+    addAddress: (state, action: PayloadAction<string>) => {
+      state.addAddress = action.payload;
+    },
+    resetBookingState : () => {
+      return initialState;
+    },
+
   },
   extraReducers(builder) {
     builder.addCase(getOTP.pending, (state) => {
@@ -362,7 +371,9 @@ export const {
   bookingSummerySaveAndContinue,
   paymentOptionSelected,
   paymentOptionSelectedAndProceedToPay,
-  filterServiceListStore
+  filterServiceListStore,
+  addAddress,
+  resetBookingState
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

@@ -1,5 +1,8 @@
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
-import { SubmitAddressInfo, SubmitAddressInfoStatus } from "@/app/rtk-state/reducers/addressSlice";
+import {
+  SubmitAddressInfo,
+  SubmitAddressInfoStatus,
+} from "@/app/rtk-state/reducers/addressSlice";
 import {
   bookingSummerySaveAndContinue,
   choosePreferredDateAndTimeNextStep,
@@ -10,7 +13,10 @@ import {
   submitBookingSummery,
 } from "@/app/rtk-state/reducers/bookingSlice";
 import { createCustomer } from "@/app/rtk-state/reducers/customerSlice";
-import { SubmitUserInfo, userInfoStatus } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
+import {
+  SubmitUserInfo,
+  userInfoStatus,
+} from "@/app/rtk-state/reducers/userInfoSubmitSlice";
 import { getUser } from "@/app/rtk-state/reducers/userSlice";
 import { useEffect, useState } from "react";
 import { LuPenSquare } from "react-icons/lu";
@@ -51,14 +57,10 @@ export const formatTimeInterval = (interval: string): string => {
   throw new Error("Invalid time interval format");
 };
 
-
-
 function ServiceBookingSummery() {
   const bookingInfo = useAppSelector((state) => state?.booking);
   const user = useAppSelector((state) => state?.users.user);
   const userInfo = useAppSelector((state) => state?.userInfoAfterSubmit);
-
-  console.log(userInfo.userInfo.id);
 
   const addressInfo = useAppSelector((state) => state?.addresses);
   const dispatch = useAppDispatch();
@@ -112,11 +114,12 @@ function ServiceBookingSummery() {
   //   throw new Error("Invalid time interval format");
   // };
 
-  const serviceIdFilter = bookingInfo?.filterServiceList?.find((service: any) => 
-    typeof service?.name === 'string' && 
-    service?.name === bookingInfo?.serviceName?.service_name
+  const serviceIdFilter = bookingInfo?.filterServiceList?.find(
+    (service: any) =>
+      typeof service?.name === "string" &&
+      service?.name === bookingInfo?.serviceName?.service_name
   );
-  
+
   // console.log("serviceIdFilter",serviceIdFilter)
 
   const bookingSummerySubmitData = {
@@ -125,7 +128,9 @@ function ServiceBookingSummery() {
     street: bookingInfo?.serviceAddress?.street,
     suburb: bookingInfo?.serviceAddress?.suburb,
     post_code: bookingInfo?.serviceAddress?.post_code,
-    country: bookingInfo?.serviceAddress?.country ? bookingInfo?.serviceAddress?.country : "Australia",
+    country: bookingInfo?.serviceAddress?.country
+      ? bookingInfo?.serviceAddress?.country
+      : "Australia",
     state: bookingInfo?.serviceAddress?.state,
     user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
       ? bookingInfo?.otpVerifyData?.[0]?.data?.id
@@ -138,8 +143,6 @@ function ServiceBookingSummery() {
     ),
     client_panel: 0,
   };
-
-  console.log(bookingSummerySubmitData)
 
   const BookingQuestionsAnsData = {
     added_by: "",
@@ -157,16 +160,13 @@ function ServiceBookingSummery() {
     ],
   };
 
-
   // Local state to track status
   const [isAddressSubmitted, setIsAddressSubmitted] = useState(false);
   const [isCustomerCreated, setIsCustomerCreated] = useState(false);
   const [isBookingSubmitted, setIsBookingSubmitted] = useState(false);
   const [isUserGet, setIsUserGet] = useState(false);
 
-
   const bookingSummerySaveAndSubmitHandler = () => {
-
     if (bookingInfo?.otpVerifyData?.[0]?.data === null) {
       const name = bookingInfo.contactInformationForBooking.fullName.split(" ");
 
@@ -179,8 +179,7 @@ function ServiceBookingSummery() {
       };
 
       dispatch(SubmitUserInfo(userContactInfo));
-      dispatch(userInfoStatus("true"))
-      
+      dispatch(userInfoStatus("true"));
     } else {
       dispatch(submitBookingSummery(bookingSummerySubmitData));
       setIsBookingSubmitted(true);
@@ -191,6 +190,7 @@ function ServiceBookingSummery() {
 
   // Address info submit........
   useEffect(() => {
+    // if (!isAddressSubmitted &&!bookingInfo?.otpVerifyData?.[0]?.data?.addresses.length || (userInfo.userInfoStatus === "true" && !isAddressSubmitted)) {
     if (userInfo.userInfoStatus === "true" && !isAddressSubmitted) {
       const AddressInfoForSubmit = {
         ...bookingInfo.serviceAddress,
@@ -198,9 +198,9 @@ function ServiceBookingSummery() {
         user_id: userInfo?.userInfo?.id,
       };
       dispatch(SubmitAddressInfo(AddressInfoForSubmit));
-      setIsAddressSubmitted(true); 
-      dispatch(userInfoStatus(""))
-      dispatch(SubmitAddressInfoStatus("true"))
+      setIsAddressSubmitted(true);
+      dispatch(userInfoStatus(""));
+      dispatch(SubmitAddressInfoStatus("true"));
     }
   }, [userInfo, bookingInfo.serviceAddress, isAddressSubmitted, dispatch]);
 
@@ -213,19 +213,21 @@ function ServiceBookingSummery() {
 
       dispatch(getUser(CustomFormData));
       setIsUserGet(true);
-      dispatch(SubmitAddressInfoStatus(""))
-      
+      dispatch(SubmitAddressInfoStatus(""));
     }
   }, [addressInfo, bookingInfo?.contactInformationForBooking, isUserGet]);
 
   // customer create.....
   useEffect(() => {
-    if (addressInfo.SubmitAddressInfoStatus === "true" && !isCustomerCreated && !user?.[0]?.customer?.id) {
+    if (
+      !isCustomerCreated && bookingInfo?.otpVerifyData?.[0]?.data?.customer == null || (addressInfo.SubmitAddressInfoStatus === "true" && !isCustomerCreated && !user?.[0]?.customer?.id)
+    ) {
       const CustomerFormData = {
         address_id: addressInfo?.address?.[0]?.id,
         user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
           ? bookingInfo?.otpVerifyData?.[0]?.data?.id
-          : userInfo?.userInfo?.id ? userInfo?.userInfo?.id : user?.[0]?.id,
+          : userInfo?.userInfo?.id,
+          
         type: bookingInfo?.serviceLocationType === "Home" ? 0 : 1,
         status: 1,
         newsletter_subscription: 1,
@@ -249,7 +251,10 @@ function ServiceBookingSummery() {
 
   //  submit booking summery.......
   useEffect(() => {
-    if (addressInfo?.SubmitAddressInfoStatus === "true" && !isBookingSubmitted) {
+    if (
+      addressInfo?.SubmitAddressInfoStatus === "true" &&
+      !isBookingSubmitted
+    ) {
       dispatch(submitBookingSummery(bookingSummerySubmitData));
       setIsBookingSubmitted(true);
       dispatch(contactInformationForBookingNestStep(""));
@@ -257,7 +262,6 @@ function ServiceBookingSummery() {
     }
   }, [addressInfo, bookingSummerySubmitData, isBookingSubmitted, dispatch]);
 
-  
   return (
     <>
       <div className="service_booking_summery_section mt-10 ">
@@ -337,17 +341,19 @@ function ServiceBookingSummery() {
                 </button>
               </div>
             </li>
-            {bookingInfo?.serviceLocationType === "Business" && <li className="flex list-disc mb-3">
-              <b className="w-[40%]">Business Name:</b>
-              <div className="w-[100%] flex justify-between gap-2">
-                <span>
-                  {bookingInfo?.contactInformationForBooking?.businessName}
-                </span>{" "}
-                <button className="justify-items-end">
-                  {/* <LuPenSquare /> */}
-                </button>
-              </div>
-            </li>}
+            {bookingInfo?.serviceLocationType === "Business" && (
+              <li className="flex list-disc mb-3">
+                <b className="w-[40%]">Business Name:</b>
+                <div className="w-[100%] flex justify-between gap-2">
+                  <span>
+                    {bookingInfo?.contactInformationForBooking?.businessName}
+                  </span>{" "}
+                  <button className="justify-items-end">
+                    {/* <LuPenSquare /> */}
+                  </button>
+                </div>
+              </li>
+            )}
             <li className="flex list-disc mb-3">
               <b className="w-[40%]">Email:</b>
               <div className="w-[100%] flex justify-between gap-2">

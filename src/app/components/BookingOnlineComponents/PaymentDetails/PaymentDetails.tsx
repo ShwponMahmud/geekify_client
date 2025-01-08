@@ -9,6 +9,10 @@ function PaymentDetails() {
   );
   const paymentInfo = useAppSelector((state) => state?.payment);
 
+  const grandTotal = parseFloat((bookingSummerySubmitResData?.grand_total / 100).toFixed(2))
+
+
+
   return (
     <>
       <div className="payment_details_section pt-5">
@@ -74,9 +78,7 @@ function PaymentDetails() {
               <b>Total Payable</b>
               <span>
                 $
-                {(bookingSummerySubmitResData?.grand_total / 100)
-                  .toString()
-                  .padStart(2, "0")}
+                {grandTotal.toString()}
               </span>
             </div>
             <hr />
@@ -88,7 +90,7 @@ function PaymentDetails() {
                   ? paymentInfo?.paymentOptionHalfAmountAfterDiscount
                   : bookingInfo?.paymentOptionSelected == "quarter"
                   ? paymentInfo?.paymentOptionQuarterAmountAfterDiscount
-                  : bookingSummerySubmitResData?.grand_total / 100
+                  : grandTotal
                 )
                   .toString()
                   .padStart(2, "0")}
@@ -102,11 +104,9 @@ function PaymentDetails() {
                   $
                   {(
                     bookingInfo?.paymentOptionSelected == "half" &&
-                    paymentInfo?.paymentOptionHalfAmountAfterDiscount -
-                      bookingSummerySubmitResData?.grand_total / 100
+                     (grandTotal - parseFloat(paymentInfo?.paymentOptionHalfAmountAfterDiscount)).toFixed(2)
                   )
-                    .toString()
-                    .padStart(2, "0")}
+                    }
                 </span>
               </div>
             ) : (
@@ -115,13 +115,7 @@ function PaymentDetails() {
                   <b>Remaining</b>
                   <span>
                     $
-                    {(
-                      bookingInfo?.paymentOptionSelected == "quarter" &&
-                      paymentInfo?.paymentOptionQuarterAmountAfterDiscount -
-                        bookingSummerySubmitResData?.grand_total / 100
-                    )
-                      .toString()
-                      .padStart(2, "0")}
+                    {(bookingInfo?.paymentOptionSelected == "quarter" && (grandTotal - parseFloat(paymentInfo?.paymentOptionQuarterAmountAfterDiscount)).toFixed(2))}
                   </span>
                 </div>
               )
