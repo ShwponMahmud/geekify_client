@@ -91,6 +91,7 @@ export default function Navbar() {
       };
 
       fetchServices();
+      dispatch(GetSettings())
   }, []);
 
   return (

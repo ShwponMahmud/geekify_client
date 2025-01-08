@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Payment.css";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { ToastContainer, toast } from "react-toastify";
+import loaderGif from "@/assets/icons/loading-gif.gif";
+import Image from "next/image";
 import {
   afterPayCreateCheckoutResData,
+  afterPayDoneStatus,
   afterPaySetMaximumAmount,
   afterPaySetMinimumAmount,
   AppointmentCreationNotify,
@@ -13,6 +16,7 @@ import {
   AppointmentQuestionSubmitCreate,
   captureImmediateFullPaymentOfAfterPayStatus,
   CardTokenCreate,
+  cardTokenProcess,
   CouponDiscountUsage,
   CreateAppointmentCreator,
   CreateAppointmentNotes,
@@ -427,23 +431,32 @@ export default function Payment() {
     ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.street
     : userInfo?.userInfo?.addresses?.[0]?.street
     ? userInfo?.userInfo?.addresses?.[0]?.street
-    : users?.user?.[0]?.addresses?.[0]?.street? users?.user?.[0]?.addresses?.[0]?.street : address?.[0]?.street;
+    : users?.user?.[0]?.addresses?.[0]?.street
+    ? users?.user?.[0]?.addresses?.[0]?.street
+    : address?.[0]?.street;
 
   const area1 = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
     ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.suburb
     : userInfo?.userInfo?.addresses?.[0]?.suburb
     ? userInfo?.userInfo?.addresses?.[0]?.suburb
-    : users?.user?.[0]?.addresses?.[0]?.suburb ? users?.user?.[0]?.addresses?.[0]?.suburb : address?.[0]?.suburb;
+    : users?.user?.[0]?.addresses?.[0]?.suburb
+    ? users?.user?.[0]?.addresses?.[0]?.suburb
+    : address?.[0]?.suburb;
   const region = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
     ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.state
     : userInfo?.userInfo?.addresses?.[0]?.state
     ? userInfo?.userInfo?.addresses?.[0]?.state
-    : users?.user?.[0]?.addresses?.[0]?.state ? users?.user?.[0]?.addresses?.[0]?.state : address?.[0]?.state;
-  const postcode = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
+    : users?.user?.[0]?.addresses?.[0]?.state
+    ? users?.user?.[0]?.addresses?.[0]?.state
+    : address?.[0]?.state;
+  const postcode = bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
+    ?.post_code
     ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.post_code
     : userInfo?.userInfo?.addresses?.[0]?.post_code
     ? userInfo?.userInfo?.addresses?.[0]?.post_code
-    : users?.user?.[0]?.addresses?.[0]?.post_code ? users?.user?.[0]?.addresses?.[0]?.post_code : address?.[0]?.post_code;
+    : users?.user?.[0]?.addresses?.[0]?.post_code
+    ? users?.user?.[0]?.addresses?.[0]?.post_code
+    : address?.[0]?.post_code;
 
   const afterCheckoutData = {
     amount: {
@@ -784,11 +797,11 @@ export default function Payment() {
   //   return false;
   // };
 
-  const token = {
-    token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
-  };
-
   const captureImmediateFullPaymentOfAfterPay = async () => {
+    const token = {
+      token: paymentInfo?.afterPayCreateCheckoutResData?.data?.token,
+    };
+
     loader(true);
     const response = await captureImmediateFullPayment(token);
 
@@ -876,7 +889,6 @@ export default function Payment() {
       });
   };
 
- 
   const postAfterPayPaymentData = {
     payment_id: paymentInfo?.postPaymentAfterAfterPayResData?.data?.id,
     paid_by: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
@@ -1566,17 +1578,22 @@ export default function Payment() {
     status: 0,
   };
 
+  // Create Appointment After AfterPay payment.......................
 
   const AfterPayToken = paymentInfo?.afterPayCreateCheckoutResData?.data?.token;
-  // Create Appointment After AfterPay payment.......................
   const createAppointmentAfterAfterPayPayment = async () => {
+    const MinimumAmount = paymentInfo?.afterPaySetMinimumAmount?.amount;
+    const MaximumAmount = paymentInfo?.afterPaySetMaximumAmount?.amount;
+    const after_pay_appointment_id =
+      paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id;
+
     let isAfterPayServerActive = await afterPayServerStatusChecker();
 
     if (isAfterPayServerActive) {
       const isPaymentConfigurationSuccessful =
         await afterPayPaymentConfiguration();
 
-      if (isPaymentConfigurationSuccessful) {
+      if (isPaymentConfigurationSuccessful && MinimumAmount && MaximumAmount) {
         const isCheckoutSuccess = await afterPayPaymentCheckout();
 
         if (isCheckoutSuccess) {
@@ -1598,13 +1615,13 @@ export default function Payment() {
                 const isCaptureImmediateFullPaymentOfAfterPaySucceed =
                   await captureImmediateFullPaymentOfAfterPay();
 
-                  console.log("isCaptureImmediateFullPaymentOfAfterPaySucceed", isCaptureImmediateFullPaymentOfAfterPaySucceed);
-
                 if (isCaptureImmediateFullPaymentOfAfterPaySucceed) {
                   showToastMessage({
                     message: "Payment successful",
                     type: "success",
                   });
+
+                  dispatch(afterPayDoneStatus("true"));
 
                   const isPaymentCreated = await createPayment(
                     `Temporal reference for customer id : ${
@@ -1660,12 +1677,14 @@ export default function Payment() {
                                   AppointmentHistoryAfterPayFormData
                                 )
                               );
-                              // if (
-                              //   preAppointmentResponse.coupon_discount
-                              //     .validation_status === true
-                              // ) {
-                              //   await createCouponUsage();
-                              // }
+                              if (
+                                bookingInfo?.bookingSummerySubmitResData
+                                  ?.coupon_discount.validation_status === true
+                              ) {
+                                await dispatch(
+                                  CouponDiscountUsage(CouponFormData)
+                                );
+                              }
 
                               // await paymentSucceedRedirectHandler();
                             }
@@ -1709,6 +1728,7 @@ export default function Payment() {
 
     if (selectedPaymentMethod === "cardPayment") {
       dispatch(CardTokenCreate(cardFormData));
+      dispatch(cardTokenProcess("start"));
     }
     if (selectedPaymentMethod === "afterPay") {
       if (
@@ -2363,28 +2383,92 @@ export default function Payment() {
     // dispatch(paymentOptionQuarterAmountAfterDiscount(""))
   };
 
+  useEffect(() => {
+    
+  }, [])
+
+  
   return (
     <>
-      <div className="payment_section">
-        <div className="text-[14px] mx-auto">
-          <div className="payment w-[50%] mx-auto mt-5">
-            {/* Apply Coupon */}
-            <div className="apply_coupon_container mt-10">
-              <label className="flex gap-2 text-[14px] font-semibold">
+        <div className="payment_section">
+          <div className="text-[14px] mx-auto">
+            <div className="payment w-[50%] mx-auto mt-5">
+              {/* Apply Coupon */}
+              <div className="apply_coupon_container mt-10">
+                <label className="flex gap-2 text-[14px] font-semibold">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 hidden"
+                    onChange={handleApplyCouponCheckboxChange}
+                  />
+                  {/* Custom Checkbox */}
+                  <div
+                    className={`w-4 h-4 border-2 mt-[2px] ${
+                      isCouponChecked
+                        ? "bg-orange-500 border-orange-500"
+                        : "bg-white border-gray-300"
+                    } flex items-center justify-center transition-colors`}
+                  >
+                    {isCouponChecked && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4 text-white"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                  <label htmlFor="">Apply Coupon</label>
+                </label>
+                {isCouponChecked && (
+                  <form action="" className="flex">
+                    <input
+                      type="text"
+                      placeholder="Enter a Coupon Code"
+                      className="border p-[10px] w-[100%] text-[14px] mt-4 rounded-md"
+                      required
+                      onChange={(e) => setCouponCode(e.target.value)}
+                    />
+                    <button
+                      type="submit"
+                      onClick={CouponDiscountCreateHandler}
+                      className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2"
+                    >
+                      Apply
+                    </button>
+                  </form>
+                )}
+              </div>
+
+              {/* Terms and Conditions */}
+              <label className="flex items-center gap-2 mt-2 cursor-pointer">
+                {/* <input
+              type="checkbox"
+              id="terms"
+              className="w-4 h-4 accent-orange-500"
+              onChange={handleTermsConditionCheckboxChange}
+            /> */}
                 <input
                   type="checkbox"
-                  className="w-4 h-4 hidden"
-                  onChange={handleApplyCouponCheckboxChange}
+                  checked={isTermsChecked}
+                  onChange={handleTermsConditionCheckboxChange}
+                  className="hidden w-4 h-4"
                 />
                 {/* Custom Checkbox */}
                 <div
-                  className={`w-4 h-4 border-2 mt-[2px] ${
-                    isCouponChecked
+                  className={`w-4 h-4 border-2 mt-[-3px] ${
+                    isTermsChecked
                       ? "bg-orange-500 border-orange-500"
                       : "bg-white border-gray-300"
                   } flex items-center justify-center transition-colors`}
                 >
-                  {isCouponChecked && (
+                  {isTermsChecked && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-4 w-4 text-white"
@@ -2399,252 +2483,196 @@ export default function Payment() {
                     </svg>
                   )}
                 </div>
-                <label htmlFor="">Apply Coupon</label>
+                <label htmlFor="terms" className="text-gray-700">
+                  I agree with{" "}
+                  <span className="text-orange-500 font-semibold">
+                    Terms & Conditions
+                  </span>
+                </label>
               </label>
-              {isCouponChecked && (
-                <form action="" className="flex">
-                  <input
-                    type="text"
-                    placeholder="Enter a Coupon Code"
-                    className="border p-[10px] w-[100%] text-[14px] mt-4 rounded-md"
-                    required
-                    onChange={(e) => setCouponCode(e.target.value)}
-                  />
-                  <button
-                    type="submit"
-                    onClick={CouponDiscountCreateHandler}
-                    className="bg-primaryColor text-white rounded-md py-[10px] px-[30px] mt-4 ml-2"
-                  >
-                    Apply
-                  </button>
-                </form>
-              )}
-            </div>
 
-            {/* Terms and Conditions */}
-            <label className="flex items-center gap-2 mt-2 cursor-pointer">
-              {/* <input
-                type="checkbox"
-                id="terms"
-                className="w-4 h-4 accent-orange-500"
-                onChange={handleTermsConditionCheckboxChange}
-              /> */}
-              <input
-                type="checkbox"
-                checked={isTermsChecked}
-                onChange={handleTermsConditionCheckboxChange}
-                className="hidden w-4 h-4"
-              />
-              {/* Custom Checkbox */}
-              <div
-                className={`w-4 h-4 border-2 mt-[-3px] ${
-                  isTermsChecked
-                    ? "bg-orange-500 border-orange-500"
-                    : "bg-white border-gray-300"
-                } flex items-center justify-center transition-colors`}
-              >
-                {isTermsChecked && (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-white"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                )}
-              </div>
-              <label htmlFor="terms" className="text-gray-700">
-                I agree with{" "}
-                <span className="text-orange-500 font-semibold">
-                  Terms & Conditions
-                </span>
-              </label>
-            </label>
-
-            {isTermsChecked && (
-              <>
-                {/* Payment Methods */}
-                <div>
-                  <label className="flex items-center gap-2 mt-5">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      id="cardPayment"
-                      className="w-4 h-4 hidden"
-                      checked={selectedPaymentMethod === "cardPayment"}
-                      onChange={() => handlePaymentMethodChange("cardPayment")}
-                    />
-                    <div
-                      className={`w-4 h-4 border-2 mt-[-3px] ${
-                        selectedPaymentMethod === "cardPayment"
-                          ? "bg-orange-500 border-orange-500"
-                          : "bg-white border-gray-300"
-                      } flex items-center justify-center transition-colors rounded-full`}
-                    >
-                      {selectedPaymentMethod === "cardPayment" && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 text-white"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    <label htmlFor="cardPayment" className="text-gray-700">
-                      Card (Visa/Master/Amex)
-                    </label>
-                  </label>
-                  <label className="flex items-center gap-2 mt-2">
-                    <input
-                      type="radio"
-                      name="paymentMethod"
-                      id="afterPay"
-                      className="w-4 h-4 hidden"
-                      checked={selectedPaymentMethod === "afterPay"}
-                      onChange={() => handlePaymentMethodChange("afterPay")}
-                    />
-                    <div
-                      className={`w-4 h-4 border-2 mt-[-3px] ${
-                        selectedPaymentMethod === "afterPay"
-                          ? "bg-orange-500 border-orange-500"
-                          : "bg-white border-gray-300"
-                      } flex items-center justify-center transition-colors rounded-full`}
-                    >
-                      {selectedPaymentMethod === "afterPay" && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 text-white"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    <label htmlFor="afterPay" className="text-gray-700">
-                      Afterpay
-                    </label>
-                  </label>
-                </div>
-
-                {/* Card Details Section */}
-                {selectedPaymentMethod === "cardPayment" && (
-                  <div className="bg-[#f1f1f1] p-4 rounded-md space-y-4 mt-5 text-[14px]">
-                    <div>
-                      <label htmlFor="cardNumber" className="text-gray-700">
-                        Card number
-                      </label>
+              {isTermsChecked && (
+                <>
+                  {/* Payment Methods */}
+                  <div>
+                    <label className="flex items-center gap-2 mt-5">
                       <input
-                        type="text"
-                        id="cardNumber"
-                        placeholder="Enter your card number"
-                        className="w-full p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
-                        value={cardTokenCreateFormData.cardNumber}
-                        onChange={handleInputChange}
+                        type="radio"
+                        name="paymentMethod"
+                        id="cardPayment"
+                        className="w-4 h-4 hidden"
+                        checked={selectedPaymentMethod === "cardPayment"}
+                        onChange={() =>
+                          handlePaymentMethodChange("cardPayment")
+                        }
                       />
-                    </div>
-                    <div className="flex gap-3">
-                      <div className="w-[50%]">
-                        <label
-                          htmlFor="cardHolderName"
-                          className="text-gray-700"
-                        >
-                          Card holder name
-                        </label>
-                        <input
-                          type="text"
-                          id="cardHolderName"
-                          placeholder="Full name as displayed on card"
-                          className="w-[100%] text-[14px] p-2 border border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
-                          value={cardTokenCreateFormData.cardHolderName}
-                          onChange={handleInputChange}
-                        />
+                      <div
+                        className={`w-4 h-4 border-2 mt-[-3px] ${
+                          selectedPaymentMethod === "cardPayment"
+                            ? "bg-orange-500 border-orange-500"
+                            : "bg-white border-gray-300"
+                        } flex items-center justify-center transition-colors rounded-full`}
+                      >
+                        {selectedPaymentMethod === "cardPayment" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 text-white"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
                       </div>
-                      <div className="w-[25%]">
-                        <label htmlFor="expiryDate" className="text-gray-700">
-                          Expiry Date
-                        </label>
-                        <input
-                          type="text"
-                          id="expiryDate"
-                          placeholder="MM/YY"
-                          className="p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500 "
-                          value={cardTokenCreateFormData.expiryDate}
-                          onChange={handleInputChange}
-                        />
+                      <label htmlFor="cardPayment" className="text-gray-700">
+                        Card (Visa/Master/Amex)
+                      </label>
+                    </label>
+                    <label className="flex items-center gap-2 mt-2">
+                      <input
+                        type="radio"
+                        name="paymentMethod"
+                        id="afterPay"
+                        className="w-4 h-4 hidden"
+                        checked={selectedPaymentMethod === "afterPay"}
+                        onChange={() => handlePaymentMethodChange("afterPay")}
+                      />
+                      <div
+                        className={`w-4 h-4 border-2 mt-[-3px] ${
+                          selectedPaymentMethod === "afterPay"
+                            ? "bg-orange-500 border-orange-500"
+                            : "bg-white border-gray-300"
+                        } flex items-center justify-center transition-colors rounded-full`}
+                      >
+                        {selectedPaymentMethod === "afterPay" && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 text-white"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586 4.707 9.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
                       </div>
-                      <div className="w-[25%]">
-                        <label htmlFor="cvv" className="text-gray-700">
-                          CVV
-                        </label>
-                        <input
-                          type="text"
-                          id="cvv"
-                          placeholder="CVV"
-                          className="p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
-                          value={cardTokenCreateFormData.cvv}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </div>
+                      <label htmlFor="afterPay" className="text-gray-700">
+                        Afterpay
+                      </label>
+                    </label>
                   </div>
-                )}
-              </>
-            )}
 
-            {/* Buttons */}
-            <div className="flex justify-between mt-5">
-              <button
-                onClick={prevHandler}
-                className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-100"
-              >
-                Prev
-              </button>
-              {isTermsChecked ? (
-                <button
-                  onClick={PayNowHandler}
-                  // onClick={tryPing}
-                  className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600"
-                >
-                  Pay Now
-                </button>
-              ) : (
-                <button
-                  className="bg-slate-500 text-white px-6 py-2 rounded-md hover:bg-slate-600"
-                  disabled
-                >
-                  Pay Now
-                </button>
+                  {/* Card Details Section */}
+                  {selectedPaymentMethod === "cardPayment" && (
+                    <div className="bg-[#f1f1f1] p-4 rounded-md space-y-4 mt-5 text-[14px]">
+                      <div>
+                        <label htmlFor="cardNumber" className="text-gray-700">
+                          Card number
+                        </label>
+                        <input
+                          type="text"
+                          id="cardNumber"
+                          placeholder="Enter your card number"
+                          className="w-full p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
+                          value={cardTokenCreateFormData.cardNumber}
+                          onChange={handleInputChange}
+                        />
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="w-[50%]">
+                          <label
+                            htmlFor="cardHolderName"
+                            className="text-gray-700"
+                          >
+                            Card holder name
+                          </label>
+                          <input
+                            type="text"
+                            id="cardHolderName"
+                            placeholder="Full name as displayed on card"
+                            className="w-[100%] text-[14px] p-2 border border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
+                            value={cardTokenCreateFormData.cardHolderName}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="w-[25%]">
+                          <label htmlFor="expiryDate" className="text-gray-700">
+                            Expiry Date
+                          </label>
+                          <input
+                            type="text"
+                            id="expiryDate"
+                            placeholder="MM/YY"
+                            className="p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500 "
+                            value={cardTokenCreateFormData.expiryDate}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="w-[25%]">
+                          <label htmlFor="cvv" className="text-gray-700">
+                            CVV
+                          </label>
+                          <input
+                            type="text"
+                            id="cvv"
+                            placeholder="CVV"
+                            className="p-2 border text-[14px] border-gray-300 rounded-[4px] focus:outline-none focus:ring-1 focus:ring-orange-500"
+                            value={cardTokenCreateFormData.cvv}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
-              {/* <div id="afterpay-button">
-                {isAfterPayLoaded ? (
-                  <button onClick={handleAfterPayClick}>
-                    Buy with AfterPay
+
+              {/* Buttons */}
+              <div className="flex justify-between mt-5">
+                <button
+                  onClick={prevHandler}
+                  className="border border-orange-500 text-orange-500 px-6 py-2 rounded-md hover:bg-orange-100"
+                >
+                  Prev
+                </button>
+                {isTermsChecked ? (
+                  <button
+                    onClick={PayNowHandler}
+                    // onClick={tryPing}
+                    className="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-600"
+                  >
+                    Pay Now
                   </button>
                 ) : (
-                  <p>Loading AfterPay...</p>
+                  <button
+                    className="bg-slate-500 text-white px-6 py-2 rounded-md hover:bg-slate-600"
+                    disabled
+                  >
+                    Pay Now
+                  </button>
                 )}
-              </div> */}
+                {/* <div id="afterpay-button">
+              {isAfterPayLoaded ? (
+                <button onClick={handleAfterPayClick}>
+                  Buy with AfterPay
+                </button>
+              ) : (
+                <p>Loading AfterPay...</p>
+              )}
+            </div> */}
+              </div>
+              <ToastContainer />
             </div>
-            <ToastContainer />
           </div>
         </div>
-      </div>
+
     </>
   );
 }

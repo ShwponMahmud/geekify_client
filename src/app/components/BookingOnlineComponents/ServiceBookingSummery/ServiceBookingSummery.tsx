@@ -190,6 +190,7 @@ function ServiceBookingSummery() {
 
   // Address info submit........
   useEffect(() => {
+    // if (!isAddressSubmitted &&!bookingInfo?.otpVerifyData?.[0]?.data?.addresses.length || (userInfo.userInfoStatus === "true" && !isAddressSubmitted)) {
     if (userInfo.userInfoStatus === "true" && !isAddressSubmitted) {
       const AddressInfoForSubmit = {
         ...bookingInfo.serviceAddress,
@@ -219,9 +220,7 @@ function ServiceBookingSummery() {
   // customer create.....
   useEffect(() => {
     if (
-      addressInfo.SubmitAddressInfoStatus === "true" &&
-      !isCustomerCreated &&
-      !user?.[0]?.customer?.id
+      !isCustomerCreated && bookingInfo?.otpVerifyData?.[0]?.data?.customer == null || (addressInfo.SubmitAddressInfoStatus === "true" && !isCustomerCreated && !user?.[0]?.customer?.id)
     ) {
       const CustomerFormData = {
         address_id: addressInfo?.address?.[0]?.id,

@@ -120,8 +120,10 @@ const PaymentOptions: React.FC = () => {
     if (!bookingInfo.isLoading && selectedOption === "full") {
       dispatch(
         paymentOptionFullAmountAfterDiscount(
-          (bookingInfo?.bookingSummerySubmitResData?.grand_total / 100).toFixed(
-            2
+          parseFloat(
+            (
+              bookingInfo?.bookingSummerySubmitResData?.grand_total / 100
+            ).toFixed(2)
           )
         )
       );
@@ -129,22 +131,26 @@ const PaymentOptions: React.FC = () => {
     if (!bookingInfo.isLoading && selectedOption === "half") {
       dispatch(
         paymentOptionHalfAmountAfterDiscount(
-          (
-            bookingInfo?.bookingSummerySubmitResData?.grand_total /
-            100 /
-            2
-          ).toFixed(2)
+          parseFloat(
+            (
+              bookingInfo?.bookingSummerySubmitResData?.grand_total /
+              100 /
+              2
+            ).toFixed(2)
+          )
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "quarter") {
       dispatch(
         paymentOptionQuarterAmountAfterDiscount(
-          (
-            bookingInfo?.bookingSummerySubmitResData?.grand_total /
-            100 /
-            4
-          ).toFixed(2)
+          parseFloat(
+            (
+              bookingInfo?.bookingSummerySubmitResData?.grand_total /
+              100 /
+              4
+            ).toFixed(2)
+          )
         )
       );
     }
@@ -498,8 +504,9 @@ const PaymentOptions: React.FC = () => {
       dispatch(UndecidedEmailNotifyCreate(undecidedEmailNotifyData));
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
-  return (
+  // console.log(typeof (paymentInfo?.paymentOptionFullAmountAfterDiscount).toString());
 
+  return (
     <div className="py-5 flex flex-col items-center justify-center ">
       {/* {bookingInfo?.isLoading &&
           <div className="flex justify-center items-center h-[100%] w-[100%] absolute bg-[#80808046] z-10">
@@ -515,8 +522,6 @@ const PaymentOptions: React.FC = () => {
           <Image src={masterCardIcon} alt="Visa" className="h-6" />
           <Image src={afterPayIcon} alt="PayPal" className="h-6 rounded-sm" />
         </div>
-
-        
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Full payment option */}
@@ -541,16 +546,13 @@ const PaymentOptions: React.FC = () => {
             >
               Save 15.0%
             </p>
-            {paymentInfo?.paymentOptionFullAmountAfterDiscount.length && (
-              <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                $
-                {(
-                  paymentInfo?.paymentOptionFullAmountAfterDiscount &&
-                  paymentInfo?.paymentOptionFullAmountAfterDiscount
-                )
-                  .toString()
-                  .padStart(2, "0")}
-              </p>
+            {((paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()).length && (
+            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+              ${" "}
+              {(
+                paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()
+              }
+            </p>
             )}
             <ul className="text-sm text-gray-700 space-y-2 mb-6">
               <li>✔ Priority email support</li>
@@ -595,16 +597,11 @@ const PaymentOptions: React.FC = () => {
             >
               Save 10.0%
             </p>
-            {paymentInfo?.paymentOptionHalfAmountAfterDiscount.length && (
-              <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                $
-                {(
-                  paymentInfo?.paymentOptionHalfAmountAfterDiscount &&
-                  paymentInfo?.paymentOptionHalfAmountAfterDiscount
-                )
-                  .toString()
-                  .padStart(2, "0")}
-              </p>
+            {((paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()).length && (
+            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+              ${" "}
+              {(paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()}
+            </p>
             )}
             <p className="text-sm text-gray-700 mb-6">
               ✔ Pay 50% upfront
@@ -650,16 +647,12 @@ const PaymentOptions: React.FC = () => {
             >
               Save 5.0%
             </p>
-            {paymentInfo?.paymentOptionQuarterAmountAfterDiscount.length && (
-              <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-                $
-                {(
-                  paymentInfo?.paymentOptionQuarterAmountAfterDiscount &&
-                  paymentInfo?.paymentOptionQuarterAmountAfterDiscount
-                )
-                  .toString()
-                  .padStart(2, "0")}
-              </p>
+            {((paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()).length && (
+            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+              $
+              {(
+                paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()}
+            </p>
             )}
             <p className="text-sm text-gray-700 mb-6">
               ✔ Pay 25% upfront

@@ -30,6 +30,7 @@ import Script from "next/script";
 
 function page() {
   const bookingInfo = useAppSelector((state) => state?.booking);
+  const paymentInfo = useAppSelector((state) => state?.payment);
   const dispatch = useAppDispatch();
   const [services, setServices] = useState<any>([]);
   const [servicesLoad, setServicesLoad] = useState<boolean>(false);
@@ -79,14 +80,14 @@ function page() {
   }, []);
 
   window.addEventListener('beforeunload', () => {
-  // dispatch(resetBookingState())
-  // dispatch(resetPaymentState())
+  dispatch(resetBookingState())
+  dispatch(resetPaymentState())
   });
 
   return (
     <>
-      {bookingInfo?.isLoading && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] absolute bg-[#242424c2] z-10">
+      {bookingInfo?.isLoading || paymentInfo?.cardTokenProcess === "start" || paymentInfo?.afterPayDoneStatus && (
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>

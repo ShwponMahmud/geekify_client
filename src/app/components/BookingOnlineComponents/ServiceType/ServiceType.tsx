@@ -487,7 +487,7 @@ const SwitchSelect: React.FC = () => {
                       </li>
                     ))}
                 </ul>
-                {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length && (
+                {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length >=1 && (
                   <p className="mt-4">
                     <b>Note:</b> You already have{" "}
                     {bookingInfo?.otpVerifyData[0]?.data?.addresses?.length}{" "}
@@ -654,7 +654,7 @@ const SwitchSelect: React.FC = () => {
                   </DialogTitle>
                 )}
                 {!addNewAddressView == true &&
-                  bookingInfo?.otpVerifyData[0]?.data?.addresses?.length && (
+                  bookingInfo?.otpVerifyData[0]?.data?.addresses?.length >= 1 && (
                     <div className="mt-5 mb-10">
                       <div className="py-1 text-sm font-medium text-gray-700">
                         <span>Select from Prev Addresses</span>
@@ -700,7 +700,7 @@ const SwitchSelect: React.FC = () => {
                       </div>
                     </div>
                   )}
-                {bookingInfo?.otpVerifyData[0]?.data === null ||
+                {!bookingInfo?.otpVerifyData[0]?.data?.addresses.length ||
                 addNewAddressView == true ? (
                   <AddressEditAddModal />
                 ) : (
