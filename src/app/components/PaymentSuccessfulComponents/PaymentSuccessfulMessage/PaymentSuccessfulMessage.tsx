@@ -1,7 +1,7 @@
 "use client"
 import { useAppDispatch } from "@/app/rtk-state/hooks";
 import { resetBookingState } from "@/app/rtk-state/reducers/bookingSlice";
-import { resetPaymentState } from "@/app/rtk-state/reducers/paymentSlice";
+import { cardTokenProcess, resetPaymentState } from "@/app/rtk-state/reducers/paymentSlice";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -12,6 +12,7 @@ function PaymentSuccessfulMessage() {
   useEffect(() => {
     dispatch(resetBookingState());
     dispatch(resetPaymentState());
+    dispatch(cardTokenProcess(""));
   }, [resetBookingState, resetPaymentState]);
 
   return (
