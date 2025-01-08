@@ -16,7 +16,6 @@ import { BiSolidRightArrow } from "react-icons/bi";
 import "./Navbar.css";
 import { useAppDispatch } from "@/app/rtk-state/hooks";
 import { GetSettings } from "@/app/rtk-state/reducers/SettingSlice";
-import { useRouter } from "next/compat/router";
 import { IoTennisball } from "react-icons/io5";
 
 
@@ -282,7 +281,7 @@ export default function Navbar() {
           </div>
 
           <div className=" text-[16px]">
-            <a href="/booking-online" className="animated-button">
+            <Link href="/booking-online" className="animated-button">
               <span></span>
               <span></span>
               <span></span>
@@ -297,7 +296,7 @@ export default function Navbar() {
                 </strong>{" "}
                 Off
               </strong>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
