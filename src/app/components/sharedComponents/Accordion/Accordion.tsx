@@ -24,7 +24,7 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
           className="bg-[#FFF6F2] text-primaryColor shadow-boxShadow mb-5 overflow-hidden rounded-lg"
         >
           <div
-            className="flex justify-between items-center p-4 cursor-pointer transition-all duration-700"
+            className="flex justify-between items-center p-4 cursor-pointer"
             onClick={() => handleToggle(index)}
           >
             <span className="text-xl font-medium">{item.question}</span>
@@ -44,7 +44,7 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
             </svg>
           </div>
           <div
-            className={`overflow-hidden transition-all duration-700 ${
+            className={`overflow-hidden ${
               openIndex === index ? "max-h-screen" : "max-h-0"
             }`}
           >

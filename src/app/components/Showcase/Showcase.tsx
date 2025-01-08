@@ -14,9 +14,9 @@ const Showcase: React.FC<ShowcaseProps> = ({ backgroundImage, title, highlights,
   return (
     <>
       <div
-        className="flex justify-center items-center w-[100%] h-[90vh] mt-[100px] bg-blend-multiply bg-[rgba(0,0,0,.5)]"
+        className="flex justify-center items-center w-[100%] h-[90vh] mt-[100px] bg-blend-multiply bg-[rgba(0,0,0,.1)]"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${backgroundImage})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${backgroundImage})`,
           backgroundRepeat: "no-repeat",
           width: "100%",
           backgroundPosition: "center",

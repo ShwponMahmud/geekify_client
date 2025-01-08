@@ -56,9 +56,9 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
         adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
       "
       />
-      <div className="container mx-auto mt-[-100px]">
+      <div className="container mx-auto ">
         <div>
-          <div className="hidden lg:grid grid-cols-3 gap-8">
+          <div className="hidden lg:grid grid-cols-3 gap-8 mt-[-100px]">
             <div className="bg-white py-14 px-7 text-center shadow-lg">
               <div className="flex justify-center items-center">
                 <Image
@@ -758,8 +758,7 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
           ))}
         </div> */}
 
-        <Accordion items={faqItems}/>
-
+        <Accordion items={faqItems} />
       </div>
 
       <div className="container mx-auto">
@@ -797,8 +796,8 @@ function CctvInstallationDetails({service}: ServiceDetailsProps) {
             Customer Satisfaction:
           </h5>
           <p>
-            At Geekify®, we place a strong emphasis on customer satisfaction.
-            We work closely with you to understand your specific security needs.
+            At Geekify®, we place a strong emphasis on customer satisfaction. We
+            work closely with you to understand your specific security needs.
             That is going the extra mile to ensure your security system meets
             your expectations and requirements.
           </p>

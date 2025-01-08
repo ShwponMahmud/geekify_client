@@ -6,8 +6,7 @@ import Image from 'next/image'
 function FranchiseComponents() {
   return (
     <>
-      <Showcase backgroundImage='/franchise-banner.png' title='Partner with Geekify -' highlights='A Franchise for Success' paragraph='Lorem Ipsum is simply dummy text of the printing
-       and typesetting industry. Lorem Ipsum has been the industry s standard dummy' />
+      <Showcase backgroundImage='/franchise-banner.png' title='Partner with Geekify -' highlights='A Franchise for Success'/>
 
        <div>
         <div>

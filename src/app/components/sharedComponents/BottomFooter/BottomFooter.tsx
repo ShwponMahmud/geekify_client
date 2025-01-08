@@ -49,7 +49,7 @@ function BottomFooter() {
             </div>
           </div>
           <div>
-            <p className="text-white font-semibold text-center lg:text-right">
+            <p className="text-white text-sm font-medium text-center lg:text-right">
               Copyright © 2022-2023 Geekify®. All rights reserved.
             </p>
           </div>

@@ -118,30 +118,33 @@ const EnterPhoneSendCode: React.FC = () => {
                   </div>
                 </div>
 
-                {selectedOption == "email" ? <div>
-                  <label htmlFor="" className="text-[18px]">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="Enter Your Email"
-                    className=" flex items-center border rounded-md mt-3 px-2 py-2 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
-                    style={{ outline: "none" }}
-                    onChange={HandleEmailChange}
-                  />
-                </div> :
-                <div>
-                  <label htmlFor="" className="text-[18px]">
-                    Phone Number
-                  </label>
-                  <PhoneInput
-                    placeholder="Enter phone number"
-                    value={numberValue}
-                    onChange={setNumberValue}
-                    className=" flex items-center border-none rounded-md mt-3 px-2 py-2 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
-                    style={{ outline: "none"}}
-                  />
-                </div>}
+                {selectedOption == "email" ? (
+                  <div>
+                    <label htmlFor="" className="text-[18px]">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="Enter Your Email"
+                      className=" flex items-center border rounded-md mt-3 px-2 py-2 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
+                      style={{ outline: "none" }}
+                      onChange={HandleEmailChange}
+                    />
+                  </div>
+                ) : (
+                  <div>
+                    <label htmlFor="" className="text-[18px]">
+                      Phone Number
+                    </label>
+                    <PhoneInput
+                      placeholder="Enter phone number"
+                      value={numberValue}
+                      onChange={setNumberValue}
+                      className=" flex items-center border-none rounded-md mt-3 px-2 py-2 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
+                      style={{ outline: "none" }}
+                    />
+                  </div>
+                )}
 
                 <button
                   className="bg-primaryColor border border-primaryColor py-[10px] px-[20px] rounded-[7px] text-white mt-[20px] hover:bg-white hover:text-primaryColor transition-[.5s]"
@@ -195,24 +198,33 @@ const EnterPhoneSendCode: React.FC = () => {
                 </button>
               </div>
             )}
-
           </div>
-            <br />
-            <small>
-              By continuing, you agree to the Terms of use and Privacy Policy.{" "}
-            </small>
+          <br />
+          <small>
+            By continuing, you agree to the Terms of use and Privacy Policy.{" "}
+          </small>
 
           <div className="text-center mt-4">
             <h4 className="text-3xl font-semibold mb-5">We Accept :</h4>
             <div className="flex justify-between gap-5">
-              <Image width={80} height={30} src={visaIcon} alt="visa" />
               <Image
                 width={80}
                 height={30}
-                src={americanExpressIcon}
+                src={"/logos/visa.png"}
                 alt="visa"
               />
-              <Image width={80} height={30} src={masterCardIcon} alt="visa" />
+              <Image
+                width={80}
+                height={30}
+                src={"/logos/american-express.png"}
+                alt="visa"
+              />
+              <Image
+                width={80}
+                height={30}
+                src={"/logos/master-card.png"}
+                alt="visa"
+              />
             </div>
           </div>
         </div>

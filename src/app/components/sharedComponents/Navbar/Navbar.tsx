@@ -16,6 +16,9 @@ import { BiSolidRightArrow } from "react-icons/bi";
 import "./Navbar.css";
 import { useAppDispatch } from "@/app/rtk-state/hooks";
 import { GetSettings } from "@/app/rtk-state/reducers/SettingSlice";
+import { useRouter } from "next/compat/router";
+import { IoTennisball } from "react-icons/io5";
+
 
 interface Service {
   slug: string;
@@ -39,16 +42,25 @@ interface ServiceArea {
 }
 
 const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Services", href: "/services", current: false, dropdown: true },
+  { name: "Home", href: "/" },
+  {
+    name: "Services",
+    href: "/services",
+    dropdown: true,
+  },
   {
     name: "Service Areas",
     href: "/service-areas",
-    current: false,
     dropdown: true,
   },
-  { name: "Scam Alert", href: "/scam-alert", current: false },
-  { name: "Blogs", href: "/blogs", current: false },
+  {
+    name: "Scam Alert",
+    href: "/scam-alert",
+  },
+  {
+    name: "Blogs",
+    href: "/blogs",    
+  },
 ];
 
 function classNames(...classes: (string | undefined | null | false)[]): string {
@@ -62,6 +74,19 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
   const [settingsGet, setSettingsGet] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
+
+  // Dynamically set the current state
+  const updatedNavigation = navigation.map((item) => ({
+    ...item,
+    current: window.location.pathname === item.href,
+  }));
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
 
   useEffect(() => {
       const fetchServices = async () => {
@@ -101,12 +126,28 @@ export default function Navbar() {
       <div className="px-3 md:container mx-auto">
         <div className="relative flex h-16 items-center justify-between">
           {/* Mobile menu button */}
-          <div className="lg:hidden">
+
+          {/* <div className="lg:hidden">
             <DisclosureButton className="inline-flex items-center justify-center rounded-md focus:outline-none">
-              <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-              <XMarkIcon className="hidden h-6 w-6" aria-hidden="true" />
+              <Bars3Icon className="block h-9 w-9" aria-hidden="true" />
+              <XMarkIcon className="hidden h-9 w-9" aria-hidden="true" />
             </DisclosureButton>
-          </div>
+          </div> */}
+
+          <button
+            className="inline-flex items-center justify-center rounded-md focus:outline-none lg:hidden"
+            onClick={toggleMenu}
+          >
+            {/* Display the "Bars" icon if the menu is closed, otherwise display the "X" icon */}
+            <Bars3Icon
+              className={`h-9 w-9 ${isOpen ? "hidden" : "block"}`}
+              aria-hidden="true"
+            />
+            <XMarkIcon
+              className={`h-9 w-9 ${isOpen ? "block" : "hidden"}`}
+              aria-hidden="true"
+            />
+          </button>
 
           {/* Logo */}
           <div className="hidden lg:flex items-center z-[9999]">
@@ -116,14 +157,19 @@ export default function Navbar() {
                 alt="Logo"
                 width={700}
                 height={308}
-                className="h-14 w-[250px]"
+                className="h-10 w-[180px] xl:h-14 xl:w-[250px]"
               />
             </Link>
           </div>
 
-          {/* Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
-            {navigation.map((item) => (
+          {/* <div className="block lg:hidden">
+            <div>
+              <Image src={"/favicon.ico"} width={200} height={200} alt="fav icon" className="w-[100px] h-[100px] "/>
+            </div>
+          </div> */}
+
+          <div className="hidden lg:flex items-center lg:space-x-3 xl:space-x-5">
+            {updatedNavigation.map((item) => (
               <div
                 key={item.name}
                 className="relative group"
@@ -134,17 +180,21 @@ export default function Navbar() {
               >
                 <Link
                   href={item.href}
-                  className="text-gray-700 hover:text-primaryColor uppercase px-3 py-2 text-sm font-medium"
+                  // className="text-gray-700 hover:text-primaryColor uppercase px-3 py-2 text-sm font-semibold"
+                  className={classNames(
+                    item.current ? "text-primaryColor" : "text-gray-900",
+                    "block font-semibold xl:px-3 uppercase"
+                  )}
                 >
                   {item.name}
                   {item.dropdown && (
-                    <MdKeyboardArrowDown className="inline-block text-3xl text-primaryColor mt-[-5px]" />
+                    <MdKeyboardArrowDown className="inline-block text-3xl text-primaryColor mt-[-5px] transform transition-transform duration-300 group-hover:rotate-180" />
                   )}
                 </Link>
 
                 {item?.dropdown && hovered === item?.name && (
-                  <div className="fixed inset-x-0 bg-white shadow-md pt-14 pb-10">
-                    <div className="container mx-auto">
+                  <div className="fixed inset-x-0 bg-white shadow-md pt-14 pb-10 transition-all duration-1000">
+                    <div className="xl:px-20">
                       {hovered === "Services" && (
                         <>
                           {loading && (
@@ -185,7 +235,7 @@ export default function Navbar() {
                       )}
 
                       {hovered === "Service Areas" && (
-                        <div className="container px-0">
+                        <div className="">
                           <h3 className="text-xl font-semibold pb-5 text-[#1d5f89] w-full">
                             Our Service Areas
                           </h3>
@@ -252,25 +302,25 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <DisclosurePanel className="lg:hidden">
-        <div className="space-y-1 px-2 pb-3 pt-2">
-          {navigation.map((item) => (
-            <DisclosureButton
-              key={item.name}
-              as="a"
-              href={item.href}
-              className={classNames(
-                item.current
-                  ? "bg-primaryColor text-white"
-                  : "text-gray-900 hover:bg-primaryColor hover:text-white",
-                "block rounded-md px-3 py-2 text-base font-medium"
-              )}
-            >
-              {item.name}
-            </DisclosureButton>
-          ))}
-        </div>
-      </DisclosurePanel>
+      <div className="lg:hidden">
+        {isOpen && (
+          <div className="bg-white opacity-90 w-[80%] h-[100vh] pt-4 px-6 transition-opacity duration-500 menu">
+            {updatedNavigation.map((item) => (
+              <DisclosureButton
+                key={item.name}
+                as="a"
+                href={item.href}
+                className={classNames(
+                  item.current ? "text-primaryColor" : "text-gray-900 ",
+                  "block px-3 py-7 text-base font-semibold uppercase border-b-[1px] border-gray-300"
+                )}
+              >
+                {item.name}
+              </DisclosureButton>
+            ))}
+          </div>
+        )}
+      </div>
     </Disclosure>
   );
 }
