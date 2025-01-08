@@ -1087,7 +1087,7 @@ export const paymentSlice = createSlice({
           state.appointmentCreationNotifyResData = "";
           state.AppointmentDiscountStoreListCreateResData = "";
           state.AppointmentDiscountStoreListCreateResStatus = "";
-          state.cardTokenProcess = "";
+          state.cardTokenProcess = "end";
           state.afterPayDoneStatus = "";
 
         }

@@ -1,0 +1,41 @@
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+
+export default function page() {
+  return (
+    <div>
+      <div className="py-40">
+      <div className="flex justify-center items-center">
+        <div className="md:w-[550px] md:h-[510px] bg-primaryColor rounded-2xl">
+          <div className="md:w-[550px] md:h-[510px] bg-[rgba(255,255,255,0.1)] p-4 md:p-12 rounded-2xl shadow-lg text-white">
+            <div className="flex justify-center items-center mb-8">
+              <Image
+                src={"/check.png"}
+                width={300}
+                height={300}
+                alt=""
+                className="w-[120px] h-[120px] "
+              />
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold">
+              Thank You for <br /> Your Order!{" "}
+            </h2>
+            <p className="md:text-xl font-semibold py-4">
+              Your payment is successful, You will get a confirmation mail soon.
+            </p>
+            <div>
+              <Link
+                href={"/"}
+                className="py-3 px-6 md:text-xl bg-sectionBackgroundColor text-primaryColor rounded-lg mt-4 inline-block"
+              >
+                Back to Home
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  )
+}

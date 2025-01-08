@@ -502,6 +502,7 @@ const PaymentOptions: React.FC = () => {
   useEffect(() => {
     if (paymentInfo?.appointmentHistoryCreateResData?.id)
       dispatch(UndecidedEmailNotifyCreate(undecidedEmailNotifyData));
+      dispatch(undecidedAppointmentStatus(""));
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
   // console.log(typeof (paymentInfo?.paymentOptionFullAmountAfterDiscount).toString());
@@ -546,12 +547,10 @@ const PaymentOptions: React.FC = () => {
             >
               Save 15.0%
             </p>
-            {((paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()).length && (
+            {((paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()).length >=1 && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               ${" "}
-              {(
-                paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()
-              }
+              {( paymentInfo?.paymentOptionFullAmountAfterDiscount && paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()}
             </p>
             )}
             <ul className="text-sm text-gray-700 space-y-2 mb-6">
@@ -597,10 +596,10 @@ const PaymentOptions: React.FC = () => {
             >
               Save 10.0%
             </p>
-            {((paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()).length && (
+            {((paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()).length >=1 && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               ${" "}
-              {(paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()}
+              {(paymentInfo?.paymentOptionHalfAmountAfterDiscount && paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()}
             </p>
             )}
             <p className="text-sm text-gray-700 mb-6">
@@ -647,11 +646,10 @@ const PaymentOptions: React.FC = () => {
             >
               Save 5.0%
             </p>
-            {((paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()).length && (
+            {((paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()).length >=1 && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               $
-              {(
-                paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()}
+              {(paymentInfo?.paymentOptionQuarterAmountAfterDiscount && paymentInfo?.paymentOptionQuarterAmountAfterDiscount ).toString()}
             </p>
             )}
             <p className="text-sm text-gray-700 mb-6">

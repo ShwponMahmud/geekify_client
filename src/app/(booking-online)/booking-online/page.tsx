@@ -79,14 +79,35 @@ function page() {
     }
   }, []);
 
-  window.addEventListener('beforeunload', () => {
-  dispatch(resetBookingState())
-  dispatch(resetPaymentState())
-  });
+  // window.addEventListener('beforeunload', () => {
+  // dispatch(resetBookingState())
+  // dispatch(resetPaymentState())
+  // });
 
   return (
     <>
-      {bookingInfo?.isLoading || paymentInfo?.cardTokenProcess === "start" || paymentInfo?.afterPayDoneStatus && (
+      {bookingInfo?.isLoading && (
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
+          <div className="flex justify-center align-middle ">
+            <Image src={loaderGif} width={100} alt="loader" />
+          </div>
+        </div>
+      )}
+      {paymentInfo?.undecidedAppointmentStatus == "true" && (
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
+          <div className="flex justify-center align-middle ">
+            <Image src={loaderGif} width={100} alt="loader" />
+          </div>
+        </div>
+      )}
+      {paymentInfo?.cardTokenProcess === "start" && (
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
+          <div className="flex justify-center align-middle ">
+            <Image src={loaderGif} width={100} alt="loader" />
+          </div>
+        </div>
+      )}
+      {paymentInfo?.afterPayDoneStatus  && (
         <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />

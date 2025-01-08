@@ -1,13 +1,24 @@
-import Image from 'next/image';
-import Link from 'next/link'
-import React from 'react'
+"use client"
+import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { resetBookingState } from "@/app/rtk-state/reducers/bookingSlice";
+import { resetPaymentState } from "@/app/rtk-state/reducers/paymentSlice";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect } from "react";
 
 function PaymentSuccessfulMessage() {
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(resetBookingState());
+    dispatch(resetPaymentState());
+  }, [resetBookingState, resetPaymentState]);
+
   return (
     <div className="py-40">
-      <div className="flex justify-center items-center">
-        <div className="md:w-[550px] md:h-[510px] bg-primaryColor rounded-2xl">
-          <div className="md:w-[550px] md:h-[510px] bg-[rgba(255,255,255,0.1)] p-4 md:p-12 rounded-2xl shadow-lg text-white">
+      <div className="flex justify-center items-center text-center py-10">
+        <div className="md:w-[550px] md:h-[510px] border border-primaryColor rounded-2xl">
+          <div className="md:w-[550px] md:h-[510px] bg-[rgba(255,255,255,0.1)] p-4 md:p-12 rounded-2xl ">
             <div className="flex justify-center items-center mb-8">
               <Image
                 src={"/check.png"}
@@ -26,7 +37,7 @@ function PaymentSuccessfulMessage() {
             <div>
               <Link
                 href={"/"}
-                className="py-3 px-6 md:text-xl bg-sectionBackgroundColor text-primaryColor rounded-lg mt-4 inline-block"
+                className="py-3 px-6 md:text-xl bg-sectionBackgroundColor text-primaryColor rounded-lg mt-4 inline-block hover:bg-primaryColor hover:text-white transition-[.5s]"
               >
                 Back to Home
               </Link>
@@ -38,4 +49,4 @@ function PaymentSuccessfulMessage() {
   );
 }
 
-export default PaymentSuccessfulMessage
+export default PaymentSuccessfulMessage;

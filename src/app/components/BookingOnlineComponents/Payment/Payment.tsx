@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Payment.css";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { ToastContainer, toast } from "react-toastify";
+import { redirect } from 'next/navigation'
 import loaderGif from "@/assets/icons/loading-gif.gif";
 import Image from "next/image";
 import {
@@ -50,6 +51,7 @@ import {
 import { baseUrl } from "@/assets/baseUrl";
 import axios from "axios";
 import Head from "next/head";
+import Link from "next/link";
 
 interface CardDetails {
   cardNumber: string;
@@ -84,6 +86,7 @@ type Discount = {
 };
 
 export default function Payment() {
+  
   const dispatch = useAppDispatch();
   const paymentInfo = useAppSelector((state) => state?.payment);
   const bookingInfo = useAppSelector((state) => state?.booking);
@@ -2384,7 +2387,9 @@ export default function Payment() {
   };
 
   useEffect(() => {
-    
+    if(paymentInfo?.cardTokenProcess === "end"){
+      redirect("/book-appointment-successful")
+    }
   }, [])
 
   

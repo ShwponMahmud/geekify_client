@@ -651,6 +651,12 @@ const SwitchSelect: React.FC = () => {
                 ) : (
                   <DialogTitle as="h3" className="text-base/7 font-bold ">
                     <span>Add New Address </span>
+                    {bookingInfo?.otpVerifyData[0]?.data?.addresses.length && <button
+                      onClick={selectPrevAddressViewHandler}
+                      className="text-primaryColor font-semibold"
+                    >
+                     Or Select Prev Address
+                    </button>}
                   </DialogTitle>
                 )}
                 {!addNewAddressView == true &&
