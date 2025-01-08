@@ -1,5 +1,6 @@
 import { baseUrl } from "@/assets/baseUrl";
 import BlogView from "./BlogsView/BlogView";
+import Link from "next/link";
 
 interface Blog {
   id: number;
@@ -95,11 +96,11 @@ const BlogsView = async () => {
 
           <BlogView blogs={blogs}/>
           
-          <div className="our_blog_see_more_btn_container flex justify-center mt-14">
-            <button className="text-[16px] font-semibold border border-primaryColor hover:bg-primaryColor text-primaryColor hover:text-white rounded-[10px] transition-[.5s] py-3 px-8">
+          {/* <div className="our_blog_see_more_btn_container flex justify-center mt-14">
+            <Link href={"/blogs"} className="text-[16px] font-semibold border border-primaryColor hover:bg-primaryColor text-primaryColor hover:text-white rounded-[10px] transition-[.5s] py-3 px-8">
               See More
-            </button>
-          </div>
+            </Link>
+          </div> */}
         </div>
       </div>
     </>

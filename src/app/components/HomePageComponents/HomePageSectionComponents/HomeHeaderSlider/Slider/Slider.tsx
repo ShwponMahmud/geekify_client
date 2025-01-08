@@ -3,7 +3,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { Autoplay, Navigation } from "swiper/modules";
-
+import "swiper/css/navigation";
 import "swiper/css";
 import Link from "next/link";
 
@@ -45,13 +45,11 @@ const Slider = () => {
                 <p className="mt-8 text-xl">
                   One-stop solution for your IT needs, Order any service,
                   anytime.
-                  
                 </p>
                 <div className="btn_container">
                   <Link href="/booking-online">
                     <button className="bookNowBtn">Book Now</button>
                   </Link>
-                  
                 </div>
               </div>
             </div>
@@ -69,24 +67,22 @@ const Slider = () => {
               alignItems: "center",
             }}
           >
-            
             <div className="w-full container mx-auto">
               <div className="text-white">
                 <h1 className="title text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold mx-auto lg:mx-0">
-                  You <span className="text-primaryColor"> Point</span> It{" "}
-                  <br />
-                  We <span className="text-primaryColor">Fix</span> It
+                  Stay
+                  <span className="text-primaryColor"> Alert</span>, <br />
+                  Stay <span className="text-primaryColor">Safe</span>
                 </h1>
-                <p className="mt-8 text-xl">
-                  One-stop solution for your IT needs, Order any service,
-                  anytime.
-                  
+                <p className="mt-8 text-xl max-w-[800px]">
+                  Get informed about the latest scams and learn effective
+                  prevention strategies, Explore expert tips and resources to
+                  keep your personal and professional information secure.
                 </p>
                 <div className="btn_container">
                   <Link href="/booking-online">
                     <button className="bookNowBtn">Book Now</button>
                   </Link>
-                 
                 </div>
               </div>
             </div>

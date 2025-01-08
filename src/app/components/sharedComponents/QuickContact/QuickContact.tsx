@@ -20,7 +20,7 @@ const QuickContact: React.FC<QuickContactProps> = ({ title, paragraph }) => {
                 {title}
               </h3>
               <div className="flex justify-center items-center">
-                <p className="py-7 font-medium text-center text-xl max-w-[1050px]">
+                <p className="py-7 text-center max-w-[1050px]">
                   {paragraph}
                 </p>
               </div>

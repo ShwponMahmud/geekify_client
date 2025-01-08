@@ -7,10 +7,10 @@ import { CgCalendarNext } from "react-icons/cg";
 import { PiChair } from "react-icons/pi";
 import { IoBriefcaseOutline } from "react-icons/io5";
 import { BsFacebook, BsTwitterX, BsInstagram } from "react-icons/bs";
-import { FaLinkedinIn } from "react-icons/fa";
+import { FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import QuickContact from '../sharedComponents/QuickContact/QuickContact';
 import Showcase from '../Showcase/Showcase';
-import { baseUrl } from '@/assets/baseUrl';
+import Link from 'next/link';
 
 
 async function CareerDetailsComponents({ careerDetail }: any) {
@@ -29,7 +29,7 @@ async function CareerDetailsComponents({ careerDetail }: any) {
 
       <div>
         <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-6 py-8 md:py-14 lg:py-20 xl:py-28">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-10 py-8 md:py-14 lg:py-20 xl:py-28">
             <div className="col-span-4">
               <h5 className="text-3xl md:text-3xl lg:text-5xl font-semibold pb-4 md:pb-7">
                 {careerDetail.title}
@@ -130,12 +130,12 @@ async function CareerDetailsComponents({ careerDetail }: any) {
                 </div>
 
                 <div className="text-center pt-5 lg:pt-12">
-                  <a
-                    href=""
+                  <Link
+                    href="/career"
                     className="text-[27px] font-bold underline text-center"
                   >
                     View All Jobs
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -143,27 +143,27 @@ async function CareerDetailsComponents({ careerDetail }: any) {
                 <p className="font-semibold">Share This:</p>
               </div>
               <div className="flex gap-5">
-                <a href="#">
+                <Link href="https://www.facebook.com/geekifyau">
                   <BsFacebook className="text-[#3C5A99] w-12 h-12" />
-                </a>
-                <a
+                </Link>
+                <Link
                   href="#"
-                  className="bg-black rounded-full flex justify-center items-center w-12 h-12"
+                  className="bg-[#FF0033] rounded-full flex justify-center items-center w-12 h-12"
                 >
-                  <BsTwitterX className="text-white w-6 h-6" />
-                </a>
-                <a
-                  href="#"
+                  <FaYoutube className="text-white w-6 h-6" />
+                </Link>
+                <Link
+                  href="https://www.linkedin.com/company/geekscrsau/"
                   className="bg-[#007AB9] rounded-full flex justify-center items-center w-12 h-12"
                 >
                   <FaLinkedinIn className="text-white w-7 h-7" />
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="https://www.instagram.com/geekscrsau/"
                   className="bg-[#BB346C] rounded-full flex justify-center items-center w-12 h-12"
                 >
                   <BsInstagram className="text-white w-7 h-7" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

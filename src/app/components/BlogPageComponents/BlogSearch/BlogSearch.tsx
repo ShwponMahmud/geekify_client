@@ -21,13 +21,14 @@ export default function BlogSearch() {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     const normalizedSearchQuery = data?.search?.trim().toLowerCase();
+    console.log(normalizedSearchQuery)
     dispatch(pickBlogCategoryByName(normalizedSearchQuery)); 
 
     reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="h-[60px]">
       <div
         className={`flex items-center justify-end ${
           isHovered ? "w-[256px]" : "w-24"
@@ -51,7 +52,7 @@ export default function BlogSearch() {
 
           <button
             type="submit"
-            className={` bg-orange-500 w-24 h-12 flex justify-center items-center text-white rounded-full`}
+            className={` bg-orange-500 w-[60px] h-12 border-2 border-t-2 border-t-transparent border-transparent flex justify-center items-center text-white rounded-full`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

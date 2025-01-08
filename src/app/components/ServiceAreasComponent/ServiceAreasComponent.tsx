@@ -34,8 +34,7 @@ async function ServiceAreasComponent() {
   
   return (
     <>
-      <Showcase backgroundImage='/about-us-banner.png' title='Our Service' highlights='Areas' paragraph='Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-      Lorem Ipsum has been the industry Lorem Ipsum has been the industry' />
+      <Showcase backgroundImage='/about-us-banner.png' title='Our Service' highlights='Areas' />
 
       <div>
         <div className='container mx-auto py-8 md:py-14 lg:py-20 xl:py-28'>

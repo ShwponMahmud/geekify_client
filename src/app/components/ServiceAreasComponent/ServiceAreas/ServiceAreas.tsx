@@ -12,8 +12,6 @@ export default function ServiceAreas() {
         backgroundImage="/about-us-banner.png"
         title="Our Service"
         highlights="Areas"
-        paragraph="Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-      Lorem Ipsum has been the industry Lorem Ipsum has been the industry"
       />
 
       <div>

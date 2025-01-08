@@ -78,7 +78,7 @@ async function LatestScam() {
                       height={150}
                       src={scamNews.image}
                       alt=""
-                      className="w-full lg:w-[200px]"
+                      className="w-full md:w-[200px]"
                     />
                     <div>
                       <h3 className="text-primaryColor font-bold px-2 pt-2">

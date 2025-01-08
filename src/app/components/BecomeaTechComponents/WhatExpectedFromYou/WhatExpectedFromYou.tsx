@@ -11,7 +11,7 @@ function WhatExpectedFromYou() {
       <div className="what_expected_from_you_section py-8 md:py-14 lg:py-20 xl:py-28 bg-sectionBackgroundColor">
         <div className="container mx-auto text-center text-deepGrayColor">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold pb-5">What is expected from you?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 pt-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 pt-8 lg:pt-20">
             <div className="justify-items-center">
               <Image width={140} src={expectedIcon1} alt="" />
               <p className="mt-7">

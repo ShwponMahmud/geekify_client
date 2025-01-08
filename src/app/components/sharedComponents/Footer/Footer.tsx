@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaYoutube } from "react-icons/fa";
 import { FaLinkedinIn, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
@@ -20,7 +20,7 @@ const Footer = () => {
                 height={340}
               />
             </div>
-            <p className="text-lg">
+            <p className="lg:text-lg">
               Geekify® delivers cutting-edge tech solutions, crafted by geeks,
               for geeks. Driven by passion and innovation, we’re here to lead
               the way in tech excellence.
@@ -39,16 +39,16 @@ const Footer = () => {
                 <FaLinkedinIn className="text-primaryColor" />
               </Link>
               <Link
-                href="#"
+                href="https://www.instagram.com/geekscrsau/"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
                 <FaInstagram className="text-primaryColor" />
               </Link>
               <Link
-                href="#"
+                href="https://www.youtube.com/@geekscrs4183"
                 className="w-[30px] h-[30px] rounded-[5px] bg-white text-[#20313B] flex justify-center items-center"
               >
-                <FaXTwitter className="text-primaryColor" />
+                <FaYoutube className="text-primaryColor" />
               </Link>
             </div>
           </div>

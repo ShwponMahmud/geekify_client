@@ -43,9 +43,9 @@ function VirusSpywareRemoval({ service }: ServiceDetailsProps) {
         adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
       "
       />
-      <div className='container mx-auto mt-[-100px]'>
+      <div className='container mx-auto '>
         <div>
-          <div className='hidden lg:grid grid-cols-3 gap-8'>
+          <div className='hidden lg:grid grid-cols-3 gap-8 mt-[-100px]'>
             <div className='bg-white py-14 px-7 text-center shadow-lg'>
               <div className='flex justify-center items-center'>
                 <Image src={'/banner-card-icon-1.png'} width={150} height={150} alt='' className='w-[100px] h-[100px]' />
