@@ -3,8 +3,6 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { baseUrl } from "@/assets/baseUrl";
 
-
-
 export interface ContactsFormData {
   user_id: number;
   address_id: number;
@@ -28,7 +26,6 @@ const initialState: ContactsState = {
   contacts: [],
 };
 
-
 // Async thunk for fetching address info submit
 export const SubmitContactsInfo = createAsyncThunk(
   "contactInfoSubmit",
@@ -39,9 +36,7 @@ export const SubmitContactsInfo = createAsyncThunk(
         "Content-Type": "application/json",
         "Client-Secret": "secret",
       },
-      body: JSON.stringify(
-        formData,
-      ),
+      body: JSON.stringify(formData),
     });
 
     if (!response.ok) {
@@ -53,11 +48,14 @@ export const SubmitContactsInfo = createAsyncThunk(
   }
 );
 
-
 export const contactsSlice = createSlice({
   name: "contacts",
   initialState,
-  reducers: {},
+  reducers: {
+    resetContactsState: () => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(SubmitContactsInfo.pending, (state) => {
@@ -76,10 +74,11 @@ export const contactsSlice = createSlice({
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
-      })
+      });
   },
 });
 
+export const { resetContactsState } = contactsSlice.actions;
 // Selector
 export const selectContacts = (state: RootState) => state.contacts;
 

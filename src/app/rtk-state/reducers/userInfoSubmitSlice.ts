@@ -69,6 +69,9 @@ export const userInfoSubmitSlice = createSlice({
     userInfoStatus: (state, action: PayloadAction<string>) => {
       state.userInfoStatus = action.payload;
     },
+    resetUserInfoState: () => {
+          return initialState;
+        },
   },
   extraReducers: (builder) => {
     builder
@@ -92,7 +95,7 @@ export const userInfoSubmitSlice = createSlice({
   },
 });
 
-export const {userInfoStatus} = userInfoSubmitSlice.actions
+export const {userInfoStatus, resetUserInfoState} = userInfoSubmitSlice.actions
 // Selector
 export const selectUsers = (state: RootState) => state.userInfoAfterSubmit;
 

@@ -1,7 +1,11 @@
 "use client"
 import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { resetAddressState } from "@/app/rtk-state/reducers/addressSlice";
 import { resetBookingState } from "@/app/rtk-state/reducers/bookingSlice";
+import { resetCustomerState } from "@/app/rtk-state/reducers/customerSlice";
 import { cardTokenProcess, resetPaymentState } from "@/app/rtk-state/reducers/paymentSlice";
+import { resetUserInfoState } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
+import { resetUserState } from "@/app/rtk-state/reducers/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -12,8 +16,12 @@ function PaymentSuccessfulMessage() {
   useEffect(() => {
     dispatch(resetBookingState());
     dispatch(resetPaymentState());
+    dispatch(resetAddressState());
+    dispatch(resetCustomerState());
+    dispatch(resetUserInfoState());
+    dispatch(resetUserState());
     dispatch(cardTokenProcess(""));
-  }, [resetBookingState, resetPaymentState]);
+  }, [resetBookingState, resetPaymentState, resetAddressState, resetCustomerState, resetUserInfoState, resetUserState]);
 
   return (
     <div className="py-40">

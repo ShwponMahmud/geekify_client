@@ -248,59 +248,23 @@ const SwitchSelect: React.FC = () => {
       }
     }
 
-    if ((selectedServiceAddress?.street?.length && (selectedBillingAddress?.street.length || isBillingSame === true) && selectedParking?.length)
+    if ((selectedServiceAddress?.street && (isBillingSame === true || selectedBillingAddress?.street))
     ) {
-      if (isBillingSame === true) {
-        dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
-        dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-        dispatch(
-          serviceAddressSelect(
-            bookingInfo?.serviceAddress
-              ? bookingInfo?.serviceAddress
-              : selectedServiceAddress
-          )
-        );
-        dispatch(
-          billingAddressSelect(
-            bookingInfo?.serviceAddress
-              ? bookingInfo?.serviceAddress
-              : selectedServiceAddress
-          )
-        );
-
-        dispatch(parkingOptionSelect(selectedParking));
-
-        dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
-      }
-      // if (
-      //   bookingInfo?.serviceAddress?.street.length &&
-      //   bookingInfo?.billingAddress?.street.length &&
-      //   selectedParking?.length
-      // ) {
+      // if (isBillingSame === true) {
+      //   dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
+      //   dispatch(serviceTypeSelect(serviceTypeSelectedOption));
+      //   dispatch(serviceAddressSelect( bookingInfo?.serviceAddress ? bookingInfo?.serviceAddress : selectedServiceAddress));
+      //   dispatch(billingAddressSelect(bookingInfo?.serviceAddress ? bookingInfo?.serviceAddress : selectedServiceAddress));
+      //   dispatch(parkingOptionSelect(selectedParking));
+      //   dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
+      // }
+     
       dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      dispatch(
-        serviceAddressSelect(
-          selectedServiceAddress
-            ? selectedServiceAddress
-            : bookingInfo?.serviceAddress
-        )
-      );
-      dispatch(
-        billingAddressSelect(
-          isBillingSame === true
-            ? selectedServiceAddress
-            : selectedBillingAddress
-            ? selectedBillingAddress
-            : bookingInfo?.billingAddress
-        )
-      );
-
+      dispatch(serviceAddressSelect(selectedServiceAddress ? selectedServiceAddress : bookingInfo?.serviceAddress));
+      dispatch(billingAddressSelect(isBillingSame === true ? selectedServiceAddress : selectedBillingAddress ? selectedBillingAddress : bookingInfo?.billingAddress));
       dispatch(parkingOptionSelect(selectedParking));
-
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
-
-      // }
     }
   };
 

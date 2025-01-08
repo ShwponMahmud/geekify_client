@@ -1603,8 +1603,6 @@ export default function Payment() {
           if (typeof window.AfterPay === "undefined") return;
 
           window.AfterPay.initialize({
-            // publicKey: "YOUR_AFTERPAY_PUBLIC_KEY",
-            // returnUrl: "/checkout/success",
             countryCode: "AU",
           });
 
@@ -2390,7 +2388,7 @@ export default function Payment() {
     if(paymentInfo?.cardTokenProcess === "end"){
       redirect("/book-appointment-successful")
     }
-  }, [])
+  }, [paymentInfo?.cardTokenProcess])
 
   
   return (

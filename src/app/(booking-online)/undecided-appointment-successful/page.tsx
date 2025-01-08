@@ -1,6 +1,11 @@
+"use client"
 import { useAppDispatch } from "@/app/rtk-state/hooks";
+import { resetAddressState } from "@/app/rtk-state/reducers/addressSlice";
 import { resetBookingState } from "@/app/rtk-state/reducers/bookingSlice";
-import { cardTokenProcess, resetPaymentState } from "@/app/rtk-state/reducers/paymentSlice";
+import { resetCustomerState } from "@/app/rtk-state/reducers/customerSlice";
+import { resetPaymentState } from "@/app/rtk-state/reducers/paymentSlice";
+import { resetUserInfoState } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
+import { resetUserState } from "@/app/rtk-state/reducers/userSlice";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from "react";
@@ -8,10 +13,13 @@ import React, { useEffect } from "react";
 export default function page() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(resetBookingState());
-    dispatch(resetPaymentState());
-    dispatch(cardTokenProcess(""));
-  }, [resetBookingState, resetPaymentState]);
+      dispatch(resetBookingState());
+      dispatch(resetPaymentState());
+      dispatch(resetAddressState());
+      dispatch(resetCustomerState());
+      dispatch(resetUserInfoState());
+      dispatch(resetUserState());
+    }, [resetBookingState, resetPaymentState, resetAddressState, resetCustomerState, resetUserInfoState, resetUserState]);
 
 
 
@@ -33,7 +41,7 @@ export default function page() {
               Thank You for <br /> Your Order!{" "}
             </h2>
             <p className="md:text-xl font-semibold py-4">
-              Your payment is successful, You will get a confirmation mail soon.
+              Your Appointment is successful, You will get a confirmation mail soon.
             </p>
             <div>
               <Link

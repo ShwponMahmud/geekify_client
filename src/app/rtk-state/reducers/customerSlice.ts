@@ -8,7 +8,7 @@ export interface CustomerFormData {
   address_id: number;
   type: number;
   status: number;
-  newsletter_subscription: number
+  newsletter_subscription: number;
 }
 
 export interface CustomerState {
@@ -22,7 +22,7 @@ const initialState: CustomerState = {
   isLoading: false,
   status: "",
   error: null,
-  customer: {}
+  customer: {},
 };
 
 // Async thunk for fetching users
@@ -35,9 +35,7 @@ export const createCustomer = createAsyncThunk(
         "Content-Type": "application/json",
         "Client-Secret": "secret",
       },
-      body: JSON.stringify(
-         formData
-      ),
+      body: JSON.stringify(formData),
     });
 
     if (!response.ok) {
@@ -49,19 +47,23 @@ export const createCustomer = createAsyncThunk(
   }
 );
 
-
-
 export const customerSlice = createSlice({
   name: "customer",
   initialState,
-  reducers: {},
+  reducers: {
+    resetCustomerState: () => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createCustomer.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(createCustomer.fulfilled, (state, action: PayloadAction<Array<any>>) => {
+      .addCase(
+        createCustomer.fulfilled,
+        (state, action: PayloadAction<Array<any>>) => {
           state.isLoading = false;
           state.status = "success";
           state.customer = action.payload;
@@ -71,10 +73,11 @@ export const customerSlice = createSlice({
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
-      })
+      });
   },
 });
 
+export const { resetCustomerState } = customerSlice.actions;
 // Selector
 export const selectCustomer = (state: RootState) => state.customer;
 

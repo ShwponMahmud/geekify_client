@@ -27,6 +27,10 @@ import { useEffect, useState } from "react";
 import loaderGif from "@/assets/icons/loading-gif.gif";
 import Image from "next/image";
 import Script from "next/script";
+import { resetAddressState } from "@/app/rtk-state/reducers/addressSlice";
+import { resetUserInfoState } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
+import { resetCustomerState } from "@/app/rtk-state/reducers/customerSlice";
+import { resetUserState } from "@/app/rtk-state/reducers/userSlice";
 
 function page() {
   const bookingInfo = useAppSelector((state) => state?.booking);
@@ -79,60 +83,59 @@ function page() {
     }
   }, []);
 
-  // window.addEventListener('beforeunload', () => {
-  // dispatch(resetBookingState())
-  // dispatch(resetPaymentState())
-  // });
+  window.addEventListener("beforeunload", () => {
+    dispatch(resetBookingState());
+    dispatch(resetPaymentState());
+    
+  });
 
   return (
     <>
       {bookingInfo?.isLoading && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10 top-0">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>
         </div>
       )}
       {paymentInfo?.undecidedAppointmentStatus == "true" && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10 top-0">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>
         </div>
       )}
       {paymentInfo?.cardTokenProcess === "start" && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10 top-0">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>
         </div>
       )}
-      {paymentInfo?.afterPayDoneStatus  && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10">
+      {paymentInfo?.afterPayDoneStatus == "true" && (
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10 top-0">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>
         </div>
       )}
-       {/* Load Afterpay Script */}
-       <Script
-       id="afterPayGeneralLibrary"
-       src="https://js.afterpay.com/afterpay-1.x.js"
-       defer
-       
+      {/* Load Afterpay Script */}
+      <Script
+        id="afterPayGeneralLibrary"
+        src="https://js.afterpay.com/afterpay-1.x.js"
+        defer
         strategy="afterInteractive"
         onLoad={() => {
-          console.log('Afterpay script loaded');
+          console.log("Afterpay script loaded");
         }}
       />
-       <Script
-       id="afterPayProductionLibrary"
-       src="https://portal.sandbox.afterpay.com/afterpay.js"
-       defer
-       
+      <Script
+        id="afterPayProductionLibrary"
+        src="https://portal.sandbox.afterpay.com/afterpay.js"
+        defer
         strategy="afterInteractive"
         onLoad={() => {
-          console.log('Afterpay script loaded');
+          console.log("Afterpay script loaded");
         }}
       />
       {/* Payment Controls */}

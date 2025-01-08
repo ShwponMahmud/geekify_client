@@ -3,6 +3,7 @@ import visaIcon from "@/assets/icons/Visa.png";
 import masterCardIcon from "@/assets/icons/master card.png";
 import afterPayIcon from "@/assets/icons/afterPay.png";
 import Image from "next/image";
+import { redirect } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import {
   formatDate,
@@ -120,37 +121,37 @@ const PaymentOptions: React.FC = () => {
     if (!bookingInfo.isLoading && selectedOption === "full") {
       dispatch(
         paymentOptionFullAmountAfterDiscount(
-          parseFloat(
+          // parseFloat(
             (
               bookingInfo?.bookingSummerySubmitResData?.grand_total / 100
             ).toFixed(2)
-          )
+          // )
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "half") {
       dispatch(
         paymentOptionHalfAmountAfterDiscount(
-          parseFloat(
+          // parseFloat(
             (
               bookingInfo?.bookingSummerySubmitResData?.grand_total /
               100 /
               2
             ).toFixed(2)
-          )
+          // )
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "quarter") {
       dispatch(
         paymentOptionQuarterAmountAfterDiscount(
-          parseFloat(
+          // parseFloat(
             (
               bookingInfo?.bookingSummerySubmitResData?.grand_total /
               100 /
               4
             ).toFixed(2)
-          )
+          // )
         )
       );
     }
@@ -503,6 +504,7 @@ const PaymentOptions: React.FC = () => {
     if (paymentInfo?.appointmentHistoryCreateResData?.id)
       dispatch(UndecidedEmailNotifyCreate(undecidedEmailNotifyData));
       dispatch(undecidedAppointmentStatus(""));
+      redirect("/undecided-appointment-successful")
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
   // console.log(typeof (paymentInfo?.paymentOptionFullAmountAfterDiscount).toString());
@@ -547,7 +549,7 @@ const PaymentOptions: React.FC = () => {
             >
               Save 15.0%
             </p>
-            {((paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()).length >=1 && (
+            {paymentInfo?.paymentOptionFullAmountAfterDiscount.length && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               ${" "}
               {( paymentInfo?.paymentOptionFullAmountAfterDiscount && paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()}
@@ -596,7 +598,7 @@ const PaymentOptions: React.FC = () => {
             >
               Save 10.0%
             </p>
-            {((paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()).length >=1 && (
+            {paymentInfo?.paymentOptionHalfAmountAfterDiscount.length  && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               ${" "}
               {(paymentInfo?.paymentOptionHalfAmountAfterDiscount && paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()}
@@ -646,7 +648,7 @@ const PaymentOptions: React.FC = () => {
             >
               Save 5.0%
             </p>
-            {((paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()).length >=1 && (
+            {paymentInfo?.paymentOptionQuarterAmountAfterDiscount.length  && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               $
               {(paymentInfo?.paymentOptionQuarterAmountAfterDiscount && paymentInfo?.paymentOptionQuarterAmountAfterDiscount ).toString()}
