@@ -86,12 +86,18 @@ const EnterPhoneSendCode: React.FC = () => {
     <div className="enter_phone_send_code_section">
       <div className="container mx-auto">
         <div className="justify-items-center mt-10">
-          <Image width={288} height={62} src="/logo.png" alt="Geekify logo" />
+          <Image
+            width={588}
+            height={362}
+            src="/logos/main-logo.png"
+            alt="Geekify logo"
+            className="w-[288px] h-[62px]"
+          />
           <div className="p-5 md:p-10 mt-[40px] md:w-[500px] mx-auto  justify-items-center ">
             {bookingInfo.otpReqSuccess === "" ? (
               <div className="enter_phone_number">
                 <div className="flex gap-7 mb-5 items-center">
-                  <div className="flex gap-2 items-center">
+                  {/* <div className="flex gap-2 items-center">
                     <input
                       className="w-[17px] h-[17px]"
                       type="checkbox"
@@ -102,8 +108,22 @@ const EnterPhoneSendCode: React.FC = () => {
                     <label className="mt-[5px]" htmlFor="emailCheckbox">
                       Email
                     </label>
-                  </div>
-                  <div className="flex gap-2 items-center">
+                  </div> */}
+                  <label
+                    className="flex gap-2 items-center cursor-pointer"
+                    htmlFor="emailCheckbox"
+                  >
+                    <input
+                      id="emailCheckbox"
+                      className="w-[17px] h-[17px]"
+                      type="checkbox"
+                      value="email"
+                      checked={selectedOption.includes("email")}
+                      onChange={() => handleCheckboxChange("email")}
+                    />
+                    <span className="">Email</span>
+                  </label>
+                  {/* <div className="flex gap-2 items-center">
                     <input
                       className="w-[17px] h-[17px]"
                       type="checkbox"
@@ -114,7 +134,21 @@ const EnterPhoneSendCode: React.FC = () => {
                     <label className="mt-[5px]" htmlFor="smsCheckbox">
                       Sms
                     </label>
-                  </div>
+                  </div> */}
+                  <label
+                    className="flex gap-2 items-center cursor-pointer"
+                    htmlFor="smsCheckbox"
+                  >
+                    <input
+                      id="smsCheckbox"
+                      className="w-[17px] h-[17px]"
+                      type="checkbox"
+                      value="sms"
+                      checked={selectedOption.includes("sms")}
+                      onChange={() => handleCheckboxChange("sms")}
+                    />
+                    <span className="">Sms</span>
+                  </label>
                 </div>
 
                 {selectedOption == "email" ? (
@@ -125,7 +159,7 @@ const EnterPhoneSendCode: React.FC = () => {
                     <input
                       type="email"
                       placeholder="Enter Your Email"
-                      className=" flex items-center border rounded-md mt-3 px-2 py-2 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
+                      className=" flex items-center border rounded-md mt-3 px-2 py-[10px] w-[390px] max-w-md text-gray-700 placeholder-gray-400"
                       style={{ outline: "none" }}
                       onChange={HandleEmailChange}
                     />
@@ -139,7 +173,8 @@ const EnterPhoneSendCode: React.FC = () => {
                       placeholder="Enter phone number"
                       value={numberValue}
                       onChange={setNumberValue}
-                      className=" flex items-center border-none rounded-md mt-3 px-2 py-2 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
+                      defaultCountry="AU"
+                      className=" flex items-center border-none rounded-md mt-3 w-[390px] max-w-md text-gray-700 placeholder-gray-400"
                       style={{ outline: "none" }}
                     />
                   </div>
@@ -206,22 +241,25 @@ const EnterPhoneSendCode: React.FC = () => {
             <h4 className="text-3xl font-semibold mb-5">We Accept :</h4>
             <div className="flex justify-between gap-5">
               <Image
-                width={80}
-                height={30}
+                width={400}
+                height={400}
                 src={"/logos/visa.png"}
                 alt="visa"
+                className="w-[70px] h-[50px]"
               />
               <Image
-                width={80}
-                height={30}
+                width={400}
+                height={400}
                 src={"/logos/american-express.png"}
                 alt="visa"
+                className="w-[70px] h-[50px]"
               />
               <Image
-                width={80}
-                height={30}
+                width={400}
+                height={400}
                 src={"/logos/master-card.png"}
                 alt="visa"
+                className="w-[70px] h-[50px]"
               />
             </div>
           </div>

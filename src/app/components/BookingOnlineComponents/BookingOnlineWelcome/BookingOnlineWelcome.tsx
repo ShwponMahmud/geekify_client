@@ -16,10 +16,11 @@ function BookingOnlineWelcome() {
           <div className="h-[50vh] grid content-center text-center">
             <div className="justify-items-center">
               <Image
-                width={288}
-                height={62}
+                width={588}
+                height={362}
                 src="/logos/main-logo.png"
                 alt="Geekify logo"
+                className="w-[288px] h-[62px] "
               />
 
               <h1 className="mt-[50px] text-4xl font-semibold text-deepGrayColor">
