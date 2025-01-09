@@ -61,8 +61,6 @@ export default {
         'max-height': 'max-height',
       },
     },
-  },
-  plugins: [
-    require('daisyui'),
-  ],
+  }
+  
 } satisfies Config;

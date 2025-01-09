@@ -19,7 +19,8 @@ import {
 } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
 import { getUser } from "@/app/rtk-state/reducers/userSlice";
 import { useEffect, useState } from "react";
-import { LuPenSquare } from "react-icons/lu";
+import { FaPenToSquare } from "react-icons/fa6";
+
 
 export const formatDate = (date: string | undefined) => {
   if (!date) return null;
@@ -278,7 +279,7 @@ function ServiceBookingSummery() {
                   onClick={BookingSummeryEdit}
                   className="justify-items-end"
                 >
-                  <LuPenSquare />
+                  <FaPenToSquare />
                 </button>
               </div>
             </li>
@@ -287,7 +288,7 @@ function ServiceBookingSummery() {
               <div className="w-[100%] flex justify-between gap-2">
                 <span>{bookingInfo?.operatingSystem?.platform}</span>{" "}
                 <button className="justify-items-end">
-                  {/* <LuPenSquare /> */}
+                 
                 </button>
               </div>
             </li>
