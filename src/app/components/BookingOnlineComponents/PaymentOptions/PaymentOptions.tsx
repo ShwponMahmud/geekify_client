@@ -3,6 +3,7 @@ import visaIcon from "@/assets/icons/Visa.png";
 import masterCardIcon from "@/assets/icons/master card.png";
 import afterPayIcon from "@/assets/icons/afterPay.png";
 import Image from "next/image";
+import { redirect } from 'next/navigation'
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import {
   formatDate,
@@ -120,37 +121,37 @@ const PaymentOptions: React.FC = () => {
     if (!bookingInfo.isLoading && selectedOption === "full") {
       dispatch(
         paymentOptionFullAmountAfterDiscount(
-          parseFloat(
+          // parseFloat(
             (
               bookingInfo?.bookingSummerySubmitResData?.grand_total / 100
             ).toFixed(2)
-          )
+          // )
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "half") {
       dispatch(
         paymentOptionHalfAmountAfterDiscount(
-          parseFloat(
+          // parseFloat(
             (
               bookingInfo?.bookingSummerySubmitResData?.grand_total /
               100 /
               2
             ).toFixed(2)
-          )
+          // )
         )
       );
     }
     if (!bookingInfo.isLoading && selectedOption === "quarter") {
       dispatch(
         paymentOptionQuarterAmountAfterDiscount(
-          parseFloat(
+          // parseFloat(
             (
               bookingInfo?.bookingSummerySubmitResData?.grand_total /
               100 /
               4
             ).toFixed(2)
-          )
+          // )
         )
       );
     }
@@ -502,6 +503,8 @@ const PaymentOptions: React.FC = () => {
   useEffect(() => {
     if (paymentInfo?.appointmentHistoryCreateResData?.id)
       dispatch(UndecidedEmailNotifyCreate(undecidedEmailNotifyData));
+      dispatch(undecidedAppointmentStatus(""));
+      // redirect("/undecided-appointment-successful")
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
   // console.log(typeof (paymentInfo?.paymentOptionFullAmountAfterDiscount).toString());
@@ -546,12 +549,10 @@ const PaymentOptions: React.FC = () => {
             >
               Save 15.0%
             </p>
-            {((paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()).length && (
+            {paymentInfo?.paymentOptionFullAmountAfterDiscount.length && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               ${" "}
-              {(
-                paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()
-              }
+              {( paymentInfo?.paymentOptionFullAmountAfterDiscount && paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()}
             </p>
             )}
             <ul className="text-sm text-gray-700 space-y-2 mb-6">
@@ -597,10 +598,10 @@ const PaymentOptions: React.FC = () => {
             >
               Save 10.0%
             </p>
-            {((paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()).length && (
+            {paymentInfo?.paymentOptionHalfAmountAfterDiscount.length  && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               ${" "}
-              {(paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()}
+              {(paymentInfo?.paymentOptionHalfAmountAfterDiscount && paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()}
             </p>
             )}
             <p className="text-sm text-gray-700 mb-6">
@@ -647,11 +648,10 @@ const PaymentOptions: React.FC = () => {
             >
               Save 5.0%
             </p>
-            {((paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()).length && (
+            {paymentInfo?.paymentOptionQuarterAmountAfterDiscount.length  && (
             <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
               $
-              {(
-                paymentInfo?.paymentOptionQuarterAmountAfterDiscount).toString()}
+              {(paymentInfo?.paymentOptionQuarterAmountAfterDiscount && paymentInfo?.paymentOptionQuarterAmountAfterDiscount ).toString()}
             </p>
             )}
             <p className="text-sm text-gray-700 mb-6">

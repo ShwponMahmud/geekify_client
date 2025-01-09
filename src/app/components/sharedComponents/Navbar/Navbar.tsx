@@ -85,8 +85,14 @@ export default function Navbar() {
   // Dynamically set the current state
   const updatedNavigation = navigation.map((item) => ({
     ...item,
-    current: window.location.pathname === item.href,
+    current:
+      typeof window !== "undefined" &&
+      normalizePath(window.location.pathname) === normalizePath(item.href),
   }));
+
+  function normalizePath(path: string): string {
+    return path.replace(/\/$/, "") || ""; // Remove trailing slash for consistency
+  }
 
   const [isOpen, setIsOpen] = useState(false);
 

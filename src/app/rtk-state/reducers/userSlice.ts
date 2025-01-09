@@ -32,7 +32,7 @@ const initialState: UserState = {
   isLoading: false,
   status: "",
   error: null,
-  user: []
+  user: [],
 };
 
 // Async thunk for fetching users
@@ -60,12 +60,14 @@ export const getUser = createAsyncThunk(
   }
 );
 
-
-
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUserState: () => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state) => {
@@ -84,10 +86,11 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
-      })
+      });
   },
 });
 
+export const {resetUserState} = userSlice.actions
 // Selector
 export const selectUsers = (state: RootState) => state.users;
 

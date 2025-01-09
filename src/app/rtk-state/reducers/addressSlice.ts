@@ -3,7 +3,6 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { baseUrl } from "@/assets/baseUrl";
 
-
 // export interface AddressData {
 //   id: number;
 //   subpremise: null;
@@ -23,7 +22,7 @@ import { baseUrl } from "@/assets/baseUrl";
 // }
 
 export interface AddressFormData {
-  user_id: number | any
+  user_id: number | any;
   street: string | any;
   suburb: string | any;
   state: string | any;
@@ -45,9 +44,8 @@ const initialState: AddressState = {
   status: "",
   error: null,
   address: [],
-  SubmitAddressInfoStatus: ""
+  SubmitAddressInfoStatus: "",
 };
-
 
 // Async thunk for fetching address info submit
 export const SubmitAddressInfo = createAsyncThunk(
@@ -59,9 +57,7 @@ export const SubmitAddressInfo = createAsyncThunk(
         "Content-Type": "application/json",
         "Client-Secret": "secret",
       },
-      body: JSON.stringify(
-        formData,
-      ),
+      body: JSON.stringify(formData),
     });
 
     if (!response.ok) {
@@ -73,13 +69,15 @@ export const SubmitAddressInfo = createAsyncThunk(
   }
 );
 
-
 export const addressSlice = createSlice({
   name: "addresses",
   initialState,
   reducers: {
     SubmitAddressInfoStatus: (state, action: PayloadAction<string>) => {
       state.SubmitAddressInfoStatus = action.payload;
+    },
+    resetAddressState: () => {
+      return initialState;
     },
   },
   extraReducers: (builder) => {
@@ -101,12 +99,12 @@ export const addressSlice = createSlice({
         state.isLoading = false;
         state.status = "failed";
         state.error = action.error.message || "Unknown error occurred";
-      })
+      });
   },
 });
 
-
-export const {SubmitAddressInfoStatus} = addressSlice.actions
+export const { SubmitAddressInfoStatus, resetAddressState } =
+  addressSlice.actions;
 // Selector
 export const selectAddresses = (state: RootState) => state.addresses;
 

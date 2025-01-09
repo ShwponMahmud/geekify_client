@@ -14,7 +14,7 @@ const Slider = () => {
         <Swiper
           slidesPerView={1}
           autoplay={{
-            delay: 3000,
+            delay: 5000,
             disableOnInteraction: false,
           }}
           speed={3000}
@@ -24,7 +24,7 @@ const Slider = () => {
         >
           <SwiperSlide
             style={{
-              backgroundImage: 'url("/banner-1.png")',
+              backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),  url("/banner-1.png")',
               backgroundSize: "cover, cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center, center",
@@ -64,7 +64,7 @@ const Slider = () => {
           </SwiperSlide>
           <SwiperSlide
             style={{
-              backgroundImage: ' url("/banner-2.png")',
+              backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/banner-2.png")',
               backgroundSize: "cover, cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center, center",

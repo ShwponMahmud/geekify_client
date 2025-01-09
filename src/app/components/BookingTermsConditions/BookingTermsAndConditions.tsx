@@ -33,8 +33,7 @@ function BookingTermsAndConditions() {
             applies.
           </li>
           <li>
-            10. For appointments made within 48 hours, 50% cancellation fee
-            applies or 100% can be credited for your next booking.
+            10. Appointments cancelled within 48 hours, of the schedule time with incur 100% cancellation fee.
           </li>
           <li>
             11. If we cancel or reschedule an appointment, then we shall notify

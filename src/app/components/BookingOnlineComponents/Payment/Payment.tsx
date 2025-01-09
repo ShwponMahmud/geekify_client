@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Payment.css";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import { ToastContainer, toast } from "react-toastify";
+import { redirect } from 'next/navigation'
 import loaderGif from "@/assets/icons/loading-gif.gif";
 import Image from "next/image";
 import {
@@ -50,6 +51,7 @@ import {
 import { baseUrl } from "@/assets/baseUrl";
 import axios from "axios";
 import Head from "next/head";
+import Link from "next/link";
 
 interface CardDetails {
   cardNumber: string;
@@ -84,6 +86,7 @@ type Discount = {
 };
 
 export default function Payment() {
+  
   const dispatch = useAppDispatch();
   const paymentInfo = useAppSelector((state) => state?.payment);
   const bookingInfo = useAppSelector((state) => state?.booking);
@@ -183,6 +186,9 @@ export default function Payment() {
       });
   };
 
+ 
+  const [maxAmount, setMaxAmount] = useState()
+  const [minimumAmount, setMinimumAmount] = useState()
   // Function to fetch payment configuration
   const getConfiguration = async (): Promise<any> => {
     const path = `${baseUrl}/afterpay-payment-gateways/configuration`;
@@ -196,7 +202,9 @@ export default function Payment() {
       })
       .then((response) => {
         dispatch(afterPaySetMinimumAmount(response?.data?.data?.minimumAmount));
+        setMaxAmount(response?.data?.data?.minimumAmount);
         dispatch(afterPaySetMaximumAmount(response?.data?.data?.maximumAmount));
+        setMinimumAmount(response?.data?.data?.maximumAmount);
 
         return {
           message: "",
@@ -661,141 +669,6 @@ export default function Payment() {
     return false;
   };
 
-  // const amountWithSurcharge = calculateSurcharge(
-  //   paidAmount,
-  //   paymentInfo?.afterPaySurcharge?.[0]?.payment_afterpay_surcharge?.value
-  // ).newTotal;
-
-  // const afterPayPaymentCheckout = async (): Promise<boolean> => {
-  //   loader(true);
-  //   console.log("checkout",data);
-
-  // const data = {
-  //   amount: {
-  //     amount: (amountWithSurcharge / 100).toString(),
-  //     currency: "AUD",
-  //   },
-  //   consumer: {
-  //     givenNames: userInfo?.userInfo?.firstName || users?.user?.[0]?.firstName,
-  //     surname: userInfo?.userInfo?.lastName || users?.user?.[0]?.lastName,
-  //     email: userInfo?.userInfo?.email || users?.user?.[0]?.email,
-  //     phoneNumber: userInfo?.userInfo?.phone || users?.user?.[0]?.phone,
-  //   },
-  //   billing: {
-  //     name: `${userInfo?.userInfo?.firstName || users?.user?.[0]?.firstName} ${
-  //       userInfo?.userInfo?.lastName || users?.user?.[0]?.lastName
-  //     }`,
-  //     line1: userInfo?.userInfo?.addresses?.[0]?.street || users?.user?.[0]?.addresses?.[0]?.street,
-  //     area1: userInfo?.userInfo?.addresses?.[0]?.suburb || users?.user?.[0]?.addresses?.[0]?.suburb,
-  //     region: userInfo?.userInfo?.addresses?.[0]?.state || users?.user?.[0]?.addresses?.[0]?.state,
-  //     postcode: userInfo?.userInfo?.addresses?.[0]?.zipCode || users?.user?.[0]?.addresses?.[0]?.zipCode,
-  //     countryCode: "AU",
-  //   },
-  //   shipping: {
-  //     name: `${userInfo?.userInfo?.firstName || users?.user?.[0]?.firstName} ${
-  //       userInfo?.userInfo?.lastName || users?.user?.[0]?.lastName
-  //     }`,
-  //     line1: userInfo?.userInfo?.addresses?.[0]?.street || users?.user?.[0]?.addresses?.[0]?.street,
-  //     area1: userInfo?.userInfo?.addresses?.[0]?.suburb || users?.user?.[0]?.addresses?.[0]?.suburb,
-  //     region: userInfo?.userInfo?.addresses?.[0]?.state || users?.user?.[0]?.addresses?.[0]?.state,
-  //     postcode: userInfo?.userInfo?.addresses?.[0]?.zipCode || users?.user?.[0]?.addresses?.[0]?.zipCode,
-  //     countryCode: "AU",
-  //   },
-  //   items: [
-  //     {
-  //       name: bookingInfo?.serviceName?.service_name,
-  //       sku: serviceIdFilter?.code,
-  //       quantity: 1,
-  //       imageUrl: serviceIdFilter.image,
-  //       price: {
-  //         amount: (bookingInfo?.bookingSummerySubmitResData?.grand_total / 100).toString(),
-  //         currency: "AUD",
-  //       },
-  //       categories: [[serviceIdFilter?.serviceCategory?.name ?? ""]],
-  //     },
-  //   ],
-  //   merchant: {
-  //     redirectConfirmUrl: "http://localhost:3000/book-online/success",
-  //     redirectCancelUrl: "http://localhost:3000/book-online",
-  //   },
-  //   merchantReference: "",
-  //   taxAmount: {
-  //     amount: bookingInfo?.bookingSummerySubmitResData?.gst_charge?.applied_status
-  //       ? (bookingInfo?.bookingSummerySubmitResData?.gst_charge?.amount / 100).toString()
-  //       : "0.00",
-  //     currency: "AUD",
-  //   },
-  //   shippingAmount: {
-  //     amount: "0.00",
-  //     currency: "AUD",
-  //   },
-  //   discounts: [] as Discount[],
-  // };
-
-  // if (
-  //   bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status ||
-  //   bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.applied_status ||
-  //   bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status
-  // ) {
-  //   data.discounts = [] ;
-  // }
-
-  // if (bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.applied_status) {
-  //   data.discounts.push({
-  //     displayName: `Coupon (${bookingInfo?.bookingSummerySubmitResData?.coupon_discount?.coupon_code})`,
-  //     amount: {
-  //       amount: (bookingInfo?.bookingSummerySubmitResData?.coupon_discount.amount / 100).toString(),
-  //       currency: "AUD",
-  //     },
-  //   });
-  // }
-
-  // if (bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.applied_status) {
-  //   data.discounts.push({
-  //     displayName: `Online Appointment Discount`,
-  //     amount: {
-  //       amount: (bookingInfo?.bookingSummerySubmitResData?.online_appointment_discount?.amount / 100).toString(),
-  //       currency: "AUD",
-  //     },
-  //   });
-  // }
-
-  // if (bookingInfo?.bookingSummerySubmitResData?.parking_discount?.applied_status) {
-  //   data.discounts.push({
-  //     displayName: `Appointment Parking Discount`,
-  //     amount: {
-  //       amount: (bookingInfo?.bookingSummerySubmitResData?.parking_discount.amount / 100).toString(),
-  //       currency: "AUD",
-  //     },
-  //   });
-  // }
-
-  // if (bookingInfo?.bookingSummerySubmitResData?.loyalty_discount?.applied_status) {
-  //   data.discounts.push({
-  //     displayName: `Appointment Loyalty Discount`,
-  //     amount: {
-  //       amount: (bookingInfo?.bookingSummerySubmitResData?.loyalty_discount.amount / 100).toString(),
-  //       currency: "AUD",
-  //     },
-  //   });
-  // }
-
-  //   const response = await createCheckout(data);
-  //   loader(false);
-
-  //   if (response.status === 201) return true;
-
-  //   if (response.message) showToastMessage(response.message);
-
-  //   if (
-  //     SettingsInfo?.[8]?.appointment_online_appointment_without_payment_status?.value  ===
-  //     "1"
-  //   ) {
-  //     await paymentFailedRedirectHandler();
-  //   }
-
-  //   return false;
-  // };
 
   const captureImmediateFullPaymentOfAfterPay = async () => {
     const token = {
@@ -1581,27 +1454,20 @@ export default function Payment() {
   // Create Appointment After AfterPay payment.......................
 
   const AfterPayToken = paymentInfo?.afterPayCreateCheckoutResData?.data?.token;
-  const createAppointmentAfterAfterPayPayment = async () => {
-    const MinimumAmount = paymentInfo?.afterPaySetMinimumAmount?.amount;
-    const MaximumAmount = paymentInfo?.afterPaySetMaximumAmount?.amount;
-    const after_pay_appointment_id =
-      paymentInfo?.postAppointmentAfterAfterPayResData?.data?.id;
 
+  const createAppointmentAfterAfterPayPayment = async () => {
     let isAfterPayServerActive = await afterPayServerStatusChecker();
 
     if (isAfterPayServerActive) {
-      const isPaymentConfigurationSuccessful =
-        await afterPayPaymentConfiguration();
+      const isPaymentConfigurationSuccessful = await afterPayPaymentConfiguration();
 
-      if (isPaymentConfigurationSuccessful && MinimumAmount && MaximumAmount) {
+      if (isPaymentConfigurationSuccessful) {
         const isCheckoutSuccess = await afterPayPaymentCheckout();
 
         if (isCheckoutSuccess) {
           if (typeof window.AfterPay === "undefined") return;
 
           window.AfterPay.initialize({
-            // publicKey: "YOUR_AFTERPAY_PUBLIC_KEY",
-            // returnUrl: "/checkout/success",
             countryCode: "AU",
           });
 
@@ -1711,6 +1577,10 @@ export default function Payment() {
       }
     }
   };
+
+
+  
+
 
   // Card Payment methods................
   // Card Info.
@@ -2384,8 +2254,10 @@ export default function Payment() {
   };
 
   useEffect(() => {
-    
-  }, [])
+    if(paymentInfo?.cardTokenProcess === "end"){
+      redirect("/book-appointment-successful")
+    }
+  }, [paymentInfo?.cardTokenProcess])
 
   
   return (

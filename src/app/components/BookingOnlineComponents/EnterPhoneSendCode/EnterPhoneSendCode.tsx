@@ -261,6 +261,13 @@ const EnterPhoneSendCode: React.FC = () => {
                 alt="visa"
                 className="w-[70px] h-[50px]"
               />
+              <Image
+                width={400}
+                height={400}
+                src={"/logos/after-pay.png"}
+                alt="visa"
+                className="w-[70px] h-[50px] rounded-[5px]"
+              />
             </div>
           </div>
         </div>
