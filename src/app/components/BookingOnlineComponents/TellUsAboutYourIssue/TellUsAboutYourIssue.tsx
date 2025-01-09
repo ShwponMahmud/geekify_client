@@ -261,6 +261,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           </option>
           {filterService?.map((service:any) => (
             <option
+            key={service?.name}
               className="block px-4 py-2 hover:bg-primaryColor hover:text-white transition-all duration-300 group"
               value={service?.name}
             >

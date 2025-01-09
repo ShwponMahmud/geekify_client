@@ -109,16 +109,16 @@ export default function BlogView({ blogs }: BlogViewProps) {
 
               {/* Blog Details */}
               <div className="p-4">
-                <h2 className="text-[15px] font-semibold text-gray-900 line-clamp-2">
+                <h2 className="text-xl font-bold text-gray-900 line-clamp-2">
                   {blog.title}
                 </h2>
-                <div className="mt-5 space-y-3">
-                  <div className="category cursor-pointer text-[14px]">
-                    <b className="text-primaryColor">Category:</b>{" "}
+                <div className="space-y-2">
+                  <div className="category cursor-pointer">
+                    <p className="text-primaryColor">Category:</p>{" "}
                     {blog.blogCategory.name}
                   </div>
-                  <div className="date text-[14px]">
-                    <b className="text-primaryColor">Created Date:</b>{" "}
+                  <div className="date">
+                    <p className="text-primaryColor">Created Date:</p>{" "}
                     {blog.created_at}
                   </div>
                 </div>

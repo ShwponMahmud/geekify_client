@@ -43,9 +43,7 @@ const page = async () => {
         backgroundImage="/service-image.png"
         title="Browse Our"
         highlights="Resources"
-        paragraph="One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
-        adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora.
-      "
+        paragraph="Find the type of service you need, clearly defined and ready to start. Work begins as soon as you book and provide requirements."
       />
       <SearchService />
       <Services services={services} />

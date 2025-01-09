@@ -48,7 +48,7 @@ async function RecentScams() {
                 <h2 className="text-3xl font-semibold">Recent Scam:</h2>
               </div>
               {recentScamNews?.map((scamNews) => (
-                <Link href={`/scam-alert/${scamNews.slug}`}>
+                <Link key={scamNews?.id} href={`/scam-alert/${scamNews.slug}`}>
                   <div className="flex flex-col sm:flex-row gap-2 mt-5 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">
                     <Image
                       width={200}

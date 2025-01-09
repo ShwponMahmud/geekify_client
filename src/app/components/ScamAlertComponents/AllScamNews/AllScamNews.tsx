@@ -46,15 +46,14 @@ async function AllScamNews() {
               <h2 className="text-3xl font-semibold">All News:</h2>
             </div>
             {allScamNews?.map((scamNews) => (
-              <Link href={`/scam-alert/${scamNews.slug}`}>
+              <Link key={scamNews?.id} href={`/scam-alert/${scamNews.slug}`}>
                 <div className="flex flex-col sm:flex-row gap-2 mt-5 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">
                   <Image
                     width={300}
                     height={100}
                     src={scamNews.image}
                     alt=""
-                    className="w-full md
-                    :w-[200px] h-auto"
+                    className="w-full md:w-[200px] h-auto"
                   />
                   <div className="p-2">
                     <h3 className="text-2xl font-semibold text-primaryColor my-3">

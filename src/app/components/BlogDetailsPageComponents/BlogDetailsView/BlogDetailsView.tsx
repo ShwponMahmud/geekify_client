@@ -1,4 +1,5 @@
 import Image from "next/image";
+import QuickContact from "../../sharedComponents/QuickContact/QuickContact";
 
 interface Blog {
   id: number;
@@ -55,6 +56,7 @@ const BlogDetailsView = async ({ blog }: BlogDetailsProps) => {
           <div dangerouslySetInnerHTML={{ __html: blog?.description }} />
         </div>
       </div>
+      
     </>
   );
 };

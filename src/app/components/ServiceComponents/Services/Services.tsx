@@ -31,7 +31,7 @@ const Services: React.FC<ServicesProps> = ({ services }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[30px]">
           {filteredServices?.length > 0 &&
             filteredServices?.map((service) => (
-              <div className="border rounded-[10px] hover:shadow-hoverBoxShadow transition-[.5s] overflow-hidden">
+              <div key={service?.name} className="border rounded-[10px] hover:shadow-hoverBoxShadow transition-[.5s] overflow-hidden">
                 <Image
                   src={service.image}
                   width={373}

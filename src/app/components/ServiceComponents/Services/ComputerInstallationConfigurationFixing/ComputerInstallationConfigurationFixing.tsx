@@ -121,7 +121,7 @@ function ComputerInstallationConfigurationFixing({ service }: ServiceDetailsProp
             />
           </div>
           <div className="">
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold pb-4 lg:pb-7">
+            <h3 className="text-2xl md:text-3xl lg:text-5xl font-semibold pb-4 lg:pb-7">
               {service?.name}
             </h3>
 

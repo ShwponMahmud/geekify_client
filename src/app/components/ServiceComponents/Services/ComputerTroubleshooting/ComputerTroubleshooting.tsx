@@ -64,8 +64,6 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
       <Showcase
         backgroundImage={service?.image}
         title={service?.name}
-        paragraph="One-stop solution for your IT needs, Order any service, anytime. Lorem ipsum dolor sit amet consectetur 
-        adipisicing elit. Veniam quas nihil consequuntur consequatur deleniti quae quos neque ullam natus tempora."
       />
       <div className="container mx-auto ">
         <div>
@@ -135,7 +133,7 @@ function ComputerTroubleshooting({ service }: ServiceDetailsProps) {
             />
           </div>
           <div className="">
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold pb-4 lg:pb-7">
+            <h3 className="text-2xl md:text-3xl lg:text-5xl font-semibold pb-4 lg:pb-7">
               {service?.name}
             </h3>
 

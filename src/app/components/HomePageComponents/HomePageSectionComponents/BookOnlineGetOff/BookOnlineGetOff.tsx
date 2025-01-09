@@ -23,21 +23,21 @@ function BookOnlineGetOff() {
               <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
                 <TbHandClick className="text-4xl" />
               </div>
-              <h4 className="mt-5 font-semibold">Select service</h4>
+              <p className="mt-5 font-semibold">Select service</p>
             </div>
             <BsArrowRight className="text-3xl text-grayColor" />
             <div className="justify-items-center text-grayColor hover:text-primaryColor">
               <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
                 <TbCalendarTime className="text-4xl" />
               </div>
-              <h4 className="mt-5 font-semibold">Pick a date</h4>
+              <p className="mt-5 font-semibold">Pick a date</p>
             </div>
             <BsArrowRight className="text-3xl text-grayColor" />
             <div className="justify-items-center text-grayColor hover:text-primaryColor">
               <div className="w-16 h-16 p-3 border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center hover:bg-primaryColor hover:text-white">
                 <BiSolidUserDetail className="text-4xl" />
               </div>
-              <h4 className="mt-5 font-semibold">Provide details</h4>
+              <p className="mt-5 font-semibold">Provide details</p>
             </div>
             
             <BsArrowRight className="text-3xl text-grayColor" />
@@ -45,7 +45,7 @@ function BookOnlineGetOff() {
               <div className="w-16 h-16  border-solid border-2 border-borderColor rounded-full text-primaryColor flex justify-center items-center   hover:bg-primaryColor hover:text-white">
                 <GrUserSettings className=" text-4xl" />
               </div>
-              <h4 className="mt-5 font-semibold">Geeks on their way</h4>
+              <p className="mt-5 font-semibold">Geeks on their way</p>
             </div>
           </div>
         </div>

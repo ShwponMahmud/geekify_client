@@ -4,16 +4,16 @@ import ScamAlertShowcase from "@/app/components/ScamAlertComponents/ScamAlertSho
 import QuickContact from "@/app/components/sharedComponents/QuickContact/QuickContact";
 
 
-const  title: string = "If you don’t find your service need please contact with us.";
+const  title: string = "";
 
 function page() {
   return (
     <>
       <div className="scam_alert_page">
-        <ScamAlertShowcase/>
-        <LatestScam/>
-        <AllScamNews/>
-        <QuickContact title={title}/>
+        <ScamAlertShowcase />
+        <LatestScam />
+        <AllScamNews />
+        <QuickContact title="If you don’t find your needed service, please contact with us." />
       </div>
     </>
   );

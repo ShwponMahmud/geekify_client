@@ -2,6 +2,7 @@ import BlogAuthorAboutDetails from "@/app/components/BlogDetailsPageComponents/B
 import BlogDetailsView from "@/app/components/BlogDetailsPageComponents/BlogDetailsView/BlogDetailsView";
 import CreateComments from "@/app/components/BlogDetailsPageComponents/CreateComments/CreateComments";
 import ViewComments from "@/app/components/BlogDetailsPageComponents/ViewComments/ViewComments";
+import QuickContact from "@/app/components/sharedComponents/QuickContact/QuickContact";
 import { baseUrl } from "@/assets/baseUrl";
 
 
@@ -68,6 +69,11 @@ const page = async ({ params }: blogParams) =>{
           <ViewComments />
         </div>
       </div>
+      <QuickContact
+        title="If you don’t find your needed service, please contact with us."
+        paragraph="Our team is always available to assist with your unique tech challenges. If your required service isn’t listed, feel free to get in touch. Geekify offers personalized solutions 
+          tailored to your needs. Call, request support, or book an appointment online—we’re here to help!"
+      />
     </>
   );
 }
