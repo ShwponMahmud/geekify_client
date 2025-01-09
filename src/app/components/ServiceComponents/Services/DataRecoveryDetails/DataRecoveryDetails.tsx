@@ -1,4 +1,4 @@
-import Paypal from '@/app/components/Paypal/Paypal'
+
 import Accordion from '@/app/components/sharedComponents/Accordion/Accordion'
 import QuickContact from '@/app/components/sharedComponents/QuickContact/QuickContact'
 import Showcase from '@/app/components/Showcase/Showcase'
@@ -426,7 +426,7 @@ function DataRecoveryDetails({ service }: ServiceDetailsProps) {
 
       <QuickContact title="Contact Us Today for Expert CCTV Installation Services" />
 
-      <Paypal />
+    
 
       <div className="container mx-auto">
         <div className="pt-8 md:pt-14 lg:pt-20 xl:pt-28">
