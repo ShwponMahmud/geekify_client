@@ -256,7 +256,7 @@ export default function Navbar() {
                                       href={`/service-areas/${area?.slug}`}
                                       className="text-gray-600 hover:tracking-[1.5px] text-xl font-semibold hover:text-[#1d5f89] duration-500 flex items-center gap-1"
                                       onMouseOver={(e) => {
-                                        area?.slug === "New-South-Wales"
+                                        area?.slug === "new-south-wales"
                                           ? setHoveredMainArea(
                                               "New-South-Wales"
                                             )
@@ -267,7 +267,7 @@ export default function Navbar() {
                                       {area?.mainAreaName}
                                     </Link>
                                     {hoveredMainArea &&
-                                      area?.slug === "New-South-Wales" && (
+                                      area?.slug === "new-south-wales" && (
                                         <ul className="mt-3 grid grid-cols-2 gap-2 text-[14px]">
                                           {area?.districtAreas &&
                                             area?.districtAreas.map((item) => (
