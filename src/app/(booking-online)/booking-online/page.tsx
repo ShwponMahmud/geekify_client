@@ -4,9 +4,9 @@ import BookingOnlineWelcome from "@/app/components/BookingOnlineComponents/Booki
 import ChooseDateTime from "@/app/components/BookingOnlineComponents/ChooseDateTime/ChooseDateTime";
 import ContactInformation from "@/app/components/BookingOnlineComponents/ContactInformation/ContactInformation";
 import EnterPhoneSendCode from "@/app/components/BookingOnlineComponents/EnterPhoneSendCode/EnterPhoneSendCode";
-import ThreeDSTestPage from "@/app/components/BookingOnlineComponents/Payment/3DSPay";
-import PaymentForm from "@/app/components/BookingOnlineComponents/Payment/3DSPay";
-import AfterPay from "@/app/components/BookingOnlineComponents/Payment/AfterPay";
+// import ThreeDSTestPage from "@/app/components/BookingOnlineComponents/Payment/3DSPay";
+// import PaymentForm from "@/app/components/BookingOnlineComponents/Payment/3DSPay";
+// import AfterPay from "@/app/components/BookingOnlineComponents/Payment/AfterPay";
 import PaymentDetails from "@/app/components/BookingOnlineComponents/PaymentDetails/PaymentDetails";
 import PaymentOptions from "@/app/components/BookingOnlineComponents/PaymentOptions/PaymentOptions";
 import ServiceBookingSummery from "@/app/components/BookingOnlineComponents/ServiceBookingSummery/ServiceBookingSummery";
@@ -27,10 +27,10 @@ import { useEffect, useState } from "react";
 import loaderGif from "@/assets/icons/loading-gif.gif";
 import Image from "next/image";
 import Script from "next/script";
-import { resetAddressState } from "@/app/rtk-state/reducers/addressSlice";
-import { resetUserInfoState } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
-import { resetCustomerState } from "@/app/rtk-state/reducers/customerSlice";
-import { resetUserState } from "@/app/rtk-state/reducers/userSlice";
+// import { resetAddressState } from "@/app/rtk-state/reducers/addressSlice";
+// import { resetUserInfoState } from "@/app/rtk-state/reducers/userInfoSubmitSlice";
+// import { resetCustomerState } from "@/app/rtk-state/reducers/customerSlice";
+// import { resetUserState } from "@/app/rtk-state/reducers/userSlice";
 
 function page() {
   const bookingInfo = useAppSelector((state) => state?.booking);
@@ -83,10 +83,10 @@ function page() {
     }
   }, []);
 
-  // window.addEventListener("beforeunload", () => {
-  //   dispatch(resetBookingState());
-  //   dispatch(resetPaymentState());
-  // });
+  window.addEventListener("beforeunload", () => {
+    dispatch(resetBookingState());
+    dispatch(resetPaymentState());
+  });
 
   return (
     <>
