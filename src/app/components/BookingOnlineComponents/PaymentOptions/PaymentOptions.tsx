@@ -3,7 +3,7 @@ import visaIcon from "@/assets/icons/Visa.png";
 import masterCardIcon from "@/assets/icons/master card.png";
 import afterPayIcon from "@/assets/icons/afterPay.png";
 import Image from "next/image";
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/app/rtk-state/hooks";
 import {
   formatDate,
@@ -40,7 +40,7 @@ const PaymentOptions: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isSelectedOptionTrigger, setIsSelectedOptionTrigger] =
     useState<boolean>(false);
-  const address = useAppSelector((state) => state?.addresses?.address);
+  const addresses = useAppSelector((state) => state?.addresses);
   const users = useAppSelector((state) => state?.users);
   const userInfo = useAppSelector((state) => state?.userInfoAfterSubmit);
 
@@ -122,9 +122,9 @@ const PaymentOptions: React.FC = () => {
       dispatch(
         paymentOptionFullAmountAfterDiscount(
           // parseFloat(
-            (
-              bookingInfo?.bookingSummerySubmitResData?.grand_total / 100
-            ).toFixed(2)
+          (bookingInfo?.bookingSummerySubmitResData?.grand_total / 100).toFixed(
+            2
+          )
           // )
         )
       );
@@ -133,11 +133,11 @@ const PaymentOptions: React.FC = () => {
       dispatch(
         paymentOptionHalfAmountAfterDiscount(
           // parseFloat(
-            (
-              bookingInfo?.bookingSummerySubmitResData?.grand_total /
-              100 /
-              2
-            ).toFixed(2)
+          (
+            bookingInfo?.bookingSummerySubmitResData?.grand_total /
+            100 /
+            2
+          ).toFixed(2)
           // )
         )
       );
@@ -146,11 +146,11 @@ const PaymentOptions: React.FC = () => {
       dispatch(
         paymentOptionQuarterAmountAfterDiscount(
           // parseFloat(
-            (
-              bookingInfo?.bookingSummerySubmitResData?.grand_total /
-              100 /
-              4
-            ).toFixed(2)
+          (
+            bookingInfo?.bookingSummerySubmitResData?.grand_total /
+            100 /
+            4
+          ).toFixed(2)
           // )
         )
       );
@@ -168,10 +168,17 @@ const PaymentOptions: React.FC = () => {
 
   // Create Appointments.....................
   const CreateAppointmentsFormData = {
-    customer_id: customer?.id,
+    customer_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.id
+      : customer?.id,
     service_id: serviceIdFilter?.id,
-    address_id: address?.[0]?.id,
-    billing_address_id: address?.[0]?.id,
+    address_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      : addresses?.address?.[0]?.id,
+    billing_address_id: bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address
+      ?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.id
+      : addresses?.address?.[0]?.id,
     platform:
       bookingInfo?.operatingSystem?.platform === "Internet"
         ? 0
@@ -378,7 +385,9 @@ const PaymentOptions: React.FC = () => {
 
   // Create Appointment Notes..........................
   const createAppointmentNotesFormData = {
-    user_id: userInfo?.userInfo?.id
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+      : userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
     appointment_id: paymentInfo?.createAppointmentsResData?.id,
@@ -395,7 +404,9 @@ const PaymentOptions: React.FC = () => {
 
   // Create Appointment Creator..........................
   const createAppointmentCreatorFormData = {
-    user_id: userInfo?.userInfo?.id
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+      : userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
     appointment_id: paymentInfo?.createAppointmentsResData?.id,
@@ -456,7 +467,9 @@ const PaymentOptions: React.FC = () => {
     .map(({ applied, ...validDiscount }) => validDiscount);
 
   const AppointmentDiscountStoreListFormData = {
-    user_id: userInfo?.userInfo?.id
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+      : userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
     reference: paymentInfo?.createAppointmentsResData?.reference,
@@ -477,7 +490,9 @@ const PaymentOptions: React.FC = () => {
 
   // Appointment History..
   const AppointmentHistoryFormData = {
-    user_id: userInfo?.userInfo?.id
+    user_id: bookingInfo?.otpVerifyData?.[0]?.data?.id
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.id
+      : userInfo?.userInfo?.id
       ? userInfo?.userInfo?.id
       : users?.user?.[0]?.id,
     appointment_id: paymentInfo?.createAppointmentsResData?.id,
@@ -503,11 +518,17 @@ const PaymentOptions: React.FC = () => {
   useEffect(() => {
     if (paymentInfo?.appointmentHistoryCreateResData?.id)
       dispatch(UndecidedEmailNotifyCreate(undecidedEmailNotifyData));
-      dispatch(undecidedAppointmentStatus(""));
-      // redirect("/undecided-appointment-successful")
+      dispatch(undecidedAppointmentStatus("success"));
   }, [paymentInfo?.appointmentHistoryCreateResData?.id]);
 
-  // console.log(typeof (paymentInfo?.paymentOptionFullAmountAfterDiscount).toString());
+
+  // useEffect(() => {
+  //   if (paymentInfo?.undecidedAppointmentStatus == "end") {
+  //     dispatch(undecidedAppointmentStatus(""));
+  //     redirect("/undecided-appointment-successful");
+  //   }
+  // }, [paymentInfo?.undecidedAppointmentStatus == "end"]);
+
 
   return (
     <div className="py-5 flex flex-col items-center justify-center ">
@@ -550,10 +571,13 @@ const PaymentOptions: React.FC = () => {
               Save 15.0%
             </p>
             {paymentInfo?.paymentOptionFullAmountAfterDiscount.length && (
-            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-              ${" "}
-              {( paymentInfo?.paymentOptionFullAmountAfterDiscount && paymentInfo?.paymentOptionFullAmountAfterDiscount).toString()}
-            </p>
+              <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+                ${" "}
+                {(
+                  paymentInfo?.paymentOptionFullAmountAfterDiscount &&
+                  paymentInfo?.paymentOptionFullAmountAfterDiscount
+                ).toString()}
+              </p>
             )}
             <ul className="text-sm text-gray-700 space-y-2 mb-6">
               <li>✔ Priority email support</li>
@@ -598,11 +622,14 @@ const PaymentOptions: React.FC = () => {
             >
               Save 10.0%
             </p>
-            {paymentInfo?.paymentOptionHalfAmountAfterDiscount.length  && (
-            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-              ${" "}
-              {(paymentInfo?.paymentOptionHalfAmountAfterDiscount && paymentInfo?.paymentOptionHalfAmountAfterDiscount).toString()}
-            </p>
+            {paymentInfo?.paymentOptionHalfAmountAfterDiscount.length && (
+              <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+                ${" "}
+                {(
+                  paymentInfo?.paymentOptionHalfAmountAfterDiscount &&
+                  paymentInfo?.paymentOptionHalfAmountAfterDiscount
+                ).toString()}
+              </p>
             )}
             <p className="text-sm text-gray-700 mb-6">
               ✔ Pay 50% upfront
@@ -648,11 +675,14 @@ const PaymentOptions: React.FC = () => {
             >
               Save 5.0%
             </p>
-            {paymentInfo?.paymentOptionQuarterAmountAfterDiscount.length  && (
-            <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
-              $
-              {(paymentInfo?.paymentOptionQuarterAmountAfterDiscount && paymentInfo?.paymentOptionQuarterAmountAfterDiscount ).toString()}
-            </p>
+            {paymentInfo?.paymentOptionQuarterAmountAfterDiscount.length && (
+              <p className="text-2xl font-bold mb-4 text-center text-primaryColor ">
+                $
+                {(
+                  paymentInfo?.paymentOptionQuarterAmountAfterDiscount &&
+                  paymentInfo?.paymentOptionQuarterAmountAfterDiscount
+                ).toString()}
+              </p>
             )}
             <p className="text-sm text-gray-700 mb-6">
               ✔ Pay 25% upfront

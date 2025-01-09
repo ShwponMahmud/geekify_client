@@ -234,38 +234,7 @@ export default function Payment() {
     };
   };
 
-  // type SurchargeResult = {
-  //   totalAmount: number;
-  //   percentageRate: number;
-  //   percentageAmount: number;
-  //   newTotal: number;
-  // };
-
-  // const calculateSurcharge = (
-  //   totalAmount: number | string,
-  //   percentageRate: number | string
-  // ): SurchargeResult => {
-  //   // Convert inputs to numbers
-  //   const total = Number(totalAmount);
-  //   const rate = Number(percentageRate);
-
-  //   // Validate inputs
-  //   if (isNaN(total) || isNaN(rate)) {
-  //     throw new Error("Both totalAmount and percentageRate must be valid numbers.");
-  //   }
-
-  //   // Calculate surcharge and new total
-  //   const percentageAmount = (total * rate) / 100;
-  //   const newTotal = total + percentageAmount;
-
-  //   // Return the result with rounded values for precision
-  //   return {
-  //     totalAmount: total,
-  //     percentageRate: rate,
-  //     percentageAmount: parseFloat(percentageAmount.toFixed(2)),
-  //     newTotal: parseFloat(newTotal.toFixed(2)),
-  //   };
-  // };
+  
 
   // Function to create a checkout request
   const createCheckout = async (data: any): Promise<any> => {
@@ -1578,8 +1547,6 @@ export default function Payment() {
     }
   };
 
-
-  
 
 
   // Card Payment methods................

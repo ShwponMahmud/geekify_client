@@ -91,28 +91,28 @@ function page() {
   return (
     <>
       {bookingInfo?.isLoading && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10 top-0">
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424ea] z-10 top-0">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>
         </div>
       )}
       {paymentInfo?.undecidedAppointmentStatus == "true" && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10 top-0">
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424ea] z-10 top-0">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>
         </div>
       )}
       {paymentInfo?.cardTokenProcess === "start" && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10 top-0">
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424ea] z-10 top-0">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>
         </div>
       )}
       {paymentInfo?.afterPayDoneStatus == "true" && (
-        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424c2] z-10 top-0">
+        <div className="flex justify-center items-center h-[100%] w-[100%] fixed bg-[#242424ea] z-10 top-0">
           <div className="flex justify-center align-middle ">
             <Image src={loaderGif} width={100} alt="loader" />
           </div>
