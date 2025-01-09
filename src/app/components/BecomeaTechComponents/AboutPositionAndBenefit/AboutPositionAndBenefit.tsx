@@ -8,7 +8,7 @@ function AboutPositionAndBenefit() {
       <div className="about_position_benefit_section py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="container mx-auto">
           <div className="about_position_content">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold pb-5">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-semibold pb-5">
               Looking for a future in the tech industry?
             </h2>
             <p className="lg:text-xl">
@@ -32,7 +32,7 @@ function AboutPositionAndBenefit() {
               />
             </div>
             <div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold pb-5">
+              <h2 className="text-2xl md:text-3xl lg:text-5xl font-semibold pb-5">
                 Your Benefits
               </h2>
               <ul className="list-disc pl-5">

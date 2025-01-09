@@ -38,9 +38,17 @@ const Slider = () => {
             <div className="w-full container mx-auto">
               <div className="text-white">
                 <h1 className="title text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold mx-auto lg:mx-0">
-                  You <span className="text-primaryColor"> Point</span> It{" "}
-                  <br />
-                  We <span className="text-primaryColor">Fix</span> It
+                  You{" "}
+                  <span className="text-primaryColor text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold">
+                    {" "}
+                    Point
+                  </span>{" "}
+                  It <br />
+                  We{" "}
+                  <span className="text-primaryColor text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold">
+                    Fix
+                  </span>{" "}
+                  It
                 </h1>
                 <p className="mt-8 text-xl">
                   One-stop solution for your IT needs, Order any service,
@@ -71,8 +79,15 @@ const Slider = () => {
               <div className="text-white">
                 <h1 className="title text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold mx-auto lg:mx-0">
                   Stay
-                  <span className="text-primaryColor"> Alert</span>, <br />
-                  Stay <span className="text-primaryColor">Safe</span>
+                  <span className="text-primaryColor text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold">
+                    {" "}
+                    Alert
+                  </span>
+                  , <br />
+                  Stay{" "}
+                  <span className="text-primaryColor text-5xl  md:text-8xl md:leading-[100px] tracking-wider font-bold">
+                    Safe
+                  </span>
                 </h1>
                 <p className="mt-8 text-xl max-w-[800px]">
                   Get informed about the latest scams and learn effective

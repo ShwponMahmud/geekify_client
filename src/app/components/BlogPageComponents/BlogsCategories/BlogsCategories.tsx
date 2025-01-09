@@ -42,7 +42,7 @@ async function BlogsCategories() {
             </div>
             <div className="flex flex-col sm:flex-wrap sm:flex-row gap-4">
               {blogsCategories.map((category) => (
-                <BlogCategoryBtn category={category} />
+                <BlogCategoryBtn key={category?.id} category={category} />
               ))}
             </div>
           </div>

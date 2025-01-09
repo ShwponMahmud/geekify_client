@@ -10,7 +10,10 @@ function page() {
     <div>
       <CustomerReviewShowcase />
       <CustomerReview />
-      <QuickContact title={title} />
+      <QuickContact
+        title={"Need Tech Service"}
+        paragraph="Looking for reliable and expert IT support? Geekify is your trusted partner for all things tech. Contact us today to experience superior IT solutions tailored to your needs"
+      />
     </div>
   );
 }

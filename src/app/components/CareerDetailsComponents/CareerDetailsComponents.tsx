@@ -22,9 +22,7 @@ async function CareerDetailsComponents({ careerDetail }: any) {
         backgroundImage="/career-banner.png"
         title="Careers"
         highlights="at Geekify"
-        paragraph="Geekify is the fastest growing Micro tech service provider who offers 360 degrees of IT solutions.
-              Learn more about the origins of Australia’s favourite Geeks.
-      "
+        paragraph="Unlock your potential with Geekify, Australia's fastest-growing tech solution provider. Join a team that’s reshaping the IT industry with innovation, expertise, and passion."
       />
 
       <div>
@@ -173,7 +171,10 @@ async function CareerDetailsComponents({ careerDetail }: any) {
             </button>
           </div>
         </div>
-        <QuickContact title="Need Tech Support?" />
+        <QuickContact
+          title="Need Tech Support?"
+          paragraph="Geekify is your go-to partner for all tech solutions. Call us now or book online to get expert support tailored to your needs."
+        />
       </div>
     </>
   );

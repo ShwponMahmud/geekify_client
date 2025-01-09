@@ -5,7 +5,7 @@ export default function page() {
     <div className="container mx-auto py-20 mt-[100px]">
       <div>
         <div>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold pb-4 md:pb-7">
+          <h2 className="text-2xl md:text-3xl lg:text-5xl font-semibold pb-4 md:pb-7">
             On-site Computer and PC repairs in Your Area -{" "}
             <span className="text-primaryColor">we've got you covered!</span>
           </h2>
@@ -30,7 +30,7 @@ export default function page() {
         />
 
         <div>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold">
+          <h2 className="text-2xl md:text-3xl lg:text-5xl font-semibold">
             Are you searching for a computer technician in your area?
           </h2>
           <p className="py-4 lg:py-7 lg:text-xl">

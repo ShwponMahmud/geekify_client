@@ -76,13 +76,16 @@ async function CustomerReview() {
     <>
       <div className="container mx-auto py-8 md:py-14 lg:py-20 xl:py-28">
         <div className="lg:w-[60%] text-center mx-auto">
-          <h1 className="text-4xl font-bold text-deepGrayColor text-center mb-5">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold text-deepGrayColor text-center mb-5">
             Our Customers Review
           </h1>
         </div>
         <div className="customer_speak_for_us_content_container mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {customerReviews?.map((customerReview) => (
-            <div className="customer_speak_content_card py-5 px-4 mt-12 border rounded-[10px] text-center text-deepGrayColor transition-[.5s] hover:shadow-hoverBoxShadow">
+            <div
+              key={customerReview?.id}
+              className="customer_speak_content_card py-5 px-4 mt-12 border rounded-[10px] text-center text-deepGrayColor transition-[.5s] hover:shadow-hoverBoxShadow"
+            >
               <div className="customer_avatar w-[100%] mt-[-60px] flex justify-center">
                 <Image
                   src={customerReview?.user?.avatar}

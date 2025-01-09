@@ -86,7 +86,7 @@ async function CustomerSpeakForUs() {
           </div>
           <div className="customer_speak_for_us_content_container my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-5 mt-16 md:mt-20 lg:mt-28">
             {customerReviews?.map((customerReview) => (
-              <div className="customer_speak_content_card mb-10">
+              <div key={customerReview?.id} className="customer_speak_content_card mb-10">
                 <div className="customer_avatar">
                   <Image
                     src={customerReview?.user?.avatar}

@@ -5,7 +5,7 @@
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
 }
- .showcase_section::before,
+.showcase_section::before,
 .showcase_section::after {
   height: 72vh;
   content: "";
@@ -13,7 +13,7 @@
   top: 0;
   width: 66%;
   right: -250px;
-  background-color: var( --primary_color);
+  background-color: var(--primary_color);
   background-size: cover;
   transform: skewX(150deg);
   -webkit-transform: skewX(150deg);
@@ -21,7 +21,7 @@
   -ms-transform: skewX(150deg);
 }
 .showcase_section_content .bookNowBtn {
-  border: 1px solid var( --primary_color);
+  border: 1px solid var(--primary_color);
   border-radius: 5px;
   color: var(--primary_color);
   padding: 10px 40px;
@@ -48,10 +48,10 @@
   position: relative;
 } */
 
-.showcase_img{
-    width: 500px;
-    margin-top: 20px;
-    margin-right: 150px;
+.showcase_img {
+  width: 500px;
+  margin-top: 20px;
+  margin-right: 150px;
 }
 .quick_link_section {
   background-color: var(--background_color);
@@ -70,15 +70,15 @@
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;
-  font-size: 20px;
+  font-size: 30px;
   justify-content: center;
   align-items: center;
-  transition: .5s;
+  transition: 0.5s;
 }
 .quick_link_section .phone span,
 .request_call_back span,
 .book_online span {
-  font-size: 25px;
+  font-size: 30px;
   margin-right: 12px;
 }
 .quick_link_section .phone:hover,
@@ -87,7 +87,7 @@
   background-color: var(--primary_color);
 }
 
-@media (max-width: 991px){
+@media (max-width: 991px) {
   .showcase_section {
     width: 100%;
     height: auto;
@@ -95,7 +95,7 @@
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
   }
-   .showcase_section::before,
+  .showcase_section::before,
   .showcase_section::after {
     height: auto;
     content: "";
@@ -105,7 +105,28 @@
     background-color: transparent;
     background-size: cover;
   }
-  .swiper-wrapper{
+  .swiper-wrapper {
     padding-bottom: 0 !important;
+  }
+  .quick_link_section .phone,
+  .request_call_back,
+  .book_online {
+    background-color: #ffffff;
+    border: 1px solid rgba(116, 116, 116, 0.281);
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+  }
+  .quick_link_section .phone span,
+  .request_call_back span,
+  .book_online span {
+    font-size: 20px;
+    margin-right: 12px;
   }
 }

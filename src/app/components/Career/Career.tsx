@@ -49,8 +49,7 @@ async function Career() {
         backgroundImage="/career-banner.png"
         title="Careers at"
         highlights="Geekify"
-        paragraph="Join a growing team of intellectuals who share the same passion and 
-        build your future. Learn, grow and thrive in a fun-loving ecosystem of tech enthusiasts with one common purpose!"
+        paragraph="Geekify is the fastest-growing IT solutions provider, offering 360-degree tech services. Learn more about the engine of Australia’s future tech growth—our incredible team!"
       />
 
       <div>
@@ -58,19 +57,19 @@ async function Career() {
           <div className="bg-sectionBackgroundColor py-8 md:py-14 lg:py-20 xl:py-28">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center container mx-auto">
               <div>
-                <h3 className="text-3xl md:text-3xl lg:text-4xl font-semibold pb-4 md:pb-7">
+                <h3 className="text-3xl md:text-3xl lg:text-5xl font-semibold pb-4 md:pb-7">
                   Few reasons why you should join our{" "}
                   <span className="text-primaryColor">amazing team</span>
                 </h3>
                 <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. Lorem Ipsum is simply dummy text of the
-                  printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, when an
-                  unknown
+                  At Geekify, we’re more than just a workplace – we’re a team
+                  driven by passion, innovation, and growth. Joining us means
+                  being part of a dynamic environment where your skills are
+                  valued, your ideas are heard, and your career aspirations are
+                  supported. With opportunities to learn, collaborate, and make
+                  an impact, we empower our team members to excel both
+                  personally and professionally. Together, we’re shaping the
+                  future of IT solutions – one innovative step at a time.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-5">
@@ -79,11 +78,12 @@ async function Career() {
                     <BsPeopleFill className="w-[40px] h-[40px]" />
                   </div>
                   <h6 className="py-4 font-semibold capitalize">
-                    Friendly environment
+                    Innovation at Its Core
                   </h6>
                   <p className="text-xs">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry.
+                    Geekify is where ideas come to life. Our team thrives on
+                    pushing boundaries, solving complex challenges, and
+                    delivering groundbreaking tech solutions.
                   </p>
                 </div>
                 <div>
@@ -91,11 +91,13 @@ async function Career() {
                     <FaClockRotateLeft className="w-[35px] h-[35px]" />
                   </div>
                   <h6 className="py-4 font-semibold capitalize">
-                    open communication
+                    Learning Opportunity
                   </h6>
                   <p className="text-xs">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry.
+                    We are committed to helping our employees grow
+                    professionally and personally. From hands-on experience to
+                    exclusive training sessions, every day is a chance to learn
+                    something new.
                   </p>
                 </div>
                 <div>
@@ -103,11 +105,12 @@ async function Career() {
                     <FaGraduationCap className="w-[40px] h-[40px]" />
                   </div>
                   <h6 className="py-4 font-semibold capitalize">
-                    upgrade your skills
+                    Supportive Work Environment
                   </h6>
                   <p className="text-xs">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry.
+                    At Geekify, teamwork and inclusivity drive our success. Join
+                    a culture where your voice matters, your ideas are valued,
+                    and collaboration is celebrated.
                   </p>
                 </div>
                 <div>
@@ -115,11 +118,13 @@ async function Career() {
                     <BiSolidObjectsVerticalBottom className="w-[40px] h-[40px]" />{" "}
                   </div>
                   <h6 className="py-4 font-semibold capitalize">
-                    maximize yourself
+                    Rewarding Benefits
                   </h6>
                   <p className="text-xs">
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry. Lorem Ipsum has been the industry.
+                    Your hard work deserves recognition. We offer competitive
+                    salaries, flexible work options, comprehensive health
+                    coverage, and exciting performance bonuses to reward your
+                    efforts.
                   </p>
                 </div>
               </div>
@@ -129,7 +134,7 @@ async function Career() {
           <div className="container mx-auto">
             <div className="py-8 md:pt-14 lg:pt-20 xl:pt-28">
               <div>
-                <h5 className="text-3xl md:text-3xl lg:text-4xl font-semibold pb-4 md:pb-7 text-center">
+                <h5 className="text-3xl md:text-3xl lg:text-5xl font-semibold pb-4 md:pb-7 text-center">
                   So, You Want To Be Part Of Us?
                 </h5>
                 <p className="text-center">
@@ -141,7 +146,7 @@ async function Career() {
 
               <div className="mt-14 mb-8 md:mb-14 lg:mb-20 xl:mb-28 lg:px-32">
                 {careerDetails?.map((careerDetail) => (
-                  <Link href={`/career/${careerDetail.slug}`}>
+                  <Link key={careerDetail.slug} href={`/career/${careerDetail.slug}`}>
                     <div className="flex items-center justify-between gap-4 lg:gap-8 rounded-sm p-4 lg:p-6 mb-8 shadow-boxShadow hover:shadow-hoverBoxShadow">
                       <h6 className="lg:text-xl font-semibold w-[350px]">
                         {careerDetail.title}
@@ -159,9 +164,8 @@ async function Career() {
                         </h6>
                         {/* <p>{careerDetail.slug}</p> */}
                       </div>
-                      
-                        <GoArrowRight className="text-3xl max-w-[150px]" />
-                      
+
+                      <GoArrowRight className="text-3xl max-w-[150px]" />
                     </div>
                   </Link>
                 ))}
@@ -171,7 +175,7 @@ async function Career() {
         </div>
         <QuickContact
           title="Can’t find what you are looking for?"
-          paragraph="Contact us because we are always looking for talented people."
+          paragraph="Get expert tech solutions from the leaders in IT. Call us now or book online to resolve your tech needs efficiently and professionally."
         />
       </div>
     </>

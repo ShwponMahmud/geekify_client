@@ -20,7 +20,7 @@ function BookingOnlineWelcome() {
                 height={362}
                 src="/logos/main-logo.png"
                 alt="Geekify logo"
-                className="w-[288px] h-[62px] "
+                className="w-[350px] h-[75px] "
               />
 
               <h1 className="mt-[50px] text-4xl font-semibold text-deepGrayColor">

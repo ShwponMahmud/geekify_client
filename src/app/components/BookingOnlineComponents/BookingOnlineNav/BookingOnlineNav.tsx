@@ -14,15 +14,15 @@ function BookingOnlineNav() {
               height={300}
               src="/logo_white.png"
               alt="Geekify logo"
-              className="w-[188px] h-[40px] lg:w-[250px] lg:h-[50px]"
+              className="w-[188px] h-[40px] lg:w-[300px] lg:h-[65px]"
             />
           </Link>
 
           <div className="w-[90%] h-[0.1px] bg-gray-100 my-[6px] md:hidden"></div>
 
           <Link href={'tel:0291589800'}>
-            <div className="text-[17px] font-semibold flex gap-2">
-              <span className="mt-1 text-xl">
+            <div className="text-xl lg:text-2xl font-semibold flex gap-2">
+              <span className="mt-1 text-xl lg:text-2xl">
                 <LuPhoneCall />
               </span>{" "}
               02 9158 9800

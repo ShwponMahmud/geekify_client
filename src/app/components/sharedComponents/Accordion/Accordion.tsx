@@ -27,7 +27,7 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
             className="flex justify-between items-center p-4 cursor-pointer"
             onClick={() => handleToggle(index)}
           >
-            <span className="text-xl font-medium">{item.question}</span>
+            <span className="text-2xl font-semibold">{item.question}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className={`w-6 h-6 ${openIndex === index ? "rotate-180" : ""}`}
@@ -48,7 +48,7 @@ const Accordion: React.FC<AccordionProps> = ({ items }) => {
               openIndex === index ? "max-h-screen" : "max-h-0"
             }`}
           >
-            <div className="p-4 text-[#3d3d3d]">{item.answer}</div>
+            <div className="p-4 text-[17px] text-black">{item.answer}</div>
           </div>
         </div>
       ))}

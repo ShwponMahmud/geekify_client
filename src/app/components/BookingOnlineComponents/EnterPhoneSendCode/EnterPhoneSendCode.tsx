@@ -91,7 +91,7 @@ const EnterPhoneSendCode: React.FC = () => {
             height={362}
             src="/logos/main-logo.png"
             alt="Geekify logo"
-            className="w-[288px] h-[62px]"
+            className="w-[350px] h-[75px]"
           />
           <div className="p-5 md:p-10 mt-[40px] md:w-[500px] mx-auto  justify-items-center ">
             {bookingInfo.otpReqSuccess === "" ? (
@@ -233,11 +233,11 @@ const EnterPhoneSendCode: React.FC = () => {
             )}
           </div>
           <br />
-          <small>
+          <p>
             By continuing, you agree to the Terms of use and Privacy Policy.{" "}
-          </small>
+          </p>
 
-          <div className="text-center mt-4">
+          <div className="text-center mt-6">
             <h4 className="text-3xl font-semibold mb-5">We Accept :</h4>
             <div className="flex justify-between gap-5">
               <Image

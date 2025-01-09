@@ -12,21 +12,30 @@ export default function ServiceArea({ slug }: string | any) {
         backgroundImage="/about-us-banner.png"
         title="Our Service"
         highlights="Areas"
+        paragraph="Geekify proudly serves communities and businesses across Australia. From urban hubs to local neighborhoods, we ensure top-tier IT solutions reach you wherever you are. With a commitment to 
+          excellence, we’re here to keep your world connected and running smoothly. Explore our extensive service areas and discover the Geekify difference today"
       />
       <div>
         <div className="container mx-auto py-8 md:py-14 lg:py-20 xl:py-28">
           {ServiceAreasData?.map((area) => (
             <>
-              {area?.slug === "New-South-Wales" ? (
+              {area?.slug === "new-south-wales" ? (
                 <>
                   <h1 className="text-3xl font-semibold mb-10">
                     {area?.mainAreaName}
                   </h1>
-                  <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 ">
+                  <div
+                    key={area?.slug}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 "
+                  >
                     {area.districtAreas.map((distArea) => (
-                      <div className="rounded-lg border hover:shadow-hoverBoxShadow transition-[.5s] py-3 px-4">
+                      <div
+                        key={distArea?.id}
+                        className="rounded-lg border hover:shadow-hoverBoxShadow transition-[.5s] py-3 px-4"
+                      >
                         <Image
-                          src={'/new-south-wales.png'}
+                          src={"/new-south-wales.png"}
+                          // src={distArea.img}
                           width={348}
                           height={280}
                           alt="new south wales"
@@ -40,7 +49,7 @@ export default function ServiceArea({ slug }: string | any) {
                             distArea?.suburbs
                               ?.slice(0, 10)
                               .map((item) => (
-                                <button className="mr-2 px-1 font-semibold text-[14px] text-[#3e94f7] hover:text-gray-500">
+                                <button key={item?.name} className="mr-2 px-1 font-semibold text-[14px] text-[#3e94f7] hover:text-gray-500">
                                   {item?.name},
                                 </button>
                               ))

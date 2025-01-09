@@ -49,7 +49,7 @@ async function LatestScam() {
                 </h2>
               </div>
               {latestScamNews?.map((singleScamNews) => (
-                <Link href={`/scam-alert/${singleScamNews.slug}`}>
+                <Link key={singleScamNews?.id} href={`/scam-alert/${singleScamNews.slug}`}>
                   <div>
                     <Image
                       src={singleScamNews.image}
@@ -71,7 +71,7 @@ async function LatestScam() {
                 </h2>
               </div>
               {recentScamNews?.map((scamNews) => (
-                <Link href={`/scam-alert/${scamNews.slug}`}>
+                <Link key={scamNews?.id} href={`/scam-alert/${scamNews.slug}`}>
                   <div className="flex flex-col sm:flex-row gap-2 mt-5 border rounded-lg overflow-hidden cursor-pointer hover:shadow-hoverBoxShadow transition-[.5s]">
                     <Image
                       width={200}
@@ -84,7 +84,7 @@ async function LatestScam() {
                       <h3 className="text-primaryColor font-bold px-2 pt-2">
                         {scamNews.title}
                       </h3>
-                      <p className="p-2">{scamNews.excerpt}</p>
+                      <p className="px-2 line-clamp-2">{scamNews.excerpt}</p>
                     </div>
                   </div>
                 </Link>

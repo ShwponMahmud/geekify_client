@@ -68,6 +68,7 @@ const OurLatestBlogs = async () => {
           <div className="our_latest_blog_content_container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogs.map((blog) => (
               <Link
+              key={blog?.id}
                 href={`/blogs/${blog.slug}`}
                 className=" our_latest_blog_content_card shadow-boxShadow hover:shadow-hoverBoxShadow hover:transition-all rounded-md "
               >
@@ -84,12 +85,12 @@ const OurLatestBlogs = async () => {
                   <h2 className="text-[23px] font-semibold text-gray-900">
                     {blog?.title}
                   </h2>
-                  <div className=" mt-5 ">
-                    <div className="category cursor-pointer text-[14px] mb-3">
+                  <div className=" mt-5">
+                    <div className="category cursor-pointer text-xl mb-3">
                       <b className="text-primaryColor">Category:</b>{" "}
                       {blog?.blogCategory?.name}
                     </div>
-                    <div className="date text-[14px]">
+                    <div className="date text-xl">
                       <b className="text-primaryColor">Created Date:</b>{" "}
                       {blog?.created_at}
                     </div>
@@ -100,7 +101,7 @@ const OurLatestBlogs = async () => {
           </div>
           <div className="our_blog_see_more_btn_container flex justify-center mt-14">
             <Link href={"/blogs"}>
-              <button className="bg-primaryColor text-white rounded py-3 px-8 hover:bg-white hover:text-primaryColor border border-primaryColor transition-[.5s]">
+              <button className="bg-primaryColor text-xl font-semibold text-white rounded py-3 px-10 hover:bg-white hover:text-primaryColor border border-primaryColor transition-[.5s]">
                 See More
               </button>
             </Link>
