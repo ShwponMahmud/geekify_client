@@ -159,6 +159,8 @@ const SwitchSelect: React.FC = () => {
     dispatch(setServiceAddressModal(""));
   };
 
+
+  // Save service address and billing address.. 
   const SaveAddress = () => {
     dispatch(serviceAddressSelect(selectedServiceAddress));
     if (isBillingSame === true) {
@@ -170,42 +172,23 @@ const SwitchSelect: React.FC = () => {
     close();
   };
 
-  // if (
-  //   isBillingSame ||
-  //   selectedBillingAddress.street ||
-  //   bookingInfo?.billingAddress?.street
-  // ) {
-  //   const billingAddressProvidedAlertElement =
-  //     document.querySelector<HTMLElement>(".billing_address_Provided_alert");
+
+  // if (!isBillingSame) {
   //   const billingAddressSetAlertElement = document.querySelector<HTMLElement>(
   //     ".billing_address_alert"
   //   );
+  //   if (billingAddressSetAlertElement) {
+  //     billingAddressSetAlertElement.innerHTML =
+  //       "Please Provide the Billing Address!";
+  //   }
+
+  //   const billingAddressProvidedAlertElement =
+  //     document.querySelector<HTMLElement>(".billing_address_Provided_alert");
 
   //   if (billingAddressProvidedAlertElement) {
-  //     billingAddressProvidedAlertElement.innerHTML =
-  //       "Thanks For Provide the Billing Address!";
-  //   }
-  //   if (billingAddressSetAlertElement) {
-  //     billingAddressSetAlertElement.style.display = "none";
+  //     billingAddressProvidedAlertElement.style.display = "none";
   //   }
   // }
-
-  if (!isBillingSame) {
-    const billingAddressSetAlertElement = document.querySelector<HTMLElement>(
-      ".billing_address_alert"
-    );
-    if (billingAddressSetAlertElement) {
-      billingAddressSetAlertElement.innerHTML =
-        "Please Provide the Billing Address!";
-    }
-
-    const billingAddressProvidedAlertElement =
-      document.querySelector<HTMLElement>(".billing_address_Provided_alert");
-
-    if (billingAddressProvidedAlertElement) {
-      billingAddressProvidedAlertElement.style.display = "none";
-    }
-  }
 
   useEffect(() => {
     if (bookingInfo?.addAddress === "true") {
@@ -214,6 +197,8 @@ const SwitchSelect: React.FC = () => {
     }
   }, [bookingInfo?.addAddress]);
 
+
+  // Save service type, location, parking option....
   const submitAddressInfoAndNextStepHandler = () => {
     if (selectedServiceAddress.street === "") {
       const selectedServiceAddressSetAlertElement =
@@ -241,29 +226,12 @@ const SwitchSelect: React.FC = () => {
       }
     }
 
-    
-
+    if (bookingInfo?.serviceAddress?.street) {
       dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
-      // dispatch(
-      //   serviceAddressSelect(
-      //     selectedServiceAddress
-      //       ? selectedServiceAddress
-      //       : bookingInfo?.serviceAddress
-      //   )
-      // );
-      // dispatch(
-      //   billingAddressSelect(
-      //     isBillingSame === true
-      //       ? selectedServiceAddress
-      //       : selectedBillingAddress
-      //       ? selectedBillingAddress
-      //       : bookingInfo?.billingAddress
-      //   )
-      // );
       dispatch(parkingOptionSelect(selectedParking));
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
-    
+    }
   };
 
   return (
@@ -524,15 +492,17 @@ const SwitchSelect: React.FC = () => {
                     onClick={open}
                     className=" bg-primaryColor border border-primaryColor text-white rounded-md py-[7px] px-[10px] flex content-center text-[15px] hover:bg-white hover:text-primaryColor hover:border-primaryColor transition-[.5s]"
                   >
+                    {bookingInfo?.billingAddress?.street ? <span onClick={handleBillingAddress}>
+                      Edit
+                    </span> :
                     <span onClick={handleBillingAddress}>
-                      Add Billing Address
-                    </span>
+                      Add
+                    </span>}
                   </button>
                 </div>
               </div>
             )}
-            <p className="billing_address_alert text-red-600 text-sm mt-5"></p>
-            {/* <p className="billing_address_Provided_alert text-green-500 text-md font-semibold mt-5"></p> */}
+           
             {serviceTypeSelectedOption !== "Remote" && (
               <div className="parking_select_section mt-5">
                 {!selectedParking ? (
