@@ -168,7 +168,7 @@ function ServiceBookingSummery() {
 
   const bookingSummerySaveAndSubmitHandler = () => {
     if (bookingInfo?.otpVerifyData?.[0]?.data === null) {
-      const name = bookingInfo.contactInformationForBooking.fullName.split(" ");
+      const name = bookingInfo?.contactInformationForBooking?.fullName.split(" ");
 
       // user create......
       const userContactInfo = {

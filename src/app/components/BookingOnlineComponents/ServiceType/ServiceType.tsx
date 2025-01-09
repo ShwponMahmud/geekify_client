@@ -64,6 +64,8 @@ const SwitchSelect: React.FC = () => {
       : bookingInfo?.otpVerifyData?.[0]?.data?.customer?.address?.subpremise,
   });
 
+  console.log(selectedServiceAddress)
+
   // console.log("selectedServiceAddress",selectedServiceAddress);
 
   const [selectedBillingAddress, setSelectedBillingAddress] = useState<any>({
@@ -159,36 +161,21 @@ const SwitchSelect: React.FC = () => {
     dispatch(setServiceAddressModal(""));
   };
 
+  // Save service address and billing address..
 
-  // Save service address and billing address.. 
   const SaveAddress = () => {
+    dispatch(billingAddressSelect(selectedServiceAddress));
     dispatch(serviceAddressSelect(selectedServiceAddress));
-    if (isBillingSame === true) {
+    close();
+  };
+
+  useEffect(() => {
+    if (bookingInfo?.serviceAddress?.street?.length) {
       dispatch(billingAddressSelect(selectedServiceAddress));
     } else {
       dispatch(billingAddressSelect(selectedBillingAddress));
     }
-
-    close();
-  };
-
-
-  // if (!isBillingSame) {
-  //   const billingAddressSetAlertElement = document.querySelector<HTMLElement>(
-  //     ".billing_address_alert"
-  //   );
-  //   if (billingAddressSetAlertElement) {
-  //     billingAddressSetAlertElement.innerHTML =
-  //       "Please Provide the Billing Address!";
-  //   }
-
-  //   const billingAddressProvidedAlertElement =
-  //     document.querySelector<HTMLElement>(".billing_address_Provided_alert");
-
-  //   if (billingAddressProvidedAlertElement) {
-  //     billingAddressProvidedAlertElement.style.display = "none";
-  //   }
-  // }
+  }, [bookingInfo?.serviceAddress]);
 
   useEffect(() => {
     if (bookingInfo?.addAddress === "true") {
@@ -196,7 +183,6 @@ const SwitchSelect: React.FC = () => {
       dispatch(addAddress(""));
     }
   }, [bookingInfo?.addAddress]);
-
 
   // Save service type, location, parking option....
   const submitAddressInfoAndNextStepHandler = () => {
@@ -226,11 +212,13 @@ const SwitchSelect: React.FC = () => {
       }
     }
 
-    if (bookingInfo?.serviceAddress?.street) {
+    if (selectedServiceAddress?.street && selectedParking) {
       dispatch(serviceLocationTypeSelect(serviceLocationTypeSelectedOption));
       dispatch(serviceTypeSelect(serviceTypeSelectedOption));
       dispatch(parkingOptionSelect(selectedParking));
       dispatch(serviceAddressParkingSubmitAfterNextStep("next"));
+      dispatch(serviceAddressSelect(selectedServiceAddress));
+      dispatch(billingAddressSelect(isBillingSame ? selectedServiceAddress : selectedBillingAddress));
     }
   };
 
@@ -492,17 +480,16 @@ const SwitchSelect: React.FC = () => {
                     onClick={open}
                     className=" bg-primaryColor border border-primaryColor text-white rounded-md py-[7px] px-[10px] flex content-center text-[15px] hover:bg-white hover:text-primaryColor hover:border-primaryColor transition-[.5s]"
                   >
-                    {bookingInfo?.billingAddress?.street ? <span onClick={handleBillingAddress}>
-                      Edit
-                    </span> :
-                    <span onClick={handleBillingAddress}>
-                      Add
-                    </span>}
+                    {bookingInfo?.billingAddress?.street ? (
+                      <span onClick={handleBillingAddress}>Edit</span>
+                    ) : (
+                      <span onClick={handleBillingAddress}>Add</span>
+                    )}
                   </button>
                 </div>
               </div>
             )}
-           
+
             {serviceTypeSelectedOption !== "Remote" && (
               <div className="parking_select_section mt-5">
                 {!selectedParking ? (

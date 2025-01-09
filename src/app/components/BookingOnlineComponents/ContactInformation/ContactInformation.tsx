@@ -12,19 +12,31 @@ const ContactInformation: React.FC = () => {
   const bookingInfo = useAppSelector((state) => state?.booking);
   const dispatch = useAppDispatch();
   const [formValues, setFormValues] = useState({
-    fullName: bookingInfo?.contactInformationForBooking.fullName
+    fullName: bookingInfo?.otpVerifyData?.[0]?.data?.full_name
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.full_name
+      : bookingInfo?.contactInformationForBooking.fullName
       ? bookingInfo?.contactInformationForBooking.fullName
       : "",
-    businessName: bookingInfo?.contactInformationForBooking.businessName
+    businessName: bookingInfo?.otpVerifyData?.[0]?.data?.businessName
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.businessName
+      : bookingInfo?.contactInformationForBooking.businessName
       ? bookingInfo?.contactInformationForBooking.businessName
       : "",
-    email: bookingInfo?.contactInformationForBooking.email
+    email: bookingInfo?.otpVerifyData?.[0]?.data?.email
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.email
+      : bookingInfo?.contactInformationForBooking.email
       ? bookingInfo?.contactInformationForBooking.email
       : "",
-    phoneNumber: bookingInfo?.contactInformationForBooking.phoneNumber
+    phoneNumber: bookingInfo?.otpVerifyData?.[0]?.data?.phone_number
+      ? bookingInfo?.otpVerifyData?.[0]?.data?.phone_number
+      : bookingInfo?.contactInformationForBooking.phoneNumber
       ? bookingInfo?.contactInformationForBooking.phoneNumber
       : "",
-    contactWay: bookingInfo?.contactInformationForBooking.contactWay
+    contactWay: bookingInfo?.otpReqData?.[0]?.data?.email
+      ? "Email"
+      : bookingInfo?.otpReqData?.[0]?.data?.phone_number
+      ? "SMS"
+      : bookingInfo?.contactInformationForBooking.contactWay
       ? bookingInfo?.contactInformationForBooking.contactWay
       : "",
   });
@@ -86,25 +98,29 @@ const ContactInformation: React.FC = () => {
                   placeholder="Enter Full Name"
                   value={formValues.fullName}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
-              {bookingInfo?.serviceLocationType !== "Home" && <div>
-                <label
-                  htmlFor="fullName"
-                  className="block mb-2 text-sm font-medium"
-                >
-                  Business Name
-                </label>
-                <input
-                  id="businessName"
-                  name="businessName"
-                  className="border w-full p-2 rounded-md"
-                  type="text"
-                  placeholder="Enter Business Name"
-                  value={formValues.businessName}
-                  onChange={handleInputChange}
-                />
-              </div>}
+              {bookingInfo?.serviceLocationType !== "Home" && (
+                <div>
+                  <label
+                    htmlFor="fullName"
+                    className="block mb-2 text-sm font-medium"
+                  >
+                    Business Name
+                  </label>
+                  <input
+                    id="businessName"
+                    name="businessName"
+                    className="border w-full p-2 rounded-md"
+                    type="text"
+                    placeholder="Enter Business Name"
+                    value={formValues.businessName}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              )}
 
               {/* Email Input */}
               <div>
@@ -122,6 +138,7 @@ const ContactInformation: React.FC = () => {
                   placeholder="Enter Email"
                   value={formValues.email}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
 
@@ -141,6 +158,7 @@ const ContactInformation: React.FC = () => {
                   placeholder="Enter Phone Number"
                   value={formValues.phoneNumber}
                   onChange={handleInputChange}
+                  required
                 />
               </div>
             </div>

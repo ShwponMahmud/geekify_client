@@ -199,7 +199,8 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
     do_you_know_password_for_it: doYouKnowPasswordForItSelect,
   };
 
-  const submitServiceInfoAndNextStepHandler = () => {
+  const submitServiceInfoAndNextStepHandler = (e:any) => {
+    e.preventDefault()
     dispatch(serviceName(ServiceName));
     dispatch(operatingSystem(platform));
     dispatch(descriptionNote(note));
@@ -232,10 +233,12 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
       </h2>
 
       {/* Form Inputs */}
+      <form action="submit" onSubmit={submitServiceInfoAndNextStepHandler}>
       <div className="form-group text-deepGrayColor">
         <label htmlFor="service">What Service do you want?</label>
         <select
           id="service"
+          required
           value={selectedService}
           onChange={(e) => {
             setSelectedService(e.target.value);
@@ -308,6 +311,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           <select
             id="platform"
             value={selectedPlatform}
+            required
             onChange={(e) => setSelectedPlatform(e.target.value)}
           >
             <option value="" disabled>
@@ -330,6 +334,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           <select
             id="necessaryCables"
             value={necessaryCablesSelect}
+            required
             onChange={(e) => setNecessaryCables(e.target.value)}
           >
             <option value="Yes">Yes</option>
@@ -347,6 +352,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           <select
             id="dataBackedUp"
             value={whereDataBackedUp}
+            required
             onChange={(e) => setWhereDataBackedUpOn(e.target.value)}
           >
             <option value="" disabled>
@@ -367,6 +373,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           <select
             id="DataRecovery"
             value={whereIsTheData}
+            required
             onChange={(e) => setWhereIsTheData(e.target.value)}
           >
             <option value="" disabled>
@@ -387,6 +394,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           <select
             id="antivirus"
             value={haveExistingAntivirusSelect}
+            required
             onChange={(e) => setHaveExistingAntivirus(e.target.value)}
           >
             <option value="" disabled>
@@ -406,6 +414,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
                 value={antivirusName}
                 type="text"
                 placeholder="Existing antivirus name"
+                required
               />
             </>
           )}
@@ -422,6 +431,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
             id="smartPhoneDeviceSetup"
             value={whatTypeOfPhoneIsItSelect}
             onChange={(e) => setWhatTypeOfPhoneIsItSelect(e.target.value)}
+            required
           >
             <option value="" disabled>
               Select
@@ -440,6 +450,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
               id="networkSetup"
               value={haveExistingNetworkSelect}
               onChange={(e) => setHaveExistingNetworkSelect(e.target.value)}
+              required
             >
               <option value="" disabled>
                 Select
@@ -460,6 +471,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
                   onChange={(e) =>
                     setCurrentInternetProviderSelect(e.target.value)
                   }
+                  required
                 >
                   <option value="" disabled>
                     Select
@@ -484,6 +496,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
                     }
                     type="text"
                     placeholder="Enter Other Provider"
+                    required
                   />
                 </div>
               )}
@@ -495,6 +508,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
               id="needRouters"
               value={needRoutersSelect}
               onChange={(e) => setNeedRoutersSelect(e.target.value)}
+              required
             >
               <option value="" disabled>
                 Select
@@ -514,6 +528,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
               placeholder="Enter Email"
               className=""
               onChange={(e) => setWhatIsYourEmailAddress(e.target.value)}
+              required
             />
           </div>
           <div className="form-group">
@@ -522,6 +537,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
               id="password"
               value={doYouKnowPasswordForItSelect}
               onChange={(e) => setDoYouKnowPasswordForItSelect(e.target.value)}
+              required
             >
               <option value="" disabled>
                 Select
@@ -540,6 +556,7 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           value={issueDescription}
           onChange={(e) => setIssueDescription(e.target.value)}
           placeholder="Describe your issue here"
+          required
         ></textarea>
       </div>
 
@@ -552,12 +569,14 @@ const ServiceForm: React.FC<ServiceFormProps> = ({ services }) => {
           Prev
         </button>
         <button
-          onClick={submitServiceInfoAndNextStepHandler}
+        type="submit"
+          // onClick={submitServiceInfoAndNextStepHandler}
           className="bg-grayColor hover:bg-primaryColor transition-[.5s] text-white py-[7px] px-[30px] rounded-md "
         >
           Next
         </button>
       </div>
+      </form>
     </div>
   );
 };

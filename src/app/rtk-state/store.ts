@@ -13,8 +13,18 @@ import settingsReducers from "./reducers/SettingSlice"
 
 const saveStateToLocalStorage = (state: RootState) => {
   try {
-      const serializedState = JSON.stringify(state);
-      localStorage.setItem('reduxState', serializedState);
+      // const serializedState = JSON.stringify(state);
+      // localStorage.setItem('reduxState', serializedState);
+
+      if (typeof localStorage === 'undefined') {
+        return undefined;
+    }
+    const serializedState = localStorage.getItem('reduxState');
+    if (serializedState === null) {
+        return undefined;
+    }
+    return JSON.parse(serializedState);
+      
   } catch (e) {
       console.error('Error saving state to localStorage:', e);
   }
